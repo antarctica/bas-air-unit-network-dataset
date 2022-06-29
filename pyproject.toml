@@ -9,6 +9,7 @@ license = "MIT"
 python = "^3.9.1"
 ulid-py = "^1.1.0"
 Shapely = "^1.8.2"
+Fiona = "^1.8.21"
 
 [tool.poetry.dev-dependencies]
 black = "^22.3.0"
