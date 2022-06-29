@@ -6,7 +6,7 @@ authors = ["Felix Fennell <felnne@bas.ac.uk>"]
 license = "MIT"
 
 [tool.poetry.dependencies]
-python = "^3.6.2"
+python = "^3.9.1"
 ulid-py = "^1.1.0"
 Shapely = "^1.8.2"
 
