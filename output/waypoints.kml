@@ -11,7 +11,7 @@
 <Folder><name>waypoints</name>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01M91R2KT790E8T21ZT</SimpleData>
+		<SimpleData name="id">01G6THZ91E2748X5Q70M4YZ2ZP</SimpleData>
 		<SimpleData name="designator">ALPHA</SimpleData>
 		<SimpleData name="comment">There's unlimited juice?</SimpleData>
 		<SimpleData name="last_accessed_at">2012/04/24</SimpleData>
@@ -21,31 +21,14 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01M91R2KT790E8T21ZT</SimpleData>
-		<SimpleData name="designator">ALPHA</SimpleData>
-		<SimpleData name="comment">There's unlimited juice?</SimpleData>
-		<SimpleData name="last_accessed_at">2012/04/24</SimpleData>
-		<SimpleData name="last_accessed_by">~conwat</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-75.0146484375,-69.9152143369013</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01M686D63QTKWT5HW5X</SimpleData>
+		<SimpleData name="id">01G6THZ91EQR99YZ6VZ97895VP</SimpleData>
 		<SimpleData name="designator">BRAVO</SimpleData>
 	</SchemaData></ExtendedData>
       <Point><coordinates>-75.1904296875,-70.8302476238525</coordinates></Point>
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01M686D63QTKWT5HW5X</SimpleData>
-		<SimpleData name="designator">BRAVO</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-75.1904296875,-70.8302476238525</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MFFE9WCP9R872WAG4</SimpleData>
+		<SimpleData name="id">01G6THZ91EZ4YJMS0GWTKNBSKS</SimpleData>
 		<SimpleData name="designator">CHARLE</SimpleData>
 		<SimpleData name="comment">You're losing blood, aren't you?</SimpleData>
 	</SchemaData></ExtendedData>
@@ -53,15 +36,7 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MFFE9WCP9R872WAG4</SimpleData>
-		<SimpleData name="designator">CHARLE</SimpleData>
-		<SimpleData name="comment">You're losing blood, aren't you?</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-71.4990234375,-71.7601913875477</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MG9GWT0DH8XXD1V3Z</SimpleData>
+		<SimpleData name="id">01G6THZ91E4K1YP71VNN6ZZ6AY</SimpleData>
 		<SimpleData name="designator">DELTA</SimpleData>
 		<SimpleData name="comment">How about a turtle?</SimpleData>
 	</SchemaData></ExtendedData>
@@ -69,15 +44,7 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MG9GWT0DH8XXD1V3Z</SimpleData>
-		<SimpleData name="designator">DELTA</SimpleData>
-		<SimpleData name="comment">How about a turtle?</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-66.09375,-72.7510386432874</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MR7G6TG1NPHSENRVB</SimpleData>
+		<SimpleData name="id">01G6THZ91ET4WBSCQKXZJZD2KJ</SimpleData>
 		<SimpleData name="designator">ECHO</SimpleData>
 		<SimpleData name="comment">I don't criticize you!</SimpleData>
 	</SchemaData></ExtendedData>
@@ -85,15 +52,7 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MR7G6TG1NPHSENRVB</SimpleData>
-		<SimpleData name="designator">ECHO</SimpleData>
-		<SimpleData name="comment">I don't criticize you!</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-61.611328125,-73.453472763275</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01M4VCP93AGZXPV9CAK</SimpleData>
+		<SimpleData name="id">01G6THZ91EAK3SCDQ9FZGH3WAY</SimpleData>
 		<SimpleData name="designator">FOXTRT</SimpleData>
 		<SimpleData name="comment">Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</SimpleData>
 	</SchemaData></ExtendedData>
@@ -101,15 +60,7 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01M4VCP93AGZXPV9CAK</SimpleData>
-		<SimpleData name="designator">FOXTRT</SimpleData>
-		<SimpleData name="comment">Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-70.224609375,-73.1758971742261</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01M5MSA76S4TD401NFM</SimpleData>
+		<SimpleData name="id">01G6THZ91E3VZK29XCQVYXXV9W</SimpleData>
 		<SimpleData name="designator">GOLF</SimpleData>
 		<SimpleData name="comment">I've always been deeply passionate about nature. 🌳</SimpleData>
 	</SchemaData></ExtendedData>
@@ -117,15 +68,7 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01M5MSA76S4TD401NFM</SimpleData>
-		<SimpleData name="designator">GOLF</SimpleData>
-		<SimpleData name="comment">I've always been deeply passionate about nature. 🌳</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-70.3125,-74.2000215055859</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MY8D61X0NQ8GVTA77</SimpleData>
+		<SimpleData name="id">01G6THZ91EPV3WCTD3MNFD75Z3</SimpleData>
 		<SimpleData name="designator">HOTEL</SimpleData>
 		<SimpleData name="comment">I don't know how I know that. I took four years of Spanish.</SimpleData>
 	</SchemaData></ExtendedData>
@@ -133,15 +76,7 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MY8D61X0NQ8GVTA77</SimpleData>
-		<SimpleData name="designator">HOTEL</SimpleData>
-		<SimpleData name="comment">I don't know how I know that. I took four years of Spanish.</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-65.4345703125,-74.4257774840103</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MXEM050YVP7Z5VHSM</SimpleData>
+		<SimpleData name="id">01G6THZ91ETPTPKB62B2RAEZM7</SimpleData>
 		<SimpleData name="designator">INDIA</SimpleData>
 		<SimpleData name="comment">I am getting rid of this thing. It has caused me nothing but pride and self-respect.</SimpleData>
 	</SchemaData></ExtendedData>
@@ -149,15 +84,7 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MXEM050YVP7Z5VHSM</SimpleData>
-		<SimpleData name="designator">INDIA</SimpleData>
-		<SimpleData name="comment">I am getting rid of this thing. It has caused me nothing but pride and self-respect.</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-63.017578125,-75.7047863817405</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MQ5D7JWB4S4GVZXXF</SimpleData>
+		<SimpleData name="id">01G6THZ91ETXAG4TTCP6R21K4T</SimpleData>
 		<SimpleData name="designator">JULIET</SimpleData>
 		<SimpleData name="comment">There's not a lot of logic to it.</SimpleData>
 	</SchemaData></ExtendedData>
@@ -165,15 +92,7 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MQ5D7JWB4S4GVZXXF</SimpleData>
-		<SimpleData name="designator">JULIET</SimpleData>
-		<SimpleData name="comment">There's not a lot of logic to it.</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-58.9306640625,-76.3415233154765</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MAXHE0XS4ENYY0CV5</SimpleData>
+		<SimpleData name="id">01G6THZ91EGFHXGVVAE15BWNCK</SimpleData>
 		<SimpleData name="designator">KILO</SimpleData>
 		<SimpleData name="comment">Well, I hope you also carry a spare bowl of candy beans.</SimpleData>
 	</SchemaData></ExtendedData>
@@ -181,23 +100,7 @@
   </Placemark>
   <Placemark>
 	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MAXHE0XS4ENYY0CV5</SimpleData>
-		<SimpleData name="designator">KILO</SimpleData>
-		<SimpleData name="comment">Well, I hope you also carry a spare bowl of candy beans.</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-55.37109375,-77.1669269259141</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MMDBPCYNFW4WF45PQ</SimpleData>
-		<SimpleData name="designator">LIMA</SimpleData>
-		<SimpleData name="comment">Are you at all concerned about an uprising?</SimpleData>
-	</SchemaData></ExtendedData>
-      <Point><coordinates>-50.712890625,-78.0892292109316</coordinates></Point>
-  </Placemark>
-  <Placemark>
-	<ExtendedData><SchemaData schemaUrl="#waypoints">
-		<SimpleData name="id">01G6R9E01MMDBPCYNFW4WF45PQ</SimpleData>
+		<SimpleData name="id">01G6THZ91EC9ZB3BPGSSK04HC8</SimpleData>
 		<SimpleData name="designator">LIMA</SimpleData>
 		<SimpleData name="comment">Are you at all concerned about an uprising?</SimpleData>
 	</SchemaData></ExtendedData>
