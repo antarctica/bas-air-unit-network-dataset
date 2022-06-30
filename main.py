@@ -96,5 +96,8 @@ if __name__ == "__main__":
     print(test_network)
     print("")
     test_network.describe()
+    print("")
     test_network.dump_csv(path=output_path)
+    print("CSV export complete")
     test_network.dump_kml(path=output_path)
+    print("KML export complete")
