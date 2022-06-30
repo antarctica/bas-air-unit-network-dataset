@@ -82,7 +82,7 @@ class Waypoint:
 
     @id.setter
     def id(self, _id):
-        self._id = ulid.from_str(_id)
+        self._id = str(ulid.from_str(_id))
 
     @property
     def designator(self) -> str:
@@ -279,7 +279,7 @@ class Route:
 
     @id.setter
     def id(self, _id: str):
-        self._id = ulid.from_str(_id)
+        self._id = str(ulid.from_str(_id))
 
     @property
     def name(self) -> str:
