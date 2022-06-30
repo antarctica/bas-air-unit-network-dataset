@@ -442,12 +442,12 @@ class RouteCollection:
     def __init__(self) -> None:
         self._routes: List[Route] = []
 
-    def append(self, route: Route) -> None:
-        self._routes.append(route)
-
     @property
     def routes(self) -> List[Route]:
         return self._routes
+
+    def append(self, route: Route) -> None:
+        self._routes.append(route)
 
     def _dumps_features_all_waypoints_with_routes(self):
         _route_waypoints = []
