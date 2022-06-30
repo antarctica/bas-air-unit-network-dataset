@@ -1,3 +1,4 @@
+import csv
 from datetime import date
 from pathlib import Path
 from typing import Optional, List, Dict, Iterator, Union
@@ -20,6 +21,15 @@ class Waypoint:
             "last_accessed_at": "date",
             "last_accessed_by": "str",
         },
+    }
+
+    csv_schema = {
+        "designator": "str",
+        "comment": "str",
+        "longitude": "float",
+        "latitude": "float",
+        "last_accessed_at": "date",
+        "last_accessed_by": "str",
     }
 
     def __init__(
@@ -231,6 +241,8 @@ class Route:
         "properties": {"id": "str", "name": "str"},
     }
 
+    csv_schema = {"sequence": "str", "designator": "str", "longitude": "float", "latitude": "float", "description": str}
+
     def __init__(
         self,
         name: Optional[str] = None,
@@ -321,6 +333,29 @@ class WaypointCollection:
     @property
     def count(self) -> int:
         return len(self._waypoints)
+    def waypoints(self) -> List[Waypoint]:
+        return self._waypoints
+
+    def dump_csv(self, path: Path) -> None:
+        with open(path, mode="w") as output_file:
+            writer = csv.DictWriter(output_file, fieldnames=list(Waypoint.csv_schema.keys()))
+            writer.writeheader()
+
+            for waypoint in self.waypoints:
+                _last_accessed_at = waypoint.last_accessed_at
+                if _last_accessed_at is not None:
+                    _last_accessed_at = _last_accessed_at.isoformat()
+
+                writer.writerow(
+                    {
+                        "designator": waypoint.designator,
+                        "latitude": waypoint.geometry.y,
+                        "longitude": waypoint.geometry.x,
+                        "comment": waypoint.comment,
+                        "last_accessed_at": _last_accessed_at,
+                        "last_accessed_by": waypoint.last_accessed_by,
+                    }
+                )
 
     def __getitem__(self, _id: str) -> Waypoint:
         for waypoint in self._waypoints:
@@ -346,6 +381,25 @@ class RouteCollection:
     @property
     def count(self) -> int:
         return len(self._routes)
+    def routes(self) -> List[Route]:
+        return self._routes
+
+    def dump_csv(self, path: Path) -> None:
+        for route in self.routes:
+            with open(path.joinpath(f"{route.name.lower()}.csv"), mode="w") as output_file:
+                writer = csv.DictWriter(output_file, fieldnames=list(Route.csv_schema.keys()))
+                writer.writeheader()
+
+                for route_waypoint in route.waypoints:
+                    writer.writerow(
+                        {
+                            "sequence": route_waypoint.sequence,
+                            "designator": route_waypoint.waypoint.designator,
+                            "latitude": route_waypoint.waypoint.geometry.y,
+                            "longitude": route_waypoint.waypoint.geometry.x,
+                            "description": route_waypoint.description,
+                        }
+                    )
 
     def __getitem__(self, _id: str) -> Route:
         for route in self._routes:
@@ -457,6 +511,13 @@ class NetworkManager:
         ) as layer:
             for route in self.routes:
                 layer.write({"properties": {"id": route.id, "name": route.name}})
+
+    def dump_csv(self, path: Path):
+        path = path.resolve()
+        path.mkdir(parents=True, exist_ok=True)
+
+        self.waypoints.dump_csv(path=path.joinpath("waypoints.csv"))
+        self.routes.dump_csv(path=path)
 
     def __repr__(self):
         return f"<NetworkManager : {self.waypoints.count} Waypoints - {self.routes.count} Routes>"
