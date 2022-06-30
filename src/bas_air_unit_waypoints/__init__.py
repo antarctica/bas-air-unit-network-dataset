@@ -239,10 +239,10 @@ class RouteWaypoint:
                 f"Waypoint with ID '{feature['properties']['waypoint_id']}' not found in available waypoints."
             )
 
-    def dumps_feature(self) -> dict:
-        # missing `route_id`
+    def dumps_feature(self, route_id: str) -> dict:
         return {
             "properties": {
+                "route_id": route_id,
                 "sequence": self.sequence,
                 "waypoint_id": self.waypoint.id,
                 "description": self.description,
@@ -504,10 +504,7 @@ class NetworkManager:
         ) as layer:
             for route in self.routes:
                 for route_waypoint in route.waypoints:
-                    # TODO: This should change, probably to use a method within the route
-                    _route_waypoint_feature = route_waypoint.dumps_feature()
-                    _route_waypoint_feature['properties']['route_id'] = route.id
-                    layer.write(_route_waypoint_feature)
+                    layer.write(route_waypoint.dumps_feature(route_id=route.id))
 
         # routes
         # (only name and any other top/route level information is stored here, waypoints are stored in `route_waypoints`)
