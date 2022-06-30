@@ -325,6 +325,28 @@ class Route:
             "properties": {"id": self.id, "name": self.name},
         }
 
+    def dumps_csv(self) -> List[dict]:
+        csv_rows: List[Dict] = []
+
+        for route_waypoint in self.waypoints:
+            csv_rows.append(
+                {
+                    "sequence": route_waypoint.sequence,
+                    "designator": route_waypoint.waypoint.designator,
+                    "latitude": route_waypoint.waypoint.geometry.y,
+                    "longitude": route_waypoint.waypoint.geometry.x,
+                    "description": route_waypoint.description,
+                }
+            )
+
+        return csv_rows
+
+    def dump_csv(self, path: Path) -> None:
+        with open(path, mode="w") as output_file:
+            writer = csv.DictWriter(output_file, fieldnames=list(Route.csv_schema.keys()))
+            writer.writeheader()
+            writer.writerows(self.dumps_csv())
+
     def __repr__(self) -> str:
         _start = "-"
         _end = "-"
@@ -407,22 +429,26 @@ class RouteCollection:
     def routes(self) -> List[Route]:
         return self._routes
 
-    def dump_csv(self, path: Path) -> None:
-        for route in self.routes:
-            with open(path.joinpath(f"{route.name.lower()}.csv"), mode="w") as output_file:
-                writer = csv.DictWriter(output_file, fieldnames=list(Route.csv_schema.keys()))
-                writer.writeheader()
+    def _dumps_features_all_waypoints_with_routes(self):
+        _route_waypoints = []
 
-                for route_waypoint in route.waypoints:
-                    writer.writerow(
-                        {
-                            "sequence": route_waypoint.sequence,
-                            "designator": route_waypoint.waypoint.designator,
-                            "latitude": route_waypoint.waypoint.geometry.y,
-                            "longitude": route_waypoint.waypoint.geometry.x,
-                            "description": route_waypoint.description,
-                        }
-                    )
+        for route in self.routes:
+            route_waypoints = route.dumps_csv()
+            for route_waypoint in route_waypoints:
+                _route_waypoints.append({**{"route_name": route.name}, **route_waypoint})
+
+        return _route_waypoints
+
+    def dump_csv(self, path: Path, separate: bool = False) -> None:
+        if separate:
+            for route in self.routes:
+                route.dump_csv(path=path.joinpath(f"{route.name.lower()}.csv"))
+        else:
+            with open(path, mode="w") as output_file:
+                _fieldnames = ["route_name"] + list(Route.csv_schema.keys())
+                writer = csv.DictWriter(output_file, fieldnames=_fieldnames)
+                writer.writeheader()
+                writer.writerows(self._dumps_features_all_waypoints_with_routes())
 
     def dump_kml(self, path: Path) -> None:
         fiona.drvsupport.supported_drivers["KML"] = "rw"
@@ -522,7 +548,8 @@ class NetworkManager:
         path.mkdir(parents=True, exist_ok=True)
 
         self.waypoints.dump_csv(path=path.joinpath("waypoints.csv"))
-        self.routes.dump_csv(path=path)
+        self.routes.dump_csv(path=path.joinpath("routes.csv"))
+        self.routes.dump_csv(path=path, separate=True)
 
     def dump_kml(self, path: Path):
         path = path.resolve()
