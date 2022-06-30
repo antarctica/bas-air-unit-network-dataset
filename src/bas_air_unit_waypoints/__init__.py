@@ -347,6 +347,26 @@ class Route:
             writer.writeheader()
             writer.writerows(self.dumps_csv())
 
+    def dumps_kml(self) -> List[dict]:
+        kml_features = []
+
+        for route_waypoint in self.waypoints:
+            kml_features.append(route_waypoint.dumps_feature(route_id=self.id))
+
+        return kml_features
+
+    def dump_kml(self, path: Path) -> None:
+        fiona.drvsupport.supported_drivers["KML"] = "rw"
+
+        with fiona.open(
+            path,
+            mode="w",
+            driver="KML",
+            crs=crs_from_epsg(4326),
+            schema=RouteWaypoint.feature_schema,
+        ) as layer:
+            layer.writerecords(self.dumps_kml())
+
     def __repr__(self) -> str:
         _start = "-"
         _end = "-"
@@ -450,19 +470,33 @@ class RouteCollection:
                 writer.writeheader()
                 writer.writerows(self._dumps_features_all_waypoints_with_routes())
 
-    def dump_kml(self, path: Path) -> None:
-        fiona.drvsupport.supported_drivers["KML"] = "rw"
+    def dump_kml(self, path: Path, separate: bool = False) -> None:
+        if separate:
+            for route in self.routes:
+                route.dump_kml(path=path.joinpath(f"{route.name.lower()}.kml"))
+        else:
+            fiona.drvsupport.supported_drivers["KML"] = "rw"
 
-        for route in self.routes:
+            feature_schema = {
+                "geometry": "None",
+                "properties": {
+                    "route_name": "str",
+                    "sequence": "int",
+                    "designator": "str",
+                    "latitude": "float",
+                    "longitude": "float",
+                    "description": "str",
+                },
+            }
+
             with fiona.open(
-                path.joinpath(f"{route.name.lower()}.kml"),
+                path,
                 mode="w",
                 driver="KML",
                 crs=crs_from_epsg(4326),
-                schema=RouteWaypoint.feature_schema,
+                schema=feature_schema,
             ) as layer:
-                for route_waypoint in route.waypoints:
-                    layer.write(route_waypoint.dumps_feature(route_id=route.id))
+                layer.writerecords(self._dumps_features_all_waypoints_with_routes())
 
     def __getitem__(self, _id: str) -> Route:
         for route in self.routes:
@@ -556,7 +590,9 @@ class NetworkManager:
         path.mkdir(parents=True, exist_ok=True)
 
         self.waypoints.dump_kml(path=path.joinpath("waypoints.kml"))
-        self.routes.dump_kml(path=path)
+        # TODO: Resolve why this call doesn't work (collection schema order)
+        # self.routes.dump_kml(path=path.joinpath("routes.kml"))
+        self.routes.dump_kml(path=path, separate=True)
 
     def __repr__(self):
         return f"<NetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"
