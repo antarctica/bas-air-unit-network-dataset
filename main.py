@@ -67,16 +67,16 @@ class TestNetworkManager(NetworkManager):
             self.routes.append(route)
 
     def describe(self) -> None:
-        print(f"Waypoints in test WaypointCollection [{self.waypoints.count}]:")
+        print(f"Waypoints in test WaypointCollection [{len(self.waypoints)}]:")
         for i, test_waypoint in enumerate(self.waypoints):
             print(f"{str(i + 1).zfill(2)}. {test_waypoint}")
         print("")
-        print(f"Routes in test RouteCollection [{self.routes.count}]:")
+        print(f"Routes in test RouteCollection [{len(self.routes)}]:")
         for i, test_route in enumerate(self.routes):
             print(f"{str(i + 1).zfill(2)}. {test_route}")
 
     def __repr__(self):
-        return f"<TestNetworkManager : {self.waypoints.count} Waypoints - {self.routes.count} Routes>"
+        return f"<TestNetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"
 
 
 test_data_path = Path("test-data-raw.json")

@@ -331,8 +331,6 @@ class WaypointCollection:
         self._waypoints.append(waypoint)
 
     @property
-    def count(self) -> int:
-        return len(self._waypoints)
     def waypoints(self) -> List[Waypoint]:
         return self._waypoints
 
@@ -367,8 +365,11 @@ class WaypointCollection:
     def __iter__(self) -> Iterator[Waypoint]:
         return self._waypoints.__iter__()
 
+    def __len__(self):
+        return len(self.waypoints)
+
     def __repr__(self) -> str:
-        return f"<WaypointCollection : {self.count} waypoints>"
+        return f"<WaypointCollection : {self.__len__()} waypoints>"
 
 
 class RouteCollection:
@@ -379,8 +380,6 @@ class RouteCollection:
         self._routes.append(route)
 
     @property
-    def count(self) -> int:
-        return len(self._routes)
     def routes(self) -> List[Route]:
         return self._routes
 
@@ -411,8 +410,11 @@ class RouteCollection:
     def __iter__(self) -> Iterator[Route]:
         return self._routes.__iter__()
 
+    def __len__(self):
+        return len(self.routes)
+
     def __repr__(self) -> str:
-        return f"<RouteCollection : {self.count} routes>"
+        return f"<RouteCollection : {self.__len__()} routes>"
 
 
 class NetworkManager:
@@ -520,4 +522,4 @@ class NetworkManager:
         self.routes.dump_csv(path=path)
 
     def __repr__(self):
-        return f"<NetworkManager : {self.waypoints.count} Waypoints - {self.routes.count} Routes>"
+        return f"<NetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"
