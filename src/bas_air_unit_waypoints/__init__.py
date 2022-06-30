@@ -428,12 +428,15 @@ class RouteCollection:
         fiona.drvsupport.supported_drivers["KML"] = "rw"
 
         for route in self.routes:
-            with open(path.joinpath(f"{route.name.lower()}.kml"), mode="w") as output_file:
-                with fiona.open(
-                    path, mode="w", driver="KML", crs=crs_from_epsg(4326), schema=RouteWaypoint.feature_schema
-                ) as layer:
-                    for route_waypoint in route.waypoints:
-                        layer.write(route_waypoint.dumps_feature(route_id=route.id))
+            with fiona.open(
+                path.joinpath(f"{route.name.lower()}.kml"),
+                mode="w",
+                driver="KML",
+                crs=crs_from_epsg(4326),
+                schema=RouteWaypoint.feature_schema,
+            ) as layer:
+                for route_waypoint in route.waypoints:
+                    layer.write(route_waypoint.dumps_feature(route_id=route.id))
 
     def __getitem__(self, _id: str) -> Route:
         for route in self.routes:
