@@ -181,6 +181,11 @@ class Waypoint:
 
 
 class RouteWaypoint:
+    feature_schema = {
+            "geometry": "None",
+            "properties": {"route_id": "str", "waypoint_id": "str", "description": "str", "sequence": "int"},
+        }
+
     def __init__(
         self, waypoint: Optional[Waypoint] = None, sequence: Optional[int] = None, description: Optional[str] = None
     ) -> None:
@@ -234,6 +239,15 @@ class RouteWaypoint:
                 f"Waypoint with ID '{feature['properties']['waypoint_id']}' not found in available waypoints."
             )
 
+    def dumps_feature(self) -> dict:
+        # missing `route_id`
+        return {
+            "properties": {
+                "sequence": self.sequence,
+                "waypoint_id": self.waypoint.id,
+                "description": self.description,
+            }
+        }
 
 class Route:
     feature_schema = {
@@ -401,14 +415,14 @@ class RouteCollection:
                     )
 
     def __getitem__(self, _id: str) -> Route:
-        for route in self._routes:
+        for route in self.routes:
             if route.id == _id:
                 return route
 
         raise KeyError(_id)
 
     def __iter__(self) -> Iterator[Route]:
-        return self._routes.__iter__()
+        return self.routes.__iter__()
 
     def __len__(self):
         return len(self.routes)
@@ -457,62 +471,28 @@ class NetworkManager:
 
     def dump_gpkg(self, path: Path):
         # waypoints
-        waypoint_schema = {
-            "geometry": "Point",
-            "properties": {
-                "id": "str",
-                "designator": "str",
-                "comment": "str",
-                "last_accessed_at": "date",
-                "last_accessed_by": "str",
-            },
-        }
         with fiona.open(
-            path, mode="w", driver="GPKG", crs=crs_from_epsg(4326), schema=waypoint_schema, layer="waypoints"
+            path, mode="w", driver="GPKG", crs=crs_from_epsg(4326), schema=Waypoint.feature_schema, layer="waypoints"
         ) as layer:
             for waypoint in self.waypoints:
                 layer.write(waypoint.dumps_feature())
 
-                layer.write(
-                    {
-                        "geometry": {"type": "Point", "coordinates": (waypoint.geometry.x, waypoint.geometry.y)},
-                        "properties": {
-                            "id": waypoint.id,
-                            "designator": waypoint.designator,
-                            "comment": waypoint.comment,
-                            "last_accessed_at": waypoint.last_accessed_at,
-                            "last_accessed_by": waypoint.last_accessed_by,
-                        },
-                    }
-                )
-
         # route_waypoints
-        route_waypoint_schema = {
-            "geometry": "None",
-            "properties": {"route_id": "str", "waypoint_id": "str", "description": "str", "sequence": "int"},
-        }
-        with fiona.open(path, mode="w", driver="GPKG", schema=route_waypoint_schema, layer="route_waypoints") as layer:
+        with fiona.open(path, mode="w", driver="GPKG", schema=RouteWaypoint.feature_schema, layer="route_waypoints") as layer:
             for route in self.routes:
                 for route_waypoint in route.waypoints:
-                    layer.write(
-                        {
-                            "properties": {
-                                "route_id": route.id,
-                                "sequence": route_waypoint.sequence,
-                                "waypoint_id": route_waypoint.waypoint.id,
-                                "description": route_waypoint.description,
-                            }
-                        }
-                    )
+                    # TODO: This should change, probably to use a method within the route
+                    _route_waypoint_feature = route_waypoint.dumps_feature()
+                    _route_waypoint_feature['properties']['route_id'] = route.id
+                    layer.write(_route_waypoint_feature)
 
         # routes
         # (only name and any other top/route level information is stored here, waypoints are stored in `route_waypoints`)
-        route_schema = {"geometry": "None", "properties": {"id": "str", "name": "str"}}
         with fiona.open(
-            path, mode="w", driver="GPKG", crs=crs_from_epsg(4326), schema=route_schema, layer="routes"
+            path, mode="w", driver="GPKG", crs=crs_from_epsg(4326), schema=Route.feature_schema, layer="routes"
         ) as layer:
             for route in self.routes:
-                layer.write({"properties": {"id": route.id, "name": route.name}})
+                layer.write(route.dumps_feature())
 
     def dump_csv(self, path: Path):
         path = path.resolve()
