@@ -81,7 +81,7 @@ class TestNetworkManager(NetworkManager):
 
 test_data_path = Path("test-data-raw.json")
 test_dataset_path = Path("test-dataset.gpkg")
-test_csv_path = Path("output")
+output_path = Path("output")
 
 if __name__ == "__main__":
     test_network = TestNetworkManager(data_path=test_data_path)
@@ -96,4 +96,5 @@ if __name__ == "__main__":
     print(test_network)
     print("")
     test_network.describe()
-    test_network.dump_csv(path=test_csv_path)
+    test_network.dump_csv(path=output_path)
+    test_network.dump_kml(path=output_path)

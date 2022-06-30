@@ -369,6 +369,15 @@ class WaypointCollection:
                     }
                 )
 
+    def dump_kml(self, path: Path) -> None:
+        fiona.drvsupport.supported_drivers["KML"] = "rw"
+
+        with fiona.open(
+            path, mode="w", driver="KML", crs=crs_from_epsg(4326), schema=Waypoint.feature_schema, layer="waypoints"
+        ) as layer:
+            for waypoint in self.waypoints:
+                layer.write(waypoint.dumps_feature())
+
     def __getitem__(self, _id: str) -> Waypoint:
         for waypoint in self._waypoints:
             if waypoint.id == _id:
@@ -413,6 +422,17 @@ class RouteCollection:
                             "description": route_waypoint.description,
                         }
                     )
+
+    def dump_kml(self, path: Path) -> None:
+        fiona.drvsupport.supported_drivers["KML"] = "rw"
+
+        for route in self.routes:
+            with open(path.joinpath(f"{route.name.lower()}.kml"), mode="w") as output_file:
+                with fiona.open(
+                    path, mode="w", driver="KML", crs=crs_from_epsg(4326), schema=RouteWaypoint.feature_schema
+                ) as layer:
+                    for route_waypoint in route.waypoints:
+                        layer.write(route_waypoint.dumps_feature(route_id=route.id))
 
     def __getitem__(self, _id: str) -> Route:
         for route in self.routes:
@@ -500,6 +520,13 @@ class NetworkManager:
 
         self.waypoints.dump_csv(path=path.joinpath("waypoints.csv"))
         self.routes.dump_csv(path=path)
+
+    def dump_kml(self, path: Path):
+        path = path.resolve()
+        path.mkdir(parents=True, exist_ok=True)
+
+        self.waypoints.dump_kml(path=path.joinpath("waypoints.kml"))
+        self.routes.dump_kml(path=path)
 
     def __repr__(self):
         return f"<NetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"
