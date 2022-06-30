@@ -182,9 +182,9 @@ class Waypoint:
 
 class RouteWaypoint:
     feature_schema = {
-            "geometry": "None",
-            "properties": {"route_id": "str", "waypoint_id": "str", "description": "str", "sequence": "int"},
-        }
+        "geometry": "None",
+        "properties": {"route_id": "str", "waypoint_id": "str", "description": "str", "sequence": "int"},
+    }
 
     def __init__(
         self, waypoint: Optional[Waypoint] = None, sequence: Optional[int] = None, description: Optional[str] = None
@@ -248,6 +248,7 @@ class RouteWaypoint:
                 "description": self.description,
             }
         }
+
 
 class Route:
     feature_schema = {
@@ -498,7 +499,9 @@ class NetworkManager:
                 layer.write(waypoint.dumps_feature())
 
         # route_waypoints
-        with fiona.open(path, mode="w", driver="GPKG", schema=RouteWaypoint.feature_schema, layer="route_waypoints") as layer:
+        with fiona.open(
+            path, mode="w", driver="GPKG", schema=RouteWaypoint.feature_schema, layer="route_waypoints"
+        ) as layer:
             for route in self.routes:
                 for route_waypoint in route.waypoints:
                     # TODO: This should change, probably to use a method within the route
