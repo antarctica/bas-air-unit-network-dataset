@@ -81,23 +81,35 @@ class TestNetworkManager(NetworkManager):
 
 test_data_path = Path("test-data-raw.json")
 test_dataset_path = Path("test-dataset.gpkg")
-output_path = Path("output")
+test_output_path = Path("output")
+
+
+def populate_test_network(network: TestNetworkManager, gpkg_path: Path):
+    gpkg_path.unlink(missing_ok=True)
+    network.load_test_data()
+    print(network)
+    print("")
+    network.describe()
+    network.dump_gpkg(path=gpkg_path)
+
+
+def generate_outputs(network: TestNetworkManager, gpkg_path: Path, output_path: Path):
+    network.load_gpkg(path=gpkg_path)
+    print(network)
+    print("")
+    network.describe()
+    print("")
+    network.dump_csv(path=output_path)
+    print("CSV export complete")
+    network.dump_kml(path=output_path)
+    print("KML export complete")
+
 
 if __name__ == "__main__":
     test_network = TestNetworkManager(data_path=test_data_path)
 
-    # test_network.load_test_data()
-    # print(test_network)
-    # print("")
-    # test_network.describe()
-    # test_network.dump_gpkg(path=test_dataset_path)
+    # # uncomment to setup GeoPackage from test data
+    # populate_test_network(network=test_network, gpkg_path=test_dataset_path)
 
-    test_network.load_gpkg(path=test_dataset_path)
-    print(test_network)
-    print("")
-    test_network.describe()
-    print("")
-    test_network.dump_csv(path=output_path)
-    print("CSV export complete")
-    test_network.dump_kml(path=output_path)
-    print("KML export complete")
+    # # uncomment to generate CSV/GPX/etc. outputs from test data
+    generate_outputs(network=test_network, gpkg_path=test_dataset_path, output_path=test_output_path)

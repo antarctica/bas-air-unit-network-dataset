@@ -163,14 +163,14 @@ class Waypoint:
             self.last_accessed_by = feature["properties"]["last_accessed_by"]
 
     def dumps_feature_geometry(self) -> dict:
-        _geometry = {"type": "Point", "coordinates": (self.geometry.x, self.geometry.y)}
+        geometry = {"type": "Point", "coordinates": (self.geometry.x, self.geometry.y)}
         if self.geometry.has_z:
-            _geometry["coordinates"] = (self.geometry.x, self.geometry.y, self.geometry.z)
+            geometry["coordinates"] = (self.geometry.x, self.geometry.y, self.geometry.z)
 
-        return _geometry
+        return geometry
 
     def dumps_feature(self, spatial: bool = True) -> dict:
-        _feature = {
+        feature = {
             "geometry": None,
             "properties": {
                 "id": self.id,
@@ -182,30 +182,30 @@ class Waypoint:
         }
 
         if spatial:
-            _feature["geometry"] = self.dumps_feature_geometry()
+            feature["geometry"] = self.dumps_feature_geometry()
 
-        return _feature
+        return feature
 
     def dumps_csv(self) -> dict:
-        _comment = "-"
+        comment = "-"
         if self.comment is not None:
-            _comment = self.comment
+            comment = self.comment
 
-        _last_accessed_at = "-"
+        last_accessed_at = "-"
         if self.last_accessed_at is not None:
-            _last_accessed_at = self.last_accessed_at.isoformat()
+            last_accessed_at = self.last_accessed_at.isoformat()
 
-        _last_accessed_by = "-"
+        last_accessed_by = "-"
         if self.last_accessed_by is not None:
-            _last_accessed_by = self.last_accessed_by
+            last_accessed_by = self.last_accessed_by
 
         return {
             "designator": self.designator,
             "latitude": self.geometry.y,
             "longitude": self.geometry.x,
-            "comment": _comment,
-            "last_accessed_at": _last_accessed_at,
-            "last_accessed_by": _last_accessed_by,
+            "comment": comment,
+            "last_accessed_at": last_accessed_at,
+            "last_accessed_by": last_accessed_by,
         }
 
     def __repr__(self) -> str:
@@ -283,7 +283,7 @@ class RouteWaypoint:
         route_name: Optional[str] = None,
         use_designators: bool = False,
     ) -> dict:
-        _feature = {
+        feature = {
             "geometry": None,
             "properties": {
                 "waypoint_id": self.waypoint.id,
@@ -293,26 +293,26 @@ class RouteWaypoint:
         }
 
         if spatial:
-            _geometry = {"type": "Point", "coordinates": (self.waypoint.geometry.x, self.waypoint.geometry.y)}
+            geometry = {"type": "Point", "coordinates": (self.waypoint.geometry.x, self.waypoint.geometry.y)}
             if self.waypoint.geometry.has_z:
-                _geometry["coordinates"] = (
+                geometry["coordinates"] = (
                     self.waypoint.geometry.x,
                     self.waypoint.geometry.y,
                     self.waypoint.geometry.z,
                 )
-            _feature["geometry"] = _geometry
+            feature["geometry"] = geometry
 
         if use_designators:
-            del _feature["properties"]["waypoint_id"]
-            _feature["properties"] = {**{"designator": self.waypoint.designator}, **_feature["properties"]}
+            del feature["properties"]["waypoint_id"]
+            feature["properties"] = {**{"designator": self.waypoint.designator}, **feature["properties"]}
 
         if route_name is not None:
-            _feature["properties"] = {**{"route_name": route_name}, **_feature["properties"]}
+            feature["properties"] = {**{"route_name": route_name}, **feature["properties"]}
 
         if route_id is not None:
-            _feature["properties"] = {**{"route_id": route_id}, **_feature["properties"]}
+            feature["properties"] = {**{"route_id": route_id}, **feature["properties"]}
 
-        return _feature
+        return feature
 
 
 class Route:
@@ -403,39 +403,39 @@ class Route:
         self.name = feature["properties"]["name"]
 
     def _dumps_feature_route(self, spatial: bool = True) -> dict:
-        _feature = {
+        feature = {
             "geometry": None,
             "properties": {"id": self.id, "name": self.name},
         }
 
         if spatial:
-            _geometry = []
+            geometry = []
             for route_waypoint in self.waypoints:
-                _geometry.append(route_waypoint.waypoint.dumps_feature_geometry()["coordinates"])
-            _feature["geometry"] = {"type": "LineString", "coordinates": _geometry}
+                geometry.append(route_waypoint.waypoint.dumps_feature_geometry()["coordinates"])
+            feature["geometry"] = {"type": "LineString", "coordinates": geometry}
 
-        return _feature
+        return feature
 
     def _dumps_feature_waypoints(
         self, spatial: bool = True, route_id: bool = False, route_name: bool = False, use_designators: bool = False
     ) -> List[dict]:
-        _route_id = None
+        route_id = None
         if route_id:
-            _route_id = self.id
+            route_id = self.id
 
-        _route_name = None
+        route_name = None
         if route_name:
-            _route_name = self.name
+            route_name = self.name
 
-        _features = []
+        features = []
         for route_waypoint in self.waypoints:
-            _features.append(
+            features.append(
                 route_waypoint.dumps_feature(
-                    spatial=spatial, route_id=_route_id, route_name=_route_name, use_designators=use_designators
+                    spatial=spatial, route_id=route_id, route_name=route_name, use_designators=use_designators
                 )
             )
 
-        return _features
+        return features
 
     def dumps_feature(
         self,
@@ -472,12 +472,12 @@ class Route:
         return csv_rows
 
     def dump_csv(self, path: Path, waypoints: bool = False, route_column: bool = False) -> None:
-        _fieldnames = list(Route.csv_schema_waypoints.keys())
+        fieldnames: List[str] = list(Route.csv_schema_waypoints.keys())
         if route_column:
-            _fieldnames = "route_name" + _fieldnames
+            fieldnames = ["route_name"] + fieldnames
 
         with open(path, mode="w") as output_file:
-            writer = csv.DictWriter(output_file, fieldnames=_fieldnames)
+            writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(self.dumps_csv(waypoints=waypoints, route_column=route_column))
 
@@ -517,8 +517,8 @@ class Route:
             self._dump_kml_waypoints(path=path, route_column=route_column)
 
     def __repr__(self) -> str:
-        _start = "-"
-        _end = "-"
+        start = "-"
+        end = "-"
 
         try:
             _start = self.first_waypoint.waypoint.designator.ljust(6)
@@ -526,7 +526,7 @@ class Route:
         except AttributeError:
             pass
 
-        return f"<Route {self.id} :- [{self.name.ljust(10, '_')}], {self.waypoints_count} waypoints, Start/End: {_start} / {_end}>"
+        return f"<Route {self.id} :- [{self.name.ljust(10, '_')}], {self.waypoints_count} waypoints, Start/End: {start} / {end}>"
 
 
 class WaypointCollection:
@@ -567,8 +567,8 @@ class WaypointCollection:
             schema=Waypoint.feature_schema_spatial,
             layer="waypoints",
         ) as layer:
-            for waypoint in self.waypoints:
-                layer.write(waypoint.dumps_feature())
+            layer.writerecords(self.dump_features(spatial=True))
+
 
     def __getitem__(self, _id: str) -> Waypoint:
         for waypoint in self._waypoints:
@@ -642,17 +642,16 @@ class RouteCollection:
         for route in self.routes:
             routes.append(route.dumps_kml(waypoints=False))
 
-        for route in self.routes:
-            fiona.drvsupport.supported_drivers["KML"] = "rw"
-            with fiona.open(
-                path,
-                mode="w",
-                driver="KML",
-                crs=crs_from_epsg(4326),
-                schema=Route.feature_schema_spatial,
-                layer=layer_name,
-            ) as layer:
-                layer.writerecords(routes)
+        fiona.drvsupport.supported_drivers["KML"] = "rw"
+        with fiona.open(
+            path,
+            mode="w",
+            driver="KML",
+            crs=crs_from_epsg(4326),
+            schema=Route.feature_schema_spatial,
+            layer=layer_name,
+        ) as layer:
+            layer.writerecords(routes)
 
     def _dump_kml_combined_waypoints(self, path: Path):
         schema = copy(Route.feature_schema_waypoints_spatial)
@@ -713,26 +712,26 @@ class NetworkManager:
         # waypoints
         with fiona.open(path, mode="r", driver="GPKG", layer="waypoints") as layer:
             for waypoint_feature in layer:
-                _waypoint = Waypoint()
-                _waypoint.loads_feature(feature=waypoint_feature)
-                self.waypoints.append(_waypoint)
+                waypoint = Waypoint()
+                waypoint.loads_feature(feature=waypoint_feature)
+                self.waypoints.append(waypoint)
 
         # routes & route-waypoints
         with fiona.open(path, mode="r", driver="GPKG", layer="routes") as layer:
             for route_feature in layer:
-                _route = Route()
-                _route.loads_feature(feature=route_feature)
-                self.routes.append(_route)
+                route = Route()
+                route.loads_feature(feature=route_feature)
+                self.routes.append(route)
         with fiona.open(path, mode="r", driver="GPKG", layer="route_waypoints") as layer:
             # process route waypoints and group by route
             route_waypoints_by_route_id: Dict[str, List[RouteWaypoint]] = {}
             for route_waypoint_feature in layer:
-                _route_waypoint = RouteWaypoint()
-                _route_waypoint.loads_feature(feature=route_waypoint_feature, waypoints=self.waypoints)
+                route_waypoint = RouteWaypoint()
+                route_waypoint.loads_feature(feature=route_waypoint_feature, waypoints=self.waypoints)
 
                 if route_waypoint_feature["properties"]["route_id"] not in route_waypoints_by_route_id.keys():
                     route_waypoints_by_route_id[route_waypoint_feature["properties"]["route_id"]] = []
-                route_waypoints_by_route_id[route_waypoint_feature["properties"]["route_id"]].append(_route_waypoint)
+                route_waypoints_by_route_id[route_waypoint_feature["properties"]["route_id"]].append(route_waypoint)
 
             for route_id, route_waypoint_features in route_waypoints_by_route_id.items():
                 route = self.routes[route_id]
