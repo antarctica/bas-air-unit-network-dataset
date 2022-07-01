@@ -1,0 +1,52 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="GDAL 3.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<metadata><bounds minlat="-78.089229210931649" minlon="-75.190429687500000" maxlat="-70.830247623852529" maxlon="-50.712890624999993"/></metadata>              
+<rte>
+  <name>Flattery</name>
+  <rtept lat="-70.830247623852529" lon="-75.1904296875">
+    <desc>Start</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Flattery</name>
+  <rtept lat="-71.760191387547749" lon="-71.4990234375">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Flattery</name>
+  <rtept lat="-72.751038643287444" lon="-66.09375">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Flattery</name>
+  <rtept lat="-74.425777484010311" lon="-65.4345703125">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Flattery</name>
+  <rtept lat="-75.704786381740519" lon="-63.017578125">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Flattery</name>
+  <rtept lat="-76.341523315476465" lon="-58.9306640625">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Flattery</name>
+  <rtept lat="-77.166926925914069" lon="-55.37109375">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Flattery</name>
+  <rtept lat="-78.089229210931649" lon="-50.712890625">
+    <desc>End</desc>
+  </rtept>
+</rte>
+</gpx>

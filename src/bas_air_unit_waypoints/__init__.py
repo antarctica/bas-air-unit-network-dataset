@@ -34,6 +34,11 @@ class Waypoint:
         "last_accessed_by": "str",
     }
 
+    gpx_feature_schema_spatial = {
+        "geometry": "Point",
+        "properties": {"name": "str", "desc": "str", "src": "str"},
+    }
+
     def __init__(
         self,
         designator: Optional[str] = None,
@@ -208,6 +213,24 @@ class Waypoint:
             "last_accessed_by": last_accessed_by,
         }
 
+    def dumps_gpx(self) -> dict:
+        feature = {
+            "geometry": self.dumps_feature_geometry(),
+            "properties": {"name": self.designator, "desc": "[no description]", "src": "[last access unknown]"},
+        }
+
+        if self.comment is not None:
+            feature["properties"]["desc"] = self.comment
+
+        if self.last_accessed_at is not None and self.last_accessed_by is None:
+            feature["properties"]["src"] = f"Last checked: {self.last_accessed_at.isoformat()}"
+        elif self.last_accessed_at is not None and self.last_accessed_by is not None:
+            feature["properties"][
+                "src"
+            ] = f"Last checked: {self.last_accessed_at.isoformat()}, by: {self.last_accessed_by}"
+
+        return feature
+
     def __repr__(self) -> str:
         return f"<Waypoint {self.id} :- [{self.designator.ljust(6, '_')}], {self.geometry}>"
 
@@ -338,6 +361,11 @@ class Route:
         "longitude": "float",
         "latitude": "float",
         "description": "str",
+    }
+
+    gpx_feature_schema_spatial = {
+        "geometry": "Point",
+        "properties": {"route_name": "str", "route_fid": "int", "desc": "str"},
     }
 
     def __init__(
@@ -516,6 +544,40 @@ class Route:
         elif waypoints:
             self._dump_kml_waypoints(path=path, route_column=route_column)
 
+    def dumps_gpx(self) -> List[dict]:
+        features = []
+
+        for route_waypoint in self.waypoints:
+            feature = {
+                "geometry": route_waypoint.waypoint.dumps_feature_geometry(),
+                "properties": {
+                    "route_name": self.name,
+                    "route_fid": route_waypoint.sequence,
+                    "desc": "[no description]",
+                },
+            }
+
+            # can we set a name for the route waypoint (separate from the overall route name)
+            # "name": route_waypoint.waypoint.designator,
+
+            if route_waypoint.description is not None:
+                feature["properties"]["desc"] = route_waypoint.description
+
+            features.append(feature)
+
+        return features
+
+    def dump_gpx(self, path: Path) -> None:
+        with fiona.open(
+            path,
+            mode="w",
+            driver="GPX",
+            crs=crs_from_epsg(4326),
+            schema=Route.gpx_feature_schema_spatial,
+            layer="route_points",
+        ) as layer:
+            layer.writerecords(self.dumps_gpx())
+
     def __repr__(self) -> str:
         start = "-"
         end = "-"
@@ -569,6 +631,24 @@ class WaypointCollection:
         ) as layer:
             layer.writerecords(self.dump_features(spatial=True))
 
+    def dumps_gpx(self) -> List[dict]:
+        features = []
+
+        for waypoint in self.waypoints:
+            features.append(waypoint.dumps_gpx())
+
+        return features
+
+    def dump_gpx(self, path: Path) -> None:
+        with fiona.open(
+            path,
+            mode="w",
+            driver="GPX",
+            crs=crs_from_epsg(4326),
+            schema=Waypoint.gpx_feature_schema_spatial,
+            layer="waypoints",
+        ) as layer:
+            layer.writerecords(self.dumps_gpx())
 
     def __getitem__(self, _id: str) -> Waypoint:
         for waypoint in self._waypoints:
@@ -684,6 +764,13 @@ class RouteCollection:
         else:
             self._dump_kml_combined(path=path, waypoints=waypoints)
 
+    def dump_gpx(self, path: Path, separate: bool = False) -> None:
+        if not separate:
+            raise RuntimeError("Combined routes cannot be dumped to GPX, set `separate` to True.")
+
+        for route in self.routes:
+            route.dump_gpx(path=path.joinpath(f"{route.name.lower()}.gpx"))
+
     def __getitem__(self, _id: str) -> Route:
         for route in self.routes:
             if route.id == _id:
@@ -777,6 +864,13 @@ class NetworkManager:
         self.waypoints.dump_kml(path=path.joinpath("waypoints.kml"))
         self.routes.dump_kml(path=path.joinpath("routes.kml"), waypoints=False)
         self.routes.dump_kml(path=path, separate=True, waypoints=True)
+
+    def dump_gpx(self, path: Path):
+        path = path.resolve()
+        path.mkdir(parents=True, exist_ok=True)
+
+        self.waypoints.dump_gpx(path=path.joinpath("waypoints.gpx"))
+        self.routes.dump_gpx(path=path, separate=True)
 
     def __repr__(self):
         return f"<NetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"

@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+<gpx version="1.1" creator="GDAL 3.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
+<metadata><bounds minlat="-74.425777484010311" minlon="-75.190429687500000" maxlat="-70.830247623852529" maxlon="-61.611328125000007"/></metadata>              
+<rte>
+  <name>Oak</name>
+  <rtept lat="-70.830247623852529" lon="-75.1904296875">
+    <desc>Start</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Oak</name>
+  <rtept lat="-71.760191387547749" lon="-71.4990234375">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Oak</name>
+  <rtept lat="-72.751038643287444" lon="-66.09375">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Oak</name>
+  <rtept lat="-73.453472763274974" lon="-61.611328125">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Oak</name>
+  <rtept lat="-74.425777484010311" lon="-65.4345703125">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Oak</name>
+  <rtept lat="-74.200021505585909" lon="-70.3125">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Oak</name>
+  <rtept lat="-73.175897174226066" lon="-70.224609375">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Oak</name>
+  <rtept lat="-71.760191387547749" lon="-71.4990234375">
+    <desc>-</desc>
+  </rtept>
+</rte>
+<rte>
+  <name>Oak</name>
+  <rtept lat="-70.830247623852529" lon="-75.1904296875">
+    <desc>End</desc>
+  </rtept>
+</rte>
+</gpx>
