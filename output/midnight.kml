@@ -2,26 +2,25 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
 <Document id="root_doc">
 <Schema name="midnight" id="midnight">
-	<SimpleField name="route_id" type="string"></SimpleField>
-	<SimpleField name="waypoint_id" type="string"></SimpleField>
 	<SimpleField name="sequence" type="string"></SimpleField>
+	<SimpleField name="designator" type="string"></SimpleField>
 </Schema>
 <Folder><name>midnight</name>
   <Placemark>
 	<description>Start</description>
 	<ExtendedData><SchemaData schemaUrl="#midnight">
-		<SimpleData name="route_id">01G6THZ91ETMKXXT2SYJDDJGZ4</SimpleData>
-		<SimpleData name="waypoint_id">01G6THZ91EQR99YZ6VZ97895VP</SimpleData>
 		<SimpleData name="sequence">1</SimpleData>
+		<SimpleData name="designator">BRAVO</SimpleData>
 	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.1904296875,-70.8302476238525</coordinates></Point>
   </Placemark>
   <Placemark>
 	<description>End</description>
 	<ExtendedData><SchemaData schemaUrl="#midnight">
-		<SimpleData name="route_id">01G6THZ91ETMKXXT2SYJDDJGZ4</SimpleData>
-		<SimpleData name="waypoint_id">01G6THZ91E2748X5Q70M4YZ2ZP</SimpleData>
 		<SimpleData name="sequence">2</SimpleData>
+		<SimpleData name="designator">ALPHA</SimpleData>
 	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.0146484375,-69.9152143369013</coordinates></Point>
   </Placemark>
 </Folder>
 </Document></kml>

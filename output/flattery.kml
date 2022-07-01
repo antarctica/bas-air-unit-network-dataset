@@ -2,74 +2,73 @@
 <kml xmlns="http://www.opengis.net/kml/2.2">
 <Document id="root_doc">
 <Schema name="flattery" id="flattery">
-	<SimpleField name="route_id" type="string"></SimpleField>
-	<SimpleField name="waypoint_id" type="string"></SimpleField>
 	<SimpleField name="sequence" type="string"></SimpleField>
+	<SimpleField name="designator" type="string"></SimpleField>
 </Schema>
 <Folder><name>flattery</name>
   <Placemark>
 	<description>Start</description>
 	<ExtendedData><SchemaData schemaUrl="#flattery">
-		<SimpleData name="route_id">01G6THZ91EN34V80QK6DBPRD64</SimpleData>
-		<SimpleData name="waypoint_id">01G6THZ91EQR99YZ6VZ97895VP</SimpleData>
 		<SimpleData name="sequence">1</SimpleData>
+		<SimpleData name="designator">BRAVO</SimpleData>
 	</SchemaData></ExtendedData>
+      <Point><coordinates>-75.1904296875,-70.8302476238525</coordinates></Point>
   </Placemark>
   <Placemark>
 	<description>-</description>
 	<ExtendedData><SchemaData schemaUrl="#flattery">
-		<SimpleData name="route_id">01G6THZ91EN34V80QK6DBPRD64</SimpleData>
-		<SimpleData name="waypoint_id">01G6THZ91EZ4YJMS0GWTKNBSKS</SimpleData>
 		<SimpleData name="sequence">2</SimpleData>
+		<SimpleData name="designator">CHARLE</SimpleData>
 	</SchemaData></ExtendedData>
+      <Point><coordinates>-71.4990234375,-71.7601913875477</coordinates></Point>
   </Placemark>
   <Placemark>
 	<description>-</description>
 	<ExtendedData><SchemaData schemaUrl="#flattery">
-		<SimpleData name="route_id">01G6THZ91EN34V80QK6DBPRD64</SimpleData>
-		<SimpleData name="waypoint_id">01G6THZ91E4K1YP71VNN6ZZ6AY</SimpleData>
 		<SimpleData name="sequence">3</SimpleData>
+		<SimpleData name="designator">DELTA</SimpleData>
 	</SchemaData></ExtendedData>
+      <Point><coordinates>-66.09375,-72.7510386432874</coordinates></Point>
   </Placemark>
   <Placemark>
 	<description>-</description>
 	<ExtendedData><SchemaData schemaUrl="#flattery">
-		<SimpleData name="route_id">01G6THZ91EN34V80QK6DBPRD64</SimpleData>
-		<SimpleData name="waypoint_id">01G6THZ91EPV3WCTD3MNFD75Z3</SimpleData>
 		<SimpleData name="sequence">4</SimpleData>
+		<SimpleData name="designator">HOTEL</SimpleData>
 	</SchemaData></ExtendedData>
+      <Point><coordinates>-65.4345703125,-74.4257774840103</coordinates></Point>
   </Placemark>
   <Placemark>
 	<description>-</description>
 	<ExtendedData><SchemaData schemaUrl="#flattery">
-		<SimpleData name="route_id">01G6THZ91EN34V80QK6DBPRD64</SimpleData>
-		<SimpleData name="waypoint_id">01G6THZ91ETPTPKB62B2RAEZM7</SimpleData>
 		<SimpleData name="sequence">5</SimpleData>
+		<SimpleData name="designator">INDIA</SimpleData>
 	</SchemaData></ExtendedData>
+      <Point><coordinates>-63.017578125,-75.7047863817405</coordinates></Point>
   </Placemark>
   <Placemark>
 	<description>-</description>
 	<ExtendedData><SchemaData schemaUrl="#flattery">
-		<SimpleData name="route_id">01G6THZ91EN34V80QK6DBPRD64</SimpleData>
-		<SimpleData name="waypoint_id">01G6THZ91ETXAG4TTCP6R21K4T</SimpleData>
 		<SimpleData name="sequence">6</SimpleData>
+		<SimpleData name="designator">JULIET</SimpleData>
 	</SchemaData></ExtendedData>
+      <Point><coordinates>-58.9306640625,-76.3415233154765</coordinates></Point>
   </Placemark>
   <Placemark>
 	<description>-</description>
 	<ExtendedData><SchemaData schemaUrl="#flattery">
-		<SimpleData name="route_id">01G6THZ91EN34V80QK6DBPRD64</SimpleData>
-		<SimpleData name="waypoint_id">01G6THZ91EGFHXGVVAE15BWNCK</SimpleData>
 		<SimpleData name="sequence">7</SimpleData>
+		<SimpleData name="designator">KILO</SimpleData>
 	</SchemaData></ExtendedData>
+      <Point><coordinates>-55.37109375,-77.1669269259141</coordinates></Point>
   </Placemark>
   <Placemark>
 	<description>End</description>
 	<ExtendedData><SchemaData schemaUrl="#flattery">
-		<SimpleData name="route_id">01G6THZ91EN34V80QK6DBPRD64</SimpleData>
-		<SimpleData name="waypoint_id">01G6THZ91EC9ZB3BPGSSK04HC8</SimpleData>
 		<SimpleData name="sequence">8</SimpleData>
+		<SimpleData name="designator">LIMA</SimpleData>
 	</SchemaData></ExtendedData>
+      <Point><coordinates>-50.712890625,-78.0892292109316</coordinates></Point>
   </Placemark>
 </Folder>
 </Document></kml>
