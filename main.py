@@ -103,6 +103,8 @@ def generate_outputs(network: TestNetworkManager, gpkg_path: Path, output_path: 
     print("CSV export complete")
     network.dump_gpx(path=output_path)
     print("GPX export complete")
+    network.dump_fpl(path=output_path)
+    print("FPL export complete")
 
 
 if __name__ == "__main__":

@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='utf-8'?>
+<flight-plan xmlns="http://www8.garmin.com/xmlschemas/FlightPlan/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www8.garmin.com/xmlschemas/FlightPlan/v1 http://www8.garmin.com/xmlschemas/FlightPlanv1.xsd">
+  <waypoint-table>
+    <waypoint>
+      <identifier>ALPHA</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-69.9152143</lat>
+      <lon>-75.0146484</lon>
+      <comment>There's unlimited juice?</comment>
+    </waypoint>
+    <waypoint>
+      <identifier>BRAVO</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-70.8302476</lat>
+      <lon>-75.1904297</lon>
+    </waypoint>
+    <waypoint>
+      <identifier>CHARLE</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-71.7601914</lat>
+      <lon>-71.4990234</lon>
+      <comment>You're losing blood, aren't you?</comment>
+    </waypoint>
+    <waypoint>
+      <identifier>DELTA</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-72.7510386</lat>
+      <lon>-66.09375</lon>
+      <comment>How about a turtle?</comment>
+    </waypoint>
+    <waypoint>
+      <identifier>ECHO</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-73.4534728</lat>
+      <lon>-61.6113281</lon>
+      <comment>I don't criticize you!</comment>
+    </waypoint>
+    <waypoint>
+      <identifier>FOXTRT</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-73.1758972</lat>
+      <lon>-70.2246094</lon>
+      <comment> Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</comment>
+    </waypoint>
+    <waypoint>
+      <identifier>GOLF</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-74.2000215</lat>
+      <lon>-70.3125</lon>
+      <comment>I've always been deeply passionate about nature. 🌳</comment>
+    </waypoint>
+    <waypoint>
+      <identifier>HOTEL</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-74.4257775</lat>
+      <lon>-65.4345703</lon>
+      <comment>I don't know how I know that. I took four years of Spanish.</comment>
+    </waypoint>
+    <waypoint>
+      <identifier>INDIA</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-75.7047864</lat>
+      <lon>-63.0175781</lon>
+      <comment>I am getting rid of this thing. It has caused me nothing but pride and self-respect.</comment>
+    </waypoint>
+    <waypoint>
+      <identifier>JULIET</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-76.3415233</lat>
+      <lon>-58.9306641</lon>
+      <comment>There's not a lot of logic to it.</comment>
+    </waypoint>
+    <waypoint>
+      <identifier>KILO</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-77.1669269</lat>
+      <lon>-55.3710937</lon>
+      <comment>Well, I hope you also carry a spare bowl of candy beans.</comment>
+    </waypoint>
+    <waypoint>
+      <identifier>LIMA</identifier>
+      <type>USER WAYPOINT</type>
+      <country-code>__</country-code>
+      <lat>-78.0892292</lat>
+      <lon>-50.7128906</lon>
+      <comment>Are you at all concerned about an uprising?</comment>
+    </waypoint>
+  </waypoint-table>
+</flight-plan>
