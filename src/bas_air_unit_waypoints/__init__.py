@@ -583,8 +583,8 @@ class Route:
         end = "-"
 
         try:
-            _start = self.first_waypoint.waypoint.designator.ljust(6)
-            _end = self.last_waypoint.waypoint.designator.ljust(6)
+            start = self.first_waypoint.waypoint.designator.ljust(6)
+            end = self.last_waypoint.waypoint.designator.ljust(6)
         except AttributeError:
             pass
 
