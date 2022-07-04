@@ -1,16 +1,14 @@
-<?xml version="1.0"?>
-<gpx version="1.1" creator="GDAL 3.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
-<metadata><bounds minlat="-70.830247623852529" minlon="-75.190429687500000" maxlat="-69.915214336901272" maxlon="-75.014648437500000"/></metadata>              
-<rte>
-  <name>Midnight</name>
-  <rtept lat="-70.830247623852529" lon="-75.1904296875">
-    <desc>Start</desc>
-  </rtept>
-</rte>
-<rte>
-  <name>Midnight</name>
-  <rtept lat="-69.915214336901272" lon="-75.0146484375">
-    <desc>End</desc>
-  </rtept>
-</rte>
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
+  <rte>
+    <name>Midnight</name>
+    <rtept lat="-70.83024762385253" lon="-75.1904296875">
+      <name>BRAVO</name>
+      <desc>Start</desc>
+    </rtept>
+    <rtept lat="-69.91521433690127" lon="-75.0146484375">
+      <name>ALPHA</name>
+      <desc>End</desc>
+    </rtept>
+  </rte>
 </gpx>
