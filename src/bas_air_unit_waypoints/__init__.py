@@ -11,6 +11,13 @@ from fiona.crs import from_epsg as crs_from_epsg
 from gpxpy.gpx import GPX, GPXWaypoint, GPXRoute, GPXRoutePoint
 from shapely.geometry import Point
 
+from bas_air_unit_waypoints.exporters.fpl import (
+    Fpl,
+    Waypoint as FplWaypoint,
+    Route as FplRoute,
+    RoutePoint as FplRoutePoint,
+)
+
 
 class Waypoint:
     designator_max_length = 6
@@ -224,6 +231,20 @@ class Waypoint:
             waypoint.source = f"Last checked: {self.last_accessed_at.isoformat()}"
         elif self.last_accessed_at is not None and self.last_accessed_by is not None:
             waypoint.source = f"Last checked: {self.last_accessed_at.isoformat()}, by: {self.last_accessed_by}"
+
+        return waypoint
+
+    def dumps_fpl(self) -> FplWaypoint:
+        waypoint = FplWaypoint()
+
+        waypoint.identifier = self.designator
+        waypoint.type = "USER WAYPOINT"
+        waypoint.country_code = "__"
+        waypoint.longitude = self.geometry.x
+        waypoint.latitude = self.geometry.y
+
+        if self.comment is not None:
+            waypoint.comment = self.comment
 
         return waypoint
 
@@ -532,6 +553,27 @@ class Route:
         with open(path, mode="w") as gpx_file:
             gpx_file.write(self.dumps_gpx(waypoints=waypoints).to_xml())
 
+    def dumps_fpl(self, flight_plan_index: int) -> Fpl:
+        fpl = Fpl()
+        route = FplRoute()
+
+        route.name = self.name
+        route.index = flight_plan_index
+
+        for route_waypoint in self.waypoints:
+            route_point = FplRoutePoint()
+            route_point.waypoint_identifier = route_waypoint.waypoint.designator
+            route_point.waypoint_type = "USER WAYPOINT"
+            route_point.waypoint_country_code = "__"
+            route.points.append(route_point)
+
+        fpl.route = route
+        return fpl
+
+    def dump_fpl(self, path: Path, flight_plan_index: int) -> None:
+        with open(path, mode="w") as xml_file:
+            xml_file.write(self.dumps_fpl(flight_plan_index=flight_plan_index).dumps_xml().decode())
+
     def __repr__(self) -> str:
         start = "-"
         end = "-"
@@ -583,6 +625,18 @@ class WaypointCollection:
     def dump_gpx(self, path: Path) -> None:
         with open(path, mode="w") as gpx_file:
             gpx_file.write(self.dumps_gpx().to_xml())
+
+    def dumps_fpl(self) -> Fpl:
+        fpl = Fpl()
+
+        for waypoint in self.waypoints:
+            fpl.waypoints.append(waypoint.dumps_fpl())
+
+        return fpl
+
+    def dump_fpl(self, path: Path) -> None:
+        fpl = self.dumps_fpl()
+        fpl.dump_xml(path=path)
 
     def __getitem__(self, _id: str) -> Waypoint:
         for waypoint in self._waypoints:
@@ -676,6 +730,15 @@ class RouteCollection:
         else:
             self._dump_gpx_combined(path=path, waypoints=waypoints)
 
+    def dump_fpl(self, path: Path, separate: bool = False) -> None:
+        if not separate:
+            raise RuntimeError("FPL does not support combined routes, `separate` must be set to True.")
+
+        flight_plan_index = 1
+        for route in self.routes:
+            route.dump_fpl(path=path.joinpath(f"{route.name.lower()}.fpl"), flight_plan_index=flight_plan_index)
+            flight_plan_index += 1
+
     def __getitem__(self, _id: str) -> Route:
         for route in self.routes:
             if route.id == _id:
@@ -765,10 +828,18 @@ class NetworkManager:
     def dump_gpx(self, path: Path):
         path = path.resolve()
         path.mkdir(parents=True, exist_ok=True)
+
         self.waypoints.dump_gpx(path=path.joinpath("waypoints.gpx"))
         self.routes.dump_gpx(path=path.joinpath("routes.gpx"), waypoints=False)
         self.routes.dump_gpx(path=path.joinpath("network.gpx"), waypoints=True)
         self.routes.dump_gpx(path=path, separate=True, waypoints=False)
+
+    def dump_fpl(self, path: Path):
+        path = path.resolve()
+        path.mkdir(parents=True, exist_ok=True)
+
+        self.waypoints.dump_fpl(path=path.joinpath("waypoints.fpl"))
+        self.routes.dump_fpl(path=path, separate=True)
 
     def __repr__(self):
         return f"<NetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"
