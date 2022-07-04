@@ -357,8 +357,8 @@ class Route:
         "properties": {"id": "str", "name": "str"},
     }
 
-    feature_schema_waypoints_spatial = {"geometry": "Point", "properties": OrderedDict()}
     # TODO: Determine why this requires an ordered dict when other schemas don't
+    feature_schema_waypoints_spatial = {"geometry": "Point", "properties": OrderedDict()}
     feature_schema_waypoints_spatial["properties"]["sequence"] = "int"
     feature_schema_waypoints_spatial["properties"]["designator"] = "str"
     feature_schema_waypoints_spatial["properties"]["description"] = "str"
@@ -512,43 +512,9 @@ class Route:
             writer.writeheader()
             writer.writerows(self.dumps_csv(waypoints=waypoints, route_column=route_column))
 
-    def dumps_kml(self, waypoints: bool = False, route_column: bool = False) -> List[dict]:
-        if not waypoints:
-            return self.dumps_feature(spatial=True)
-
-        return self.dumps_feature(spatial=True, waypoints=True, route_name=route_column, use_designators=True)
-
-    def _dump_kml_route(self, path: Path, layer_name: Optional[str] = None):
-        fiona.drvsupport.supported_drivers["KML"] = "rw"
-        with fiona.open(
-            path, mode="w", driver="KML", crs=crs_from_epsg(4326), schema=Route.feature_schema_spatial, layer=layer_name
-        ) as layer:
-            layer.write(self.dumps_kml(waypoints=False))
     def dumps_gpx(self, waypoints: bool = False) -> GPX:
         gpx = GPX()
         route = GPXRoute()
-
-    def _dump_kml_waypoints(self, path: Path, route_column: bool = False, layer_name: Optional[str] = None):
-        fiona.drvsupport.supported_drivers["KML"] = "rw"
-        with fiona.open(
-            path,
-            mode="w",
-            driver="KML",
-            crs=crs_from_epsg(4326),
-            schema=Route.feature_schema_waypoints_spatial,
-            layer=layer_name,
-        ) as layer:
-            foo = self.dumps_kml(waypoints=True, route_column=route_column)
-            layer.writerecords(foo)
-
-    def dump_kml(self, path: Path, waypoints: Optional[bool] = None, route_column: bool = False) -> None:
-        if waypoints is None:
-            self._dump_kml_route(path=path, layer_name="route")
-            self._dump_kml_waypoints(path=path, layer_name="waypoints", route_column=route_column)
-        elif not waypoints:
-            self._dump_kml_route(path=path)
-        elif waypoints:
-            self._dump_kml_waypoints(path=path, route_column=route_column)
 
         route.name = self.name
 
@@ -605,19 +571,6 @@ class WaypointCollection:
 
             for waypoint in self.waypoints:
                 writer.writerow(waypoint.dumps_csv())
-
-    def dump_kml(self, path: Path) -> None:
-        fiona.drvsupport.supported_drivers["KML"] = "rw"
-
-        with fiona.open(
-            path,
-            mode="w",
-            driver="KML",
-            crs=crs_from_epsg(4326),
-            schema=Waypoint.feature_schema_spatial,
-            layer="waypoints",
-        ) as layer:
-            layer.writerecords(self.dump_features(spatial=True))
 
     def dumps_gpx(self) -> GPX:
         gpx = GPX()
@@ -694,40 +647,16 @@ class RouteCollection:
         else:
             self._dump_csv_combined(path=path)
 
-    def _dump_kml_separate(self, path: Path, waypoints: Optional[bool] = None) -> None:
-        for route in self.routes:
-            route.dump_kml(path=path.joinpath(f"{route.name.lower()}.kml"), waypoints=waypoints)
     def dumps_gpx(self, waypoints: bool = False) -> GPX:
         gpx = GPX()
         _waypoints = []
 
-    def _dump_kml_combined_routes(self, path: Path, layer_name: Optional[str] = None):
-        routes = []
         for route in self.routes:
-            routes.append(route.dumps_kml(waypoints=False))
             gpx.routes.append(route.dumps_gpx(waypoints=False).routes[0])
 
-        fiona.drvsupport.supported_drivers["KML"] = "rw"
-        with fiona.open(
-            path,
-            mode="w",
-            driver="KML",
-            crs=crs_from_epsg(4326),
-            schema=Route.feature_schema_spatial,
-            layer=layer_name,
-        ) as layer:
-            layer.writerecords(routes)
             if waypoints:
                 _waypoints += route.dumps_gpx(waypoints=True).waypoints
 
-    def _dump_kml_combined_waypoints(self, path: Path):
-        schema = copy(Route.feature_schema_waypoints_spatial)
-        # TODO: Determine why this requires an ordered dict when other schemas don't
-        schema["properties"] = OrderedDict()
-        schema["properties"]["route_name"] = "str"
-        schema["properties"]["sequence"] = "int"
-        schema["properties"]["designator"] = "str"
-        schema["properties"]["description"] = "str"
         if waypoints:
             gpx.waypoints = _waypoints
 
@@ -735,34 +664,16 @@ class RouteCollection:
 
     def _dump_gpx_separate(self, path: Path, waypoints: bool = False) -> None:
         for route in self.routes:
-            fiona.drvsupport.supported_drivers["KML"] = "rw"
-            with fiona.open(
-                path, mode="w", driver="KML", crs=crs_from_epsg(4326), schema=schema, layer=route.name
-            ) as layer:
-                layer.writerecords(route.dumps_kml(waypoints=True, route_column=True))
-
-    def _dump_kml_combined(self, path: Path, waypoints: Optional[bool] = None) -> None:
-        if waypoints is None:
-            self._dump_kml_combined_routes(path=path, layer_name="routes")
-            self._dump_kml_combined_waypoints(path=path)
-        if not waypoints:
-            self._dump_kml_combined_routes(path=path)
-        elif waypoints:
-            self._dump_kml_combined_waypoints(path=path)
             route.dump_gpx(path=path.joinpath(f"{route.name.lower()}.gpx"), waypoints=waypoints)
 
     def _dump_gpx_combined(self, path: Path, waypoints: bool = False) -> None:
         with open(path, mode="w") as gpx_file:
             gpx_file.write(self.dumps_gpx(waypoints=waypoints).to_xml())
 
-    def dump_kml(self, path: Path, separate: bool = False, waypoints: Optional[bool] = None) -> None:
     def dump_gpx(self, path: Path, separate: bool = False, waypoints: bool = False) -> None:
         if separate:
-            self._dump_kml_separate(path=path, waypoints=waypoints)
             self._dump_gpx_separate(path=path, waypoints=waypoints)
         else:
-            self._dump_kml_combined(path=path, waypoints=waypoints)
-
             self._dump_gpx_combined(path=path, waypoints=waypoints)
 
     def __getitem__(self, _id: str) -> Route:
@@ -850,14 +761,6 @@ class NetworkManager:
         self.waypoints.dump_csv(path=path.joinpath("waypoints.csv"))
         self.routes.dump_csv(path=path.joinpath("routes.csv"))
         self.routes.dump_csv(path=path, separate=True)
-
-    def dump_kml(self, path: Path):
-        path = path.resolve()
-        path.mkdir(parents=True, exist_ok=True)
-
-        self.waypoints.dump_kml(path=path.joinpath("waypoints.kml"))
-        self.routes.dump_kml(path=path.joinpath("routes.kml"), waypoints=False)
-        self.routes.dump_kml(path=path, separate=True, waypoints=True)
 
     def dump_gpx(self, path: Path):
         path = path.resolve()
