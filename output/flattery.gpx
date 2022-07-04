@@ -1,52 +1,38 @@
-<?xml version="1.0"?>
-<gpx version="1.1" creator="GDAL 3.4.1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://www.topografix.com/GPX/1/1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd">
-<metadata><bounds minlat="-78.089229210931649" minlon="-75.190429687500000" maxlat="-70.830247623852529" maxlon="-50.712890624999993"/></metadata>              
-<rte>
-  <name>Flattery</name>
-  <rtept lat="-70.830247623852529" lon="-75.1904296875">
-    <desc>Start</desc>
-  </rtept>
-</rte>
-<rte>
-  <name>Flattery</name>
-  <rtept lat="-71.760191387547749" lon="-71.4990234375">
-    <desc>-</desc>
-  </rtept>
-</rte>
-<rte>
-  <name>Flattery</name>
-  <rtept lat="-72.751038643287444" lon="-66.09375">
-    <desc>-</desc>
-  </rtept>
-</rte>
-<rte>
-  <name>Flattery</name>
-  <rtept lat="-74.425777484010311" lon="-65.4345703125">
-    <desc>-</desc>
-  </rtept>
-</rte>
-<rte>
-  <name>Flattery</name>
-  <rtept lat="-75.704786381740519" lon="-63.017578125">
-    <desc>-</desc>
-  </rtept>
-</rte>
-<rte>
-  <name>Flattery</name>
-  <rtept lat="-76.341523315476465" lon="-58.9306640625">
-    <desc>-</desc>
-  </rtept>
-</rte>
-<rte>
-  <name>Flattery</name>
-  <rtept lat="-77.166926925914069" lon="-55.37109375">
-    <desc>-</desc>
-  </rtept>
-</rte>
-<rte>
-  <name>Flattery</name>
-  <rtept lat="-78.089229210931649" lon="-50.712890625">
-    <desc>End</desc>
-  </rtept>
-</rte>
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
+  <rte>
+    <name>Flattery</name>
+    <rtept lat="-70.83024762385253" lon="-75.1904296875">
+      <name>BRAVO</name>
+      <desc>Start</desc>
+    </rtept>
+    <rtept lat="-71.76019138754775" lon="-71.4990234375">
+      <name>CHARLE</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-72.75103864328744" lon="-66.09375">
+      <name>DELTA</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-74.42577748401031" lon="-65.4345703125">
+      <name>HOTEL</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-75.70478638174052" lon="-63.017578125">
+      <name>INDIA</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-76.34152331547646" lon="-58.9306640625">
+      <name>JULIET</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-77.16692692591407" lon="-55.37109374999999">
+      <name>KILO</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-78.08922921093165" lon="-50.71289062499999">
+      <name>LIMA</name>
+      <desc>End</desc>
+    </rtept>
+  </rte>
 </gpx>

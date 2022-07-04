@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
+  <wpt lat="-70.83024762385253" lon="-75.1904296875">
+    <name>BRAVO</name>
+    <desc>[No Description]</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-69.91521433690127" lon="-75.0146484375">
+    <name>ALPHA</name>
+    <desc>There's unlimited juice?</desc>
+    <src>Last checked: 2012-04-24, by: ~conwat</src>
+  </wpt>
+  <wpt lat="-70.83024762385253" lon="-75.1904296875">
+    <name>BRAVO</name>
+    <desc>[No Description]</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-71.76019138754775" lon="-71.4990234375">
+    <name>CHARLE</name>
+    <desc>You're losing blood, aren't you?</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-72.75103864328744" lon="-66.09375">
+    <name>DELTA</name>
+    <desc>How about a turtle?</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-73.45347276327497" lon="-61.61132812500001">
+    <name>ECHO</name>
+    <desc>I don't criticize you!</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-74.42577748401031" lon="-65.4345703125">
+    <name>HOTEL</name>
+    <desc>I don't know how I know that. I took four years of Spanish.</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-74.20002150558591" lon="-70.3125">
+    <name>GOLF</name>
+    <desc>I've always been deeply passionate about nature. 🌳</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-73.17589717422607" lon="-70.224609375">
+    <name>FOXTRT</name>
+    <desc> Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-71.76019138754775" lon="-71.4990234375">
+    <name>CHARLE</name>
+    <desc>You're losing blood, aren't you?</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-70.83024762385253" lon="-75.1904296875">
+    <name>BRAVO</name>
+    <desc>[No Description]</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-70.83024762385253" lon="-75.1904296875">
+    <name>BRAVO</name>
+    <desc>[No Description]</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-71.76019138754775" lon="-71.4990234375">
+    <name>CHARLE</name>
+    <desc>You're losing blood, aren't you?</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-72.75103864328744" lon="-66.09375">
+    <name>DELTA</name>
+    <desc>How about a turtle?</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-74.42577748401031" lon="-65.4345703125">
+    <name>HOTEL</name>
+    <desc>I don't know how I know that. I took four years of Spanish.</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-75.70478638174052" lon="-63.017578125">
+    <name>INDIA</name>
+    <desc>I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-76.34152331547646" lon="-58.9306640625">
+    <name>JULIET</name>
+    <desc>There's not a lot of logic to it.</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-77.16692692591407" lon="-55.37109374999999">
+    <name>KILO</name>
+    <desc>Well, I hope you also carry a spare bowl of candy beans.</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <wpt lat="-78.08922921093165" lon="-50.71289062499999">
+    <name>LIMA</name>
+    <desc>Are you at all concerned about an uprising?</desc>
+    <src>[Last Access Unknown]</src>
+  </wpt>
+  <rte>
+    <name>Midnight</name>
+    <rtept lat="-70.83024762385253" lon="-75.1904296875">
+      <name>BRAVO</name>
+      <desc>Start</desc>
+    </rtept>
+    <rtept lat="-69.91521433690127" lon="-75.0146484375">
+      <name>ALPHA</name>
+      <desc>End</desc>
+    </rtept>
+  </rte>
+  <rte>
+    <name>Oak</name>
+    <rtept lat="-70.83024762385253" lon="-75.1904296875">
+      <name>BRAVO</name>
+      <desc>Start</desc>
+    </rtept>
+    <rtept lat="-71.76019138754775" lon="-71.4990234375">
+      <name>CHARLE</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-72.75103864328744" lon="-66.09375">
+      <name>DELTA</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-73.45347276327497" lon="-61.61132812500001">
+      <name>ECHO</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-74.42577748401031" lon="-65.4345703125">
+      <name>HOTEL</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-74.20002150558591" lon="-70.3125">
+      <name>GOLF</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-73.17589717422607" lon="-70.224609375">
+      <name>FOXTRT</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-71.76019138754775" lon="-71.4990234375">
+      <name>CHARLE</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-70.83024762385253" lon="-75.1904296875">
+      <name>BRAVO</name>
+      <desc>End</desc>
+    </rtept>
+  </rte>
+  <rte>
+    <name>Flattery</name>
+    <rtept lat="-70.83024762385253" lon="-75.1904296875">
+      <name>BRAVO</name>
+      <desc>Start</desc>
+    </rtept>
+    <rtept lat="-71.76019138754775" lon="-71.4990234375">
+      <name>CHARLE</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-72.75103864328744" lon="-66.09375">
+      <name>DELTA</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-74.42577748401031" lon="-65.4345703125">
+      <name>HOTEL</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-75.70478638174052" lon="-63.017578125">
+      <name>INDIA</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-76.34152331547646" lon="-58.9306640625">
+      <name>JULIET</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-77.16692692591407" lon="-55.37109374999999">
+      <name>KILO</name>
+      <desc>-</desc>
+    </rtept>
+    <rtept lat="-78.08922921093165" lon="-50.71289062499999">
+      <name>LIMA</name>
+      <desc>End</desc>
+    </rtept>
+  </rte>
+</gpx>
