@@ -1,5 +1,9 @@
+import re
+import subprocess
 from pathlib import Path
+from tempfile import TemporaryDirectory
 from typing import List, Optional
+from importlib.resources import files as resource_file
 
 from lxml.etree import (
     Element,
@@ -7,6 +11,17 @@ from lxml.etree import (
     tostring as element_string,
     SubElement,
 )  # nosec - see 'lxml` package (bandit)' section in README
+
+
+fpl_waypoint_types = ["USER WAYPOINT", "AIRPORT", "NDB", "VOR", "INT", "INT-VRP"]
+
+
+def _upper_alphanumeric_space_only(value: str) -> str:
+    return re.sub(r"[^A-Z\d ]+", "", value.upper())
+
+
+def _upper_alphanumeric_only(value: str) -> str:
+    return re.sub(r"[^A-Z\d]+", "", value.upper())
 
 
 class Namespaces(object):
@@ -109,7 +124,10 @@ class Waypoint:
 
     @identifier.setter
     def identifier(self, identifier: str) -> None:
-        self._identifier = identifier
+        if identifier is not None:
+            if len(identifier) > 12:
+                raise ValueError("Identifier must be 12 characters or less.")
+            self._identifier = _upper_alphanumeric_only(value=identifier)
 
     @property
     def type(self) -> str:
@@ -117,6 +135,9 @@ class Waypoint:
 
     @type.setter
     def type(self, waypoint_type: str) -> None:
+        if waypoint_type not in fpl_waypoint_types:
+            raise ValueError(f"Waypoint type must be one of '{' '.join(fpl_waypoint_types)}'")
+
         self._type = waypoint_type
 
     @property
@@ -124,8 +145,16 @@ class Waypoint:
         return self._country_code
 
     @country_code.setter
-    def country_code(self, country_code: str) -> None:
-        self._country_code = country_code
+    def country_code(self, country_code: Optional[str]) -> None:
+        if country_code is not None:
+            if len(country_code) > 2:
+                raise ValueError("Country code must be 2 characters or less.")
+
+            self._country_code = _upper_alphanumeric_only(value=country_code)
+
+            # As a exception for Antarctica, we use '__' as the country code
+            if country_code == "__":
+                self._country_code = "__"
 
     @property
     def latitude(self) -> float:
@@ -133,6 +162,11 @@ class Waypoint:
 
     @latitude.setter
     def latitude(self, latitude: float) -> None:
+        if latitude == 90:
+            latitude = 89.999999
+        elif latitude == -90:
+            latitude = -89.999999
+
         self._latitude = latitude
 
     @property
@@ -141,15 +175,25 @@ class Waypoint:
 
     @longitude.setter
     def longitude(self, longitude: float) -> None:
+        if longitude == 90:
+            longitude = 89.999999
+        elif longitude == -90:
+            longitude = -89.999999
+
         self._longitude = longitude
 
     @property
     def comment(self) -> str:
+        if self._comment is None:
+            return "NO COMMENT"
         return self._comment
 
     @comment.setter
     def comment(self, comment: str) -> None:
-        self._comment = comment
+        if len(comment) > 25:
+            raise ValueError("Comments must be 25 characters or less.")
+
+        self._comment = _upper_alphanumeric_space_only(value=comment)
 
     def encode(self) -> Element:
         waypoint = Element(f"{{{self.ns.fpl}}}waypoint", nsmap=self.ns.nsmap())
@@ -204,7 +248,10 @@ class RoutePoint:
 
     @waypoint_identifier.setter
     def waypoint_identifier(self, waypoint_identifier: str) -> None:
-        self._waypoint_identifier = waypoint_identifier
+        if len(waypoint_identifier) > 12:
+            raise ValueError("Waypoint identifier must be 12 characters or less.")
+
+        self._waypoint_identifier = _upper_alphanumeric_only(value=waypoint_identifier)
 
     @property
     def waypoint_type(self) -> str:
@@ -212,6 +259,9 @@ class RoutePoint:
 
     @waypoint_type.setter
     def waypoint_type(self, waypoint_type: str) -> None:
+        if waypoint_type not in fpl_waypoint_types:
+            raise ValueError(f"Waypoint type must be one of '{' '.join(fpl_waypoint_types)}'")
+
         self._waypoint_type = waypoint_type
 
     @property
@@ -219,8 +269,16 @@ class RoutePoint:
         return self._waypoint_country_code
 
     @waypoint_country_code.setter
-    def waypoint_country_code(self, waypoint_country_code: str) -> None:
-        self._waypoint_country_code = waypoint_country_code
+    def waypoint_country_code(self, waypoint_country_code: Optional[str]) -> None:
+        if waypoint_country_code is not None:
+            if len(waypoint_country_code) > 2:
+                raise ValueError("Country code must be 2 characters or less.")
+
+            self._waypoint_country_code = _upper_alphanumeric_only(value=waypoint_country_code)
+
+            # As a exception for Antarctica, we use '__' as the country code
+            if waypoint_country_code == "__":
+                self._waypoint_country_code = "__"
 
     def encode(self) -> Element:
         route_point = Element(f"{{{self.ns.fpl}}}route-point", nsmap=self.ns.nsmap())
@@ -260,7 +318,10 @@ class Route:
 
     @name.setter
     def name(self, name: str) -> None:
-        self._name = name
+        if len(name) > 25:
+            raise ValueError("Name must be 25 characters or less.")
+
+        self._name = _upper_alphanumeric_space_only(value=name)
 
     @property
     def index(self) -> int:
@@ -268,6 +329,9 @@ class Route:
 
     @index.setter
     def index(self, index: int) -> None:
+        if index > 99:
+            raise ValueError("Index must be 98 or less.")
+
         self._index = index
 
     @property
@@ -287,6 +351,9 @@ class Route:
         route_index = SubElement(route, f"{{{self.ns.fpl}}}flight-plan-index")
         route_index.text = str(self.index)
 
+        if len(self.points) > 3000:
+            raise ValueError("FPL routes must have 3000 points or less.")
+
         for route_point in self.points:
             route.append(route_point.encode())
 
@@ -294,6 +361,8 @@ class Route:
 
 
 class Fpl:
+    schema_path = resource_file("bas_air_unit_network_dataset.schemas.garmin").joinpath("FlightPlanv1.xsd")
+
     def __init__(self, waypoints: Optional[List[Waypoint]] = None, route: Optional[Route] = None):
         self.ns = Namespaces()
 
@@ -354,3 +423,35 @@ class Fpl:
     def dump_xml(self, path: Path):
         with open(path, mode="w") as xml_file:
             xml_file.write(self.dumps_xml().decode())
+
+    def validate(self) -> None:
+        """
+        Validates the contents of a record against a XSD schema
+
+        The external `xmllint` binary is used to validate records as the `lxml` methods did not easily support relative
+        paths for schemas that use imports/includes..
+
+        Schemas are loaded from an XSD directory within this package using the `importlib.files` method. The current
+        flight plan object is written to a temporary directory to pass to the `xmllint` binary.
+
+        The `xmllint` binary only returns a 0 exit code if the record validates successfully. Therefore, any other exit
+        code can be considered a validation failure, and returned as a `RecordValidationError` exception.
+        """
+        with TemporaryDirectory() as document_path:
+            document_path = Path(document_path).joinpath("fpl.xml")
+            self.dump_xml(path=document_path)
+
+            try:
+                # Exempting Bandit/flake8 security issue (using subprocess)
+                # It is assumed that there are other protections in place to prevent untrusted input being a concern.
+                # Namely that this is package will be ran in a secure/controlled environments against pre-trusted files.
+                #
+                # Use `capture_output=True` in future when we can use Python 3.7+
+                subprocess.run(  # noqa: S274,S603 - nosec
+                    args=["xmllint", "--noout", "--schema", str(Fpl.schema_path), str(document_path)],
+                    stdout=subprocess.PIPE,
+                    stderr=subprocess.PIPE,
+                    check=True,
+                )
+            except subprocess.CalledProcessError as e:
+                raise RuntimeError(f"Record validation failed: {e.stderr.decode()}") from e

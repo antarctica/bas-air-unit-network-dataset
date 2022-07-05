@@ -1,7 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <flight-plan xmlns="http://www8.garmin.com/xmlschemas/FlightPlan/v1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www8.garmin.com/xmlschemas/FlightPlan/v1 http://www8.garmin.com/xmlschemas/FlightPlanv1.xsd">
   <route>
-    <route-name>Midnight</route-name>
+    <route-name>MIDNIGHT</route-name>
+    <flight-plan-index>1</flight-plan-index>
+    <route-point>
+      <waypoint-identifier>BRAVO</waypoint-identifier>
+      <waypoint-type>USER WAYPOINT</waypoint-type>
+      <waypoint-country-code>__</waypoint-country-code>
+    </route-point>
+    <route-point>
+      <waypoint-identifier>ALPHA</waypoint-identifier>
+      <waypoint-type>USER WAYPOINT</waypoint-type>
+      <waypoint-country-code>__</waypoint-country-code>
+    </route-point>
+  </route>
+  <route>
+    <route-name>MIDNIGHT</route-name>
     <flight-plan-index>1</flight-plan-index>
     <route-point>
       <waypoint-identifier>BRAVO</waypoint-identifier>
