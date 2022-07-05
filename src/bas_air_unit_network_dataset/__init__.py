@@ -1,5 +1,4 @@
 from collections import OrderedDict
-from copy import copy
 import csv
 from datetime import date
 from pathlib import Path
@@ -11,7 +10,7 @@ from fiona.crs import from_epsg as crs_from_epsg
 from gpxpy.gpx import GPX, GPXWaypoint, GPXRoute, GPXRoutePoint
 from shapely.geometry import Point
 
-from bas_air_unit_waypoints.exporters.fpl import (
+from bas_air_unit_network_dataset.exporters.fpl import (
     Fpl,
     Waypoint as FplWaypoint,
     Route as FplRoute,
@@ -244,7 +243,9 @@ class Waypoint:
         waypoint.latitude = self.geometry.y
 
         if self.comment is not None:
-            waypoint.comment = self.comment
+            # FPL comments can only be 25 characters long. This limitation isn't enforced in input data currently so
+            # as a crude measure, the comment is truncated to the first 25 characters.
+            waypoint.comment = self.comment[:25]
 
         return waypoint
 
@@ -471,19 +472,19 @@ class Route:
     def _dumps_feature_waypoints(
         self, spatial: bool = True, route_id: bool = False, route_name: bool = False, use_designators: bool = False
     ) -> List[dict]:
-        route_id = None
+        _route_id = None
         if route_id:
-            route_id = self.id
+            _route_id = self.id
 
-        route_name = None
+        _route_name = None
         if route_name:
-            route_name = self.name
+            _route_name = self.name
 
         features = []
         for route_waypoint in self.waypoints:
             features.append(
                 route_waypoint.dumps_feature(
-                    spatial=spatial, route_id=route_id, route_name=route_name, use_designators=use_designators
+                    spatial=spatial, route_id=_route_id, route_name=_route_name, use_designators=use_designators
                 )
             )
 
@@ -568,6 +569,8 @@ class Route:
             route.points.append(route_point)
 
         fpl.route = route
+        fpl.validate()
+
         return fpl
 
     def dump_fpl(self, path: Path, flight_plan_index: int) -> None:
@@ -631,6 +634,8 @@ class WaypointCollection:
 
         for waypoint in self.waypoints:
             fpl.waypoints.append(waypoint.dumps_fpl())
+
+        fpl.validate()
 
         return fpl
 
