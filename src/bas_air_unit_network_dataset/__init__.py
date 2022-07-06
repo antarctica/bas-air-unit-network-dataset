@@ -362,6 +362,19 @@ class RouteWaypoint:
 
         return feature
 
+    def dumps_csv(self):
+        route_waypoint = {"sequence": self.sequence}
+
+        waypoint = self.waypoint.dumps_csv()
+        del waypoint["comment"]
+        del waypoint["last_accessed_at"]
+        del waypoint["last_accessed_by"]
+
+        route_waypoint = {**route_waypoint, **waypoint}
+        route_waypoint["description"] = self.description
+
+        return route_waypoint
+
     def dumps_gpx(self) -> GPXRoutePoint:
         route_waypoint = GPXRoutePoint()
         route_waypoint.name = self.waypoint.designator
@@ -515,16 +528,12 @@ class Route:
 
         csv_rows: List[Dict] = []
         for route_waypoint in self.waypoints:
-            waypoint_csv_row = route_waypoint.waypoint.dumps_csv()
-            del waypoint_csv_row["comment"]
-            del waypoint_csv_row["last_accessed_at"]
-            del waypoint_csv_row["last_accessed_by"]
+            route_waypoint_csv_row = route_waypoint.dumps_csv()
 
-            route_waypoint_csv_row = {"sequence": route_waypoint.sequence}
             if route_column:
                 route_waypoint_csv_row = {**{"route_name": self.name}, **route_waypoint_csv_row}
 
-            csv_rows.append({**route_waypoint_csv_row, **waypoint_csv_row})
+            csv_rows.append(route_waypoint_csv_row)
 
         return csv_rows
 
