@@ -14,18 +14,4 @@
       <waypoint-country-code>__</waypoint-country-code>
     </route-point>
   </route>
-  <route>
-    <route-name>MIDNIGHT</route-name>
-    <flight-plan-index>1</flight-plan-index>
-    <route-point>
-      <waypoint-identifier>BRAVO</waypoint-identifier>
-      <waypoint-type>USER WAYPOINT</waypoint-type>
-      <waypoint-country-code>__</waypoint-country-code>
-    </route-point>
-    <route-point>
-      <waypoint-identifier>ALPHA</waypoint-identifier>
-      <waypoint-type>USER WAYPOINT</waypoint-type>
-      <waypoint-country-code>__</waypoint-country-code>
-    </route-point>
-  </route>
 </flight-plan>
