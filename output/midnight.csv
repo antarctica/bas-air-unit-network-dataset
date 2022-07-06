@@ -1,3 +1,3 @@
-sequence,designator,longitude,latitude,description
-1,BRAVO,-75.1904296875,-70.83024762385253,Start
-2,ALPHA,-75.0146484375,-69.91521433690127,End There's unlimited juice? - There's unlimited juice?
+sequence,designator,longitude_dd,latitude_dd,longitude_ddm,latitude_ddm,description
+1,BRAVO,-75.1904296875,-70.83024762385253,75° 11.425781' W,70° 49.814857' S,Start
+2,ALPHA,-75.0146484375,-69.91521433690127,75° 0.878906' W,69° 54.912860' S,End There's unlimited juice? - There's unlimited juice?
