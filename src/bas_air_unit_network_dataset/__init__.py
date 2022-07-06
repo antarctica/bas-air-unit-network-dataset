@@ -299,7 +299,14 @@ class RouteWaypoint:
         self._sequence = sequence
 
     @property
-    def description(self) -> str:
+    def description(self) -> Optional[str]:
+        if self._description is None and self.waypoint.comment is None:
+            return "[No Description]"
+        if self._description is None and self.waypoint.comment is not None:
+            return self.waypoint.comment
+        if self._description is not None and self.waypoint.comment is not None:
+            return f"{self._description} - {self.waypoint.comment}"
+
         return self._description
 
     @description.setter
@@ -360,10 +367,7 @@ class RouteWaypoint:
         route_waypoint.name = self.waypoint.designator
         route_waypoint.longitude = self.waypoint.geometry.x
         route_waypoint.latitude = self.waypoint.geometry.y
-        route_waypoint.description = "[No Description]"
-
-        if self.description is not None:
-            route_waypoint.description = self.description
+        route_waypoint.description = self.description
 
         return route_waypoint
 
