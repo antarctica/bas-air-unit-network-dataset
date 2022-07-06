@@ -16,6 +16,7 @@ from bas_air_unit_network_dataset.exporters.fpl import (
     Route as FplRoute,
     RoutePoint as FplRoutePoint,
 )
+from bas_air_unit_network_dataset.utils import convert_coordinate_dd_2_ddm
 
 
 class Waypoint:
@@ -35,8 +36,10 @@ class Waypoint:
     csv_schema = {
         "designator": "str",
         "comment": "str",
-        "longitude": "float",
-        "latitude": "float",
+        "longitude_dd": "float",
+        "latitude_dd": "float",
+        "longitude_ddm": "float",
+        "latitude_ddm": "float",
         "last_accessed_at": "date",
         "last_accessed_by": "str",
     }
@@ -206,10 +209,14 @@ class Waypoint:
         if self.last_accessed_by is not None:
             last_accessed_by = self.last_accessed_by
 
+        geometry_ddm = convert_coordinate_dd_2_ddm(lon=self.geometry.x, lat=self.geometry.y)
+
         return {
             "designator": self.designator,
-            "latitude": self.geometry.y,
-            "longitude": self.geometry.x,
+            "latitude_dd": self.geometry.y,
+            "longitude_dd": self.geometry.x,
+            "latitude_ddm": geometry_ddm["lat"],
+            "longitude_ddm": geometry_ddm["lon"],
             "comment": comment,
             "last_accessed_at": last_accessed_at,
             "last_accessed_by": last_accessed_by,
@@ -405,8 +412,10 @@ class Route:
     csv_schema_waypoints = {
         "sequence": "str",
         "designator": "str",
-        "longitude": "float",
-        "latitude": "float",
+        "longitude_dd": "float",
+        "latitude_dd": "float",
+        "longitude_ddm": "float",
+        "latitude_ddm": "float",
         "description": "str",
     }
 

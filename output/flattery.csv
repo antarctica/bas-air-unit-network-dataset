@@ -1,9 +1,9 @@
-sequence,designator,longitude,latitude,description
-1,BRAVO,-75.1904296875,-70.83024762385253,Start
-2,CHARLE,-71.4990234375,-71.76019138754775,"You're losing blood, aren't you? - You're losing blood, aren't you?"
-3,DELTA,-66.09375,-72.75103864328744,How about a turtle? - How about a turtle?
-4,HOTEL,-65.4345703125,-74.42577748401031,I don't know how I know that. I took four years of Spanish. - I don't know how I know that. I took four years of Spanish.
-5,INDIA,-63.017578125,-75.70478638174052,I am getting rid of this thing. It has caused me nothing but pride and self-respect. - I am getting rid of this thing. It has caused me nothing but pride and self-respect.
-6,JULIET,-58.9306640625,-76.34152331547646,There's not a lot of logic to it. - There's not a lot of logic to it.
-7,KILO,-55.37109374999999,-77.16692692591407,"Well, I hope you also carry a spare bowl of candy beans. - Well, I hope you also carry a spare bowl of candy beans."
-8,LIMA,-50.71289062499999,-78.08922921093165,End Are you at all concerned about an uprising? - Are you at all concerned about an uprising?
+sequence,designator,longitude_dd,latitude_dd,longitude_ddm,latitude_ddm,description
+1,BRAVO,-75.1904296875,-70.83024762385253,75° 11.425781' W,70° 49.814857' S,Start
+2,CHARLE,-71.4990234375,-71.76019138754775,71° 29.941406' W,71° 45.611483' S,"You're losing blood, aren't you? - You're losing blood, aren't you?"
+3,DELTA,-66.09375,-72.75103864328744,66° 5.625000' W,72° 45.062319' S,How about a turtle? - How about a turtle?
+4,HOTEL,-65.4345703125,-74.42577748401031,65° 26.074219' W,74° 25.546649' S,I don't know how I know that. I took four years of Spanish. - I don't know how I know that. I took four years of Spanish.
+5,INDIA,-63.017578125,-75.70478638174052,63° 1.054688' W,75° 42.287183' S,I am getting rid of this thing. It has caused me nothing but pride and self-respect. - I am getting rid of this thing. It has caused me nothing but pride and self-respect.
+6,JULIET,-58.9306640625,-76.34152331547646,58° 55.839844' W,76° 20.491399' S,There's not a lot of logic to it. - There's not a lot of logic to it.
+7,KILO,-55.37109374999999,-77.16692692591407,55° 22.265625' W,77° 10.015616' S,"Well, I hope you also carry a spare bowl of candy beans. - Well, I hope you also carry a spare bowl of candy beans."
+8,LIMA,-50.71289062499999,-78.08922921093165,50° 42.773437' W,78° 5.353753' S,End Are you at all concerned about an uprising? - Are you at all concerned about an uprising?
