@@ -366,14 +366,6 @@ class Fpl:
     def __init__(self, waypoints: Optional[List[Waypoint]] = None, route: Optional[Route] = None):
         self.ns = Namespaces()
 
-        self.root = Element(
-            f"{{{self.ns.fpl}}}flight-plan",
-            attrib={
-                f"{{{self.ns.xsi}}}schemaLocation": self.ns.schema_locations(),
-            },
-            nsmap=self.ns.nsmap(),
-        )
-
         self._waypoints: List[Waypoint] = []
         self._route: Optional[Route] = None
 
@@ -401,23 +393,31 @@ class Fpl:
 
     def dumps_xml(self) -> bytes:
         """
-        Generates an XML document and tree from the root XML element
+        Generates an XML document and tree from a root XML element
 
         The XML document is encoded as a UTF-8 byte string, with pretty-printing and an XML declaration.
 
         :rtype bytes
         :return: XML document in bytes
         """
+        root = Element(
+            f"{{{self.ns.fpl}}}flight-plan",
+            attrib={
+                f"{{{self.ns.xsi}}}schemaLocation": self.ns.schema_locations(),
+            },
+            nsmap=self.ns.nsmap(),
+        )
+
         if len(self.waypoints) > 1:
             waypoints_table = Element(f"{{{self.ns.fpl}}}waypoint-table")
             for waypoint in self.waypoints:
                 waypoints_table.append(waypoint.encode())
-            self.root.append(waypoints_table)
+            root.append(waypoints_table)
 
         if self.route is not None:
-            self.root.append(self.route.encode())
+            root.append(self.route.encode())
 
-        document = ElementTree(self.root)
+        document = ElementTree(root)
         return element_string(document, pretty_print=True, xml_declaration=True, encoding="utf-8")
 
     def dump_xml(self, path: Path):

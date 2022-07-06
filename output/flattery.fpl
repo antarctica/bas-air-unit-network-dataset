@@ -44,48 +44,4 @@
       <waypoint-country-code>__</waypoint-country-code>
     </route-point>
   </route>
-  <route>
-    <route-name>FLATTERY</route-name>
-    <flight-plan-index>3</flight-plan-index>
-    <route-point>
-      <waypoint-identifier>BRAVO</waypoint-identifier>
-      <waypoint-type>USER WAYPOINT</waypoint-type>
-      <waypoint-country-code>__</waypoint-country-code>
-    </route-point>
-    <route-point>
-      <waypoint-identifier>CHARLE</waypoint-identifier>
-      <waypoint-type>USER WAYPOINT</waypoint-type>
-      <waypoint-country-code>__</waypoint-country-code>
-    </route-point>
-    <route-point>
-      <waypoint-identifier>DELTA</waypoint-identifier>
-      <waypoint-type>USER WAYPOINT</waypoint-type>
-      <waypoint-country-code>__</waypoint-country-code>
-    </route-point>
-    <route-point>
-      <waypoint-identifier>HOTEL</waypoint-identifier>
-      <waypoint-type>USER WAYPOINT</waypoint-type>
-      <waypoint-country-code>__</waypoint-country-code>
-    </route-point>
-    <route-point>
-      <waypoint-identifier>INDIA</waypoint-identifier>
-      <waypoint-type>USER WAYPOINT</waypoint-type>
-      <waypoint-country-code>__</waypoint-country-code>
-    </route-point>
-    <route-point>
-      <waypoint-identifier>JULIET</waypoint-identifier>
-      <waypoint-type>USER WAYPOINT</waypoint-type>
-      <waypoint-country-code>__</waypoint-country-code>
-    </route-point>
-    <route-point>
-      <waypoint-identifier>KILO</waypoint-identifier>
-      <waypoint-type>USER WAYPOINT</waypoint-type>
-      <waypoint-country-code>__</waypoint-country-code>
-    </route-point>
-    <route-point>
-      <waypoint-identifier>LIMA</waypoint-identifier>
-      <waypoint-type>USER WAYPOINT</waypoint-type>
-      <waypoint-country-code>__</waypoint-country-code>
-    </route-point>
-  </route>
 </flight-plan>
