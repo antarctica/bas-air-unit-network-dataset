@@ -786,11 +786,38 @@ class RouteCollection:
 class NetworkManager:
     # If you can come up with a better name for this class, you could win a prize!
 
-    def __init__(self):
+    def __init__(self, dataset_path: Path, output_path: Optional[Path] = None, init: Optional[bool] = False):
         self.waypoints: WaypointCollection = WaypointCollection()
         self.routes: RouteCollection = RouteCollection()
 
-    def load_gpkg(self, path: Path):
+        if init:
+            self._dump_gpkg(path=dataset_path)
+
+        self.dataset_path = dataset_path
+        self._load_gpkg(path=self.dataset_path)
+
+        self.output_path: Optional[Path] = None
+        if output_path is not None:
+            if not dataset_path.exists():
+                raise FileNotFoundError("Output path does not exist.")
+            self.output_path = output_path
+
+    def _get_output_path(self, path: Optional[Path]) -> Path:
+        if path is None and self.output_path is not None:
+            path = self.output_path
+
+        if path is None:
+            raise FileNotFoundError("No output path specified")
+
+        path = path.resolve()
+        path.mkdir(parents=True, exist_ok=True)
+
+        if not path.exists():
+            raise FileNotFoundError("Output path does not exist.")
+
+        return path
+
+    def _load_gpkg(self, path: Optional[Path] = None) -> None:
         # waypoints
         with fiona.open(path, mode="r", driver="GPKG", layer="waypoints") as layer:
             for waypoint_feature in layer:
@@ -819,7 +846,7 @@ class NetworkManager:
                 route = self.routes[route_id]
                 route.waypoints = route_waypoint_features
 
-    def dump_gpkg(self, path: Path):
+    def _dump_gpkg(self, path: Path) -> None:
         # waypoints
         with fiona.open(
             path,
@@ -844,26 +871,26 @@ class NetworkManager:
         ) as layer:
             layer.writerecords(self.routes.dumps_features(spatial=False, waypoints=False))
 
-    def dump_csv(self, path: Path):
-        path = path.resolve()
-        path.mkdir(parents=True, exist_ok=True)
+    def load_stub(self, path: Path) -> None:
+        raise NotImplementedError()
+
+    def dump_csv(self, path: Optional[Path] = None) -> None:
+        path = self._get_output_path(path=path)
 
         self.waypoints.dump_csv(path=path.joinpath("waypoints.csv"))
         self.routes.dump_csv(path=path.joinpath("routes.csv"))
         self.routes.dump_csv(path=path, separate=True)
 
-    def dump_gpx(self, path: Path):
-        path = path.resolve()
-        path.mkdir(parents=True, exist_ok=True)
+    def dump_gpx(self, path: Optional[Path] = None) -> None:
+        path = self._get_output_path(path=path)
 
         self.waypoints.dump_gpx(path=path.joinpath("waypoints.gpx"))
         self.routes.dump_gpx(path=path.joinpath("routes.gpx"), waypoints=False)
         self.routes.dump_gpx(path=path.joinpath("network.gpx"), waypoints=True)
         self.routes.dump_gpx(path=path, separate=True, waypoints=False)
 
-    def dump_fpl(self, path: Path):
-        path = path.resolve()
-        path.mkdir(parents=True, exist_ok=True)
+    def dump_fpl(self, path: Optional[Path] = None) -> None:
+        path = self._get_output_path(path=path)
 
         self.waypoints.dump_fpl(path=path.joinpath("waypoints.fpl"))
         self.routes.dump_fpl(path=path, separate=True)

@@ -1,9 +1,12 @@
 [tool.poetry]
-name = "bas_air_unit_network_dataset"
+name = "bas-air-unit-network-dataset"
 version = "0.1.0"
 description = "Data management for waypoints and routes within the British Antarctic Survey Air Unit"
 authors = ["Felix Fennell <felnne@bas.ac.uk>"]
 license = "MIT"
+
+[tool.poetry.scripts]
+airnet = "bas_air_unit_network_dataset.__main__:cli"
 
 [tool.poetry.dependencies]
 python = "^3.9.1"
@@ -12,6 +15,7 @@ Shapely = "^1.8.2"
 Fiona = "^1.8.21"
 gpxpy = "^1.5.0"
 lxml = "^4.9.1"
+click = "^8.1.3"
 
 [tool.poetry.dev-dependencies]
 black = "^22.6.0"
