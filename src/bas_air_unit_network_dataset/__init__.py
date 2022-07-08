@@ -8,6 +8,7 @@ import fiona
 import ulid
 from fiona.crs import from_epsg as crs_from_epsg
 from gpxpy.gpx import GPX, GPXWaypoint, GPXRoute, GPXRoutePoint
+from gpxpy import parse as gpx_parse
 from shapely.geometry import Point
 
 from bas_air_unit_network_dataset.exporters.fpl import (
@@ -623,6 +624,13 @@ class WaypointCollection:
     def append(self, waypoint: Waypoint) -> None:
         self._waypoints.append(waypoint)
 
+    def lookup(self, designator: str) -> Optional[Waypoint]:
+        for waypoint in self._waypoints:
+            if waypoint.designator == designator:
+                return waypoint
+
+        return None
+
     def dump_features(self, spatial: bool = True) -> List[dict]:
         features = []
 
@@ -871,8 +879,47 @@ class NetworkManager:
         ) as layer:
             layer.writerecords(self.routes.dumps_features(spatial=False, waypoints=False))
 
-    def load_stub(self, path: Path) -> None:
-        raise NotImplementedError()
+    def load_gpx(self, path: Path) -> None:
+        with open(path, mode="r") as gpx_file:
+            gpx_data = gpx_parse(gpx_file)
+
+        # waypoints
+        for waypoint in gpx_data.waypoints:
+            _waypoint = Waypoint()
+            _waypoint.designator = waypoint.name
+            _waypoint.geometry = [waypoint.longitude, waypoint.latitude]
+
+            if waypoint.description is not None and waypoint.description != "N/A | N/A | N/A | N/A":
+                comment_elements = waypoint.description.split(" | ")
+                _waypoint.comment = f"{comment_elements[0]} | {comment_elements[3]}"
+                if comment_elements[1] != "N/A":
+                    _waypoint.last_accessed_at = date.fromisoformat(comment_elements[1])
+                if comment_elements[2] != "N/A":
+                    _waypoint.last_accessed_by = comment_elements[2]
+
+            self.waypoints.append(_waypoint)
+
+        # routes & route-waypoints
+        for route in gpx_data.routes:
+            _route = Route()
+            _route.name = route.name
+
+            sequence = 1
+            for route_waypoint in route.points:
+                _waypoint = self.waypoints.lookup(route_waypoint.name)
+
+                # ignore route waypoint descriptions, as BaseCamp just copies the waypoint description, rather than
+                # having a contextual description for each waypoint within a route.
+                _description = None
+
+                _route_waypoint = RouteWaypoint(waypoint=_waypoint, sequence=sequence, description=_description)
+                _route.waypoints.append(_route_waypoint)
+                sequence += 1
+
+            self.routes.append(_route)
+
+        # once data is loaded, save to GeoPackage
+        self._dump_gpkg(path=self.dataset_path)
 
     def dump_csv(self, path: Optional[Path] = None) -> None:
         path = self._get_output_path(path=path)
