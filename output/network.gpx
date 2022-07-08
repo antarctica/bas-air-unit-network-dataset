@@ -1,183 +1,132 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
-  <wpt lat="-70.83024762385253" lon="-75.1904296875">
-    <name>BRAVO</name>
-    <desc>[No Description]</desc>
-    <src>[Last Access Unknown]</src>
-  </wpt>
-  <wpt lat="-69.91521433690127" lon="-75.0146484375">
+  <wpt lat="-69.91516669280827" lon="-75.01463335007429">
     <name>ALPHA</name>
-    <desc>There's unlimited juice?</desc>
-    <src>Last checked: 2012-04-24, by: ~conwat</src>
+    <desc>Foo | There’s unlimited juice? - Last checked: 2012-04-24, by: ~conwat</desc>
   </wpt>
-  <wpt lat="-70.83024762385253" lon="-75.1904296875">
+  <wpt lat="-70.8301666751504" lon="-75.19033329561353">
     <name>BRAVO</name>
-    <desc>[No Description]</desc>
-    <src>[Last Access Unknown]</src>
+    <desc>[No Description] [Last Access Unknown]</desc>
   </wpt>
-  <wpt lat="-71.76019138754775" lon="-71.4990234375">
+  <wpt lat="-71.76016665995121" lon="-71.49899996817112">
     <name>CHARLE</name>
-    <desc>You're losing blood, aren't you?</desc>
-    <src>[Last Access Unknown]</src>
+    <desc>N/A | You’re loosing a lot of blood aren’t you?</desc>
   </wpt>
-  <wpt lat="-72.75103864328744" lon="-66.09375">
+  <wpt lat="-72.7509999834001" lon="-66.09375">
     <name>DELTA</name>
-    <desc>How about a turtle?</desc>
-    <src>[Last Access Unknown]</src>
+    <desc>N/A | How about a turtle?</desc>
   </wpt>
-  <wpt lat="-73.45347276327497" lon="-61.61132812500001">
+  <wpt lat="-73.45333331264555" lon="-61.611166689544916">
     <name>ECHO</name>
-    <desc>I don't criticize you!</desc>
-    <src>[Last Access Unknown]</src>
+    <desc>N/A | I don’t criticise you!</desc>
   </wpt>
-  <wpt lat="-74.42577748401031" lon="-65.4345703125">
-    <name>HOTEL</name>
-    <desc>I don't know how I know that. I took four years of Spanish.</desc>
-    <src>[Last Access Unknown]</src>
-  </wpt>
-  <wpt lat="-74.20002150558591" lon="-70.3125">
-    <name>GOLF</name>
-    <desc>I've always been deeply passionate about nature. 🌳</desc>
-    <src>[Last Access Unknown]</src>
-  </wpt>
-  <wpt lat="-73.17589717422607" lon="-70.224609375">
+  <wpt lat="-73.17583330906928" lon="-70.22449999116361">
     <name>FOXTRT</name>
-    <desc> Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
-    <src>[Last Access Unknown]</src>
+    <desc>N/A | Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
   </wpt>
-  <wpt lat="-71.76019138754775" lon="-71.4990234375">
-    <name>CHARLE</name>
-    <desc>You're losing blood, aren't you?</desc>
-    <src>[Last Access Unknown]</src>
+  <wpt lat="-74.20000003650784" lon="-70.3125">
+    <name>GOLF</name>
+    <desc>N/A | I’ve always been deeply passionate about nature🌳.</desc>
   </wpt>
-  <wpt lat="-70.83024762385253" lon="-75.1904296875">
-    <name>BRAVO</name>
-    <desc>[No Description]</desc>
-    <src>[Last Access Unknown]</src>
-  </wpt>
-  <wpt lat="-70.83024762385253" lon="-75.1904296875">
-    <name>BRAVO</name>
-    <desc>[No Description]</desc>
-    <src>[Last Access Unknown]</src>
-  </wpt>
-  <wpt lat="-71.76019138754775" lon="-71.4990234375">
-    <name>CHARLE</name>
-    <desc>You're losing blood, aren't you?</desc>
-    <src>[Last Access Unknown]</src>
-  </wpt>
-  <wpt lat="-72.75103864328744" lon="-66.09375">
-    <name>DELTA</name>
-    <desc>How about a turtle?</desc>
-    <src>[Last Access Unknown]</src>
-  </wpt>
-  <wpt lat="-74.42577748401031" lon="-65.4345703125">
+  <wpt lat="-74.42566668614745" lon="-65.43449998833239">
     <name>HOTEL</name>
-    <desc>I don't know how I know that. I took four years of Spanish.</desc>
-    <src>[Last Access Unknown]</src>
+    <desc>N/A | I don’t know how I know that. I took four years of Spanish.</desc>
   </wpt>
-  <wpt lat="-75.70478638174052" lon="-63.017578125">
+  <wpt lat="-75.70466665551066" lon="-63.017566641792655">
     <name>INDIA</name>
-    <desc>I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
-    <src>[Last Access Unknown]</src>
+    <desc>N/A | I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
   </wpt>
-  <wpt lat="-76.34152331547646" lon="-58.9306640625">
+  <wpt lat="-76.34150002151728" lon="-58.93050002865493">
     <name>JULIET</name>
-    <desc>There's not a lot of logic to it.</desc>
-    <src>[Last Access Unknown]</src>
+    <desc>N/A | There’s not a lot of logic to it.</desc>
   </wpt>
-  <wpt lat="-77.16692692591407" lon="-55.37109374999999">
+  <wpt lat="-77.16683333739638" lon="-55.37100004032254">
     <name>KILO</name>
-    <desc>Well, I hope you also carry a spare bowl of candy beans.</desc>
-    <src>[Last Access Unknown]</src>
+    <desc>N/A | Well, I hope you also carry a spare bowl of candy beans.</desc>
   </wpt>
-  <wpt lat="-78.08922921093165" lon="-50.71289062499999">
+  <wpt lat="-78.08921668678522" lon="-50.8461666572839">
     <name>LIMA</name>
-    <desc>Are you at all concerned about an uprising?</desc>
-    <src>[Last Access Unknown]</src>
+    <desc>N/A | Are you at all concerned about an uprising?</desc>
   </wpt>
   <rte>
-    <name>Midnight</name>
-    <rtept lat="-70.83024762385253" lon="-75.1904296875">
+    <name>01_BRAVO_TO_ALPHA</name>
+    <rtept lat="-70.8301666751504" lon="-75.19033329561353">
       <name>BRAVO</name>
-      <desc>Start</desc>
     </rtept>
-    <rtept lat="-69.91521433690127" lon="-75.0146484375">
+    <rtept lat="-69.91516669280827" lon="-75.01463335007429">
       <name>ALPHA</name>
-      <desc>End There's unlimited juice? - There's unlimited juice?</desc>
+      <desc>Foo | There’s unlimited juice?</desc>
     </rtept>
   </rte>
   <rte>
-    <name>Oak</name>
-    <rtept lat="-70.83024762385253" lon="-75.1904296875">
+    <name>02_BRAVO_TO_BRAVO</name>
+    <rtept lat="-70.8301666751504" lon="-75.19033329561353">
       <name>BRAVO</name>
-      <desc>Start</desc>
     </rtept>
-    <rtept lat="-71.76019138754775" lon="-71.4990234375">
+    <rtept lat="-71.76016665995121" lon="-71.49899996817112">
       <name>CHARLE</name>
-      <desc>You're losing blood, aren't you? - You're losing blood, aren't you?</desc>
+      <desc>N/A | You’re loosing a lot of blood aren’t you?</desc>
     </rtept>
-    <rtept lat="-72.75103864328744" lon="-66.09375">
+    <rtept lat="-72.7509999834001" lon="-66.09375">
       <name>DELTA</name>
-      <desc>How about a turtle? - How about a turtle?</desc>
+      <desc>N/A | How about a turtle?</desc>
     </rtept>
-    <rtept lat="-73.45347276327497" lon="-61.61132812500001">
+    <rtept lat="-73.45333331264555" lon="-61.611166689544916">
       <name>ECHO</name>
-      <desc>I don't criticize you! - I don't criticize you!</desc>
+      <desc>N/A | I don’t criticise you!</desc>
     </rtept>
-    <rtept lat="-74.42577748401031" lon="-65.4345703125">
+    <rtept lat="-74.42566668614745" lon="-65.43449998833239">
       <name>HOTEL</name>
-      <desc>I don't know how I know that. I took four years of Spanish. - I don't know how I know that. I took four years of Spanish.</desc>
+      <desc>N/A | I don’t know how I know that. I took four years of Spanish.</desc>
     </rtept>
-    <rtept lat="-74.20002150558591" lon="-70.3125">
+    <rtept lat="-74.20000003650784" lon="-70.3125">
       <name>GOLF</name>
-      <desc>I've always been deeply passionate about nature. 🌳 - I've always been deeply passionate about nature. 🌳</desc>
+      <desc>N/A | I’ve always been deeply passionate about nature🌳.</desc>
     </rtept>
-    <rtept lat="-73.17589717422607" lon="-70.224609375">
+    <rtept lat="-73.17583330906928" lon="-70.22449999116361">
       <name>FOXTRT</name>
-      <desc> Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT! -  Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
+      <desc>N/A | Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
     </rtept>
-    <rtept lat="-71.76019138754775" lon="-71.4990234375">
+    <rtept lat="-71.76016665995121" lon="-71.49899996817112">
       <name>CHARLE</name>
-      <desc>You're losing blood, aren't you? - You're losing blood, aren't you?</desc>
+      <desc>N/A | You’re loosing a lot of blood aren’t you?</desc>
     </rtept>
-    <rtept lat="-70.83024762385253" lon="-75.1904296875">
+    <rtept lat="-70.8301666751504" lon="-75.19033329561353">
       <name>BRAVO</name>
-      <desc>End</desc>
     </rtept>
   </rte>
   <rte>
-    <name>Flattery</name>
-    <rtept lat="-70.83024762385253" lon="-75.1904296875">
+    <name>03_BRAVO_TO_LIMA</name>
+    <rtept lat="-70.8301666751504" lon="-75.19033329561353">
       <name>BRAVO</name>
-      <desc>Start</desc>
     </rtept>
-    <rtept lat="-71.76019138754775" lon="-71.4990234375">
+    <rtept lat="-71.76016665995121" lon="-71.49899996817112">
       <name>CHARLE</name>
-      <desc>You're losing blood, aren't you? - You're losing blood, aren't you?</desc>
+      <desc>N/A | You’re loosing a lot of blood aren’t you?</desc>
     </rtept>
-    <rtept lat="-72.75103864328744" lon="-66.09375">
+    <rtept lat="-72.7509999834001" lon="-66.09375">
       <name>DELTA</name>
-      <desc>How about a turtle? - How about a turtle?</desc>
+      <desc>N/A | How about a turtle?</desc>
     </rtept>
-    <rtept lat="-74.42577748401031" lon="-65.4345703125">
+    <rtept lat="-74.42566668614745" lon="-65.43449998833239">
       <name>HOTEL</name>
-      <desc>I don't know how I know that. I took four years of Spanish. - I don't know how I know that. I took four years of Spanish.</desc>
+      <desc>N/A | I don’t know how I know that. I took four years of Spanish.</desc>
     </rtept>
-    <rtept lat="-75.70478638174052" lon="-63.017578125">
+    <rtept lat="-75.70466665551066" lon="-63.017566641792655">
       <name>INDIA</name>
-      <desc>I am getting rid of this thing. It has caused me nothing but pride and self-respect. - I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
+      <desc>N/A | I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
     </rtept>
-    <rtept lat="-76.34152331547646" lon="-58.9306640625">
+    <rtept lat="-76.34150002151728" lon="-58.93050002865493">
       <name>JULIET</name>
-      <desc>There's not a lot of logic to it. - There's not a lot of logic to it.</desc>
+      <desc>N/A | There’s not a lot of logic to it.</desc>
     </rtept>
-    <rtept lat="-77.16692692591407" lon="-55.37109374999999">
+    <rtept lat="-77.16683333739638" lon="-55.37100004032254">
       <name>KILO</name>
-      <desc>Well, I hope you also carry a spare bowl of candy beans. - Well, I hope you also carry a spare bowl of candy beans.</desc>
+      <desc>N/A | Well, I hope you also carry a spare bowl of candy beans.</desc>
     </rtept>
-    <rtept lat="-78.08922921093165" lon="-50.71289062499999">
+    <rtept lat="-78.08921668678522" lon="-50.8461666572839">
       <name>LIMA</name>
-      <desc>End Are you at all concerned about an uprising? - Are you at all concerned about an uprising?</desc>
+      <desc>N/A | Are you at all concerned about an uprising?</desc>
     </rtept>
   </rte>
 </gpx>
