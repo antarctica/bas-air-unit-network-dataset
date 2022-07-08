@@ -755,15 +755,16 @@ class RouteCollection:
         for route in self.routes:
             route.dump_gpx(path=path.joinpath(f"{route.name.lower()}.gpx"), waypoints=waypoints)
 
-    def _dump_gpx_combined(self, path: Path, waypoints: bool = False) -> None:
+    def _dump_gpx_combined(self, path: Path) -> None:
         with open(path, mode="w") as gpx_file:
-            gpx_file.write(self.dumps_gpx(waypoints=waypoints).to_xml())
+            gpx_file.write(self.dumps_gpx().to_xml())
 
     def dump_gpx(self, path: Path, separate: bool = False, waypoints: bool = False) -> None:
         if separate:
             self._dump_gpx_separate(path=path, waypoints=waypoints)
         else:
-            self._dump_gpx_combined(path=path, waypoints=waypoints)
+            # combined GPX can't include waypoints as there'll be repetitions
+            self._dump_gpx_combined(path=path)
 
     def dump_fpl(self, path: Path, separate: bool = False) -> None:
         if not separate:
@@ -933,8 +934,14 @@ class NetworkManager:
 
         self.waypoints.dump_gpx(path=path.joinpath("waypoints.gpx"))
         self.routes.dump_gpx(path=path.joinpath("routes.gpx"), waypoints=False)
-        self.routes.dump_gpx(path=path.joinpath("network.gpx"), waypoints=True)
         self.routes.dump_gpx(path=path, separate=True, waypoints=False)
+
+        # `network.gpx` needs access to both routes and waypoints so needs to be done at this level
+        gpx = GPX()
+        gpx.waypoints = self.waypoints.dumps_gpx().waypoints
+        gpx.routes = self.routes.dumps_gpx().routes
+        with open(path.joinpath("network.gpx"), mode="w") as gpx_file:
+            gpx_file.write(gpx.to_xml())
 
     def dump_fpl(self, path: Optional[Path] = None) -> None:
         path = self._get_output_path(path=path)
