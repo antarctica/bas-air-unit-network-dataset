@@ -1,3 +1,4 @@
+from datetime import datetime
 from typing import List, Dict, Union
 
 
@@ -29,3 +30,7 @@ def convert_coordinate_dd_2_ddm(lon: float, lat: float) -> Dict[str, str]:
         "lon": f"{int(lon['degree'])}° {'{:.6f}'.format(lon['minutes'])}' {lon['sign']}",
         "lat": f"{int(lat['degree'])}° {'{:.6f}'.format(lat['minutes'])}' {lat['sign']}",
     }
+
+
+def file_name_with_date(name: str) -> str:
+    return name.replace("{{date}}", f"{datetime.utcnow().date().strftime('%Y_%m_%d')}")
