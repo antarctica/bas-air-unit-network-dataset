@@ -5,97 +5,97 @@
       <identifier>ALPHA</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-69.9152143</lat>
-      <lon>-75.0146484</lon>
-      <comment>THERES UNLIMITED JUICE</comment>
+      <lat>-69.9151667</lat>
+      <lon>-75.0146334</lon>
+      <comment>FOO  THERES UNLIMITED J</comment>
     </waypoint>
     <waypoint>
       <identifier>BRAVO</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-70.8302476</lat>
-      <lon>-75.1904297</lon>
+      <lat>-70.8301667</lat>
+      <lon>-75.1903333</lon>
       <comment>NO COMMENT</comment>
     </waypoint>
     <waypoint>
       <identifier>CHARLE</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-71.7601914</lat>
-      <lon>-71.4990234</lon>
-      <comment>YOURE LOSING BLOOD AREN</comment>
+      <lat>-71.7601667</lat>
+      <lon>-71.499</lon>
+      <comment>NA  YOURE LOOSING A LO</comment>
     </waypoint>
     <waypoint>
       <identifier>DELTA</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-72.7510386</lat>
+      <lat>-72.751</lat>
       <lon>-66.09375</lon>
-      <comment>HOW ABOUT A TURTLE</comment>
+      <comment>NA  HOW ABOUT A TURTLE</comment>
     </waypoint>
     <waypoint>
       <identifier>ECHO</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-73.4534728</lat>
-      <lon>-61.6113281</lon>
-      <comment>I DONT CRITICIZE YOU</comment>
+      <lat>-73.4533333</lat>
+      <lon>-61.6111667</lon>
+      <comment>NA  I DONT CRITICISE Y</comment>
     </waypoint>
     <waypoint>
       <identifier>FOXTRT</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-73.1758972</lat>
-      <lon>-70.2246094</lon>
-      <comment> DID TED MAKE AN APPOINTM</comment>
+      <lat>-73.1758333</lat>
+      <lon>-70.2245</lon>
+      <comment>NA  DID TED MAKE AN APP</comment>
     </waypoint>
     <waypoint>
       <identifier>GOLF</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-74.2000215</lat>
+      <lat>-74.2</lat>
       <lon>-70.3125</lon>
-      <comment>IVE ALWAYS BEEN DEEPLY P</comment>
+      <comment>NA  IVE ALWAYS BEEN DE</comment>
     </waypoint>
     <waypoint>
       <identifier>HOTEL</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-74.4257775</lat>
-      <lon>-65.4345703</lon>
-      <comment>I DONT KNOW HOW I KNOW T</comment>
+      <lat>-74.4256667</lat>
+      <lon>-65.4345</lon>
+      <comment>NA  I DONT KNOW HOW I </comment>
     </waypoint>
     <waypoint>
       <identifier>INDIA</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-75.7047864</lat>
-      <lon>-63.0175781</lon>
-      <comment>I AM GETTING RID OF THIS </comment>
+      <lat>-75.7046667</lat>
+      <lon>-63.0175666</lon>
+      <comment>NA  I AM GETTING RID OF</comment>
     </waypoint>
     <waypoint>
       <identifier>JULIET</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-76.3415233</lat>
-      <lon>-58.9306641</lon>
-      <comment>THERES NOT A LOT OF LOGI</comment>
+      <lat>-76.3415</lat>
+      <lon>-58.9305</lon>
+      <comment>NA  THERES NOT A LOT O</comment>
     </waypoint>
     <waypoint>
       <identifier>KILO</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-77.1669269</lat>
-      <lon>-55.3710937</lon>
-      <comment>WELL I HOPE YOU ALSO CAR</comment>
+      <lat>-77.1668333</lat>
+      <lon>-55.371</lon>
+      <comment>NA  WELL I HOPE YOU AL</comment>
     </waypoint>
     <waypoint>
       <identifier>LIMA</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-78.0892292</lat>
-      <lon>-50.7128906</lon>
-      <comment>ARE YOU AT ALL CONCERNED </comment>
+      <lat>-78.0892167</lat>
+      <lon>-50.8461667</lon>
+      <comment>NA  ARE YOU AT ALL CONC</comment>
     </waypoint>
   </waypoint-table>
 </flight-plan>
