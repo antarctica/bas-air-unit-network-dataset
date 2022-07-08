@@ -228,16 +228,25 @@ class Waypoint:
         waypoint.name = self.designator
         waypoint.longitude = self.geometry.x
         waypoint.latitude = self.geometry.y
-        waypoint.description = "[No Description]"
-        waypoint.source = "[Last Access Unknown]"
 
+        waypoint.description = "[No Description] [Last Access Unknown]"
+
+        _comment = None
         if self.comment is not None:
-            waypoint.description = self.comment
+            _comment = self.comment
 
+        _access = None
         if self.last_accessed_at is not None and self.last_accessed_by is None:
-            waypoint.source = f"Last checked: {self.last_accessed_at.isoformat()}"
+            _access = f"Last checked: {self.last_accessed_at.isoformat()}"
         elif self.last_accessed_at is not None and self.last_accessed_by is not None:
-            waypoint.source = f"Last checked: {self.last_accessed_at.isoformat()}, by: {self.last_accessed_by}"
+            _access = f"Last checked: {self.last_accessed_at.isoformat()}, by: {self.last_accessed_by}"
+
+        if _comment is not None and _access is not None:
+            waypoint.description = f"{_comment} - {_access}"
+        elif _comment is not None and _access is None:
+            waypoint.description = _comment
+        elif _comment is None and _access is not None:
+            waypoint.description = _access
 
         return waypoint
 
@@ -308,14 +317,17 @@ class RouteWaypoint:
 
     @property
     def description(self) -> Optional[str]:
-        if self._description is None and self.waypoint.comment is None:
-            return "[No Description]"
-        if self._description is None and self.waypoint.comment is not None:
-            return self.waypoint.comment
-        if self._description is not None and self.waypoint.comment is not None:
-            return f"{self._description} - {self.waypoint.comment}"
+        # As BaseCamp has no support for route based waypoint comments, always return just the waypoint comment
+        return self.waypoint.comment
 
-        return self._description
+        # if self._description is None and self.waypoint.comment is None:
+        #     return "[No Description]"
+        # if self._description is None and self.waypoint.comment is not None:
+        #     return self.waypoint.comment
+        # if self._description is not None and self.waypoint.comment is not None:
+        #     return f"{self._description} - {self.waypoint.comment}"
+        #
+        # return self._description
 
     @description.setter
     def description(self, description: str):
