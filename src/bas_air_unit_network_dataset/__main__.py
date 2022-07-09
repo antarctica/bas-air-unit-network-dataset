@@ -24,6 +24,20 @@ class AppCommand(click.core.Command):
         )
 
 
+def inspect_network(network: NetworkManager) -> None:
+    click.echo(network)
+    click.echo("")
+
+    click.echo(f"Waypoints in test WaypointCollection [{len(network.waypoints)}]:")
+    for i, waypoint in enumerate(network.waypoints):
+        click.echo(f"{str(i + 1).zfill(2)}. {waypoint}")
+    click.echo("")
+
+    click.echo(f"Routes in test RouteCollection [{len(network.routes)}]:")
+    for i, route in enumerate(network.routes):
+        click.echo(f"{str(i + 1).zfill(2)}. {route}")
+
+
 @click.group()
 @click.version_option(version("bas_air_unit_network_dataset"))
 def cli():
@@ -67,12 +81,10 @@ def _import(dataset_path: str, input_path: str) -> None:
     click.echo(f"Input is located at: {_input_path}")
     click.echo("")
 
-    network = NetworkManager(dataset_path=Path(dataset_path))
-    try:
-        network.load_stub(path=_input_path)
-    except NotImplementedError:
-        pass
-
+    # `init` is set to reset contents of dataset
+    network = NetworkManager(dataset_path=Path(dataset_path), init=True)
+    network.load_gpx(path=_input_path)
+    inspect_network(network=network)
     click.echo("Import complete")
 
 
@@ -114,18 +126,7 @@ def inspect(dataset_path: str) -> None:
     click.echo("")
 
     network = NetworkManager(dataset_path=Path(dataset_path))
-
-    click.echo(network)
-    click.echo("")
-
-    click.echo(f"Waypoints in test WaypointCollection [{len(network.waypoints)}]:")
-    for i, waypoint in enumerate(network.waypoints):
-        click.echo(f"{str(i + 1).zfill(2)}. {waypoint}")
-    click.echo("")
-
-    click.echo(f"Routes in test RouteCollection [{len(network.routes)}]:")
-    for i, route in enumerate(network.routes):
-        click.echo(f"{str(i + 1).zfill(2)}. {route}")
+    inspect_network(network=network)
 
 
 if __name__ == "__main__":
