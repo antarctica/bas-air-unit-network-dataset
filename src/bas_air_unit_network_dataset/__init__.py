@@ -728,7 +728,7 @@ class RouteCollection:
 
     def _dump_csv_separate(self, path: Path) -> None:
         for route in self.routes:
-            route.dump_csv(path=path.joinpath(f"{route.name.lower()}.csv"), waypoints=True, route_column=False)
+            route.dump_csv(path=path.joinpath(f"{route.name.upper()}.csv"), waypoints=True, route_column=False)
 
     def _dump_csv_combined(self, path: Path) -> None:
         fieldnames: List[str] = ["route_name"] + list(Route.csv_schema_waypoints.keys())
@@ -765,7 +765,7 @@ class RouteCollection:
 
     def _dump_gpx_separate(self, path: Path, waypoints: bool = False) -> None:
         for route in self.routes:
-            route.dump_gpx(path=path.joinpath(f"{route.name.lower()}.gpx"), waypoints=waypoints)
+            route.dump_gpx(path=path.joinpath(f"{route.name.upper()}.gpx"), waypoints=waypoints)
 
     def _dump_gpx_combined(self, path: Path) -> None:
         with open(path, mode="w") as gpx_file:
@@ -784,7 +784,7 @@ class RouteCollection:
 
         flight_plan_index = 1
         for route in self.routes:
-            route.dump_fpl(path=path.joinpath(f"{route.name.lower()}.fpl"), flight_plan_index=flight_plan_index)
+            route.dump_fpl(path=path.joinpath(f"{route.name.upper()}.fpl"), flight_plan_index=flight_plan_index)
             flight_plan_index += 1
 
     def __getitem__(self, _id: str) -> Route:
@@ -940,30 +940,28 @@ class NetworkManager:
     def dump_csv(self, path: Optional[Path] = None) -> None:
         path = self._get_output_path(path=path, fmt_dir="CSV")
 
-        self.waypoints.dump_csv(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}_waypoints.csv")))
-        self.routes.dump_csv(path=path.joinpath(file_name_with_date("00_ROUTES_{{date}}_waypoints.csv")))
+        self.waypoints.dump_csv(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.csv")))
+        self.routes.dump_csv(path=path.joinpath(file_name_with_date("00_ROUTES_{{date}}.csv")))
         self.routes.dump_csv(path=path, separate=True)
 
     def dump_gpx(self, path: Optional[Path] = None) -> None:
         path = self._get_output_path(path=path, fmt_dir="GPX")
 
-        self.waypoints.dump_gpx(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}_waypoints.gpx")))
-        self.routes.dump_gpx(
-            path=path.joinpath(file_name_with_date("00_ROUTES_{{date}}_waypoints.gpx")), waypoints=False
-        )
+        self.waypoints.dump_gpx(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.gpx")))
+        self.routes.dump_gpx(path=path.joinpath(file_name_with_date("00_ROUTES_{{date}}.gpx")), waypoints=False)
         self.routes.dump_gpx(path=path, separate=True, waypoints=False)
 
         # `network.gpx` needs access to both routes and waypoints so needs to be done at this level
         gpx = GPX()
         gpx.waypoints = self.waypoints.dumps_gpx().waypoints
         gpx.routes = self.routes.dumps_gpx().routes
-        with open(path.joinpath("network.gpx"), mode="w") as gpx_file:
+        with open(path.joinpath(file_name_with_date("00_NETWORK_{{date}}.gpx")), mode="w") as gpx_file:
             gpx_file.write(gpx.to_xml())
 
     def dump_fpl(self, path: Optional[Path] = None) -> None:
         path = self._get_output_path(path=path, fmt_dir="FPL")
 
-        self.waypoints.dump_fpl(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}_waypoints.fpl")))
+        self.waypoints.dump_fpl(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.fpl")))
         self.routes.dump_fpl(path=path, separate=True)
 
     def __repr__(self):
