@@ -28,12 +28,12 @@ def inspect_network(network: NetworkManager) -> None:
     click.echo(network)
     click.echo("")
 
-    click.echo(f"Waypoints in test WaypointCollection [{len(network.waypoints)}]:")
+    click.echo(f"Waypoints [{len(network.waypoints)}]:")
     for i, waypoint in enumerate(network.waypoints):
         click.echo(f"{str(i + 1).zfill(2)}. {waypoint}")
     click.echo("")
 
-    click.echo(f"Routes in test RouteCollection [{len(network.routes)}]:")
+    click.echo(f"Routes [{len(network.routes)}]:")
     for i, route in enumerate(network.routes):
         click.echo(f"{str(i + 1).zfill(2)}. {route}")
 
@@ -85,6 +85,8 @@ def _import(dataset_path: str, input_path: str) -> None:
     network = NetworkManager(dataset_path=Path(dataset_path), init=True)
     network.load_gpx(path=_input_path)
     inspect_network(network=network)
+
+    click.echo("")
     click.echo("Import complete")
 
 
