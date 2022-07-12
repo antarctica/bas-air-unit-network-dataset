@@ -564,7 +564,8 @@ class Route:
         if route_column:
             fieldnames = ["route_name"] + fieldnames
 
-        with open(path, mode="w") as output_file:
+        # newline parameter needed to avoid extra blank lines in files on Windows [#63]
+        with open(path, mode="w", newline="") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(self.dumps_csv(waypoints=waypoints, route_column=route_column))
@@ -652,7 +653,8 @@ class WaypointCollection:
         return features
 
     def dump_csv(self, path: Path) -> None:
-        with open(path, mode="w") as output_file:
+        # newline parameter needed to avoid extra blank lines in files on Windows [#63]
+        with open(path, mode="w", newline="") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=list(Waypoint.csv_schema.keys()))
             writer.writeheader()
 
@@ -737,7 +739,8 @@ class RouteCollection:
         for route in self.routes:
             route_waypoints += route.dumps_csv(waypoints=True, route_column=True)
 
-        with open(path, mode="w") as output_file:
+        # newline parameter needed to avoid extra blank lines in files on Windows [#63]
+        with open(path, mode="w", newline="") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(route_waypoints)
