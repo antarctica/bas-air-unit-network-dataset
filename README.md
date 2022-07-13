@@ -209,14 +209,14 @@ For example (a standalone, unvisited, waypoint with no additional information):
 
 ### Importing waypoints and routes into the Network utility
 
-1. from the start menu, launch *Anaconda PowerShell Prompt* and run the commands in [1]
+1. from the start menu, launch *Command Prompt* and run the commands in [1]
 
 **WARNING:** Importing replaces all existing information. Ensure you have suitable backups of existing data.
 
 [1]
 
 ```
-(base) $ conda activate airnet
+$ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
 
 # navigate to the workspace directory
 (airnet) $ cd '/path/to/workspace/directory'
@@ -251,12 +251,12 @@ Import complete
 
 ### Exporting waypoints and routes using the Network utility
 
-1. from the start menu, launch *Anaconda PowerShell Prompt* and run the commands in [1]
+1. from the start menu, launch *Command Prompt* and run the commands in [1]
 
 [1]
 
 ```
-(base) $ conda activate airnet
+$ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
 
 # navigate to the workspace directory
 (airnet) $ cd '/path/to/workspace/directory'
@@ -282,40 +282,38 @@ Export complete
 To install software needed to manage the Air Unit Network dataset:
 
 1. ensure all required Windows updates are installed
-2. download the [Installation bundle](#installation-bundle) to the downloads folder
-3. from the downloaded installation bundle, run the Garmin BaseCamp installer
-4. optionally, from the downloaded installation bundle, run the QGIS LTS installer for visualising exported data
-5. from the downloaded installation bundle, run the Miniconda installer
-6. unzip the `libxml2.zip` archive to a temporary directory:
+2. download, or copy from a hard drive, the [Installation bundle](#installation-bundle)
+   1. these instructions assume you will download, or copy, the bundle to your *Downloads* directory
+3. from the installation bundle, install Garmin BaseCamp, and optionally, QGIS:
+   1. run `garmin-basecamp-installer.exe` to install Garmin BaseCamp
+   2. optionally, run `qgis-installer.msi` to install the Long Term Support (LTS) version of QGIS
+4. from the installation bundle, install Miniconda (needed to run the Air Unit Network utility):
+   1. run `miniconda-installer.exe` to install Miniconda
+   2. select the *All users (requires admin privileges)* installation option when asked 
+5. from the installation bundle, install LibXML2 (needed to run the Air Unit Network utility):
+   1. unzip the `libxml2.zip` archive to a temporary directory
    2. copy the `libxml2` directory to `C:\Program Files`, such that `C:\Program Files\bin\xmllint.exe` exists
-7. from Windows Explorer, right click *This PC* from the left hand panel and click *Properties* 
-   1. from the left hand menu of the System Control Panel screen, click *Advanced system settings*
-   2. from the *Advanced* tab of the System Properties screen, click *Environment Variables*
-   3. from the top section (User variables) select the *Path* variable and click *Edit*:
-      1. from the Edit environment variable screen, click *New*
-      2. enter `C:\Program Files\libxml2\bin` as a new entry (at the bottom of the list)
-   4. click *OK*, then *OK*, then *OK* again and close Control Panel
-8. from the start menu, launch *Anaconda PowerShell Prompt* and run the commands in [1]
+   3. from Windows Explorer, right click *This PC* from the left hand panel and click *Properties* 
+      1. from the left hand menu of the System Control Panel screen, click *Advanced system settings*
+      2. from the *Advanced* tab of the System Properties screen, click *Environment Variables*
+      3. from the top section (User variables) select the *Path* variable and click *Edit*:
+         1. from the Edit environment variable screen, click *New*
+         2. enter `C:\Program Files\libxml2\bin` as a new entry (at the bottom of the list)
+      4. click *OK*, then *OK*, then *OK* again and close Control Panel
+   4. delete the temporary directory created earlier
+6. from the installation bundle, install the Air Unit Network utility virtual environment:
+   1. unzip the `airnet-virtual-environment.tar.gz` archive to a temporary directory 
+   2. copy the `airnet` directory to `C:\ProgramData\Miniconda3\envs`, such that 
+   `C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe` exists 
+   3. delete the temporary directory created earlier
 
 **Note:** Only versions of software within the Installation Bundle are supported.
 
-[1]
-
-```shell
-(base) $ conda create -n airnet
-(base) $ conda activate airnet
-(airnet) $ conda config --env --add channels conda-forge
-(airnet) $ conda config --env --set channel_priority strict
-(airnet) $ conda install fiona
-
-# from the Install bundle
-(airnet) $ cd '/path/to/Installation Bundle'
-(airnet) $ python -m pip install bas_air_unit_network_dataset-0.1.0-py3-none-any.whl
-```
-
 ### Configure software
 
-To configure software needed to manage the Air Unit Network dataset:
+#### Configure Garmin BaseCamp
+
+To configure Garmin BaseCamp needed to manage the Air Unit Network dataset:
 
 1. from the start menu, launch *BaseCamp*
 2. when asked for an activity type, select *Direct*
@@ -336,7 +334,7 @@ distributed via an external hard-drive.
 
 The definitive installation bundle is stored in the
 [MAGIC Office 365 OneDrive](https://nercacuk.sharepoint.com/:f:/s/BASMagicTeam/EvFtTOCBeClCgflcEju58OEBc5xeU0LuTxjxUwQ_V55LVg?e=Fs1gAi)
-and is accessible to all BAS staff.
+and is accessible to all BAS staff. When South, MAGIC will hold a copy of the the installation bundle on a hard drive.
 
 Software in the installation bundle will be updated periodically after testing, and when new versions of the Air Unit 
 Network utility are released.
@@ -711,25 +709,27 @@ For information on the installed package version, run `airnet --version`.
 
 **Note:** You will need appropriate rights within the BAS MAGIC team OneDrive to complete these steps.
 
-To populate the installation bundle:
+To populate the [Installation Bundle](#installation-bundle):
 
-* download the latest Garmin BaseCamp installer (Windows)
-* download the latest LTS QGIS installer (Windows)
-* download the latest MiniConda installer (Python 3.9, Windows 64 bit)
+* download the latest Garmin BaseCamp installer (Windows) and rename to `garmin-basecamp-installer.exe`
+* download the latest LTS QGIS installer (Windows) and rename to `qgis-installer.msi`
+* download the latest MiniConda installer (Python 3.9, Windows 64 bit) and rename to `miniconda-installer.exe`
 * download the latest LibXML2 Windows build:
   * visit the [LibXML2](https://gitlab.gnome.org/GNOME/libxml2/-/tree/master/) Gnome project
   * view the latest Continuous Deployment pipeline
   * view the `cmake:msvc` job
   * download the artefact
-  * extract the artefact Zip, rename the containing directory `libxml2` and rezip the directory
+  * extract the artefact Zip, rename the containing directory `libxml2` and rezip the directory as `libxml2.zip`
+* create a `build` directory and:
+  * download the latest 7-Zip installer and rename to `7zip-installer.exe`
 
-Before saving installers to the installation bundle, test them in a [deployment VM](#setup-a-windows-deployment-vm).
+Before saving installers to the Installation Bundle, test them in a [deployment VM](#setup-a-windows-deployment-vm).
 
 ### Setup a workspace directory
 
 1. using Windows Explorer, create a suitable directory to use a Workspace (typically on a shared drive or within a 
    synced folder)
-2. from the start menu, launch *Anaconda PowerShell Prompt* and run the commands in [1]
+2. from the start menu, launch *Command Prompt* and run the commands in [1]
 
 **WARNING:** Running these commands within an existing workspace directory will reset the dataset, deleting any 
 existing data. Ensure you have suitable backups of existing data.
@@ -737,7 +737,7 @@ existing data. Ensure you have suitable backups of existing data.
 [1]
 
 ```
-(base) $ conda activate airnet
+$ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
 
 (airnet) $ airnet init --dataset-path '/path/to/workspace/directory'
 Dataset will be located at: '/path/to/workspace/directory'
@@ -768,6 +768,65 @@ To create the VM template used above:
    1. name the VM and template `air-unit-test`
    2. set the RAM to 8GB
    3. you should not need to add a virtual network interface or CD device, as this will already be setup
+
+## Deployment
+
+The Air Unit Network utility is distributed in two forms:
+
+1. a Python package that can be installed through Pip
+2. a packaged Anaconda environment
+
+The Python package is standard, pure Python Pip package, built by Poetry as a binary wheel and source package.
+
+The packaged Anaconda environment uses [Conda Pack](https://conda.github.io/conda-pack/) to create an OS/platform 
+specific archive of an Anaconda virtual environment, such that dependencies can be copied and installed offline. 
+This is designed for use in running the Air Unit Network utility in Antarctica.
+
+**Note:** Both distributions require OS dependencies to be installed separately (namely GDAL and LibXML2), see the 
+[Installation](#installation) section for more information.
+
+### Create a Python package
+
+Build the Python package using Poetry:
+
+```
+$ poetry build
+```
+
+To use within the packed Anaconda environment, copy the `dist/*.whl` file to the `build/` directory of the 
+[Installation Bundle](#installation-bundle). 
+
+### Create a packed Anaconda environment
+
+Within a [Windows Deployment VM](#setup-a-windows-deployment-vm):
+
+1. [Create a Python Package](#create-a-python-package)
+2. connect to OneDrive, such that the [Installation Bundle](#installation-bundle) can be updated
+3. from the Installation Bundle, run `miniconda-installer.exe`, installing for all users
+4. from the 'build' directory in the Installation Bundle, run the 7Zip installer (`7z.exe`)
+5. from the start menu, launch *Anaconda PowerShell Prompt* and run the commands in [1]
+6. from the user *Downloads* directory, extract `airnet.tar.gz` using 7-zip: 
+   1. then, extract `airnet.tar` to `airnet/`
+   2. then, right-click `airnet/` -> *Send to* -> *Compressed (zipped) folder* to produce `airnet.zip`
+   3. copy `airnet.zip` to the definitive copy of the [Installation Bundle](#installation-bundle), replacing the 
+      existing file
+
+[1]
+
+```shell
+(airnet) $ cd '/path/to/Installation Bundle/build/'
+(base) $ conda create -n airnet
+(base) $ conda activate airnet
+(airnet) $ conda config --env --add channels conda-forge
+(airnet) $ conda config --env --set channel_priority strict
+(airnet) $ conda install fiona
+(airnet) $ python -m pip install bas_air_unit_network_dataset-0.1.0-py3-none-any.whl
+
+(base) $ cd %USERPROFILE%/Downloads
+(airnet) $ conda activate base
+(base) $ conda install -c conda-forge conda-pack
+(base) $ conda pack -n airnet -o airnet.tar.gz
+```
 
 ## Feedback
 
