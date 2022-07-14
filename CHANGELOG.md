@@ -36,6 +36,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#6](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/6)
 * create QGIS visualisation for test network
   [#27](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/27)
+* GitHub repository mirroring
+  [#88](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/88)
+* PyPi publishing (manually)
+  [#79](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/79)
 
 ### Fixed
 

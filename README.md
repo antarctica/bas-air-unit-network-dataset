@@ -845,8 +845,12 @@ To build the Python package manually:
 $ poetry build
 ```
 
-To use within the packed Anaconda environment, copy the `dist/*.whl` file to the `build/` directory of the 
-[Installation Bundle](#installation-bundle). 
+To publish the Python package to PyPi manually, you will need an API token for the BAS organisational PyPi account,
+set as the `POETRY_PYPI_TOKEN_PYPI` environment variable. Then run:
+
+```
+$ poetry publish --username british-antarctic-survey
+```
 
 ### Packaged Anaconda environment
 
@@ -878,7 +882,7 @@ Within a [Windows Deployment VM](#setup-a-windows-deployment-vm):
 (airnet) $ conda config --env --add channels conda-forge
 (airnet) $ conda config --env --set channel_priority strict
 (airnet) $ conda install fiona
-(airnet) $ python -m pip install bas_air_unit_network_dataset-0.1.0-py3-none-any.whl
+(airnet) $ python -m pip install bas-air-unit-network-dataset
 
 (base) $ cd %USERPROFILE%/Downloads
 (airnet) $ conda activate base
