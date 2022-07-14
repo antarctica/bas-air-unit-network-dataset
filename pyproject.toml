@@ -1,9 +1,26 @@
 [tool.poetry]
 name = "bas-air-unit-network-dataset"
 version = "0.1.0"
-description = "Data management for waypoints and routes within the British Antarctic Survey Air Unit"
+description = "Utility to process routes and waypoints used by the British Antarctic Survey (BAS) Air Unit"
 authors = ["Felix Fennell <felnne@bas.ac.uk>"]
 license = "MIT"
+readme = "README.md"
+homepage = "https://github.com/antarctica/bas-air-unit-network-dataset"
+repository = "https://github.com/antarctica/bas-air-unit-network-dataset"
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Science/Research",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: English",
+    "Operating System :: Microsoft :: Windows :: Windows 10",
+    "Programming Language :: Python :: 3",
+    "Topic :: Scientific/Engineering :: GIS",
+    "Topic :: Text Processing :: Markup :: XML",
+    "Topic :: Utilities"
+]
 
 [tool.poetry.scripts]
 airnet = "bas_air_unit_network_dataset.__main__:cli"
