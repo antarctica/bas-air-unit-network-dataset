@@ -334,7 +334,7 @@ distributed via an external hard-drive.
 
 The definitive installation bundle is stored in the
 [MAGIC Office 365 OneDrive](https://nercacuk.sharepoint.com/:f:/s/BASMagicTeam/EvFtTOCBeClCgflcEju58OEBc5xeU0LuTxjxUwQ_V55LVg?e=Fs1gAi)
-and is accessible to all BAS staff. When South, MAGIC will hold a copy of the the installation bundle on a hard drive.
+and is accessible to all BAS staff. When South, MAGIC will hold a copy of the installation bundle on a hard drive.
 
 Software in the installation bundle will be updated periodically after testing, and when new versions of the Air Unit 
 Network utility are released.
@@ -574,6 +574,24 @@ Limitations:
 * this requires non-standard fields (such as `waypoint.last_accessed_at`) to be added to the comment freetext field, 
   making it more complex (see notes in the [Creating a Waypoint](#create-a-new-waypoint) section)
 
+### Test network
+
+A test network of 12 waypoints and 3 routes is used to:
+
+1. test various edge cases
+2. provide consistency for repeatable testing
+3. prevent needing to use real data that might be sensitive
+
+**Note:** Route and waypoints in the test network are arbitrary and do not reflect any actual locations.
+
+**WARNING!** This test network is entirely random/fake. It MUST NOT be used for any real navigation.
+
+A [Workspace Directory](#workspace-directory) for the test network is maintained in the
+[MAGIC Office 365 OneDrive](https://nercacuk.sharepoint.com/:f:/s/BASMagicTeam/EhBAbE0tTDxCt298WEPOWoMBtuV7yxOYuJ8bPslVdKlASQ)
+and is accessible to all BAS staff. When South, MAGIC will hold a copy of the test network on a hard drive.
+
+A QGIS project is provided to visualise the test network and ensure exported outputs match expected test data.
+
 ### Output formats
 
 #### Supported formats
@@ -620,36 +638,36 @@ Where `.ext` is a relevant file extension for each format (i.e. `.csv` for CSV o
 
 #### Output format - CSV
 
-General:
+Notes:
 
-* CSV outputs use the first row as a field names header
-* outputs produced for all routes, and all waypoints and routes combined, use a `route_name` column to distinguish 
-  rows related to each route
-* `waypoint.geometries` are encoded as separate latitude and longitude fields (Y, X) using ESPG:4326 in two formats:
-  * decimal degrees (`latitude_dd`, `longitude_dd`) - native format
-  * degrees, decimal minutes (`latitude_ddm`, `longitude_ddm`) - format used in aviation
+* CSV outputs use the first row as a column names header
+* outputs produced for all routes use a `route_name` column to distinguish rows related to each route
+* `waypoint.geometries` are encoded as separate latitude (Y) and longitude (X) columns, using ESPG:4326, in two formats:
+  * decimal degrees (`latitude_dd`, `longitude_dd` columns) - native format
+  * degrees, decimal minutes (`latitude_ddm`, `longitude_ddm` columns) - format used in aviation
 
 Limitations:
 
-* all fields are encoded as strings, without type hints using extended CSV schemes etc.
-* geometries containing an elevation (Z) dimension are not include in output
+* all properties are encoded as strings, without type hints using extended CSV schemes etc.
+* `waypoint.geometries` containing an elevation (Z) dimension are not included in CSV outputs
 * CSV outputs are not validated
 
 #### Output format - GPX
 
-General:
+Notes:
 
-* the `waypoint.comment`, `waypoint.last_accessed_at` and `waypoint.last_accessed_by` fields are combined as the 
-  comment for each GPX waypoint
 * GPX outputs are validated against the GPX XSD schema automatically
 
 Limitations:
 
 * GPX metadata fields (author, last updated, etc.) are not currently populated
+* the `waypoint.comment`, `waypoint.last_accessed_at` and `waypoint.last_accessed_by` properties are combined into the 
+  GPX comment field, as GPX lacks fields for the later properties
+* `waypoint.geometries` containing an elevation (Z) dimension are not included in GPX outputs
 
 #### Output format - FPL
 
-General:
+Notes:
 
 * the `waypoint.comment`, `waypoint.last_accessed_at` and `waypoint.last_accessed_by` fields are combined as the 
   comment for each FPL waypoint
@@ -660,6 +678,7 @@ Limitations:
 * underscores (`_`) characters are stripped from route names *within* FPL files (rather than the names *of* FPL files)
 * FPL metadata fields (author, last updated, etc.) are not currently populated
 * waypoint comments (inc. when combined with other information) longer than 25 characters (inc. spaces) are truncated
+* `waypoint.geometries` containing an elevation (Z) dimension are not included in FPL outputs
 
 ##### FPL XML schema
 
@@ -769,25 +788,58 @@ To create the VM template used above:
    2. set the RAM to 8GB
    3. you should not need to add a virtual network interface or CD device, as this will already be setup
 
+## Development
+
+### Development environment
+
+Git and [Poetry](https://python-poetry.org) are required to set up a local development environment of this project.
+
+**Note:** If you use [Pyenv](https://github.com/pyenv/pyenv), this project sets a local Python version for consistency.
+
+```shell
+# clone from the BAS GitLab instance if possible
+$ git clone https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset.git
+
+# setup virtual environment
+$ cd air-unit-network-dataset
+$ poetry install
+```
+
+### Running commands in development
+
+Within a [Development Environment](#development-environment) use Poetry to test CLI commands. E.g.:
+
+```
+$ poetry run airnet --help
+```
+
+### Dependencies
+
+Python dependencies for this project are managed with [Poetry](https://python-poetry.org) in `pyproject.toml`.
+
+#### Adding new dependencies
+
+To add a new (development) dependency:
+
+```shell
+$ poetry add [dependency] (--dev)
+```
+
 ## Deployment
 
 The Air Unit Network utility is distributed in two forms:
 
-1. a Python package that can be installed through Pip
+1. a Python package that can be installed through Pip from the [PyPi]() registry
 2. a packaged Anaconda environment
-
-The Python package is standard, pure Python Pip package, built by Poetry as a binary wheel and source package.
-
-The packaged Anaconda environment uses [Conda Pack](https://conda.github.io/conda-pack/) to create an OS/platform 
-specific archive of an Anaconda virtual environment, such that dependencies can be copied and installed offline. 
-This is designed for use in running the Air Unit Network utility in Antarctica.
 
 **Note:** Both distributions require OS dependencies to be installed separately (namely GDAL and LibXML2), see the 
 [Installation](#installation) section for more information.
 
-### Create a Python package
+### Python package
 
-Build the Python package using Poetry:
+The Python package is standard, pure Python Pip package, built by Poetry as a binary wheel and source package.
+
+To build the Python package manually:
 
 ```
 $ poetry build
@@ -796,11 +848,17 @@ $ poetry build
 To use within the packed Anaconda environment, copy the `dist/*.whl` file to the `build/` directory of the 
 [Installation Bundle](#installation-bundle). 
 
-### Create a packed Anaconda environment
+### Packaged Anaconda environment
+
+The packaged Anaconda environment uses [Conda Pack](https://conda.github.io/conda-pack/) to create an OS/platform 
+specific archive of an Anaconda virtual environment, such that dependencies can be copied and installed offline. 
+This is designed for use in running the Air Unit Network utility in Antarctica.
+
+**Note:** This process will produce an environment that can be run on Windows (10), x86 64 bit computers only.
 
 Within a [Windows Deployment VM](#setup-a-windows-deployment-vm):
 
-1. [Create a Python Package](#create-a-python-package)
+1. [Create a Python Package](#python-package)
 2. connect to OneDrive, such that the [Installation Bundle](#installation-bundle) can be updated
 3. from the Installation Bundle, run `miniconda-installer.exe`, installing for all users
 4. from the 'build' directory in the Installation Bundle, run the 7Zip installer (`7z.exe`)
@@ -827,6 +885,18 @@ Within a [Windows Deployment VM](#setup-a-windows-deployment-vm):
 (base) $ conda install -c conda-forge conda-pack
 (base) $ conda pack -n airnet -o airnet.tar.gz
 ```
+
+## Release procedure
+
+For all releases:
+
+1. create a release branch
+2. close release in `CHANGELOG.md`
+3. bump package version `poetry version [minor/patch]`
+4. push changes, merge the release branch into `main` and tag with version
+5. build a [Packaged Anaconda Environment](#packaged-anaconda-environment)
+6. update the [Installation Bundle](#installation-bundle) as needed
+7. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
 
 ## Feedback
 
