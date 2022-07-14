@@ -104,6 +104,8 @@ directory are restricted to users that need to edit information.
 
 ### Workflow
 
+**Note:** You need to complete the steps in the [Installation](#installation) section to complete this workflow.
+
 To update waypoints and routes (the network) and create new files for use in GPS devices and as print outs:
 
 1. [waypoints](#managing-waypoints-in-basecamp) and [routes](#managing-routes-in-basecamp) are created and edited using 
@@ -117,8 +119,6 @@ To update waypoints and routes (the network) and create new files for use in GPS
    FPL)
 
 The sub-sections below describe these steps in more detail.
-
-**Note:** You need to complete the steps in the [Installation](#installation) section to complete this workflow.
 
 ### Managing waypoints in BaseCamp
 
@@ -221,7 +221,7 @@ $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
 # navigate to the workspace directory
 (airnet) $ cd '/path/to/workspace/directory'
 
-(airnet) $ airnet import --dataset-path bas-air-unit-network-dataset.gpkg --input-path import.gpx
+(airnet) $ C:\ProgramData\Miniconda3\envs\airnet\python.exe C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe import --dataset-path bas-air-unit-network-dataset.gpkg --input-path import.gpx
 Dataset is located at: /path/to/workspace/directory/bas-air-unit-network-dataset.gpkg
 Input is located at: /path/to/workspace/directory/import.gpx
 
@@ -261,7 +261,7 @@ $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
 # navigate to the workspace directory
 (airnet) $ cd '/path/to/workspace/directory'
 
-(airnet) $ airnet export --dataset-path bas-air-unit-network-dataset.gpkg -output-path output/
+(airnet) $ C:\ProgramData\Miniconda3\envs\airnet\python.exe C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe export --dataset-path bas-air-unit-network-dataset.gpkg -output-path output/
 Dataset is located at: /path/to/workspace/directory/bas-air-unit-network-dataset.gpkg
 Output directory is is: /path/to/workspace/directory/output
 
@@ -302,10 +302,12 @@ To install software needed to manage the Air Unit Network dataset:
       4. click *OK*, then *OK*, then *OK* again and close Control Panel
    4. delete the temporary directory created earlier
 6. from the installation bundle, install the Air Unit Network utility virtual environment:
-   1. unzip the `airnet-virtual-environment.tar.gz` archive to a temporary directory 
-   2. copy the `airnet` directory to `C:\ProgramData\Miniconda3\envs`, such that 
+   1. unzip the `airnet-virtual-environment.zip` archive to a temporary directory (this will take some time)
+   2. from the *View* tab in Explorer, check the *Hidden items* checkbox
+   3. copy the `airnet` directory to `C:\ProgramData\Miniconda3\envs`, such that 
    `C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe` exists 
-   3. delete the temporary directory created earlier
+   4. delete the temporary directory created earlier
+   5. optionally, uncheck the *Hidden items* checkbox in Explorer
 
 **Note:** Only versions of software within the Installation Bundle are supported.
 
@@ -758,7 +760,7 @@ existing data. Ensure you have suitable backups of existing data.
 ```
 $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
 
-(airnet) $ airnet init --dataset-path '/path/to/workspace/directory'
+(airnet) $ C:\ProgramData\Miniconda3\envs\airnet\python.exe C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe init --dataset-path '/path/to/workspace/directory'
 Dataset will be located at: '/path/to/workspace/directory'
 
 Dataset created at: '/path/to/workspace/directory'
@@ -860,14 +862,14 @@ This is designed for use in running the Air Unit Network utility in Antarctica.
 
 **Note:** This process will produce an environment that can be run on Windows (10), x86 64 bit computers only.
 
-Within a [Windows Deployment VM](#setup-a-windows-deployment-vm):
+First, [Create a Python Package](#python-package). Then within a 
+[Windows Deployment VM](#setup-a-windows-deployment-vm):
 
-1. [Create a Python Package](#python-package)
-2. connect to OneDrive, such that the [Installation Bundle](#installation-bundle) can be updated
-3. from the Installation Bundle, run `miniconda-installer.exe`, installing for all users
-4. from the 'build' directory in the Installation Bundle, run the 7Zip installer (`7z.exe`)
-5. from the start menu, launch *Anaconda PowerShell Prompt* and run the commands in [1]
-6. from the user *Downloads* directory, extract `airnet.tar.gz` using 7-zip: 
+1. connect to OneDrive, such that the [Installation Bundle](#installation-bundle) can be accessed and updated
+2. from the Installation Bundle, run `miniconda-installer.exe`, installing for all users
+3. from the 'build' directory in the Installation Bundle, run the 7Zip installer (`7z.exe`)
+4. from the start menu, launch *Anaconda PowerShell Prompt* with admin privileges and run the commands in [1]
+5. from the user *Downloads* directory, extract `airnet.tar.gz` using 7-zip: 
    1. then, extract `airnet.tar` to `airnet/`
    2. then, right-click `airnet/` -> *Send to* -> *Compressed (zipped) folder* to produce `airnet.zip`
    3. copy `airnet.zip` to the definitive copy of the [Installation Bundle](#installation-bundle), replacing the 
@@ -876,7 +878,8 @@ Within a [Windows Deployment VM](#setup-a-windows-deployment-vm):
 [1]
 
 ```shell
-(airnet) $ cd '/path/to/Installation Bundle/build/'
+(base) $ cd %USERPROFILE%/Downloads
+
 (base) $ conda create -n airnet
 (base) $ conda activate airnet
 (airnet) $ conda config --env --add channels conda-forge
@@ -884,7 +887,6 @@ Within a [Windows Deployment VM](#setup-a-windows-deployment-vm):
 (airnet) $ conda install fiona
 (airnet) $ python -m pip install bas-air-unit-network-dataset
 
-(base) $ cd %USERPROFILE%/Downloads
 (airnet) $ conda activate base
 (base) $ conda install -c conda-forge conda-pack
 (base) $ conda pack -n airnet -o airnet.tar.gz
