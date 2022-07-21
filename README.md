@@ -296,7 +296,7 @@ To install software needed to manage the Air Unit Network dataset:
    3. from Windows Explorer, right click *This PC* from the left hand panel and click *Properties* 
       1. from the left hand menu of the System Control Panel screen, click *Advanced system settings*
       2. from the *Advanced* tab of the System Properties screen, click *Environment Variables*
-      3. from the top section (User variables) select the *Path* variable and click *Edit*:
+      3. from the bottom section (System variables) select the *Path* variable and click *Edit*:
          1. from the Edit environment variable screen, click *New*
          2. enter `C:\Program Files\libxml2\bin` as a new entry (at the bottom of the list)
       4. click *OK*, then *OK*, then *OK* again and close Control Panel
