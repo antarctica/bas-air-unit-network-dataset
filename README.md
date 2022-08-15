@@ -620,7 +620,7 @@ Files produced for each output:
 
 | Format | Each Waypoint | Each Route | All Waypoints (Only) | All Routes (Only) | Waypoints and Routes (Combined) |
 |--------|---------------|------------|----------------------|-------------------|---------------------------------|
-| CSV    | No            | Yes        | Yes                  | Yes               | Yes                             |
+| CSV    | No            | Yes        | Yes                  | Yes               | No                              |
 | GPX    | No            | Yes        | Yes                  | Yes               | Yes                             |
 | FPL    | No            | Yes        | Yes                  | No                | No                              |
 

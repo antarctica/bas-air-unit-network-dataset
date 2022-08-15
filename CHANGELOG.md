@@ -9,8 +9,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
+* output format table incorrectly stated CSV files produced a network output
+  [#96](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/96)
 * incorrect installation instructions for setting the user vs. system PATH environment variable
-  [#91](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/40)
+  [#91](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/91)
 
 ## [0.1.0] - 2022-07-14
 
