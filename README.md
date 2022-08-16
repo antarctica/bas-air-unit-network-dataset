@@ -221,9 +221,9 @@ $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
 # navigate to the workspace directory
 (airnet) $ cd '/path/to/workspace/directory'
 
-(airnet) $ C:\ProgramData\Miniconda3\envs\airnet\python.exe C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe import --dataset-path bas-air-unit-network-dataset.gpkg --input-path import.gpx
+(airnet) $ C:\ProgramData\Miniconda3\envs\airnet\python.exe C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe import --dataset-path bas-air-unit-network-dataset.gpkg --input-path input.gpx
 Dataset is located at: /path/to/workspace/directory/bas-air-unit-network-dataset.gpkg
-Input is located at: /path/to/workspace/directory/import.gpx
+Input is located at: /path/to/workspace/directory/input.gpx
 
 <NetworkManager : 12 Waypoints - 3 Routes>
 
@@ -261,7 +261,7 @@ $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
 # navigate to the workspace directory
 (airnet) $ cd '/path/to/workspace/directory'
 
-(airnet) $ C:\ProgramData\Miniconda3\envs\airnet\python.exe C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe export --dataset-path bas-air-unit-network-dataset.gpkg -output-path output/
+(airnet) $ C:\ProgramData\Miniconda3\envs\airnet\python.exe C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe export --dataset-path bas-air-unit-network-dataset.gpkg --output-path output/
 Dataset is located at: /path/to/workspace/directory/bas-air-unit-network-dataset.gpkg
 Output directory is is: /path/to/workspace/directory/output
 
