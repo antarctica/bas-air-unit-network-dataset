@@ -27,6 +27,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+* Omitting some generated outputs to suit Air Unit requirements
+  [#101](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/101)
 * Adjusting method parameters to be more descriptive/intuitive
   [#51](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/51)
 

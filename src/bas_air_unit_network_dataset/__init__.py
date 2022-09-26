@@ -957,15 +957,12 @@ class NetworkManager:
         path = self._get_output_path(path=path, fmt_dir="CSV")
 
         self.waypoints.dump_csv(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.csv")))
-        self.routes.dump_csv(path=path.joinpath(file_name_with_date("00_ROUTES_{{date}}.csv")))
-        self.routes.dump_csv(path=path, separate=True)
+        # combined/individual routes files omitted as they aren't needed by the Air Unit (#101)
 
     def dump_gpx(self, path: Optional[Path] = None) -> None:
         path = self._get_output_path(path=path, fmt_dir="GPX")
 
-        self.waypoints.dump_gpx(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.gpx")))
-        self.routes.dump_gpx(path=path.joinpath(file_name_with_date("00_ROUTES_{{date}}.gpx")), inc_waypoints=False)
-        self.routes.dump_gpx(path=path, separate_files=True, inc_waypoints=False)
+        # waypoints and combined/individual routes files omitted as they aren't needed by the Air Unit (#101)
 
         # `network.gpx` needs access to both routes and waypoints so needs to be done at this level
         gpx = GPX()
