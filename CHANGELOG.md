@@ -16,6 +16,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * incorrect installation instructions for setting the user vs. system PATH environment variable
   [#91](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/91)
 
+### Changed
+
+* Adjusting method parameters to be more descriptive/intuitive
+  [#51](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/51)
+
 ## [0.1.0] - 2022-07-14
 
 ### Added

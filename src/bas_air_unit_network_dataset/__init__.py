@@ -346,7 +346,7 @@ class RouteWaypoint:
 
     def dumps_feature(
         self,
-        spatial: bool = True,
+        inc_spatial: bool = True,
         route_id: Optional[str] = None,
         route_name: Optional[str] = None,
         use_designators: bool = False,
@@ -360,7 +360,7 @@ class RouteWaypoint:
             },
         }
 
-        if spatial:
+        if inc_spatial:
             geometry = {"type": "Point", "coordinates": (self.waypoint.geometry.x, self.waypoint.geometry.y)}
             if self.waypoint.geometry.has_z:
                 geometry["coordinates"] = (
@@ -494,13 +494,13 @@ class Route:
         self.id = feature["properties"]["id"]
         self.name = feature["properties"]["name"]
 
-    def _dumps_feature_route(self, spatial: bool = True) -> dict:
+    def _dumps_feature_route(self, inc_spatial: bool = True) -> dict:
         feature = {
             "geometry": None,
             "properties": {"id": self.id, "name": self.name},
         }
 
-        if spatial:
+        if inc_spatial:
             geometry = []
             for route_waypoint in self.waypoints:
                 geometry.append(route_waypoint.waypoint.dumps_feature_geometry()["coordinates"])
@@ -509,21 +509,25 @@ class Route:
         return feature
 
     def _dumps_feature_waypoints(
-        self, spatial: bool = True, route_id: bool = False, route_name: bool = False, use_designators: bool = False
+        self,
+        inc_spatial: bool = True,
+        inc_route_id: bool = False,
+        inc_route_name: bool = False,
+        use_designators: bool = False,
     ) -> List[dict]:
         _route_id = None
-        if route_id:
+        if inc_route_id:
             _route_id = self.id
 
         _route_name = None
-        if route_name:
+        if inc_route_name:
             _route_name = self.name
 
         features = []
         for route_waypoint in self.waypoints:
             features.append(
                 route_waypoint.dumps_feature(
-                    spatial=spatial, route_id=_route_id, route_name=_route_name, use_designators=use_designators
+                    inc_spatial=inc_spatial, route_id=_route_id, route_name=_route_name, use_designators=use_designators
                 )
             )
 
@@ -531,22 +535,25 @@ class Route:
 
     def dumps_feature(
         self,
-        spatial: bool = True,
-        waypoints: bool = False,
-        route_id: bool = False,
-        route_name: bool = False,
+        inc_spatial: bool = True,
+        inc_waypoints: bool = False,
+        inc_route_id: bool = False,
+        inc_route_name: bool = False,
         use_designators: bool = False,
     ) -> Union[dict, List[dict]]:
-        if not waypoints:
-            return self._dumps_feature_route(spatial=spatial)
+        if not inc_waypoints:
+            return self._dumps_feature_route(inc_spatial=inc_spatial)
 
         return self._dumps_feature_waypoints(
-            spatial=spatial, route_id=route_id, route_name=route_name, use_designators=use_designators
+            inc_spatial=inc_spatial,
+            inc_route_id=inc_route_id,
+            inc_route_name=inc_route_name,
+            use_designators=use_designators,
         )
 
-    def dumps_csv(self, waypoints: bool = False, route_column: bool = False) -> List[dict]:
-        if not waypoints:
-            raise RuntimeError("Routes without waypoints cannot be dumped to CSV, set `waypoints` to True.")
+    def dumps_csv(self, inc_waypoints: bool = False, route_column: bool = False) -> List[dict]:
+        if not inc_waypoints:
+            raise RuntimeError("Routes without waypoints cannot be dumped to CSV, set `inc_waypoints` to True.")
 
         csv_rows: List[Dict] = []
         for route_waypoint in self.waypoints:
@@ -559,7 +566,7 @@ class Route:
 
         return csv_rows
 
-    def dump_csv(self, path: Path, waypoints: bool = False, route_column: bool = False) -> None:
+    def dump_csv(self, path: Path, inc_waypoints: bool = False, route_column: bool = False) -> None:
         fieldnames: List[str] = list(Route.csv_schema_waypoints.keys())
         if route_column:
             fieldnames = ["route_name"] + fieldnames
@@ -568,9 +575,9 @@ class Route:
         with open(path, mode="w", newline="") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
-            writer.writerows(self.dumps_csv(waypoints=waypoints, route_column=route_column))
+            writer.writerows(self.dumps_csv(inc_waypoints=inc_waypoints, route_column=route_column))
 
-    def dumps_gpx(self, waypoints: bool = False) -> GPX:
+    def dumps_gpx(self, inc_waypoints: bool = False) -> GPX:
         gpx = GPX()
         route = GPXRoute()
 
@@ -579,16 +586,16 @@ class Route:
         for route_waypoint in self.waypoints:
             route.points.append(route_waypoint.dumps_gpx())
 
-            if waypoints:
+            if inc_waypoints:
                 gpx.waypoints.append(route_waypoint.waypoint.dumps_gpx())
 
         gpx.routes.append(route)
 
         return gpx
 
-    def dump_gpx(self, path: Path, waypoints: bool = False) -> None:
+    def dump_gpx(self, path: Path, inc_waypoints: bool = False) -> None:
         with open(path, mode="w") as gpx_file:
-            gpx_file.write(self.dumps_gpx(waypoints=waypoints).to_xml())
+            gpx_file.write(self.dumps_gpx(inc_waypoints=inc_waypoints).to_xml())
 
     def dumps_fpl(self, flight_plan_index: int) -> Fpl:
         fpl = Fpl()
@@ -716,28 +723,34 @@ class RouteCollection:
         self._routes.append(route)
 
     def dumps_features(
-        self, spatial: bool = True, waypoints: bool = False, route_id: bool = False, route_name: bool = False
+        self,
+        inc_spatial: bool = True,
+        inc_waypoints: bool = False,
+        inc_route_id: bool = False,
+        inc_route_name: bool = False,
     ) -> List[dict]:
         features = []
 
         for route in self.routes:
-            if not waypoints:
-                features.append(route.dumps_feature(spatial=spatial, waypoints=False))
+            if not inc_waypoints:
+                features.append(route.dumps_feature(inc_spatial=inc_spatial, inc_waypoints=False))
                 continue
-            features += route.dumps_feature(spatial=spatial, waypoints=True, route_id=route_id, route_name=route_name)
+            features += route.dumps_feature(
+                inc_spatial=inc_spatial, inc_waypoints=True, inc_route_id=inc_route_id, inc_route_name=inc_route_name
+            )
 
         return features
 
     def _dump_csv_separate(self, path: Path) -> None:
         for route in self.routes:
-            route.dump_csv(path=path.joinpath(f"{route.name.upper()}.csv"), waypoints=True, route_column=False)
+            route.dump_csv(path=path.joinpath(f"{route.name.upper()}.csv"), inc_waypoints=True, route_column=False)
 
     def _dump_csv_combined(self, path: Path) -> None:
         fieldnames: List[str] = ["route_name"] + list(Route.csv_schema_waypoints.keys())
 
         route_waypoints: List[dict] = []
         for route in self.routes:
-            route_waypoints += route.dumps_csv(waypoints=True, route_column=True)
+            route_waypoints += route.dumps_csv(inc_waypoints=True, route_column=True)
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
         with open(path, mode="w", newline="") as output_file:
@@ -751,39 +764,39 @@ class RouteCollection:
         else:
             self._dump_csv_combined(path=path)
 
-    def dumps_gpx(self, waypoints: bool = False) -> GPX:
+    def dumps_gpx(self, inc_waypoints: bool = False) -> GPX:
         gpx = GPX()
         _waypoints = []
 
         for route in self.routes:
-            gpx.routes.append(route.dumps_gpx(waypoints=False).routes[0])
+            gpx.routes.append(route.dumps_gpx(inc_waypoints=False).routes[0])
 
-            if waypoints:
-                _waypoints += route.dumps_gpx(waypoints=True).waypoints
+            if inc_waypoints:
+                _waypoints += route.dumps_gpx(inc_waypoints=True).waypoints
 
-        if waypoints:
+        if inc_waypoints:
             gpx.waypoints = _waypoints
 
         return gpx
 
-    def _dump_gpx_separate(self, path: Path, waypoints: bool = False) -> None:
+    def _dump_gpx_separate(self, path: Path, inc_waypoints: bool = False) -> None:
         for route in self.routes:
-            route.dump_gpx(path=path.joinpath(f"{route.name.upper()}.gpx"), waypoints=waypoints)
+            route.dump_gpx(path=path.joinpath(f"{route.name.upper()}.gpx"), inc_waypoints=inc_waypoints)
 
     def _dump_gpx_combined(self, path: Path) -> None:
         with open(path, mode="w") as gpx_file:
             gpx_file.write(self.dumps_gpx().to_xml())
 
-    def dump_gpx(self, path: Path, separate: bool = False, waypoints: bool = False) -> None:
-        if separate:
-            self._dump_gpx_separate(path=path, waypoints=waypoints)
+    def dump_gpx(self, path: Path, separate_files: bool = False, inc_waypoints: bool = False) -> None:
+        if separate_files:
+            self._dump_gpx_separate(path=path, inc_waypoints=inc_waypoints)
         else:
             # combined GPX can't include waypoints as there'll be repetitions
             self._dump_gpx_combined(path=path)
 
-    def dump_fpl(self, path: Path, separate: bool = False) -> None:
-        if not separate:
-            raise RuntimeError("FPL does not support combined routes, `separate` must be set to True.")
+    def dump_fpl(self, path: Path, separate_files: bool = False) -> None:
+        if not separate_files:
+            raise RuntimeError("FPL does not support combined routes, `separate_files` must be set to True.")
 
         flight_plan_index = 1
         for route in self.routes:
@@ -889,14 +902,14 @@ class NetworkManager:
         with fiona.open(
             path, mode="w", driver="GPKG", schema=RouteWaypoint.feature_schema, layer="route_waypoints"
         ) as layer:
-            layer.writerecords(self.routes.dumps_features(spatial=False, waypoints=True, route_id=True))
+            layer.writerecords(self.routes.dumps_features(inc_spatial=False, inc_waypoints=True, inc_route_id=True))
 
         # routes
         # (only name and any other top/route level information is stored here, waypoints are stored in `route_waypoints`)
         with fiona.open(
             path, mode="w", driver="GPKG", crs=crs_from_epsg(4326), schema=Route.feature_schema, layer="routes"
         ) as layer:
-            layer.writerecords(self.routes.dumps_features(spatial=False, waypoints=False))
+            layer.writerecords(self.routes.dumps_features(inc_spatial=False, inc_waypoints=False))
 
     def load_gpx(self, path: Path) -> None:
         with open(path, mode="r") as gpx_file:
@@ -951,8 +964,8 @@ class NetworkManager:
         path = self._get_output_path(path=path, fmt_dir="GPX")
 
         self.waypoints.dump_gpx(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.gpx")))
-        self.routes.dump_gpx(path=path.joinpath(file_name_with_date("00_ROUTES_{{date}}.gpx")), waypoints=False)
-        self.routes.dump_gpx(path=path, separate=True, waypoints=False)
+        self.routes.dump_gpx(path=path.joinpath(file_name_with_date("00_ROUTES_{{date}}.gpx")), inc_waypoints=False)
+        self.routes.dump_gpx(path=path, separate_files=True, inc_waypoints=False)
 
         # `network.gpx` needs access to both routes and waypoints so needs to be done at this level
         gpx = GPX()
@@ -965,7 +978,7 @@ class NetworkManager:
         path = self._get_output_path(path=path, fmt_dir="FPL")
 
         self.waypoints.dump_fpl(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.fpl")))
-        self.routes.dump_fpl(path=path, separate=True)
+        self.routes.dump_fpl(path=path, separate_files=True)
 
     def __repr__(self):
         return f"<NetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"
