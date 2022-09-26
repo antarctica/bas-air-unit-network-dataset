@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
+* missing documentation for setting CLI parameters using environment variables
+  [#65](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/65)
 * background section in README
   [#109](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/109)
 
