@@ -321,6 +321,10 @@ class Route:
         if len(name) > 25:
             raise ValueError("Name must be 25 characters or less.")
 
+        # FPL uses space (' ') as a separator character not underscore ('_') so replace any first.
+        # TODO: This should move to the revised NetworkManager class as it's BAS specific, see #46.
+        name = name.replace("_", " ")
+
         self._name = _upper_alphanumeric_space_only(value=name)
 
     @property
