@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+* background section in README
+  [#109](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/109)
+
 ### Fixed
 
 * command example parameters used the wrong values
@@ -48,9 +53,9 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#35](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/35)
 * installation bundle for required software
   [#52](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/52)
-* create test network
+* test network data
   [#6](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/6)
-* create QGIS visualisation for test network
+* QGIS visualisation for test network
   [#27](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/27)
 * GitHub repository mirroring
   [#88](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/88)
