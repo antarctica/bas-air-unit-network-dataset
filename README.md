@@ -625,10 +625,13 @@ Format details:
 Files produced for each output: 
 
 | Format | Each Waypoint | Each Route | All Waypoints (Only) | All Routes (Only) | Waypoints and Routes (Combined) |
-|--------|---------------|------------|----------------------|-------------------|---------------------------------|
-| CSV    | No            | Yes        | Yes                  | Yes               | No                              |
-| GPX    | No            | Yes        | Yes                  | Yes               | Yes                             |
-| FPL    | No            | Yes        | Yes                  | No                | No                              |
+|--------|---------------|------------|----------------------|-------------------|--------------------------------|
+| CSV    | No            | No         | Yes                  | No [1]            | No                             |
+| GPX    | No            | No         | No [1]               | No [1]            | Yes                            |
+| FPL    | No            | Yes        | Yes                  | No                | No                             |
+
+[1] These outputs can be produced but are intentionally excluded as they aren't used by the Air Unit. See this 
+[GitLab issue](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/101) [Internal] for details.
 
 #### Output file names
 
