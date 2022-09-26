@@ -64,10 +64,8 @@ project.
 
 ### Workspace directory
 
-The *workspace directory* contains files all related to this project. This directory should be shared between all 
-users/computers that require access by storing on a shared network drive accessible to relevant users.
-
-At Rothera, the working directory is: `...`
+The *workspace directory* contains all files related to this project. This directory should be shared between all 
+users/computers that require access by storing on a shared drive or synced folder accessible to relevant users.
 
 A typical/example workspace directory contains:
 
