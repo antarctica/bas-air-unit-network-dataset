@@ -278,20 +278,6 @@ Output directory is is: /path/to/workspace/directory/output
 Export complete
 ```
 
-### Using environment variables
-
-Parameter values for the `airnet` command line interface (CLI) can be provided using environment variables. These are
-typically used when automating commands as part of a script or other automation workflow. 
-
-| Parameter               | Environment Variable  |
-| ----------------------- | --------------------- |
-| `-d` / `--dataset-path` | `AIRNET_DATASET_PATH` |
-| `-i` / `--input-path`   | `AIRNET_INPUT_PATH`   |
-| `-o` / `--output-path`  | `AIRNET_OUTPUT_PATH`  |
-
-**Note:** Where an option is set on the command line and using an environment variable, the command line value takes
-precedence.
-
 ## Installation
 
 ### Install software
@@ -694,6 +680,7 @@ Notes:
 * the `waypoint.comment`, `waypoint.last_accessed_at` and `waypoint.last_accessed_by` fields are combined as the 
   comment for each FPL waypoint
 * FPL outputs are validated against a custom version of the Garmin [FPL XSD schema](#fpl-xml-schema) automatically
+* route names will use spaces instead of underscores in FPL files, as underscores aren't allowed in FPL route names
 
 Limitations:
 
@@ -743,6 +730,21 @@ See `bas_air_unit_network_dataset.__init__:NetworkManager` for the NetworkManage
 For a list of available commands and their options, run `airnet --help`.
 
 For information on the installed package version, run `airnet --version`.
+
+### CLI environment variables
+
+Parameter values for the `airnet` command line interface (CLI) can be provided using environment variables. These are
+typically used when automating commands as part of a script or other automation workflow. 
+
+| Parameter               | Environment Variable  |
+| ----------------------- | --------------------- |
+| `-d` / `--dataset-path` | `AIRNET_DATASET_PATH` |
+| `-i` / `--input-path`   | `AIRNET_INPUT_PATH`   |
+| `-o` / `--output-path`  | `AIRNET_OUTPUT_PATH`  |
+
+**Note:** Where an option is set on the command line and using an environment variable, the command line value takes
+precedence.
+
 
 ## Setup
 
