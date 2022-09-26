@@ -14,6 +14,14 @@ To support the BAS Air Unit manage their network of routes and waypoints such th
 * information is interoperable between different systems, through the use of open/standard formats
 * information is well described and sharable with other teams, through distribution as datasets
 
+### Background
+
+This project was developed in response to discussions and requests with the BAS Air Unit to review and simplify the 
+process they used to manage their network of waypoints, and to ensure it's future sustainability.
+
+BAS staff can read more about this background in this 
+[GitLab issue](https://gitlab.data.bas.ac.uk/MAGIC/ops-support/-/issues/134) [Internal].
+
 ### Status
 
 This project is an early alpha, working towards a Minimal Viable Product (MVP). This means:
