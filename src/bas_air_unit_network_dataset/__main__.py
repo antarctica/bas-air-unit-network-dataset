@@ -51,7 +51,7 @@ def cli():
     "--dataset-path",
     help="Path to network dataset directory",
     required=True,
-    envvar="AIRNET_OUTPUT_PATH",
+    envvar="AIRNET_DATASET_PATH",
     type=click.Path(exists=False, file_okay=False, dir_okay=True, readable=True, writable=True, resolve_path=True),
 )
 def init(dataset_path: str) -> None:

@@ -278,6 +278,20 @@ Output directory is is: /path/to/workspace/directory/output
 Export complete
 ```
 
+### Using environment variables
+
+Parameter values for the `airnet` command line interface (CLI) can be provided using environment variables. These are
+typically used when automating commands as part of a script or other automation workflow. 
+
+| Parameter               | Environment Variable  |
+| ----------------------- | --------------------- |
+| `-d` / `--dataset-path` | `AIRNET_DATASET_PATH` |
+| `-i` / `--input-path`   | `AIRNET_INPUT_PATH`   |
+| `-o` / `--output-path`  | `AIRNET_OUTPUT_PATH`  |
+
+**Note:** Where an option is set on the command line and using an environment variable, the command line value takes
+precedence.
+
 ## Installation
 
 ### Install software
