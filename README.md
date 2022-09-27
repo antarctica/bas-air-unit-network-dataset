@@ -630,6 +630,8 @@ Files produced for each output:
 | GPX    | No            | No         | No [1]               | No [1]            | Yes                            |
 | FPL    | No            | Yes        | Yes                  | No                | No                             |
 
+Where 'All Waypoints (Only)' outputs are produced, waypoints will be sorted alphabetically.
+
 [1] These outputs can be produced but are intentionally excluded as they aren't used by the Air Unit. See this 
 [GitLab issue](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/101) [Internal] for details.
 
