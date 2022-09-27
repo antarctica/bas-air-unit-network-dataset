@@ -622,13 +622,13 @@ Format details:
 | GPX    | GPS Exchange Format    | 1.1      | XML      | Yes                  | Yes                   | Yes                  | No               |
 | FPL    | (Garmin) Flight Plan   | 1.0      | XML      | No (Vendor Specific) | Yes                   | Yes                  | No               |
 
-Files produced for each output: 
+Outputs produced for each format: 
 
 | Format | Each Waypoint | Each Route | All Waypoints (Only) | All Routes (Only) | Waypoints and Routes (Combined) |
-|--------|---------------|------------|----------------------|-------------------|--------------------------------|
-| CSV    | No            | No         | Yes                  | No [1]            | No                             |
-| GPX    | No            | No         | No [1]               | No [1]            | Yes                            |
-| FPL    | No            | Yes        | Yes                  | No                | No                             |
+|--------|---------------|------------|----------------------|-------------------|---------------------------------|
+| CSV    | No            | No         | Yes                  | No [1]            | No                              |
+| GPX    | No            | No         | No [1]               | No [1]            | Yes                             |
+| FPL    | No            | Yes        | Yes                  | No                | No                              |
 
 Where 'All Waypoints (Only)' outputs are produced, waypoints will be sorted alphabetically.
 
