@@ -748,7 +748,6 @@ typically used when automating commands as part of a script or other automation 
 **Note:** Where an option is set on the command line and using an environment variable, the command line value takes
 precedence.
 
-
 ## Setup
 
 ### Populate the installation bundle
