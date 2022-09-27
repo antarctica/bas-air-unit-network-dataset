@@ -37,10 +37,6 @@ class Waypoint:
     csv_schema = {
         "designator": "str",
         "comment": "str",
-        "longitude_dd": "float",
-        "latitude_dd": "float",
-        "longitude_ddm": "float",
-        "latitude_ddm": "float",
         "last_accessed_at": "date",
         "last_accessed_by": "str",
     }
@@ -197,7 +193,7 @@ class Waypoint:
 
         return feature
 
-    def dumps_csv(self) -> dict:
+    def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> dict:
         comment = "-"
         if self.comment is not None:
             comment = self.comment
@@ -212,7 +208,7 @@ class Waypoint:
 
         geometry_ddm = convert_coordinate_dd_2_ddm(lon=self.geometry.x, lat=self.geometry.y)
 
-        return {
+        csv_feature = {
             "designator": self.designator,
             "latitude_dd": self.geometry.y,
             "longitude_dd": self.geometry.x,
@@ -222,6 +218,15 @@ class Waypoint:
             "last_accessed_at": last_accessed_at,
             "last_accessed_by": last_accessed_by,
         }
+
+        if not inc_dd_lat_lon:
+            del csv_feature["latitude_dd"]
+            del csv_feature["longitude_dd"]
+        if not inc_ddm_lat_lon:
+            del csv_feature["latitude_ddm"]
+            del csv_feature["longitude_ddm"]
+
+        return csv_feature
 
     def dumps_gpx(self) -> GPXWaypoint:
         waypoint = GPXWaypoint()
@@ -382,10 +387,10 @@ class RouteWaypoint:
 
         return feature
 
-    def dumps_csv(self):
+    def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False):
         route_waypoint = {"sequence": self.sequence}
 
-        waypoint = self.waypoint.dumps_csv()
+        waypoint = self.waypoint.dumps_csv(inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon)
         del waypoint["comment"]
         del waypoint["last_accessed_at"]
         del waypoint["last_accessed_by"]
@@ -425,10 +430,6 @@ class Route:
     csv_schema_waypoints = {
         "sequence": "str",
         "designator": "str",
-        "longitude_dd": "float",
-        "latitude_dd": "float",
-        "longitude_ddm": "float",
-        "latitude_ddm": "float",
         "description": "str",
     }
 
@@ -551,13 +552,21 @@ class Route:
             use_designators=use_designators,
         )
 
-    def dumps_csv(self, inc_waypoints: bool = False, route_column: bool = False) -> List[dict]:
+    def dumps_csv(
+        self,
+        inc_waypoints: bool = False,
+        route_column: bool = False,
+        inc_dd_lat_lon: bool = True,
+        inc_ddm_lat_lon: bool = True,
+    ) -> List[dict]:
         if not inc_waypoints:
             raise RuntimeError("Routes without waypoints cannot be dumped to CSV, set `inc_waypoints` to True.")
 
         csv_rows: List[Dict] = []
         for route_waypoint in self.waypoints:
-            route_waypoint_csv_row = route_waypoint.dumps_csv()
+            route_waypoint_csv_row = route_waypoint.dumps_csv(
+                inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon
+            )
 
             if route_column:
                 route_waypoint_csv_row = {**{"route_name": self.name}, **route_waypoint_csv_row}
@@ -566,8 +575,49 @@ class Route:
 
         return csv_rows
 
-    def dump_csv(self, path: Path, inc_waypoints: bool = False, route_column: bool = False) -> None:
+    def dump_csv(
+        self,
+        path: Path,
+        inc_waypoints: bool = False,
+        route_column: bool = False,
+        inc_dd_lat_lon: bool = True,
+        inc_ddm_lat_lon: bool = True,
+    ) -> None:
+        # this process is very inelegant and needs improving to remove duplication [#110]
         fieldnames: List[str] = list(Route.csv_schema_waypoints.keys())
+        if inc_dd_lat_lon:
+            fieldnames = [
+                "sequence",
+                "designator",
+                "comment",
+                "latitude_dd",
+                "longitude_dd",
+                "last_accessed_at",
+                "last_accessed_by",
+            ]
+        if inc_ddm_lat_lon:
+            fieldnames = [
+                "sequence",
+                "designator",
+                "comment",
+                "latitude_ddm",
+                "longitude_ddm",
+                "last_accessed_at",
+                "last_accessed_by",
+            ]
+        if inc_dd_lat_lon and inc_ddm_lat_lon:
+            fieldnames = [
+                "sequence",
+                "designator",
+                "comment",
+                "latitude_dd",
+                "longitude_dd",
+                "latitude_ddm",
+                "longitude_ddm",
+                "last_accessed_at",
+                "last_accessed_by",
+            ]
+
         if route_column:
             fieldnames = ["route_name"] + fieldnames
 
@@ -575,7 +625,14 @@ class Route:
         with open(path, mode="w", newline="") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
-            writer.writerows(self.dumps_csv(inc_waypoints=inc_waypoints, route_column=route_column))
+            writer.writerows(
+                self.dumps_csv(
+                    inc_waypoints=inc_waypoints,
+                    route_column=route_column,
+                    inc_dd_lat_lon=inc_dd_lat_lon,
+                    inc_ddm_lat_lon=inc_ddm_lat_lon,
+                )
+            )
 
     def dumps_gpx(self, inc_waypoints: bool = False) -> GPX:
         gpx = GPX()
@@ -651,22 +708,54 @@ class WaypointCollection:
 
         return None
 
-    def dump_features(self, spatial: bool = True) -> List[dict]:
+    def dump_features(self, inc_spatial: bool = True) -> List[dict]:
         features = []
 
         for waypoint in self.waypoints:
-            features.append(waypoint.dumps_feature(spatial=spatial))
+            features.append(waypoint.dumps_feature(inc_spatial=inc_spatial))
 
         return features
 
-    def dump_csv(self, path: Path) -> None:
+    def dump_csv(self, path: Path, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> None:
+        # this process is very inelegant and needs improving to remove duplication [#110]
+        fieldnames: List[str] = list(Waypoint.csv_schema.keys())
+        if inc_dd_lat_lon:
+            fieldnames = [
+                "designator",
+                "comment",
+                "latitude_dd",
+                "longitude_dd",
+                "last_accessed_at",
+                "last_accessed_by",
+            ]
+        if inc_ddm_lat_lon:
+            fieldnames = [
+                "designator",
+                "comment",
+                "latitude_ddm",
+                "longitude_ddm",
+                "last_accessed_at",
+                "last_accessed_by",
+            ]
+        if inc_dd_lat_lon and inc_ddm_lat_lon:
+            fieldnames = [
+                "designator",
+                "comment",
+                "latitude_dd",
+                "longitude_dd",
+                "latitude_ddm",
+                "longitude_ddm",
+                "last_accessed_at",
+                "last_accessed_by",
+            ]
+
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
         with open(path, mode="w", newline="") as output_file:
-            writer = csv.DictWriter(output_file, fieldnames=list(Waypoint.csv_schema.keys()))
+            writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
 
             for waypoint in self.waypoints:
-                writer.writerow(waypoint.dumps_csv())
+                writer.writerow(waypoint.dumps_csv(inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon))
 
     def dumps_gpx(self) -> GPX:
         gpx = GPX()
@@ -741,16 +830,24 @@ class RouteCollection:
 
         return features
 
-    def _dump_csv_separate(self, path: Path) -> None:
+    def _dump_csv_separate(self, path: Path, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> None:
         for route in self.routes:
-            route.dump_csv(path=path.joinpath(f"{route.name.upper()}.csv"), inc_waypoints=True, route_column=False)
+            route.dump_csv(
+                path=path.joinpath(f"{route.name.upper()}.csv"),
+                inc_waypoints=True,
+                route_column=False,
+                inc_dd_lat_lon=inc_dd_lat_lon,
+                inc_ddm_lat_lon=inc_ddm_lat_lon,
+            )
 
-    def _dump_csv_combined(self, path: Path) -> None:
+    def _dump_csv_combined(self, path: Path, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> None:
         fieldnames: List[str] = ["route_name"] + list(Route.csv_schema_waypoints.keys())
 
         route_waypoints: List[dict] = []
         for route in self.routes:
-            route_waypoints += route.dumps_csv(inc_waypoints=True, route_column=True)
+            route_waypoints += route.dumps_csv(
+                inc_waypoints=True, route_column=True, inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon
+            )
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
         with open(path, mode="w", newline="") as output_file:
@@ -758,11 +855,13 @@ class RouteCollection:
             writer.writeheader()
             writer.writerows(route_waypoints)
 
-    def dump_csv(self, path: Path, separate: bool = False) -> None:
+    def dump_csv(
+        self, path: Path, separate: bool = False, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False
+    ) -> None:
         if separate:
-            self._dump_csv_separate(path=path)
+            self._dump_csv_separate(path=path, inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon)
         else:
-            self._dump_csv_combined(path=path)
+            self._dump_csv_combined(path=path, inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon)
 
     def dumps_gpx(self, inc_waypoints: bool = False) -> GPX:
         gpx = GPX()
@@ -896,7 +995,7 @@ class NetworkManager:
             schema=Waypoint.feature_schema_spatial,
             layer="waypoints",
         ) as layer:
-            layer.writerecords(self.waypoints.dump_features(spatial=True))
+            layer.writerecords(self.waypoints.dump_features(inc_spatial=True))
 
         # route_waypoints
         with fiona.open(
@@ -956,7 +1055,12 @@ class NetworkManager:
     def dump_csv(self, path: Optional[Path] = None) -> None:
         path = self._get_output_path(path=path, fmt_dir="CSV")
 
-        self.waypoints.dump_csv(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.csv")))
+        self.waypoints.dump_csv(
+            path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.csv")), inc_ddm_lat_lon=True
+        )
+        self.waypoints.dump_csv(
+            path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}_DD.csv")), inc_dd_lat_lon=True
+        )
         # combined/individual routes files omitted as they aren't needed by the Air Unit (#101)
 
     def dump_gpx(self, path: Optional[Path] = None) -> None:

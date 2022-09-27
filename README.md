@@ -653,7 +653,7 @@ Notes:
 
 * CSV outputs use the first row as a column names header
 * outputs produced for all routes use a `route_name` column to distinguish rows related to each route
-* `waypoint.geometries` are encoded as separate latitude (Y) and longitude (X) columns, using ESPG:4326, in two formats:
+* `waypoint.geometries` can optionally be included as separate latitude (Y) and longitude (X) columns in either:
   * decimal degrees (`latitude_dd`, `longitude_dd` columns) - native format
   * degrees, decimal minutes (`latitude_ddm`, `longitude_ddm` columns) - format used in aviation
 
