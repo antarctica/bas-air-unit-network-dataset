@@ -700,6 +700,7 @@ class WaypointCollection:
 
     def append(self, waypoint: Waypoint) -> None:
         self._waypoints.append(waypoint)
+        self._waypoints = sorted(self.waypoints, key=lambda x: x.designator)
 
     def lookup(self, designator: str) -> Optional[Waypoint]:
         for waypoint in self._waypoints:
