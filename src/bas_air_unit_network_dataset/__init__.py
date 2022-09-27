@@ -180,7 +180,7 @@ class Waypoint:
 
         return geometry
 
-    def dumps_feature(self, spatial: bool = True) -> dict:
+    def dumps_feature(self, inc_spatial: bool = True) -> dict:
         feature = {
             "geometry": None,
             "properties": {
@@ -192,7 +192,7 @@ class Waypoint:
             },
         }
 
-        if spatial:
+        if inc_spatial:
             feature["geometry"] = self.dumps_feature_geometry()
 
         return feature
