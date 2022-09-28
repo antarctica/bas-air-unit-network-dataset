@@ -1109,6 +1109,17 @@ class NetworkManager:
     def dump_csv(self, path: Optional[Path] = None) -> None:
         path = self._get_output_path(path=path, fmt_dir="CSV")
 
+        # testing only - start
+        self.waypoints.dump_csv(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}_no_latlon.csv")))
+        self.waypoints.dump_csv(
+            path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}_DD_DDM.csv")),
+            inc_dd_lat_lon=True,
+            inc_ddm_lat_lon=True,
+        )
+        self.routes.dump_csv(path=path.joinpath(file_name_with_date("00_ROUTES_{{date}}.csv")))
+        self.routes.dump_csv(path=path, separate_files=True)
+        # testing only - end
+
         self.waypoints.dump_csv(
             path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.csv")), inc_ddm_lat_lon=True
         )
@@ -1119,6 +1130,12 @@ class NetworkManager:
 
     def dump_gpx(self, path: Optional[Path] = None) -> None:
         path = self._get_output_path(path=path, fmt_dir="GPX")
+
+        # testing only - start
+        self.waypoints.dump_gpx(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.gpx")))
+        self.routes.dump_gpx(path=path.joinpath(file_name_with_date("00_ROUTES_{{date}}.gpx")), inc_waypoints=False)
+        self.routes.dump_gpx(path=path, separate_files=True, inc_waypoints=False)
+        # testing only - end
 
         # waypoints and combined/individual routes files omitted as they aren't needed by the Air Unit (#101)
 
