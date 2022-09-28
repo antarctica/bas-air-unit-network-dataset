@@ -944,12 +944,13 @@ First, [Create a Python Package](#python-package). Then within a
 For all releases:
 
 1. create a release branch
-2. close release in `CHANGELOG.md`
-3. bump package version `poetry version [minor/patch]`
-4. push changes, merge the release branch into `main` and tag with version
-5. build a [Packaged Anaconda Environment](#packaged-anaconda-environment)
-6. update the [Installation Bundle](#installation-bundle) as needed
-7. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
+2. [manually test outputs](#manual-outputs-testing)
+3. close release in `CHANGELOG.md`
+4. bump package version `poetry version [minor/patch]`
+5. push changes, merge the release branch into `main` and tag with version
+6. build a [Packaged Anaconda Environment](#packaged-anaconda-environment)
+7. update the [Installation Bundle](#installation-bundle) as needed
+8. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
 
 ## Feedback
 
