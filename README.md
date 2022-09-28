@@ -46,7 +46,7 @@ This service has a number of limitations, including:
 * the Air Unit Network utility does not require route names to follow the required naming convention
 * the Air Unit Network utility does not require waypoint designators to be unique across all waypoints
 * the Air Unit Network utility does not require waypoint comments to follow the required structure
-* the Air Unit Network utility does not require waypoints within imported routes to be listed as stanalone waypoints
+* the Air Unit Network utility does not require waypoints within imported routes to be listed as standalone waypoints
 * contextual comments for waypoints within a route (e.g. 'Start of route') cannot be set using Garmin BaseCamp
 * comments for waypoints use an overly complex structure to support an ad-hoc serialisation format
 * Unicode characters (such as emoji) cannot be used in route/waypoint names, descriptions etc.
@@ -75,23 +75,15 @@ A typical/example workspace directory contains:
 ├── input.gpx
 └── output/
     ├── CSV/
-    │   ├── 00_ROUTES_2022_07_08.csv
     │   ├── 00_WAYPOINTS_2022_07_08.csv
-    │   ├── 01_BRAVO_TO_ALPHA.csv
-    │   ├── 02_BRAVO_TO_BRAVO.csv
-    │   └── 03_BRAVO_TO_LIMA.csv
+    │   ├── 00_WAYPOINTS_2022_07_08_DD.csv
     ├── FPL/
     │   ├── 00_WAYPOINTS_2022_07_08.fpl
     │   ├── 01_BRAVO_TO_ALPHA.fpl
     │   ├── 02_BRAVO_TO_BRAVO.fpl
     │   └── 03_bBRAVO_TO_LIMA.fpl
     └── GPX/
-        ├── 00_NETWORK_2022_07_08.gpx
-        ├── 00_ROUTES_2022_07_08.gpx
-        ├── 00_WAYPOINTS_2022_07_08.gpx 
-        ├── 01_BRAVO_TO_ALPHA.gpx
-        ├── 02_BRAVO_TO_BRAVO.gpx
-        └── 03_BRAVO_TO_LIMA.gpx
+        └── 00_NETWORK_2022_07_08.gpx
 ```
 
 * the `output/` directory contains files for use in GPS devices and as print outs, organised by file type (CSV, GPX 
@@ -116,13 +108,10 @@ To update waypoints and routes (the network) and create new files for use in GPS
 
 1. [waypoints](#managing-waypoints-in-basecamp) and [routes](#managing-routes-in-basecamp) are created and edited using 
    Garmin BaseCamp
-2. the network of routes and waypoints is [exported from BaseCamp](#saving-waypoints-and-routes-from-basecamp) as a GPX 
-   file
-3. the GPX file is 
-   [imported into the Air Unit Network utility](#importing-waypoints-and-routes-into-the-network-utility)
-4. the Network utility is used to 
-   [export the network in a range of formats](#exporting-waypoints-and-routes-using-the-network-utility) (CSV, GPX and 
-   FPL)
+2. [export routes and waypoints from BaseCamp](#saving-waypoints-and-routes-from-basecamp) as a GPX file
+3. [import the GPX file into the Air Unit Network utility](#importing-waypoints-and-routes-into-the-network-utility)
+4. use the utility to [export the network in a range of formats](#exporting-waypoints-and-routes-using-the-network-utility) 
+   (CSV, GPX and FPL)
 
 The sub-sections below describe these steps in more detail.
 
@@ -364,9 +353,9 @@ This project consists of:
 
 The BAS Air Unit Network information model consists of two entities, forming two, related, datasets:
 
-1. **Waypoints** Features representing landing sites used by the Air Unit, usually co-located with a BAS Operations 
+1. **Waypoints**: Features representing landing sites used by the Air Unit, usually co-located with a BAS Operations 
    depot, field camp or a science/monitoring instrument 
-2. **Routes** Features representing formally defined, frequently travelled, paths between two or more Waypoints, as 
+2. **Routes**: Features representing formally defined, frequently travelled, paths between two or more Waypoints, as 
    opposed to ad-hoc paths
 
 For example:
@@ -377,8 +366,8 @@ For example:
 There is a many-to-many relationship between Waypoints and Routes. I.e. a Waypoint can be part of many Routes, and 
 Routes can contain many Waypoints.
 
-**Note:** This information model is abstract and requires implementing. See the [Data model](#data-model) section 
-for the current implementation.
+**Note:** This information model is abstract and requires implementing. See the [Data model](#data-model) section for 
+the current implementation.
 
 #### Waypoints (information model)
 
@@ -451,11 +440,11 @@ No special comments.
 
 #### Routes (information model)
 
-| Property          | Name      | Type                      | Occurrence | Description           | Example                      |
-|-------------------|-----------|---------------------------|------------|-----------------------|------------------------------|
-| `id`              | ID        | String                    | 1          | Unique identifier     | '01G7MZB9X0R8S7RTNYAMAQKHE4' |
-| `name`            | Name      | String                    | 1          | Name or reference     | '01_ALPHA_TO_BRAVO'          |
-| `waypoints`       | Waypoints | List of Waypoint entities | 2-n        | Sequence of Waypoints | *N/A*                        |
+| Property          | Name      | Type                      | Occurrence | Length | Description           | Example                      |
+|-------------------|-----------|---------------------------|------------|--------|-----------------------|------------------------------|
+| `id`              | ID        | String                    | 1          | 1 - .. | Unique identifier     | '01G7MZB9X0R8S7RTNYAMAQKHE4' |
+| `name`            | Name      | String                    | 1          | 1 - .. | Name or reference     | '01_ALPHA_TO_BRAVO'          |
+| `waypoints`       | Waypoints | List of Waypoint entities | 2-n        | -      | Sequence of Waypoints | -                            |
 
 ##### ID (Route)
 
@@ -509,7 +498,7 @@ This GeoPackage, and the data it contains, is considered the Source of Truth and
 **Note:** This data model does not describe how entities are encoded in specific [Output Formats](#output-formats).
 
 **Note:** This data model does not describe specifics about how entities are encoded in GeoPackages (i.e. database 
-schema), or describe GeoPackage meta tables, which are managed automatically.
+schema), or describe GeoPackage meta tables, which are managed automatically by libraries used by this utility.
 
 #### FIDs
 
@@ -558,11 +547,11 @@ Python class:
 
 GeoPackage layer: `routes`
 
-| Property | Name       | Data Type       | Nullable | Unique | Notes                                                |
-|----------|------------|-----------------|----------|--------|------------------------------------------------------|
-| `fid`    | Feature ID | Integer         | No       | Yes    | Internal to database, primary key, auto-incrementing |
-| `id`     | ID         | ULID (String)   | No       | Yes    | -                                                    |
-| `name`   | Name       | String          | No       | Yes    | -                                                    |
+| Property | Name       | Data Type       | Nullable | Unique | Max Length | Notes                                                |
+|----------|------------|-----------------|----------|--------|------------|------------------------------------------------------|
+| `fid`    | Feature ID | Integer         | No       | Yes    | -          | Internal to database, primary key, auto-incrementing |
+| `id`     | ID         | ULID (String)   | No       | Yes    | -          | -                                                    |
+| `name`   | Name       | String          | No       | Yes    | -          | -                                                    |
 
 #### Route Waypoints (data model)
 
@@ -572,13 +561,13 @@ Python class:
 
 GeoPackage layer: `route_waypoints`
 
-| Property      | Name        | Data Type      | Nullable | Unique             | Notes                                                                       |
-|---------------|-------------|----------------|----------|--------------------|-----------------------------------------------------------------------------|
-| `fid`         | Feature ID  | Integer        | No       | Yes                | Internal to database, primary key, auto-incrementing                        |
-| `route_id`    | Route ID    | ULID (String)  | No       | Yes                | Foreign key to Route entity                                                 |
-| `waypoint_id` | Waypoint ID | ULID (String)  | No       | Yes                | Foreign key to Waypoint entity                                              |
-| `sequence`    | Sequence    | Integer        | No       | Yes (within Route) | Position of waypoint within a route, value must be unique within each route |
-| `description` | Description | String         | Yes      | -                  | -                                                                           |
+| Property      | Name        | Data Type      | Nullable | Unique             | Max Length | Notes                                                                       |
+|---------------|-------------|----------------|----------|--------------------|------------|-----------------------------------------------------------------------------|
+| `fid`         | Feature ID  | Integer        | No       | Yes                | -          | Internal to database, primary key, auto-incrementing                        |
+| `route_id`    | Route ID    | ULID (String)  | No       | Yes                | -          | Foreign key to Route entity                                                 |
+| `waypoint_id` | Waypoint ID | ULID (String)  | No       | Yes                | -          | Foreign key to Waypoint entity                                              |
+| `sequence`    | Sequence    | Integer        | No       | Yes (within Route) | -          | Position of waypoint within a route, value must be unique within each route |
+| `comment`     | Comment     | String         | Yes      | No                 | -          | -                                                                           |
 
 **Note:** Though the `route_id` and `waypoint_id` columns are effectively foreign keys, they are not configured as 
 such within the GeoPackage.
@@ -605,9 +594,9 @@ A test network of 12 waypoints and 3 routes is used to:
 2. provide consistency for repeatable testing
 3. prevent needing to use real data that might be sensitive
 
-**Note:** Route and waypoints in the test network are arbitrary and do not reflect any actual locations.
+**Note:** Route and waypoints in the test network are arbitrary and do not reflect any actual features.
 
-**WARNING!** This test network is entirely random/fake. It MUST NOT be used for any real navigation.
+**WARNING!** This test network is entirely fictitious. It MUST NOT be used for any real navigation.
 
 A [Workspace Directory](#workspace-directory) for the test network is maintained in the
 [MAGIC Office 365 OneDrive](https://nercacuk.sharepoint.com/:f:/s/BASMagicTeam/EhBAbE0tTDxCt298WEPOWoMBtuV7yxOYuJ8bPslVdKlASQ)
