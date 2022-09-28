@@ -859,6 +859,21 @@ To add a new (development) dependency:
 $ poetry add [dependency] (--dev)
 ```
 
+### Testing
+
+Automated tests are not currently implemented (see 
+[#16](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/16) for more information).
+
+#### Manual outputs testing
+
+Manual testing of outputs is strongly encouraged prior to a release.
+
+These should aim to be as comprehensive as possible, rather than only testing the outputs currently needed. This 
+currently requires manual/ad-hoc modification of the `NetworkManager.dump_*()` methods as shown in this commit:
+
+* https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/blob/9892b56c1669bd88dfd5b7212c2d05861c7b5fa0/src/bas_air_unit_network_dataset/__init__.py#L1112
+* https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/blob/9892b56c1669bd88dfd5b7212c2d05861c7b5fa0/src/bas_air_unit_network_dataset/__init__.py#L1134
+
 ## Deployment
 
 The Air Unit Network utility is distributed in two forms:
@@ -929,12 +944,13 @@ First, [Create a Python Package](#python-package). Then within a
 For all releases:
 
 1. create a release branch
-2. close release in `CHANGELOG.md`
-3. bump package version `poetry version [minor/patch]`
-4. push changes, merge the release branch into `main` and tag with version
-5. build a [Packaged Anaconda Environment](#packaged-anaconda-environment)
-6. update the [Installation Bundle](#installation-bundle) as needed
-7. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
+2. [manually test outputs](#manual-outputs-testing)
+3. close release in `CHANGELOG.md`
+4. bump package version `poetry version [minor/patch]`
+5. push changes, merge the release branch into `main` and tag with version
+6. build a [Packaged Anaconda Environment](#packaged-anaconda-environment)
+7. update the [Installation Bundle](#installation-bundle) as needed
+8. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
 
 ## Feedback
 

@@ -432,7 +432,11 @@ class RouteWaypoint:
         del waypoint["last_accessed_by"]
 
         route_waypoint = {**route_waypoint, **waypoint}
-        route_waypoint["comment"] = self.comment
+
+        comment = "-"
+        if self.comment is not None:
+            comment = self.comment
+        route_waypoint["comment"] = comment
 
         return route_waypoint
 
@@ -466,6 +470,8 @@ class Route:
     csv_schema_waypoints = {
         "sequence": "str",
         "identifier": "str",
+        "name": "str",
+        "colocated_with": "str",
         "comment": "str",
     }
 
@@ -905,9 +911,9 @@ class RouteCollection:
             writer.writerows(route_waypoints)
 
     def dump_csv(
-        self, path: Path, separate: bool = False, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False
+        self, path: Path, separate_files: bool = False, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False
     ) -> None:
-        if separate:
+        if separate_files:
             self._dump_csv_separate(path=path, inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon)
         else:
             self._dump_csv_combined(path=path, inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon)
