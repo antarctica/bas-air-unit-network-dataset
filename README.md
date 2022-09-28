@@ -919,13 +919,15 @@ First, [Create a Python Package](#python-package). Then within a
 5. from the user *Downloads* directory, extract `airnet.tar.gz` using 7-zip: 
    1. then, extract `airnet.tar` to `airnet/`
    2. then, right-click `airnet/` -> *Send to* -> *Compressed (zipped) folder* to produce `airnet.zip`
-   3. copy `airnet.zip` to the definitive copy of the [Installation Bundle](#installation-bundle), replacing the 
+   3. rename `airnet.zip` to `airnet-virtual-environment.zip`
+   4. copy `airnet.zip` to the definitive copy of the [Installation Bundle](#installation-bundle), replacing the 
       existing file
 
 [1]
 
 ```shell
-(base) $ cd %USERPROFILE%/Downloads
+(base) $ cd $env:userprofile
+(base) $ cd ./Downloads
 
 (base) $ conda create -n airnet
 (base) $ conda activate airnet
