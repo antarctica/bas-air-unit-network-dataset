@@ -49,7 +49,7 @@ This service has a number of limitations, including:
 * the Air Unit Network utility does not require waypoints within imported routes to be listed as standalone waypoints
 * contextual comments for waypoints within a route (e.g. 'Start of route') cannot be set using Garmin BaseCamp
 * comments for waypoints use an overly complex structure to support an ad-hoc serialisation format
-* Unicode characters (such as emoji) cannot be used in route/waypoint names, descriptions etc.
+* Unicode characters (such as emoji) cannot be used in route/waypoint names, comments, etc.
 * CSV outputs are not designed for printing (i.e. column formatting and page breaks)
 * the workspace directory and its data is only available at Rothera (i.e. it isn't synced back to Cambridge)
 
