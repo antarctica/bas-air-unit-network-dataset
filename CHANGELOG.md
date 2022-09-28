@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed [BREAKING!]
 
+* `designator` field in waypoints changed to `identifier`
+  [#114](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/114)
 * splitting `comment` field into `name` and `comment` fields (as part of overall GPX `cmt` field)
   [#99](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/99)
 * `description` field maximum length limited to maximum FPL comment length

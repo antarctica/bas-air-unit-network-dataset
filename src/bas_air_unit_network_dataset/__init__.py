@@ -21,14 +21,14 @@ from bas_air_unit_network_dataset.utils import convert_coordinate_dd_2_ddm, file
 
 
 class Waypoint:
-    designator_max_length = 6
+    identifier_max_length = 6
     name_max_length = 17
 
     feature_schema_spatial = {
         "geometry": "Point",
         "properties": {
             "id": "str",
-            "designator": "str",
+            "identifier": "str",
             "name": "str",
             "colocated_with": "str",
             "last_accessed_at": "date",
@@ -38,7 +38,7 @@ class Waypoint:
     }
 
     csv_schema = {
-        "designator": "str",
+        "identifier": "str",
         "name": "str",
         "colocated_with": "str",
         "last_accessed_at": "date",
@@ -48,7 +48,7 @@ class Waypoint:
 
     def __init__(
         self,
-        designator: Optional[str] = None,
+        identifier: Optional[str] = None,
         lon: Optional[float] = None,
         lat: Optional[float] = None,
         alt: Optional[float] = None,
@@ -60,7 +60,7 @@ class Waypoint:
     ) -> None:
         self._id: str = str(ulid.new())
 
-        self._designator: str
+        self._identifier: str
         self._geometry: Point
         self._name: Optional[str] = None
         self._colocated_with: Optional[str] = None
@@ -68,8 +68,8 @@ class Waypoint:
         self._last_accessed_by: Optional[str] = None
         self._comment: Optional[str] = None
 
-        if designator is not None:
-            self.designator = designator
+        if identifier is not None:
+            self.identifier = identifier
 
         _geometry = []
         if lat is None and lon is not None:
@@ -109,15 +109,15 @@ class Waypoint:
         self._id = str(ulid.from_str(_id))
 
     @property
-    def designator(self) -> str:
-        return self._designator
+    def identifier(self) -> str:
+        return self._identifier
 
-    @designator.setter
-    def designator(self, designator: str):
-        if len(designator) > Waypoint.designator_max_length:
-            raise ValueError(f"Designators must be 6 characters or less. '{designator}' is {len(designator)}.")
+    @identifier.setter
+    def identifier(self, identifier: str):
+        if len(identifier) > Waypoint.identifier_max_length:
+            raise ValueError(f"Identifiers must be 6 characters or less. '{identifier}' is {len(identifier)}.")
 
-        self._designator = designator
+        self._identifier = identifier
 
     @property
     def geometry(self) -> Point:
@@ -184,7 +184,7 @@ class Waypoint:
 
     def loads_feature(self, feature: dict):
         self.id = feature["properties"]["id"]
-        self.designator = feature["properties"]["designator"]
+        self.identifier = feature["properties"]["identifier"]
         self.geometry = list(feature["geometry"]["coordinates"])
 
         if feature["properties"]["name"] is not None:
@@ -221,7 +221,7 @@ class Waypoint:
             "geometry": None,
             "properties": {
                 "id": self.id,
-                "designator": self.designator,
+                "identifier": self.identifier,
                 "name": self.name,
                 "colocated_with": self.colocated_with,
                 "last_accessed_at": self.last_accessed_at,
@@ -259,7 +259,7 @@ class Waypoint:
             comment = self.comment
 
         csv_feature = {
-            "designator": self.designator,
+            "identifier": self.identifier,
             "name": name,
             "colocated_with": colocated_with,
             "latitude_dd": self.geometry.y,
@@ -282,7 +282,7 @@ class Waypoint:
 
     def dumps_gpx(self) -> GPXWaypoint:
         waypoint = GPXWaypoint()
-        waypoint.name = self.designator
+        waypoint.name = self.identifier
         waypoint.longitude = self.geometry.x
         waypoint.latitude = self.geometry.y
 
@@ -305,7 +305,7 @@ class Waypoint:
     def dumps_fpl(self) -> FplWaypoint:
         waypoint = FplWaypoint()
 
-        waypoint.identifier = self.designator
+        waypoint.identifier = self.identifier
         waypoint.type = "USER WAYPOINT"
         waypoint.country_code = "__"
         waypoint.longitude = self.geometry.x
@@ -317,7 +317,7 @@ class Waypoint:
         return waypoint
 
     def __repr__(self) -> str:
-        return f"<Waypoint {self.id} :- [{self.designator.ljust(6, '_')}], {self.geometry}>"
+        return f"<Waypoint {self.id} :- [{self.identifier.ljust(6, '_')}], {self.geometry}>"
 
 
 class RouteWaypoint:
@@ -390,7 +390,7 @@ class RouteWaypoint:
         inc_spatial: bool = True,
         route_id: Optional[str] = None,
         route_name: Optional[str] = None,
-        use_designators: bool = False,
+        use_identifiers: bool = False,
     ) -> dict:
         feature = {
             "geometry": None,
@@ -411,9 +411,9 @@ class RouteWaypoint:
                 )
             feature["geometry"] = geometry
 
-        if use_designators:
+        if use_identifiers:
             del feature["properties"]["waypoint_id"]
-            feature["properties"] = {**{"designator": self.waypoint.designator}, **feature["properties"]}
+            feature["properties"] = {**{"identifier": self.waypoint.identifier}, **feature["properties"]}
 
         if route_name is not None:
             feature["properties"] = {**{"route_name": route_name}, **feature["properties"]}
@@ -438,7 +438,7 @@ class RouteWaypoint:
 
     def dumps_gpx(self) -> GPXRoutePoint:
         route_waypoint = GPXRoutePoint()
-        route_waypoint.name = self.waypoint.designator
+        route_waypoint.name = self.waypoint.identifier
         route_waypoint.longitude = self.waypoint.geometry.x
         route_waypoint.latitude = self.waypoint.geometry.y
         route_waypoint.comment = self.comment
@@ -460,12 +460,12 @@ class Route:
     # TODO: Determine why this requires an ordered dict when other schemas don't
     feature_schema_waypoints_spatial = {"geometry": "Point", "properties": OrderedDict()}
     feature_schema_waypoints_spatial["properties"]["sequence"] = "int"
-    feature_schema_waypoints_spatial["properties"]["designator"] = "str"
+    feature_schema_waypoints_spatial["properties"]["identifier"] = "str"
     feature_schema_waypoints_spatial["properties"]["comment"] = "str"
 
     csv_schema_waypoints = {
         "sequence": "str",
-        "designator": "str",
+        "identifier": "str",
         "comment": "str",
     }
 
@@ -550,7 +550,7 @@ class Route:
         inc_spatial: bool = True,
         inc_route_id: bool = False,
         inc_route_name: bool = False,
-        use_designators: bool = False,
+        use_identifiers: bool = False,
     ) -> List[dict]:
         _route_id = None
         if inc_route_id:
@@ -564,7 +564,7 @@ class Route:
         for route_waypoint in self.waypoints:
             features.append(
                 route_waypoint.dumps_feature(
-                    inc_spatial=inc_spatial, route_id=_route_id, route_name=_route_name, use_designators=use_designators
+                    inc_spatial=inc_spatial, route_id=_route_id, route_name=_route_name, use_identifiers=use_identifiers
                 )
             )
 
@@ -576,7 +576,7 @@ class Route:
         inc_waypoints: bool = False,
         inc_route_id: bool = False,
         inc_route_name: bool = False,
-        use_designators: bool = False,
+        use_identifiers: bool = False,
     ) -> Union[dict, List[dict]]:
         if not inc_waypoints:
             return self._dumps_feature_route(inc_spatial=inc_spatial)
@@ -585,7 +585,7 @@ class Route:
             inc_spatial=inc_spatial,
             inc_route_id=inc_route_id,
             inc_route_name=inc_route_name,
-            use_designators=use_designators,
+            use_identifiers=use_identifiers,
         )
 
     def dumps_csv(
@@ -624,7 +624,7 @@ class Route:
         if inc_dd_lat_lon:
             fieldnames = [
                 "sequence",
-                "designator",
+                "identifier",
                 "name",
                 "colocated_with",
                 "latitude_dd",
@@ -636,7 +636,7 @@ class Route:
         if inc_ddm_lat_lon:
             fieldnames = [
                 "sequence",
-                "designator",
+                "identifier",
                 "name",
                 "colocated_with",
                 "latitude_ddm",
@@ -648,7 +648,7 @@ class Route:
         if inc_dd_lat_lon and inc_ddm_lat_lon:
             fieldnames = [
                 "sequence",
-                "designator",
+                "identifier",
                 "name",
                 "colocated_with",
                 "latitude_dd",
@@ -705,7 +705,7 @@ class Route:
 
         for route_waypoint in self.waypoints:
             route_point = FplRoutePoint()
-            route_point.waypoint_identifier = route_waypoint.waypoint.designator
+            route_point.waypoint_identifier = route_waypoint.waypoint.identifier
             route_point.waypoint_type = "USER WAYPOINT"
             route_point.waypoint_country_code = "__"
             route.points.append(route_point)
@@ -724,8 +724,8 @@ class Route:
         end = "-"
 
         try:
-            start = self.first_waypoint.waypoint.designator.ljust(6)
-            end = self.last_waypoint.waypoint.designator.ljust(6)
+            start = self.first_waypoint.waypoint.identifier.ljust(6)
+            end = self.last_waypoint.waypoint.identifier.ljust(6)
         except AttributeError:
             pass
 
@@ -742,11 +742,11 @@ class WaypointCollection:
 
     def append(self, waypoint: Waypoint) -> None:
         self._waypoints.append(waypoint)
-        self._waypoints = sorted(self.waypoints, key=lambda x: x.designator)
+        self._waypoints = sorted(self.waypoints, key=lambda x: x.identifier)
 
-    def lookup(self, designator: str) -> Optional[Waypoint]:
+    def lookup(self, identifier: str) -> Optional[Waypoint]:
         for waypoint in self._waypoints:
-            if waypoint.designator == designator:
+            if waypoint.identifier == identifier:
                 return waypoint
 
         return None
@@ -764,7 +764,7 @@ class WaypointCollection:
         fieldnames: List[str] = list(Waypoint.csv_schema.keys())
         if inc_dd_lat_lon:
             fieldnames = [
-                "designator",
+                "identifier",
                 "name",
                 "colocated_with",
                 "latitude_dd",
@@ -775,7 +775,7 @@ class WaypointCollection:
             ]
         if inc_ddm_lat_lon:
             fieldnames = [
-                "designator",
+                "identifier",
                 "name",
                 "colocated_with",
                 "latitude_ddm",
@@ -786,7 +786,7 @@ class WaypointCollection:
             ]
         if inc_dd_lat_lon and inc_ddm_lat_lon:
             fieldnames = [
-                "designator",
+                "identifier",
                 "name",
                 "colocated_with",
                 "latitude_dd",
@@ -1066,7 +1066,7 @@ class NetworkManager:
         # waypoints
         for waypoint in gpx_data.waypoints:
             _waypoint = Waypoint()
-            _waypoint.designator = waypoint.name
+            _waypoint.identifier = waypoint.name
             _waypoint.geometry = [waypoint.longitude, waypoint.latitude]
 
             if waypoint.description is not None and waypoint.description != "N/A | N/A | N/A | N/A | N/A":
