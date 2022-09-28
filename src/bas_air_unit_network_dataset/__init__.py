@@ -323,7 +323,7 @@ class Waypoint:
 class RouteWaypoint:
     feature_schema = {
         "geometry": "None",
-        "properties": {"route_id": "str", "waypoint_id": "str", "sequence": "int", "description": "str"},
+        "properties": {"route_id": "str", "waypoint_id": "str", "sequence": "int", "comment": "str"},
     }
 
     feature_schema_spatial = {
@@ -332,11 +332,11 @@ class RouteWaypoint:
     }
 
     def __init__(
-        self, waypoint: Optional[Waypoint] = None, sequence: Optional[int] = None, description: Optional[str] = None
+        self, waypoint: Optional[Waypoint] = None, sequence: Optional[int] = None, comment: Optional[str] = None
     ) -> None:
         self._waypoint: Waypoint
         self._sequence: int
-        self._description: Optional[str] = None
+        self._comment: Optional[str] = None
 
         if waypoint is not None and sequence is None:
             raise ValueError("A `sequence` value must be provided if `waypoint` is set.")
@@ -346,8 +346,8 @@ class RouteWaypoint:
             self.waypoint = waypoint
             self.sequence = sequence
 
-        if description is not None:
-            self.description = description
+        if comment is not None:
+            self.comment = comment
 
     @property
     def waypoint(self) -> Waypoint:
@@ -366,7 +366,7 @@ class RouteWaypoint:
         self._sequence = sequence
 
     @property
-    def description(self) -> Optional[str]:
+    def comment(self) -> Optional[str]:
         # As BaseCamp has no support for route based waypoint comments, always return just the waypoint comment
         return self.waypoint.comment
 
@@ -379,13 +379,13 @@ class RouteWaypoint:
         #
         # return self._description
 
-    @description.setter
-    def description(self, description: str):
-        self._description = description
+    @comment.setter
+    def comment(self, comment: str):
+        self._comment = comment
 
     def loads_feature(self, feature: dict, waypoints: "WaypointCollection"):
         self.sequence = feature["properties"]["sequence"]
-        self.description = feature["properties"]["description"]
+        self.comment = feature["properties"]["comment"]
 
         try:
             self.waypoint = waypoints[feature["properties"]["waypoint_id"]]
@@ -406,7 +406,7 @@ class RouteWaypoint:
             "properties": {
                 "waypoint_id": self.waypoint.id,
                 "sequence": self.sequence,
-                "description": self.description,
+                "comment": self.comment,
             },
         }
 
@@ -441,7 +441,7 @@ class RouteWaypoint:
         del waypoint["last_accessed_by"]
 
         route_waypoint = {**route_waypoint, **waypoint}
-        route_waypoint["description"] = self.description
+        route_waypoint["comment"] = self.comment
 
         return route_waypoint
 
@@ -450,7 +450,7 @@ class RouteWaypoint:
         route_waypoint.name = self.waypoint.designator
         route_waypoint.longitude = self.waypoint.geometry.x
         route_waypoint.latitude = self.waypoint.geometry.y
-        route_waypoint.description = self.description
+        route_waypoint.description = self.comment
 
         return route_waypoint
 
@@ -470,12 +470,12 @@ class Route:
     feature_schema_waypoints_spatial = {"geometry": "Point", "properties": OrderedDict()}
     feature_schema_waypoints_spatial["properties"]["sequence"] = "int"
     feature_schema_waypoints_spatial["properties"]["designator"] = "str"
-    feature_schema_waypoints_spatial["properties"]["description"] = "str"
+    feature_schema_waypoints_spatial["properties"]["comment"] = "str"
 
     csv_schema_waypoints = {
         "sequence": "str",
         "designator": "str",
-        "description": "str",
+        "comment": "str",
     }
 
     def __init__(
@@ -1103,9 +1103,9 @@ class NetworkManager:
 
                 # ignore route waypoint descriptions, as BaseCamp just copies the waypoint description, rather than
                 # having a contextual description for each waypoint within a route.
-                _description = None
+                _comment = None
 
-                _route_waypoint = RouteWaypoint(waypoint=_waypoint, sequence=sequence, description=_description)
+                _route_waypoint = RouteWaypoint(waypoint=_waypoint, sequence=sequence, comment=_comment)
                 _route.waypoints.append(_route_waypoint)
                 sequence += 1
 
