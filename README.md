@@ -44,12 +44,12 @@ This service has a number of limitations, including:
 * the Air Unit Network utility does not support multiple users importing data at the same time
 * the Air Unit Network utility does not create backups when importing new data
 * the Air Unit Network utility does not require route names to follow the required naming convention
-* the Air Unit Network utility does not require waypoint designators to be unique across all waypoints
+* the Air Unit Network utility does not require waypoint identifiers to be unique across all waypoints
 * the Air Unit Network utility does not require waypoint comments to follow the required structure
 * the Air Unit Network utility does not require waypoints within imported routes to be listed as standalone waypoints
 * contextual comments for waypoints within a route (e.g. 'Start of route') cannot be set using Garmin BaseCamp
 * comments for waypoints use an overly complex structure to support an ad-hoc serialisation format
-* Unicode characters (such as emoji) cannot be used in route/waypoint names, descriptions etc.
+* Unicode characters (such as emoji) cannot be used in route/waypoint names, comments, etc.
 * CSV outputs are not designed for printing (i.e. column formatting and page breaks)
 * the workspace directory and its data is only available at Rothera (i.e. it isn't synced back to Cambridge)
 
@@ -124,10 +124,10 @@ The sub-sections below describe these steps in more detail.
 3. choose the *Create a waypoint* tool (flag icon) from the top middle toolbar (creation tools)
 4. select the general location of the waypoint (precise position can be entered later)
 5. from the *General* tab of the waypoint properties screen that opens:
-   1. enter a suitable *Name* or designator (maximum 6 characters)
+   1. enter a suitable *Name* or identifier (maximum 6 characters)
    2. enter a suitable *Comment*, which consists of 5 elements in the order below, each separated with a `|` (vertical 
       bar) character:
-      1. *description*: a full, or formal name for the waypoint (maximum 17 characters)
+      1. *name*: a full, or formal name for the waypoint (maximum 17 characters)
       2. *co-located with*: name of a related depot, instrument and/or other feature - use `N/A` if not relevant
       3. *last accessed at*: date waypoint was last accessed in the form `YYYY-MM-DD` - use `N/A` if unvisited
       4. *last accessed by*: pilot that that last accessed waypoint - use `N/A` if unvisited
@@ -148,7 +148,7 @@ For example (a standalone, unvisited, waypoint with no full/formal name or addit
 * comment: `N/A | N/A | N/A | N/A | N/A`
 * position: `S70° 49.810' W75° 11.420'`
 
-**Note:** Only the description (full/formal name) in a comment will be included in FPL waypoints.
+**Note:** Only the 'name' in a comment will be included in FPL waypoints.
 
 #### Edit an existing waypoint
 
@@ -156,7 +156,7 @@ For example (a standalone, unvisited, waypoint with no full/formal name or addit
 2. from the upper left hand panel, under *My Collection*, select *BAS Air Unit Network* -> *BAS Air Unit Network*
 3. from the lower left hand panel, right click the waypoint to be edited and select *Get Info*
 4. from the waypoint properties screen, update (as needed):
-   1. the name (designator)
+   1. the name (identifier)
    2. comment (see rules above for how comments must be written)
    3. position
 
@@ -174,7 +174,7 @@ For example (a standalone, unvisited, waypoint with no full/formal name or addit
 5. from the *Via Points* tab of the route properties screen that opens:
    1. un-tick the *Autoname* checkbox
    2. rename the route as per the route naming convention: 
-       * `{Route Number}_{Start Waypoint Designator}_To_{End Waypoint Designator}`
+       * `{Route Number}_{Start Waypoint Identifier}_To_{End Waypoint Identifier}`
        * for example: `01_ALPHA_TO_BRAVO`
        * the first route should use `01` as a route number, `00` is a reserved value and should not be used
    3. if additional waypoints should be added between start and end waypoints:
@@ -371,16 +371,16 @@ the current implementation.
 
 #### Waypoints (information model)
 
-| Property           | Name             | Type                              | Occurrence | Length | Description                                                  | Example                                   |
-|--------------------|------------------|-----------------------------------|------------|--------|--------------------------------------------------------------|-------------------------------------------|
-| `id`               | ID               | String                            | 1          | 1 - .. | Unique identifier                                            | '01G7MY680N332AW9H9HR9SG15T'              |
-| `designator`       | Designator       | String                            | 1          | 1 - 6  | Unique reference                                             | 'ALPHA'                                   |
-| `geometry`         | Geometry         | Geometry (2D/3D Point, EPSG:4326) | 1          | -      | Position or location as a single coordinate                  | 'SRID=4326;Point(-75.014648 -69.915214)'  |
-| `description`      | Description      | String                            | 0-1        | 1 - 17 | Full or formal name                                          | 'Alpha 001'                               |
-| `colocated_with`   | Co-located With  | String                            | 0-1        | 1 - .. | Features (from other domains) associated with the waypoint   | 'Depot: Foo'                              |
-| `last_accessed_at` | Last Accessed At | Date                              | 0-1        | 1 - .. | When the Waypoint was last accessed or visited               | '2014-12-24'                              |
-| `last_accessed_by` | Last Accessed By | String                            | 0-1        | 1 - .. | Who last accessed or visited the Waypoint                    | 'Conwat'                                  |                            
-| `comment`          | Comment          | String                            | 0-1        | 1 - .. | Freetext description or comments                             | 'Alpha 001 is on a high ridge ...'        |
+| Property           | Name             | Type                              | Occurrence | Length | Description                                                | Example                                   |
+|--------------------|------------------|-----------------------------------|------------|--------|------------------------------------------------------------|-------------------------------------------|
+| `id`               | ID               | String                            | 1          | 1 - .. | Unique identifier                                          | '01G7MY680N332AW9H9HR9SG15T'              |
+| `identifier`       | Identifier       | String                            | 1          | 1 - 6  | Unique reference                                           | 'ALPHA'                                   |
+| `geometry`         | Geometry         | Geometry (2D/3D Point, EPSG:4326) | 1          | -      | Position or location as a single coordinate                | 'SRID=4326;Point(-75.014648 -69.915214)'  |
+| `name`             | Name             | String                            | 0-1        | 1 - 17 | Full or formal name                                        | 'Alpha 001'                               |
+| `colocated_with`   | Co-located With  | String                            | 0-1        | 1 - .. | Features (from other domains) associated with the waypoint | 'Depot: Foo'                              |
+| `last_accessed_at` | Last Accessed At | Date                              | 0-1        | 1 - .. | When the Waypoint was last accessed or visited             | '2014-12-24'                              |
+| `last_accessed_by` | Last Accessed By | String                            | 0-1        | 1 - .. | Who last accessed or visited the Waypoint                  | 'Conwat'                                  |                            
+| `comment`          | Comment          | String                            | 0-1        | 1 - .. | Freetext description or comments                           | 'Alpha 001 is on a high ridge ...'        |
 
 ##### ID (Waypoint)
 
@@ -394,9 +394,9 @@ IDs:
 
 **Note:** This ID can be used to refer to each Waypoint in other systems (i.e. as an foreign identifier).
 
-##### Designators (Waypoint)
+##### Identifiers (Waypoint)
 
-Designators:
+Identifiers:
 
 * MUST be between 1 and 6 uppercase alpha-numeric characters without spaces (A-Z, 0-9)
 * MUST be unique across all Waypoints
@@ -410,7 +410,7 @@ Geometries:
   * a longitude (X) and latitude (Y) dimension (2D point)
   * a longitude (X), latitude (Y) and elevation (Z) dimension (3D point)
 
-##### Description (Waypoint)
+##### Name (Waypoint)
 
 If specified:
 
@@ -462,7 +462,7 @@ IDs:
 
 Names:
 
-* MUST use the format `{Sequence}_{First Waypoint Designator}_TO_{Last Waypoint Designator}`, where `{Sequence}` is 
+* MUST use the format `{Sequence}_{First Waypoint Identifier}_TO_{Last Waypoint Identifier}`, where `{Sequence}` is 
   a zero padded, auto-incrementing prefix (e.g. '01_', '02_', ..., '99_').
 
 ##### Waypoints (Route)
@@ -530,9 +530,9 @@ GeoPackage layer: `waypoints`
 |--------------------|------------------|---------------|----------|--------|------------|------------------------------------------------------|
 | `fid`              | Feature ID       | Integer       | No       | Yes    | -          | Internal to database, primary key, auto-incrementing |
 | `id`               | ID               | ULID (String) | No       | Yes    | -          | -                                                    |
-| `designator`       | Designator       | String        | No       | Yes    | 6          | -                                                    |
+| `identifer`        | Identifier       | String        | No       | Yes    | 6          | -                                                    |
 | `geometry`         | Geometry         | 2D/3D Point   | No       | No     | -          | -                                                    |
-| `description`      | Description      | String        | Yes      | No     | 17         | -                                                    |
+| `name`             | Name             | String        | Yes      | No     | 17         | -                                                    |
 | `colocated_with`   | Co-located With  | String        | Yes      | No     | -          | -                                                    |
 | `last_accessed_at` | Last Accessed At | Date          | Yes      | No     | -          | -                                                    |
 | `last_accessed_by` | Last Accessed By | String        | Yes      | No     | -          | -                                                    |
@@ -678,7 +678,7 @@ Notes:
 Limitations:
 
 * GPX metadata fields (author, last updated, etc.) are not currently populated
-* the `waypoint.description`, `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by` 
+* the `waypoint.name`, `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by` 
   and `waypoint.comment`, properties are combined into the GPX comment field, as GPX lacks fields for these properties
 * `waypoint.geometries` containing an elevation (Z) dimension are not included in GPX outputs
 
