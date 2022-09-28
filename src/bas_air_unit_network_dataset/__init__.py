@@ -432,7 +432,11 @@ class RouteWaypoint:
         del waypoint["last_accessed_by"]
 
         route_waypoint = {**route_waypoint, **waypoint}
-        route_waypoint["comment"] = self.comment
+
+        comment = "-"
+        if self.comment is not None:
+            comment = self.comment
+        route_waypoint["comment"] = comment
 
         return route_waypoint
 
