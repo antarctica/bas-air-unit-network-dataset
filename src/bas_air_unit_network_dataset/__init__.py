@@ -22,14 +22,14 @@ from bas_air_unit_network_dataset.utils import convert_coordinate_dd_2_ddm, file
 
 class Waypoint:
     designator_max_length = 6
-    description_max_length = 17
+    name_max_length = 17
 
     feature_schema_spatial = {
         "geometry": "Point",
         "properties": {
             "id": "str",
             "designator": "str",
-            "description": "str",
+            "name": "str",
             "colocated_with": "str",
             "last_accessed_at": "date",
             "last_accessed_by": "str",
@@ -39,7 +39,7 @@ class Waypoint:
 
     csv_schema = {
         "designator": "str",
-        "description": "str",
+        "name": "str",
         "colocated_with": "str",
         "last_accessed_at": "date",
         "last_accessed_by": "str",
@@ -52,7 +52,7 @@ class Waypoint:
         lon: Optional[float] = None,
         lat: Optional[float] = None,
         alt: Optional[float] = None,
-        description: Optional[str] = None,
+        name: Optional[str] = None,
         colocated_with: Optional[str] = None,
         last_accessed_at: Optional[date] = None,
         last_accessed_by: Optional[str] = None,
@@ -62,7 +62,7 @@ class Waypoint:
 
         self._designator: str
         self._geometry: Point
-        self._description: Optional[str] = None
+        self._name: Optional[str] = None
         self._colocated_with: Optional[str] = None
         self._last_accessed_at: Optional[date] = None
         self._last_accessed_by: Optional[str] = None
@@ -83,8 +83,8 @@ class Waypoint:
         if len(_geometry) >= 2:
             self.geometry = _geometry
 
-        if description is not None:
-            self.description = description
+        if name is not None:
+            self.name = name
 
         if colocated_with is not None:
             self.colocated_with = colocated_with
@@ -140,15 +140,15 @@ class Waypoint:
             pass
 
     @property
-    def description(self) -> Optional[str]:
-        return self._description
+    def name(self) -> Optional[str]:
+        return self._name
 
-    @description.setter
-    def description(self, description: str):
-        if len(description) > Waypoint.description_max_length:
-            raise ValueError(f"Descriptions must be 17 characters or less. '{description}' is {len(description)}.")
+    @name.setter
+    def name(self, name: str):
+        if len(name) > Waypoint.name_max_length:
+            raise ValueError(f"Names must be 17 characters or less. '{name}' is {len(name)}.")
 
-        self._description = description
+        self._name = name
 
     @property
     def colocated_with(self) -> Optional[str]:
@@ -187,8 +187,8 @@ class Waypoint:
         self.designator = feature["properties"]["designator"]
         self.geometry = list(feature["geometry"]["coordinates"])
 
-        if feature["properties"]["description"] is not None:
-            self.description = feature["properties"]["description"]
+        if feature["properties"]["name"] is not None:
+            self.name = feature["properties"]["name"]
 
         if feature["properties"]["colocated_with"] is not None:
             self.colocated_with = feature["properties"]["colocated_with"]
@@ -222,7 +222,7 @@ class Waypoint:
             "properties": {
                 "id": self.id,
                 "designator": self.designator,
-                "description": self.description,
+                "name": self.name,
                 "colocated_with": self.colocated_with,
                 "last_accessed_at": self.last_accessed_at,
                 "last_accessed_by": self.last_accessed_by,
@@ -238,9 +238,9 @@ class Waypoint:
     def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> dict:
         geometry_ddm = convert_coordinate_dd_2_ddm(lon=self.geometry.x, lat=self.geometry.y)
 
-        description = "-"
-        if self.description is not None:
-            description = self.description
+        name = "-"
+        if self.name is not None:
+            name = self.name
 
         colocated_with = "-"
         if self.colocated_with is not None:
@@ -260,7 +260,7 @@ class Waypoint:
 
         csv_feature = {
             "designator": self.designator,
-            "description": description,
+            "name": name,
             "colocated_with": colocated_with,
             "latitude_dd": self.geometry.y,
             "longitude_dd": self.geometry.x,
@@ -287,8 +287,8 @@ class Waypoint:
         waypoint.latitude = self.geometry.y
 
         description_parts: List[str] = []
-        if self.description is not None:
-            description_parts.append(f"Description: {self.description}")
+        if self.name is not None:
+            description_parts.append(f"Name: {self.name}")
         if self.colocated_with is not None:
             description_parts.append(f"Co-Located with: {self.colocated_with}")
         if self.last_accessed_at is not None and self.last_accessed_by is not None:
@@ -311,8 +311,8 @@ class Waypoint:
         waypoint.longitude = self.geometry.x
         waypoint.latitude = self.geometry.y
 
-        if self.description is not None:
-            waypoint.comment = self.description
+        if self.name is not None:
+            waypoint.comment = self.name
 
         return waypoint
 
@@ -441,7 +441,7 @@ class RouteWaypoint:
         route_waypoint.name = self.waypoint.designator
         route_waypoint.longitude = self.waypoint.geometry.x
         route_waypoint.latitude = self.waypoint.geometry.y
-        route_waypoint.description = self.comment
+        route_waypoint.comment = self.comment
 
         return route_waypoint
 
@@ -625,7 +625,7 @@ class Route:
             fieldnames = [
                 "sequence",
                 "designator",
-                "description",
+                "name",
                 "colocated_with",
                 "latitude_dd",
                 "longitude_dd",
@@ -637,7 +637,7 @@ class Route:
             fieldnames = [
                 "sequence",
                 "designator",
-                "description",
+                "name",
                 "colocated_with",
                 "latitude_ddm",
                 "longitude_ddm",
@@ -649,7 +649,7 @@ class Route:
             fieldnames = [
                 "sequence",
                 "designator",
-                "description",
+                "name",
                 "colocated_with",
                 "latitude_dd",
                 "longitude_dd",
@@ -765,7 +765,7 @@ class WaypointCollection:
         if inc_dd_lat_lon:
             fieldnames = [
                 "designator",
-                "description",
+                "name",
                 "colocated_with",
                 "latitude_dd",
                 "longitude_dd",
@@ -776,7 +776,7 @@ class WaypointCollection:
         if inc_ddm_lat_lon:
             fieldnames = [
                 "designator",
-                "description",
+                "name",
                 "colocated_with",
                 "latitude_ddm",
                 "longitude_ddm",
@@ -787,7 +787,7 @@ class WaypointCollection:
         if inc_dd_lat_lon and inc_ddm_lat_lon:
             fieldnames = [
                 "designator",
-                "description",
+                "name",
                 "colocated_with",
                 "latitude_dd",
                 "longitude_dd",
@@ -1071,7 +1071,8 @@ class NetworkManager:
 
             if waypoint.description is not None and waypoint.description != "N/A | N/A | N/A | N/A | N/A":
                 comment_elements = waypoint.description.split(" | ")
-                _waypoint.description = comment_elements[0]
+                if comment_elements[0] != "N/A":
+                    _waypoint.name = comment_elements[0]
                 if comment_elements[1] != "N/A":
                     _waypoint.colocated_with = comment_elements[1]
                 if comment_elements[2] != "N/A":

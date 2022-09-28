@@ -127,7 +127,7 @@ The sub-sections below describe these steps in more detail.
    1. enter a suitable *Name* or designator (maximum 6 characters)
    2. enter a suitable *Comment*, which consists of 5 elements in the order below, each separated with a `|` (vertical 
       bar) character:
-      1. *description*: a full, or formal name for the waypoint (maximum 17 characters)
+      1. *name*: a full, or formal name for the waypoint (maximum 17 characters)
       2. *co-located with*: name of a related depot, instrument and/or other feature - use `N/A` if not relevant
       3. *last accessed at*: date waypoint was last accessed in the form `YYYY-MM-DD` - use `N/A` if unvisited
       4. *last accessed by*: pilot that that last accessed waypoint - use `N/A` if unvisited
@@ -148,7 +148,7 @@ For example (a standalone, unvisited, waypoint with no full/formal name or addit
 * comment: `N/A | N/A | N/A | N/A | N/A`
 * position: `S70° 49.810' W75° 11.420'`
 
-**Note:** Only the description (full/formal name) in a comment will be included in FPL waypoints.
+**Note:** Only the 'name' in a comment will be included in FPL waypoints.
 
 #### Edit an existing waypoint
 
@@ -376,11 +376,11 @@ the current implementation.
 | `id`               | ID               | String                            | 1          | 1 - .. | Unique identifier                                            | '01G7MY680N332AW9H9HR9SG15T'              |
 | `designator`       | Designator       | String                            | 1          | 1 - 6  | Unique reference                                             | 'ALPHA'                                   |
 | `geometry`         | Geometry         | Geometry (2D/3D Point, EPSG:4326) | 1          | -      | Position or location as a single coordinate                  | 'SRID=4326;Point(-75.014648 -69.915214)'  |
-| `description`      | Description      | String                            | 0-1        | 1 - 17 | Full or formal name                                          | 'Alpha 001'                               |
 | `colocated_with`   | Co-located With  | String                            | 0-1        | 1 - .. | Features (from other domains) associated with the waypoint   | 'Depot: Foo'                              |
 | `last_accessed_at` | Last Accessed At | Date                              | 0-1        | 1 - .. | When the Waypoint was last accessed or visited               | '2014-12-24'                              |
 | `last_accessed_by` | Last Accessed By | String                            | 0-1        | 1 - .. | Who last accessed or visited the Waypoint                    | 'Conwat'                                  |                            
 | `comment`          | Comment          | String                            | 0-1        | 1 - .. | Freetext description or comments                             | 'Alpha 001 is on a high ridge ...'        |
+| `name`             | Name             | String                            | 0-1        | 1 - 17 | Full or formal name                                        | 'Alpha 001'                               |
 
 ##### ID (Waypoint)
 
@@ -410,7 +410,7 @@ Geometries:
   * a longitude (X) and latitude (Y) dimension (2D point)
   * a longitude (X), latitude (Y) and elevation (Z) dimension (3D point)
 
-##### Description (Waypoint)
+##### Name (Waypoint)
 
 If specified:
 
@@ -532,7 +532,7 @@ GeoPackage layer: `waypoints`
 | `id`               | ID               | ULID (String) | No       | Yes    | -          | -                                                    |
 | `designator`       | Designator       | String        | No       | Yes    | 6          | -                                                    |
 | `geometry`         | Geometry         | 2D/3D Point   | No       | No     | -          | -                                                    |
-| `description`      | Description      | String        | Yes      | No     | 17         | -                                                    |
+| `name`             | Name             | String        | Yes      | No     | 17         | -                                                    |
 | `colocated_with`   | Co-located With  | String        | Yes      | No     | -          | -                                                    |
 | `last_accessed_at` | Last Accessed At | Date          | Yes      | No     | -          | -                                                    |
 | `last_accessed_by` | Last Accessed By | String        | Yes      | No     | -          | -                                                    |
@@ -678,7 +678,7 @@ Notes:
 Limitations:
 
 * GPX metadata fields (author, last updated, etc.) are not currently populated
-* the `waypoint.description`, `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by` 
+* the `waypoint.name`, `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by` 
   and `waypoint.comment`, properties are combined into the GPX comment field, as GPX lacks fields for these properties
 * `waypoint.geometries` containing an elevation (Z) dimension are not included in GPX outputs
 
