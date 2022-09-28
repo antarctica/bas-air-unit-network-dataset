@@ -949,10 +949,12 @@ For all releases:
 2. [manually test outputs](#manual-outputs-testing)
 3. close release in `CHANGELOG.md`
 4. bump package version `poetry version [minor/patch]`
-5. push changes, merge the release branch into `main` and tag with version
+5. build and publish [Python package](#python-package) to PyPi
 6. build a [Packaged Anaconda Environment](#packaged-anaconda-environment)
-7. update the [Installation Bundle](#installation-bundle) as needed
-8. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
+7. push changes, merge the release branch into `main` and tag with version
+8. save the project README as a PDF and update in installation bundle
+9. compress the [Installation Bundle](#installation-bundle) into a 7Zip archive (to allow fr transfer South via AMS) 
+10. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
 
 ## Feedback
 
