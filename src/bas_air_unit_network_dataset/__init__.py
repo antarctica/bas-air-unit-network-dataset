@@ -470,6 +470,8 @@ class Route:
     csv_schema_waypoints = {
         "sequence": "str",
         "identifier": "str",
+        "name": "str",
+        "colocated_with": "str",
         "comment": "str",
     }
 
