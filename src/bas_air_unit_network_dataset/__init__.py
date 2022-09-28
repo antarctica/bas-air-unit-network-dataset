@@ -28,17 +28,21 @@ class Waypoint:
         "properties": {
             "id": "str",
             "designator": "str",
-            "comment": "str",
+            "description": "str",
+            "colocated_with": "str",
             "last_accessed_at": "date",
             "last_accessed_by": "str",
+            "comment": "str",
         },
     }
 
     csv_schema = {
         "designator": "str",
-        "comment": "str",
+        "description": "str",
+        "colocated_with": "str",
         "last_accessed_at": "date",
         "last_accessed_by": "str",
+        "comment": "str",
     }
 
     def __init__(
@@ -47,17 +51,21 @@ class Waypoint:
         lon: Optional[float] = None,
         lat: Optional[float] = None,
         alt: Optional[float] = None,
-        comment: Optional[str] = None,
+        description: Optional[str] = None,
+        colocated_with: Optional[str] = None,
         last_accessed_at: Optional[date] = None,
         last_accessed_by: Optional[str] = None,
+        comment: Optional[str] = None,
     ) -> None:
         self._id: str = str(ulid.new())
 
         self._designator: str
         self._geometry: Point
-        self._comment: Optional[str] = None
+        self._description: Optional[str] = None
+        self._colocated_with: Optional[str] = None
         self._last_accessed_at: Optional[date] = None
         self._last_accessed_by: Optional[str] = None
+        self._comment: Optional[str] = None
 
         if designator is not None:
             self.designator = designator
@@ -74,8 +82,11 @@ class Waypoint:
         if len(_geometry) >= 2:
             self.geometry = _geometry
 
-        if comment is not None:
-            self.comment = comment
+        if description is not None:
+            self.description = description
+
+        if colocated_with is not None:
+            self.colocated_with = colocated_with
 
         if last_accessed_at is not None and last_accessed_by is None:
             raise ValueError("A `last_accessed_by` value must be provided if `last_accessed_at` is set.")
@@ -84,6 +95,9 @@ class Waypoint:
         elif last_accessed_at is not None and last_accessed_by is not None:
             self.last_accessed_at = last_accessed_at
             self.last_accessed_by = last_accessed_by
+
+        if comment is not None:
+            self.comment = comment
 
     @property
     def id(self) -> str:
@@ -125,12 +139,20 @@ class Waypoint:
             pass
 
     @property
-    def comment(self) -> Optional[str]:
-        return self._comment
+    def description(self) -> Optional[str]:
+        return self._description
 
-    @comment.setter
-    def comment(self, comment: str):
-        self._comment = comment
+    @description.setter
+    def description(self, description: str):
+        self._description = description
+
+    @property
+    def colocated_with(self) -> Optional[str]:
+        return self._colocated_with
+
+    @colocated_with.setter
+    def colocated_with(self, colocated_with: str):
+        self._colocated_with = colocated_with
 
     @property
     def last_accessed_at(self) -> Optional[date]:
@@ -148,13 +170,24 @@ class Waypoint:
     def last_accessed_by(self, last_accessed_by: str):
         self._last_accessed_by = last_accessed_by
 
+    @property
+    def comment(self) -> Optional[str]:
+        return self._comment
+
+    @comment.setter
+    def comment(self, comment: str):
+        self._comment = comment
+
     def loads_feature(self, feature: dict):
         self.id = feature["properties"]["id"]
         self.designator = feature["properties"]["designator"]
         self.geometry = list(feature["geometry"]["coordinates"])
 
-        if feature["properties"]["comment"] is not None:
-            self.comment = feature["properties"]["comment"]
+        if feature["properties"]["description"] is not None:
+            self.description = feature["properties"]["description"]
+
+        if feature["properties"]["colocated_with"] is not None:
+            self.colocated_with = feature["properties"]["colocated_with"]
 
         if feature["properties"]["last_accessed_at"] is not None and feature["properties"]["last_accessed_by"] is None:
             raise ValueError("A `last_accessed_by` value must be provided if `last_accessed_at` is set.")
@@ -169,6 +202,9 @@ class Waypoint:
             self.last_accessed_at = date.fromisoformat(feature["properties"]["last_accessed_at"])
             self.last_accessed_by = feature["properties"]["last_accessed_by"]
 
+        if feature["properties"]["comment"] is not None:
+            self.comment = feature["properties"]["comment"]
+
     def dumps_feature_geometry(self) -> dict:
         geometry = {"type": "Point", "coordinates": (self.geometry.x, self.geometry.y)}
         if self.geometry.has_z:
@@ -182,9 +218,11 @@ class Waypoint:
             "properties": {
                 "id": self.id,
                 "designator": self.designator,
-                "comment": self.comment,
+                "description": self.description,
+                "colocated_with": self.colocated_with,
                 "last_accessed_at": self.last_accessed_at,
                 "last_accessed_by": self.last_accessed_by,
+                "comment": self.comment,
             },
         }
 
@@ -194,9 +232,15 @@ class Waypoint:
         return feature
 
     def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> dict:
-        comment = "-"
-        if self.comment is not None:
-            comment = self.comment
+        geometry_ddm = convert_coordinate_dd_2_ddm(lon=self.geometry.x, lat=self.geometry.y)
+
+        description = "-"
+        if self.description is not None:
+            description = self.description
+
+        colocated_with = "-"
+        if self.colocated_with is not None:
+            colocated_with = self.colocated_with
 
         last_accessed_at = "-"
         if self.last_accessed_at is not None:
@@ -206,17 +250,21 @@ class Waypoint:
         if self.last_accessed_by is not None:
             last_accessed_by = self.last_accessed_by
 
-        geometry_ddm = convert_coordinate_dd_2_ddm(lon=self.geometry.x, lat=self.geometry.y)
+        comment = "-"
+        if self.comment is not None:
+            comment = self.comment
 
         csv_feature = {
             "designator": self.designator,
+            "description": description,
+            "colocated_with": colocated_with,
             "latitude_dd": self.geometry.y,
             "longitude_dd": self.geometry.x,
             "latitude_ddm": geometry_ddm["lat"],
             "longitude_ddm": geometry_ddm["lon"],
-            "comment": comment,
             "last_accessed_at": last_accessed_at,
             "last_accessed_by": last_accessed_by,
+            "comment": comment,
         }
 
         if not inc_dd_lat_lon:
@@ -234,24 +282,19 @@ class Waypoint:
         waypoint.longitude = self.geometry.x
         waypoint.latitude = self.geometry.y
 
-        waypoint.description = "[No Description] [Last Access Unknown]"
-
-        _comment = None
+        description_parts: List[str] = []
+        if self.description is not None:
+            description_parts.append(f"Description: {self.description}")
+        if self.colocated_with is not None:
+            description_parts.append(f"Co-Located with: {self.colocated_with}")
+        if self.last_accessed_at is not None and self.last_accessed_by is not None:
+            description_parts.append(f"Last assessed: {self.last_accessed_at.isoformat()}, by: {self.last_accessed_by}")
         if self.comment is not None:
-            _comment = self.comment
+            description_parts.append(f"Comment: {self.comment}")
 
-        _access = None
-        if self.last_accessed_at is not None and self.last_accessed_by is None:
-            _access = f"Last checked: {self.last_accessed_at.isoformat()}"
-        elif self.last_accessed_at is not None and self.last_accessed_by is not None:
-            _access = f"Last checked: {self.last_accessed_at.isoformat()}, by: {self.last_accessed_by}"
-
-        if _comment is not None and _access is not None:
-            waypoint.description = f"{_comment} - {_access}"
-        elif _comment is not None and _access is None:
-            waypoint.description = _comment
-        elif _comment is None and _access is not None:
-            waypoint.description = _access
+        waypoint.description = "-"
+        if len(description_parts) > 0:
+            waypoint.description = " | ".join(description_parts)
 
         return waypoint
 
@@ -264,10 +307,10 @@ class Waypoint:
         waypoint.longitude = self.geometry.x
         waypoint.latitude = self.geometry.y
 
-        if self.comment is not None:
             # FPL comments can only be 25 characters long. This limitation isn't enforced in input data currently so
             # as a crude measure, the comment is truncated to the first 25 characters.
-            waypoint.comment = self.comment[:25]
+        if self.description is not None:
+            waypoint.comment = self.description[:25]
 
         return waypoint
 
@@ -589,33 +632,39 @@ class Route:
             fieldnames = [
                 "sequence",
                 "designator",
-                "comment",
+                "description",
+                "colocated_with",
                 "latitude_dd",
                 "longitude_dd",
                 "last_accessed_at",
                 "last_accessed_by",
+                "comment",
             ]
         if inc_ddm_lat_lon:
             fieldnames = [
                 "sequence",
                 "designator",
-                "comment",
+                "description",
+                "colocated_with",
                 "latitude_ddm",
                 "longitude_ddm",
                 "last_accessed_at",
                 "last_accessed_by",
+                "comment",
             ]
         if inc_dd_lat_lon and inc_ddm_lat_lon:
             fieldnames = [
                 "sequence",
                 "designator",
-                "comment",
+                "description",
+                "colocated_with",
                 "latitude_dd",
                 "longitude_dd",
                 "latitude_ddm",
                 "longitude_ddm",
                 "last_accessed_at",
                 "last_accessed_by",
+                "comment",
             ]
 
         if route_column:
@@ -723,31 +772,37 @@ class WaypointCollection:
         if inc_dd_lat_lon:
             fieldnames = [
                 "designator",
-                "comment",
+                "description",
+                "colocated_with",
                 "latitude_dd",
                 "longitude_dd",
                 "last_accessed_at",
                 "last_accessed_by",
+                "comment",
             ]
         if inc_ddm_lat_lon:
             fieldnames = [
                 "designator",
-                "comment",
+                "description",
+                "colocated_with",
                 "latitude_ddm",
                 "longitude_ddm",
                 "last_accessed_at",
                 "last_accessed_by",
+                "comment",
             ]
         if inc_dd_lat_lon and inc_ddm_lat_lon:
             fieldnames = [
                 "designator",
-                "comment",
+                "description",
+                "colocated_with",
                 "latitude_dd",
                 "longitude_dd",
                 "latitude_ddm",
                 "longitude_ddm",
                 "last_accessed_at",
                 "last_accessed_by",
+                "comment",
             ]
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
@@ -1021,13 +1076,17 @@ class NetworkManager:
             _waypoint.designator = waypoint.name
             _waypoint.geometry = [waypoint.longitude, waypoint.latitude]
 
-            if waypoint.description is not None and waypoint.description != "N/A | N/A | N/A | N/A":
+            if waypoint.description is not None and waypoint.description != "N/A | N/A | N/A | N/A | N/A":
                 comment_elements = waypoint.description.split(" | ")
-                _waypoint.comment = f"{comment_elements[0]} | {comment_elements[3]}"
+                _waypoint.description = comment_elements[0]
                 if comment_elements[1] != "N/A":
-                    _waypoint.last_accessed_at = date.fromisoformat(comment_elements[1])
+                    _waypoint.colocated_with = comment_elements[1]
                 if comment_elements[2] != "N/A":
-                    _waypoint.last_accessed_by = comment_elements[2]
+                    _waypoint.last_accessed_at = date.fromisoformat(comment_elements[2])
+                if comment_elements[3] != "N/A":
+                    _waypoint.last_accessed_by = comment_elements[3]
+                if comment_elements[4] != "N/A":
+                    _waypoint.comment = comment_elements[4]
 
             self.waypoints.append(_waypoint)
 
