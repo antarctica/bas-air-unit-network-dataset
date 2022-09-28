@@ -370,15 +370,6 @@ class RouteWaypoint:
         # As BaseCamp has no support for route based waypoint comments, always return just the waypoint comment
         return self.waypoint.comment
 
-        # if self._description is None and self.waypoint.comment is None:
-        #     return "[No Description]"
-        # if self._description is None and self.waypoint.comment is not None:
-        #     return self.waypoint.comment
-        # if self._description is not None and self.waypoint.comment is not None:
-        #     return f"{self._description} - {self.waypoint.comment}"
-        #
-        # return self._description
-
     @comment.setter
     def comment(self, comment: str):
         self._comment = comment
