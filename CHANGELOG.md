@@ -5,7 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## [Unreleased]
+## [Unreleased] [BREAKING!]
+
+### Changed [BREAKING!]
+
+* splitting `comment` field into `description` and `comment` fields (as part of overall GPX `cmt` field)
+  [#99](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/99)
 
 ### Added
 
