@@ -11,6 +11,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * splitting `comment` field into `description` and `comment` fields (as part of overall GPX `cmt` field)
   [#99](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/99)
+* `description` field maximum length limited to maximum FPL comment length
+  [#105](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/105)
+* FPL comment length limited to 17 characters
+  [#104](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/104)
 
 ### Added
 

@@ -22,6 +22,7 @@ from bas_air_unit_network_dataset.utils import convert_coordinate_dd_2_ddm, file
 
 class Waypoint:
     designator_max_length = 6
+    description_max_length = 17
 
     feature_schema_spatial = {
         "geometry": "Point",
@@ -144,6 +145,9 @@ class Waypoint:
 
     @description.setter
     def description(self, description: str):
+        if len(description) > Waypoint.description_max_length:
+            raise ValueError(f"Descriptions must be 17 characters or less. '{description}' is {len(description)}.")
+
         self._description = description
 
     @property
@@ -307,10 +311,8 @@ class Waypoint:
         waypoint.longitude = self.geometry.x
         waypoint.latitude = self.geometry.y
 
-            # FPL comments can only be 25 characters long. This limitation isn't enforced in input data currently so
-            # as a crude measure, the comment is truncated to the first 25 characters.
         if self.description is not None:
-            waypoint.comment = self.description[:25]
+            waypoint.comment = self.description
 
         return waypoint
 
