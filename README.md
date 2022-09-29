@@ -288,7 +288,7 @@ To install software needed to manage the Air Unit Network dataset:
    2. select the *All users (requires admin privileges)* installation option when asked 
 5. from the installation bundle, install LibXML2 (needed to run the Air Unit Network utility):
    1. unzip the `libxml2.zip` archive to a temporary directory
-   2. copy the `libxml2` directory to `C:\Program Files`, such that `C:\Program Files\bin\xmllint.exe` exists
+   2. copy the `libxml2` directory to `C:\Program Files`, such that `C:\Program Files\libxml2\bin\xmllint.exe` exists
    3. from Windows Explorer, right click *This PC* from the left hand panel and click *Properties* 
       1. from the left hand menu of the System Control Panel screen, click *Advanced system settings*
       2. from the *Advanced* tab of the System Properties screen, click *Environment Variables*
