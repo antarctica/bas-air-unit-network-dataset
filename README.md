@@ -951,10 +951,16 @@ For all releases:
 4. bump package version `poetry version [minor/patch]`
 5. build and publish [Python package](#python-package) to PyPi
 6. build a [Packaged Anaconda Environment](#packaged-anaconda-environment)
-7. push changes, merge the release branch into `main` and tag with version
-8. save the project README as a PDF and update in installation bundle
-9. compress the [Installation Bundle](#installation-bundle) into a 7Zip archive (to allow fr transfer South via AMS) 
-10. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
+7. convert project README to PDF using [markdowntopdf](https://www.markdowntopdf.com) and update in installation bundle
+8. push changes, merge the release branch into `main` and tag with version
+9. update the GitLab release with:
+    * a link to the relevant milestone(s)
+    * change log entries
+    * link to [PyPi package](https://pypi.org/project/bas-air-unit-network-dataset/#history)
+    * link to PDF version of documentation (share link to document in SharePoint)
+    * link to installation bundle (share link to archive in SharePoint)
+10. compress the [Installation Bundle](#installation-bundle) into a 7Zip archive (to allow fr transfer South via AMS) 
+11. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
 
 ## Feedback
 
