@@ -878,7 +878,8 @@ currently requires manual/ad-hoc modification of the `NetworkManager.dump_*()` m
 
 The Air Unit Network utility is distributed in two forms:
 
-1. a Python package that can be installed through Pip from the [PyPi]() registry
+1. a Python package that can be installed through Pip from the
+   [PyPi](https://pypi.org/project/bas-air-unit-network-dataset/) registry
 2. a packaged Anaconda environment
 
 **Note:** Both distributions require OS dependencies to be installed separately (namely GDAL and LibXML2), see the 
@@ -919,13 +920,15 @@ First, [Create a Python Package](#python-package). Then within a
 5. from the user *Downloads* directory, extract `airnet.tar.gz` using 7-zip: 
    1. then, extract `airnet.tar` to `airnet/`
    2. then, right-click `airnet/` -> *Send to* -> *Compressed (zipped) folder* to produce `airnet.zip`
-   3. copy `airnet.zip` to the definitive copy of the [Installation Bundle](#installation-bundle), replacing the 
+   3. rename `airnet.zip` to `airnet-virtual-environment.zip`
+   4. copy `airnet.zip` to the definitive copy of the [Installation Bundle](#installation-bundle), replacing the 
       existing file
 
 [1]
 
 ```shell
-(base) $ cd %USERPROFILE%/Downloads
+(base) $ cd $env:userprofile
+(base) $ cd ./Downloads
 
 (base) $ conda create -n airnet
 (base) $ conda activate airnet
@@ -947,10 +950,18 @@ For all releases:
 2. [manually test outputs](#manual-outputs-testing)
 3. close release in `CHANGELOG.md`
 4. bump package version `poetry version [minor/patch]`
-5. push changes, merge the release branch into `main` and tag with version
+5. build and publish [Python package](#python-package) to PyPi
 6. build a [Packaged Anaconda Environment](#packaged-anaconda-environment)
-7. update the [Installation Bundle](#installation-bundle) as needed
-8. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
+7. convert project README to PDF using [markdowntopdf](https://www.markdowntopdf.com) and update in installation bundle
+8. push changes, merge the release branch into `main` and tag with version
+9. update the GitLab release with:
+    * a link to the relevant milestone(s)
+    * change log entries
+    * link to [PyPi package](https://pypi.org/project/bas-air-unit-network-dataset/#history)
+    * link to PDF version of documentation (share link to document in SharePoint)
+    * link to installation bundle (share link to archive in SharePoint)
+10. compress the [Installation Bundle](#installation-bundle) into a 7Zip archive (to allow fr transfer South via AMS) 
+11. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
 
 ## Feedback
 
