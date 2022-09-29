@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+* fix for missing Microsoft Visual C++ redistributable
+  [#122](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/122)
+
 ### Fixed
 
 * typo in LibXML2 installation instructions
