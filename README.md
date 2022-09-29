@@ -878,7 +878,8 @@ currently requires manual/ad-hoc modification of the `NetworkManager.dump_*()` m
 
 The Air Unit Network utility is distributed in two forms:
 
-1. a Python package that can be installed through Pip from the [PyPi]() registry
+1. a Python package that can be installed through Pip from the
+   [PyPi](https://pypi.org/project/bas-air-unit-network-dataset/) registry
 2. a packaged Anaconda environment
 
 **Note:** Both distributions require OS dependencies to be installed separately (namely GDAL and LibXML2), see the 
