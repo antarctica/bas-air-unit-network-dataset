@@ -249,6 +249,9 @@ Import complete
 
 1. from the start menu, launch *Command Prompt* and run the commands in [1]
 
+**Note:** If you encounter an error similar to [2], ensure you install the 
+[Microsoft Visual C++ Redistributable](#microsoft-visual-c-redistributable) from the installation bundle.
+
 [1]
 
 ```
@@ -267,6 +270,11 @@ Output directory is is: /path/to/workspace/directory/output
 
 Export complete
 ```
+
+[2]
+
+> The code execution cannot proceed because VCRUNTIME140.dll was not found. Reinstalling the program may fix this 
+> problem.
 
 ## Installation
 
@@ -306,6 +314,17 @@ To install software needed to manage the Air Unit Network dataset:
    5. optionally, uncheck the *Hidden items* checkbox in Explorer
 
 **Note:** Only versions of software within the Installation Bundle are supported.
+
+#### Microsoft Visual C++ redistributable
+
+In some cases you also need to install the Microsoft Visual C++ Redistributable package, which is needed for LibXML2.
+
+**Note:** Usually a version of this package will already be installed and these instructions are not necessary.
+
+To install the package:
+
+1. from the installation bundle run `microsoft-vc-installer.exe`
+2. reboot the computer after installation
 
 ### Configure software
 
@@ -773,10 +792,17 @@ To populate the [Installation Bundle](#installation-bundle):
   * view the `cmake:msvc` job
   * download the artefact
   * extract the artefact Zip, rename the containing directory `libxml2` and rezip the directory as `libxml2.zip`
+* download the 
+  [Microsoft Visual C++ 2015 Redistributable Update 3 RC](https://www.microsoft.com/en-us/download/confirmation.aspx?id=52685) 
+  package [1] and rename to `microsoft-vc-installer.exe`
 * create a `build` directory and:
   * download the latest 7-Zip installer and rename to `7zip-installer.exe`
 
 Before saving installers to the Installation Bundle, test them in a [deployment VM](#setup-a-windows-deployment-vm).
+
+[1] This specific version (14.0.24123) was used because the latest version available at the time of testing (14.32.
+31332, Sept 2022) did not work. In future, it may be that another version is needed, especially if the version of 
+LibXML2 changes.
 
 ### Setup a workspace directory
 
