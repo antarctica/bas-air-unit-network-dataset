@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Fixed
+
+* typo in LibXML2 installation instructions
+  [#121](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/121)
+
 ## [0.2.0] - 2022-09-28 [BREAKING!]
 
 ### Changed [BREAKING!]
