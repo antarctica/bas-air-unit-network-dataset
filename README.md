@@ -67,6 +67,8 @@ project.
 The *workspace directory* contains all files related to this project. This directory should be shared between all 
 users/computers that require access by storing on a shared drive or synced folder accessible to relevant users.
 
+**Note:** To create a new workspace directory, see the [Setup](#setup) section.
+
 A typical/example workspace directory contains:
 
 ```
@@ -91,8 +93,6 @@ A typical/example workspace directory contains:
 * the `input.gpx` file contains routes and waypoints *exported* from Garmin BaseCamp to be *imported* into the Air 
   Unit Network utility
 * the `bas-air-unit-network-dataset.gpkg` file is a GeoPackage used internally by the Air Unit Network utility
-
-**Note:** To create a new workspace directory, see the [Setup](#setup) section.
 
 #### Access control
 
