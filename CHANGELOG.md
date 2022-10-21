@@ -14,6 +14,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
+* creating datasets in a path with missing parent directories
+  [#128](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/128)
 * files encoded as UTF-8 with BOM, which could not be parsed correctly as input files
   [#130](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/130)
 
