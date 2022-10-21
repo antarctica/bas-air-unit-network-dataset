@@ -12,6 +12,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * note that on Windows the working directory must be on the same drive as the Python interpreter
   [#128](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/121)
 
+### Fixed
+
+* files encoded as UTF-8 with BOM, which could not be parsed correctly as input files
+  [#130](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/130)
+
 ## [0.2.1] - 2022-09-29
 
 ### Added

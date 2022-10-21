@@ -1066,7 +1066,7 @@ class NetworkManager:
             layer.writerecords(self.routes.dumps_features(inc_spatial=False, inc_waypoints=False))
 
     def load_gpx(self, path: Path) -> None:
-        with open(path, mode="r") as gpx_file:
+        with open(path, mode="r", encoding="utf-8-sig") as gpx_file:
             gpx_data = gpx_parse(gpx_file)
 
         # waypoints
