@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "bas-air-unit-network-dataset"
-version = "0.2.1"
+version = "0.2.2"
 description = "Utility to process routes and waypoints used by the British Antarctic Survey (BAS) Air Unit"
 authors = ["Felix Fennell <felnne@bas.ac.uk>"]
 license = "MIT"

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.2.2] - 2022-10-21
+
 ### Added
 
 * note that on Windows the working directory must be on the same drive as the Python interpreter
