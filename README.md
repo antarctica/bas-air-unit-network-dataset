@@ -211,6 +211,9 @@ For example (a standalone, unvisited, waypoint with no full/formal name or addit
 
 [1]
 
+**Note:** If viewing this documentation as a PDF, some commands below may disappear off the page. If you select the 
+line you should be able to copy into a tool such as Notepad to view it in full.
+
 ```
 $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
 
@@ -253,6 +256,9 @@ Import complete
 [Microsoft Visual C++ Redistributable](#microsoft-visual-c-redistributable) from the installation bundle.
 
 [1]
+
+**Note:** If viewing this documentation as a PDF, some commands below may disappear off the page. If you select the 
+line you should be able to copy into a tool such as Notepad to view it in full.
 
 ```
 $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
@@ -817,6 +823,9 @@ existing data. Ensure you have suitable backups of existing data.
 the Python interpreter. This will almost always be the `C:` drive.
 
 [1]
+
+**Note:** If viewing this documentation as a PDF, some commands below may disappear off the page. If you select the 
+line you should be able to copy into a tool such as Notepad to view it in full.
 
 ```
 $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
