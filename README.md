@@ -67,6 +67,8 @@ project.
 The *workspace directory* contains all files related to this project. This directory should be shared between all 
 users/computers that require access by storing on a shared drive or synced folder accessible to relevant users.
 
+**Note:** To create a new workspace directory, see the [Setup](#setup) section.
+
 A typical/example workspace directory contains:
 
 ```
@@ -91,8 +93,6 @@ A typical/example workspace directory contains:
 * the `input.gpx` file contains routes and waypoints *exported* from Garmin BaseCamp to be *imported* into the Air 
   Unit Network utility
 * the `bas-air-unit-network-dataset.gpkg` file is a GeoPackage used internally by the Air Unit Network utility
-
-**Note:** To create a new workspace directory, see the [Setup](#setup) section.
 
 #### Access control
 
@@ -211,6 +211,9 @@ For example (a standalone, unvisited, waypoint with no full/formal name or addit
 
 [1]
 
+**Note:** If viewing this documentation as a PDF, some commands below may disappear off the page. If you select the 
+line you should be able to copy into a tool such as Notepad to view it in full.
+
 ```
 $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
 
@@ -253,6 +256,9 @@ Import complete
 [Microsoft Visual C++ Redistributable](#microsoft-visual-c-redistributable) from the installation bundle.
 
 [1]
+
+**Note:** If viewing this documentation as a PDF, some commands below may disappear off the page. If you select the 
+line you should be able to copy into a tool such as Notepad to view it in full.
 
 ```
 $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
@@ -817,6 +823,9 @@ existing data. Ensure you have suitable backups of existing data.
 the Python interpreter. This will almost always be the `C:` drive.
 
 [1]
+
+**Note:** If viewing this documentation as a PDF, some commands below may disappear off the page. If you select the 
+line you should be able to copy into a tool such as Notepad to view it in full.
 
 ```
 $ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
