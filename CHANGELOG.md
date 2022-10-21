@@ -10,7 +10,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Added
 
 * note that on Windows the working directory must be on the same drive as the Python interpreter
-  [#128](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/121)
+  [#128](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/128)
 
 ### Fixed
 
