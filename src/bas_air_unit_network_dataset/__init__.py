@@ -982,6 +982,8 @@ class NetworkManager:
         self.routes: RouteCollection = RouteCollection()
 
         if init:
+            # GDAL/Fiona doesn't create missing parent directories
+            dataset_path.parent.mkdir(parents=True, exist_ok=True)
             self._dump_gpkg(path=dataset_path)
 
         self.dataset_path = dataset_path
