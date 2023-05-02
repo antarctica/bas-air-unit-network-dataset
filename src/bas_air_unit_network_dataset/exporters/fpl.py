@@ -3,8 +3,8 @@ import subprocess
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import List, Optional
-from importlib.resources import files as resource_file
 
+from importlib_resources import as_file as resource_path_as_file, files as resource_path
 from lxml.etree import (
     Element,
     ElementTree,
@@ -365,10 +365,11 @@ class Route:
 
 
 class Fpl:
-    schema_path = resource_file("bas_air_unit_network_dataset.schemas.garmin").joinpath("FlightPlanv1.xsd")
-
     def __init__(self, waypoints: Optional[List[Waypoint]] = None, route: Optional[Route] = None):
         self.ns = Namespaces()
+
+        with resource_path_as_file(resource_path("bas_air_unit_network_dataset.schemas.garmin")) as schema_dir:
+            self.schema_path = schema_dir.joinpath("FlightPlanv1.xsd")
 
         self._waypoints: List[Waypoint] = []
         self._route: Optional[Route] = None
@@ -452,7 +453,7 @@ class Fpl:
                 #
                 # Use `capture_output=True` in future when we can use Python 3.7+
                 subprocess.run(  # noqa: S274,S603 - nosec
-                    args=["xmllint", "--noout", "--schema", str(Fpl.schema_path), str(document_path)],
+                    args=["xmllint", "--noout", "--schema", str(self.schema_path), str(document_path)],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                     check=True,
