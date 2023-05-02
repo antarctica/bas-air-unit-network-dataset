@@ -819,9 +819,6 @@ LibXML2 changes.
 **WARNING:** Running these commands within an existing workspace directory will reset the dataset, deleting any 
 existing data. Ensure you have suitable backups of existing data.
 
-**Note:** Due to an internal limitation, on Windows computers the workspace directory must be on the same drive as
-the Python interpreter. This will almost always be the `C:` drive.
-
 [1]
 
 **Note:** If viewing this documentation as a PDF, some commands below may disappear off the page. If you select the 

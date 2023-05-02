@@ -26,11 +26,12 @@ classifiers = [
 airnet = "bas_air_unit_network_dataset.__main__:cli"
 
 [tool.poetry.dependencies]
-python = "^3.9.1"
+python = "^3.8.0"
 ulid-py = "^1.1.0"
 Shapely = "^1.8.2"
 Fiona = "^1.8.21"
 gpxpy = "^1.5.0"
+importlib-resources = "^5.12.0"
 lxml = "^4.9.1"
 click = "^8.1.3"
 
