@@ -24,16 +24,15 @@ BAS staff can read more about this background in this
 
 ### Status
 
-This project is an early alpha, working towards a Minimal Viable Product (MVP). This means:
+This project is a mature alpha. This means:
 
-* all, or parts, of this project: 
-  * may not be working 
-  * may stop working at any time
+* all, or parts, of this project:
+  * may, but should not, stop working (due to regressions or instability)
   * may not work correctly, or as expectedly (including destructively)
   * may change at any time (in terms of implementation or functionality)
 * documentation may be missing or incorrect
-* no support is provided for this project
-* no real and/or sensitive information should be used with this project
+* support for this project is provided on a best efforts / 'as is' basis
+* outputs from this project should not be relied upon for operation use without through scrutiny
 
 ### Limitations
 
@@ -1012,7 +1011,7 @@ This project uses issue tracking, see the
 
 ## License
 
-Copyright (c) 2022 UK Research and Innovation (UKRI), British Antarctic Survey.
+Copyright (c) 2022 - 2023 UK Research and Innovation (UKRI), British Antarctic Survey.
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
