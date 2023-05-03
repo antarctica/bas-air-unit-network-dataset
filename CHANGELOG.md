@@ -9,6 +9,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Changed
 
+* upgrading Python dependencies
+  [#140](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/140)
 * downgrading required Python version to 3.8, for compatibility with the Operations Data Store project
   [#138](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/138)
 
