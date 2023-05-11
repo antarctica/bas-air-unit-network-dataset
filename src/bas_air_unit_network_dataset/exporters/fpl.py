@@ -1,16 +1,16 @@
 import re
-import subprocess
+import subprocess  # noqa: S404 (nonspecific warning)
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import List, Optional
 
 from importlib_resources import as_file as resource_path_as_file, files as resource_path
-from lxml.etree import (
+from lxml.etree import (  # noqa: S410, nosec - see 'lxml` package (bandit)' section in README
     Element,
     ElementTree,
-    tostring as element_string,
     SubElement,
-)  # nosec - see 'lxml` package (bandit)' section in README
+    tostring as element_string,
+)
 
 
 fpl_waypoint_types = ["USER WAYPOINT", "AIRPORT", "NDB", "VOR", "INT", "INT-VRP"]
@@ -70,13 +70,13 @@ class Namespaces(object):
     @staticmethod
     def schema_locations() -> str:
         """
-        Generates the value for a `xsi:schemaLocation` attribute
+        Generates the value for a `xsi:schemaLocation` attribute.
 
         Defines the XML Schema Document (XSD) for each namespace in an XML tree
 
         E.g. 'xsi:schemaLocation="http://www.w3.org/1999/xlink https://www.w3.org/1999/xlink.xsd"'
 
-        :rtype str
+        :rtype: str
         :return: schema location attribute value
         """
         schema_locations = ""
@@ -95,7 +95,7 @@ class Waypoint:
         latitude: Optional[float] = None,
         longitude: Optional[float] = None,
         comment: Optional[str] = None,
-    ):
+    ) -> None:
         self.ns = Namespaces()
 
         self._identifier: Optional[str] = None
@@ -108,7 +108,7 @@ class Waypoint:
         if identifier is not None:
             self.identifier = identifier
         if waypoint_type is not None:
-            self.type = waypoint_type
+            self.waypoint_type = waypoint_type
         if country_code is not None:
             self.country_code = country_code
         if latitude is not None:
@@ -130,13 +130,13 @@ class Waypoint:
             self._identifier = _upper_alphanumeric_only(value=identifier)
 
     @property
-    def type(self) -> str:
+    def waypoint_type(self) -> str:
         return self._type
 
-    @type.setter
-    def type(self, waypoint_type: str) -> None:
+    @waypoint_type.setter
+    def waypoint_type(self, waypoint_type: str) -> None:
         if waypoint_type not in fpl_waypoint_types:
-            raise ValueError(f"Waypoint type must be one of '{' '.join(fpl_waypoint_types)}'")
+            raise ValueError(f"Waypoint type must be one of {' '.join(fpl_waypoint_types)!r}")
 
         self._type = waypoint_type
 
@@ -202,7 +202,7 @@ class Waypoint:
         identifier.text = self.identifier
 
         waypoint_type = SubElement(waypoint, f"{{{self.ns.fpl}}}type")
-        waypoint_type.text = self.type
+        waypoint_type.text = self.waypoint_type
 
         country_code = SubElement(waypoint, f"{{{self.ns.fpl}}}country-code")
         country_code.text = self.country_code
@@ -260,7 +260,7 @@ class RoutePoint:
     @waypoint_type.setter
     def waypoint_type(self, waypoint_type: str) -> None:
         if waypoint_type not in fpl_waypoint_types:
-            raise ValueError(f"Waypoint type must be one of '{' '.join(fpl_waypoint_types)}'")
+            raise ValueError(f"Waypoint type must be one of {' '.join(fpl_waypoint_types)!r}")
 
         self._waypoint_type = waypoint_type
 
@@ -296,7 +296,9 @@ class RoutePoint:
 
 
 class Route:
-    def __init__(self, name: Optional[str] = None, index: Optional[int] = None, points: Optional[List[dict]] = None):
+    def __init__(
+        self, name: Optional[str] = None, index: Optional[int] = None, points: Optional[List[dict]] = None
+    ) -> None:
         self.ns = Namespaces()
 
         self._name: Optional[str] = None
@@ -343,7 +345,7 @@ class Route:
         return self._points
 
     @points.setter
-    def points(self, points: List[RoutePoint]):
+    def points(self, points: List[RoutePoint]) -> None:
         self._points = points
 
     def encode(self) -> Element:
@@ -365,7 +367,7 @@ class Route:
 
 
 class Fpl:
-    def __init__(self, waypoints: Optional[List[Waypoint]] = None, route: Optional[Route] = None):
+    def __init__(self, waypoints: Optional[List[Waypoint]] = None, route: Optional[Route] = None) -> None:
         self.ns = Namespaces()
 
         with resource_path_as_file(resource_path("bas_air_unit_network_dataset.schemas.garmin")) as schema_dir:
@@ -385,7 +387,7 @@ class Fpl:
         return self._waypoints
 
     @waypoints.setter
-    def waypoints(self, waypoints: List[Waypoint]):
+    def waypoints(self, waypoints: List[Waypoint]) -> None:
         self._waypoints = waypoints
 
     @property
@@ -425,7 +427,7 @@ class Fpl:
         document = ElementTree(root)
         return element_string(document, pretty_print=True, xml_declaration=True, encoding="utf-8")
 
-    def dump_xml(self, path: Path):
+    def dump_xml(self, path: Path) -> None:
         with open(path, mode="w") as xml_file:
             xml_file.write(self.dumps_xml().decode())
 

@@ -1,21 +1,21 @@
-from collections import OrderedDict
 import csv
+from collections import OrderedDict
 from datetime import date
 from pathlib import Path
-from typing import Optional, List, Dict, Iterator, Union
+from typing import Dict, Iterator, List, Optional, Union
 
 import fiona
 import ulid
 from fiona.crs import from_epsg as crs_from_epsg
-from gpxpy.gpx import GPX, GPXWaypoint, GPXRoute, GPXRoutePoint
 from gpxpy import parse as gpx_parse
+from gpxpy.gpx import GPX, GPXRoute, GPXRoutePoint, GPXWaypoint
 from shapely.geometry import Point
 
 from bas_air_unit_network_dataset.exporters.fpl import (
     Fpl,
-    Waypoint as FplWaypoint,
     Route as FplRoute,
     RoutePoint as FplRoutePoint,
+    Waypoint as FplWaypoint,
 )
 from bas_air_unit_network_dataset.utils import convert_coordinate_dd_2_ddm, file_name_with_date
 
@@ -101,11 +101,11 @@ class Waypoint:
             self.comment = comment
 
     @property
-    def id(self) -> str:
+    def fid(self) -> str:
         return self._id
 
-    @id.setter
-    def id(self, _id):
+    @fid.setter
+    def fid(self, _id: str) -> None:
         self._id = str(ulid.from_str(_id))
 
     @property
@@ -113,9 +113,9 @@ class Waypoint:
         return self._identifier
 
     @identifier.setter
-    def identifier(self, identifier: str):
+    def identifier(self, identifier: str) -> None:
         if len(identifier) > Waypoint.identifier_max_length:
-            raise ValueError(f"Identifiers must be 6 characters or less. '{identifier}' is {len(identifier)}.")
+            raise ValueError(f"Identifiers must be 6 characters or less. {identifier!r} is {len(identifier)}.")
 
         self._identifier = identifier
 
@@ -124,7 +124,7 @@ class Waypoint:
         return self._geometry
 
     @geometry.setter
-    def geometry(self, geometry: List[float]):
+    def geometry(self, geometry: List[float]) -> None:
         lon = geometry[0]
         if lon < -180 or lon > 180:
             raise ValueError(f"Invalid Longitude, must be -180<=X<=180 not {lon}.")
@@ -144,9 +144,9 @@ class Waypoint:
         return self._name
 
     @name.setter
-    def name(self, name: str):
+    def name(self, name: str) -> None:
         if len(name) > Waypoint.name_max_length:
-            raise ValueError(f"Names must be 17 characters or less. '{name}' is {len(name)}.")
+            raise ValueError(f"Names must be 17 characters or less. {name!r} is {len(name)}.")
 
         self._name = name
 
@@ -155,7 +155,7 @@ class Waypoint:
         return self._colocated_with
 
     @colocated_with.setter
-    def colocated_with(self, colocated_with: str):
+    def colocated_with(self, colocated_with: str) -> None:
         self._colocated_with = colocated_with
 
     @property
@@ -163,7 +163,7 @@ class Waypoint:
         return self._last_accessed_at
 
     @last_accessed_at.setter
-    def last_accessed_at(self, _date: date):
+    def last_accessed_at(self, _date: date) -> None:
         self._last_accessed_at = _date
 
     @property
@@ -171,7 +171,7 @@ class Waypoint:
         return self._last_accessed_by
 
     @last_accessed_by.setter
-    def last_accessed_by(self, last_accessed_by: str):
+    def last_accessed_by(self, last_accessed_by: str) -> None:
         self._last_accessed_by = last_accessed_by
 
     @property
@@ -179,11 +179,25 @@ class Waypoint:
         return self._comment
 
     @comment.setter
-    def comment(self, comment: str):
+    def comment(self, comment: str) -> None:
         self._comment = comment
 
-    def loads_feature(self, feature: dict):
-        self.id = feature["properties"]["id"]
+    @staticmethod
+    def _loads_geometry(lon: float, lat: float, alt: Optional[float]) -> Point:
+        if lon is None or lat is None:
+            raise ValueError("A latitude (`lat`) and longitude (`lon`) value must be provided.")
+        if -180 > lon > 180:
+            raise ValueError("Latitude must be between -180 and +180.")
+        if -90 > lat > 90:
+            raise ValueError("Latitude must be between -90 and +90.")
+
+        if alt is None:
+            return Point(lon, lat)
+
+        return Point(lon, lat, alt)
+
+    def loads_feature(self, feature: dict) -> None:
+        self.fid = feature["properties"]["id"]
         self.identifier = feature["properties"]["identifier"]
         self.geometry = list(feature["geometry"]["coordinates"])
 
@@ -220,7 +234,7 @@ class Waypoint:
         feature = {
             "geometry": None,
             "properties": {
-                "id": self.id,
+                "id": self.fid,
                 "identifier": self.identifier,
                 "name": self.name,
                 "colocated_with": self.colocated_with,
@@ -306,7 +320,7 @@ class Waypoint:
         waypoint = FplWaypoint()
 
         waypoint.identifier = self.identifier
-        waypoint.type = "USER WAYPOINT"
+        waypoint.waypoint_type = "USER WAYPOINT"
         waypoint.country_code = "__"
         waypoint.longitude = self.geometry.x
         waypoint.latitude = self.geometry.y
@@ -317,7 +331,7 @@ class Waypoint:
         return waypoint
 
     def __repr__(self) -> str:
-        return f"<Waypoint {self.id} :- [{self.identifier.ljust(6, '_')}], {self.geometry}>"
+        return f"<Waypoint {self.fid} :- [{self.identifier.ljust(6, '_')}], {self.geometry}>"
 
 
 class RouteWaypoint:
@@ -354,7 +368,7 @@ class RouteWaypoint:
         return self._waypoint
 
     @waypoint.setter
-    def waypoint(self, waypoint: Waypoint):
+    def waypoint(self, waypoint: Waypoint) -> None:
         self._waypoint = waypoint
 
     @property
@@ -362,7 +376,7 @@ class RouteWaypoint:
         return self._sequence
 
     @sequence.setter
-    def sequence(self, sequence: int):
+    def sequence(self, sequence: int) -> None:
         self._sequence = sequence
 
     @property
@@ -371,19 +385,19 @@ class RouteWaypoint:
         return self.waypoint.comment
 
     @comment.setter
-    def comment(self, comment: str):
+    def comment(self, comment: str) -> None:
         self._comment = comment
 
-    def loads_feature(self, feature: dict, waypoints: "WaypointCollection"):
+    def loads_feature(self, feature: dict, waypoints: "WaypointCollection") -> None:
         self.sequence = feature["properties"]["sequence"]
         self.comment = feature["properties"]["comment"]
 
         try:
             self.waypoint = waypoints[feature["properties"]["waypoint_id"]]
-        except KeyError:
+        except KeyError as e:
             raise KeyError(
-                f"Waypoint with ID '{feature['properties']['waypoint_id']}' not found in available waypoints."
-            )
+                f"Waypoint with ID {feature['properties']['waypoint_id']!r} not found in available waypoints."
+            ) from e
 
     def dumps_feature(
         self,
@@ -395,7 +409,7 @@ class RouteWaypoint:
         feature = {
             "geometry": None,
             "properties": {
-                "waypoint_id": self.waypoint.id,
+                "waypoint_id": self.waypoint.fid,
                 "sequence": self.sequence,
                 "comment": self.comment,
             },
@@ -423,7 +437,7 @@ class RouteWaypoint:
 
         return feature
 
-    def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False):
+    def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> Dict[str, str]:
         route_waypoint = {"sequence": self.sequence}
 
         waypoint = self.waypoint.dumps_csv(inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon)
@@ -492,11 +506,11 @@ class Route:
             self.waypoints = route_waypoints
 
     @property
-    def id(self) -> str:
+    def fid(self) -> str:
         return self._id
 
-    @id.setter
-    def id(self, _id: str):
+    @fid.setter
+    def fid(self, _id: str) -> None:
         self._id = str(ulid.from_str(_id))
 
     @property
@@ -504,7 +518,7 @@ class Route:
         return self._name
 
     @name.setter
-    def name(self, name: str):
+    def name(self, name: str) -> None:
         self._name = name
 
     @property
@@ -512,7 +526,7 @@ class Route:
         return self._waypoints
 
     @waypoints.setter
-    def waypoints(self, route_waypoints: List[RouteWaypoint]):
+    def waypoints(self, route_waypoints: List[RouteWaypoint]) -> None:
         self._waypoints = route_waypoints
 
     @property
@@ -533,14 +547,13 @@ class Route:
     def waypoints_count(self) -> int:
         return len(self.waypoints)
 
-    def loads_feature(self, feature: dict):
-        self.id = feature["properties"]["id"]
+    def loads_feature(self, feature: dict) -> None:
         self.name = feature["properties"]["name"]
 
     def _dumps_feature_route(self, inc_spatial: bool = True) -> dict:
         feature = {
             "geometry": None,
-            "properties": {"id": self.id, "name": self.name},
+            "properties": {"id": self.fid, "name": self.name},
         }
 
         if inc_spatial:
@@ -560,7 +573,7 @@ class Route:
     ) -> List[dict]:
         _route_id = None
         if inc_route_id:
-            _route_id = self.id
+            _route_id = self.fid
 
         _route_name = None
         if inc_route_name:
@@ -735,7 +748,7 @@ class Route:
         except AttributeError:
             pass
 
-        return f"<Route {self.id} :- [{self.name.ljust(10, '_')}], {self.waypoints_count} waypoints, Start/End: {start} / {end}>"
+        return f"<Route {self.fid} :- [{self.name.ljust(10, '_')}], {self.waypoints_count} waypoints, Start/End: {start} / {end}>"
 
 
 class WaypointCollection:
@@ -840,7 +853,7 @@ class WaypointCollection:
 
     def __getitem__(self, _id: str) -> Waypoint:
         for waypoint in self._waypoints:
-            if waypoint.id == _id:
+            if waypoint.fid == _id:
                 return waypoint
 
         raise KeyError(_id)
@@ -848,7 +861,7 @@ class WaypointCollection:
     def __iter__(self) -> Iterator[Waypoint]:
         return self._waypoints.__iter__()
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.waypoints)
 
     def __repr__(self) -> str:
@@ -944,9 +957,9 @@ class RouteCollection:
     def dump_gpx(self, path: Path, separate_files: bool = False, inc_waypoints: bool = False) -> None:
         if separate_files:
             self._dump_gpx_separate(path=path, inc_waypoints=inc_waypoints)
-        else:
-            # combined GPX can't include waypoints as there'll be repetitions
-            self._dump_gpx_combined(path=path)
+            return None
+
+        self._dump_gpx_combined(path=path)
 
     def dump_fpl(self, path: Path, separate_files: bool = False) -> None:
         if not separate_files:
@@ -959,7 +972,7 @@ class RouteCollection:
 
     def __getitem__(self, _id: str) -> Route:
         for route in self.routes:
-            if route.id == _id:
+            if route.fid == _id:
                 return route
 
         raise KeyError(_id)
@@ -967,7 +980,7 @@ class RouteCollection:
     def __iter__(self) -> Iterator[Route]:
         return self.routes.__iter__()
 
-    def __len__(self):
+    def __len__(self) -> int:
         return len(self.routes)
 
     def __repr__(self) -> str:
@@ -977,7 +990,7 @@ class RouteCollection:
 class NetworkManager:
     # If you can come up with a better name for this class, you could win a prize!
 
-    def __init__(self, dataset_path: Path, output_path: Optional[Path] = None, init: Optional[bool] = False):
+    def __init__(self, dataset_path: Path, output_path: Optional[Path] = None, init: Optional[bool] = False) -> None:
         self.waypoints: WaypointCollection = WaypointCollection()
         self.routes: RouteCollection = RouteCollection()
 
@@ -1126,9 +1139,9 @@ class NetworkManager:
         # combined/individual routes files omitted as they aren't needed by the Air Unit (#101)
 
     def dump_gpx(self, path: Optional[Path] = None) -> None:
-        path = self._get_output_path(path=path, fmt_dir="GPX")
 
         # waypoints and combined/individual routes files omitted as they aren't needed by the Air Unit (#101)
+        path = self._get_output_path(path=path, fmt_dir="GPX")
 
         # `network.gpx` needs access to both routes and waypoints so needs to be done at this level
         gpx = GPX()
@@ -1143,5 +1156,5 @@ class NetworkManager:
         self.waypoints.dump_fpl(path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.fpl")))
         self.routes.dump_fpl(path=path, separate_files=True)
 
-    def __repr__(self):
+    def __repr__(self) -> str:
         return f"<NetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"
