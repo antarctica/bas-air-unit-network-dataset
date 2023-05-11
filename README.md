@@ -988,6 +988,10 @@ currently requires manual/ad-hoc modification of the `NetworkManager.dump_*()` m
 * https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/blob/9892b56c1669bd88dfd5b7212c2d05861c7b5fa0/src/bas_air_unit_network_dataset/__init__.py#L1112
 * https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/blob/9892b56c1669bd88dfd5b7212c2d05861c7b5fa0/src/bas_air_unit_network_dataset/__init__.py#L1134
 
+### Continuous Integration
+
+All commits will trigger a Continuous Integration process using GitLab's CI/CD platform, configured in `.gitlab-ci.yml`.
+
 ## Deployment
 
 The Air Unit Network utility is distributed in two forms:

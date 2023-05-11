@@ -2072,3 +2072,6 @@ class NetworkManager:
     def __repr__(self) -> str:
         """String representation of a NetworkManager."""
         return f"<NetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"
+
+
+# change to trigger CI
