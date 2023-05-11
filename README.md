@@ -890,7 +890,7 @@ Python dependencies for this project are managed with [Poetry](https://python-po
 To add a new (development) dependency:
 
 ```shell
-$ poetry add [dependency] (--dev)
+$ poetry add [dependency] (--group dev)
 ```
 
 #### Dependency vulnerability checks
