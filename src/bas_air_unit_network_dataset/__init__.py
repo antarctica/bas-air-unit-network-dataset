@@ -112,17 +112,7 @@ class Waypoint:
         if identifier is not None:
             self.identifier = identifier
 
-        _geometry = []
-        if lat is None and lon is not None:
-            raise ValueError("A latitude (`lat`) value must be provided if longitude (`lon`) is set.")
-        if lat is not None and lon is None:
-            raise ValueError("A longitude (`lon`) value must be provided if latitude (`lat`) is set.")
-        elif lat is not None and lon is not None and alt is None:
-            _geometry = [lon, lat]
-        elif lat is not None and lon is not None and alt is not None:
-            _geometry = [lon, lat, alt]
-        if len(_geometry) >= 2:
-            self.geometry = _geometry
+        self.geometry = self._loads_geometry(lon=lon, lat=lat, alt=alt)
 
         if name is not None:
             self.name = name

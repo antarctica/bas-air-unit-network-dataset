@@ -17,7 +17,6 @@ fpl_waypoint_types = ["USER WAYPOINT", "AIRPORT", "NDB", "VOR", "INT", "INT-VRP"
 
 
 def _upper_alphanumeric_space_only(value: str) -> str:
-    return re.sub(r"[^A-Z\d ]+", "", value.upper())
     """
     Strips non upper-case alphanumeric or space (' ') characters from string.
 
@@ -27,10 +26,10 @@ def _upper_alphanumeric_space_only(value: str) -> str:
     :param value: string to process
     :return: processed string
     """
+    return re.sub(r"[^A-Z\d ]+", "", value.upper())
 
 
 def _upper_alphanumeric_only(value: str) -> str:
-    return re.sub(r"[^A-Z\d]+", "", value.upper())
     """
     Strips non upper-case alphanumeric characters from string.
 
@@ -40,6 +39,7 @@ def _upper_alphanumeric_only(value: str) -> str:
     :param value: string to process
     :return: processed string
     """
+    return re.sub(r"[^A-Z\d]+", "", value.upper())
 
 
 class Namespaces(object):
@@ -177,10 +177,6 @@ class Waypoint:
 
     @identifier.setter
     def identifier(self, identifier: str) -> None:
-        if identifier is not None:
-            if len(identifier) > 12:
-                raise ValueError("Identifier must be 12 characters or less.")
-            self._identifier = _upper_alphanumeric_only(value=identifier)
         """
         Sets FPL waypoint identifier.
 
@@ -202,6 +198,10 @@ class Waypoint:
         :type identifier: str
         :param identifier: unique identifier
         """
+        if identifier is not None:
+            if len(identifier) > 12:
+                raise ValueError("Identifier must be 12 characters or less.")
+            self._identifier = _upper_alphanumeric_only(value=identifier)
 
     @property
     def waypoint_type(self) -> str:
@@ -250,9 +250,6 @@ class Waypoint:
         return self._country_code
 
     @country_code.setter
-        if country_code is not None:
-            if len(country_code) > 2:
-                raise ValueError("Country code must be 2 characters or less.")
     def country_code(self, country_code: str) -> None:
         """
         Used for organising and finding waypoints.
@@ -261,17 +258,21 @@ class Waypoint:
         characters (A-Z 0-9) only. Values containing invalid characters will be silently dropped, except where noted
         below.
 
-            self._country_code = _upper_alphanumeric_only(value=country_code)
         A double underscore ('__') is sometimes used as the country code for Antarctica, rather than it's ISO 2-digit
         country code, 'AQ' (see #157 for more information). This value is invalid according to the FPL standard but has
         been used successfully in devices so is allowed as an exception to comply with existing usage.
-
-            # As a exception for Antarctica, we use '__' as the country code
-            if country_code == "__":
-                self._country_code = "__"
         :type country_code: str
         :param country_code: two digit country code waypoint resides, or '__' for Antarctica
         """
+        if country_code is not None:
+            if len(country_code) > 2:
+                raise ValueError("Country code must be 2 characters or less.")
+
+        self._country_code = _upper_alphanumeric_only(value=country_code)
+
+        # As an exception for Antarctica, we use '__' as the country code
+        if country_code == "__":
+            self._country_code = "__"
 
     @property
     def latitude(self) -> float:
@@ -316,10 +317,6 @@ class Waypoint:
 
     @longitude.setter
     def longitude(self, longitude: float) -> None:
-        if longitude == 90:
-            longitude = 89.999999
-        elif longitude == -90:
-            longitude = -89.999999
         """
         Sets longitude component of waypoint geometry.
 
@@ -332,6 +329,10 @@ class Waypoint:
         :type longitude: float
         :param longitude: longitude component of waypoint geometry
         """
+        if longitude == 90:
+            longitude = 89.999999
+        elif longitude == -90:
+            longitude = -89.999999
 
         self._longitude = longitude
 
@@ -505,9 +506,6 @@ class RoutePoint:
         return self._waypoint_country_code
 
     @waypoint_country_code.setter
-        if waypoint_country_code is not None:
-            if len(waypoint_country_code) > 2:
-                raise ValueError("Country code must be 2 characters or less.")
     def waypoint_country_code(self, waypoint_country_code: str) -> None:
         """
         Country code for related FPL waypoint.
@@ -518,10 +516,15 @@ class RoutePoint:
         :type waypoint_country_code: str
         :param waypoint_country_code:
         """
+        if waypoint_country_code is not None:
+            if len(waypoint_country_code) > 2:
+                raise ValueError("Country code must be 2 characters or less.")
 
-            # As a exception for Antarctica, we use '__' as the country code
-            if waypoint_country_code == "__":
-                self._waypoint_country_code = "__"
+        self._waypoint_country_code = waypoint_country_code
+
+        # As an exception for Antarctica, we use '__' as the country code
+        if waypoint_country_code == "__":
+            self._waypoint_country_code = "__"
 
     def encode(self) -> Element:
         """
@@ -552,6 +555,7 @@ class Route:
 
     See the abstract route class for general information on these properties and methods.
     """
+
     def __init__(
         self, name: Optional[str] = None, index: Optional[int] = None, points: Optional[List[dict]] = None
     ) -> None:
@@ -637,8 +641,6 @@ class Route:
 
     @index.setter
     def index(self, index: int) -> None:
-        if index > 99:
-            raise ValueError("Index must be 98 or less.")
         """
         Sets FPL route index.
 
@@ -649,6 +651,8 @@ class Route:
         :param index: route index
         :raises ValueError: where the route index is outside the allowed range
         """
+        if index > 99:
+            raise ValueError("Index must be 98 or less.")
 
         self._index = index
 
