@@ -7,6 +7,13 @@ from bas_air_unit_network_dataset import NetworkManager
 
 
 class AppCommand(click.core.Command):
+    """
+    Custom click application command.
+
+    Extends commands with default parameter options (in this case for specifying the path to the GeoPackage dataset.
+    Used as a base for other commands.
+    """
+
     def __init__(self, *args, **kwargs) -> None:  # noqa: ANN002, ANN003 (wrapper around 3rd party library)
         super().__init__(*args, **kwargs)
         self.params.insert(
@@ -25,6 +32,14 @@ class AppCommand(click.core.Command):
 
 
 def inspect_network(network: NetworkManager) -> None:
+    """
+    Display information about a network.
+
+    Lists the waypoints and routes contained in the given network.
+
+    :type network: NetworkManager
+    :param network: Network dataset to inspect
+    """
     click.echo(network)
     click.echo("")
 
