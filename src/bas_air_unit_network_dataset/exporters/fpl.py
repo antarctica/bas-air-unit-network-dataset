@@ -250,10 +250,10 @@ class Waypoint:
         return self._country_code
 
     @country_code.setter
-    def country_code(self, country_code: Optional[str]) -> None:
         if country_code is not None:
             if len(country_code) > 2:
                 raise ValueError("Country code must be 2 characters or less.")
+    def country_code(self, country_code: str) -> None:
         """
         Used for organising and finding waypoints.
 
@@ -413,7 +413,7 @@ class RoutePoint:
         waypoint_identifier: Optional[str] = None,
         waypoint_type: Optional[str] = None,
         waypoint_country_code: Optional[str] = None,
-    ):
+    ) -> None:
         """
         Create FPL route waypoint, optionally setting parameters.
 
@@ -505,10 +505,10 @@ class RoutePoint:
         return self._waypoint_country_code
 
     @waypoint_country_code.setter
-    def waypoint_country_code(self, waypoint_country_code: Optional[str]) -> None:
         if waypoint_country_code is not None:
             if len(waypoint_country_code) > 2:
                 raise ValueError("Country code must be 2 characters or less.")
+    def waypoint_country_code(self, waypoint_country_code: str) -> None:
         """
         Country code for related FPL waypoint.
 
