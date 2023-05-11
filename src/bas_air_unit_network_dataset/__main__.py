@@ -7,7 +7,14 @@ from bas_air_unit_network_dataset import NetworkManager
 
 
 class AppCommand(click.core.Command):
-    def __init__(self, *args, **kwargs):
+    """
+    Custom click application command.
+
+    Extends commands with default parameter options (in this case for specifying the path to the GeoPackage dataset.
+    Used as a base for other commands.
+    """
+
+    def __init__(self, *args, **kwargs) -> None:  # noqa: ANN002, ANN003 (wrapper around 3rd party library)
         super().__init__(*args, **kwargs)
         self.params.insert(
             0,
@@ -25,6 +32,14 @@ class AppCommand(click.core.Command):
 
 
 def inspect_network(network: NetworkManager) -> None:
+    """
+    Display information about a network.
+
+    Lists the waypoints and routes contained in the given network.
+
+    :type network: NetworkManager
+    :param network: Network dataset to inspect
+    """
     click.echo(network)
     click.echo("")
 
@@ -40,8 +55,8 @@ def inspect_network(network: NetworkManager) -> None:
 
 @click.group()
 @click.version_option(version("bas_air_unit_network_dataset"))
-def cli():
-    """BAS Air Unit Network Dataset (`airnet`)"""
+def cli() -> None:
+    """BAS Air Unit Network Dataset (`airnet`)."""
     pass
 
 
@@ -55,7 +70,7 @@ def cli():
     type=click.Path(exists=False, file_okay=False, dir_okay=True, readable=True, writable=True, resolve_path=True),
 )
 def init(dataset_path: str) -> None:
-    """Initialises an empty network"""
+    """Initialises an empty network."""
     _dataset_path = Path(dataset_path).joinpath("bas-air-unit-network-dataset.gpkg")
     click.echo(f"Dataset will be located at: {_dataset_path}")
     click.echo("")
@@ -74,7 +89,7 @@ def init(dataset_path: str) -> None:
     type=click.Path(exists=True, file_okay=True, dir_okay=False, readable=True, resolve_path=True),
 )
 def _import(dataset_path: str, input_path: str) -> None:
-    """Import routes and waypoints into network from an input file"""
+    """Import routes and waypoints into network from an input file."""
     _dataset_path = Path(dataset_path)
     _input_path = Path(input_path)
     click.echo(f"Dataset is located at: {_dataset_path}")
@@ -100,7 +115,7 @@ def _import(dataset_path: str, input_path: str) -> None:
     type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True, writable=True, resolve_path=True),
 )
 def export(dataset_path: str, output_path: str) -> None:
-    """Export network, routes, waypoints as CSV/GPX/FPL outputs"""
+    """Export network, routes, waypoints as CSV/GPX/FPL outputs."""
     _dataset_path = Path(dataset_path)
     _output_path = Path(output_path)
     click.echo(f"Dataset is located at: {_dataset_path}")
@@ -122,7 +137,7 @@ def export(dataset_path: str, output_path: str) -> None:
 
 @cli.command(cls=AppCommand)
 def inspect(dataset_path: str) -> None:
-    """Inspect state of network, routes, waypoints"""
+    """Inspect state of network, routes, waypoints."""
     _dataset_path = Path(dataset_path)
     click.echo(f"Dataset is located at: {_dataset_path}")
     click.echo("")

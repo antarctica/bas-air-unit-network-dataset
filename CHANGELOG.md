@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+* Flake8 code linting
+  [#83](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/83)
+* Bandit static security analysis
+  [#85](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/85)
+* Safety vulnerability scanning
+  [#84](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/84)
+* Black code formatting
+  [#81](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/81)
+
 ### Changed
 
 * upgrading Python dependencies
