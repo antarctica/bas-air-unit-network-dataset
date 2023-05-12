@@ -952,7 +952,7 @@ configuration options, are configured and documented in `pyproject.toml`.
 To check files manually:
 
 ```shell
-$ poetry run flake8 src/
+$ poetry run flake8 src/ tests/
 ```
 
 Checks are run automatically in [Continuous Integration](#continuous-integration).
@@ -970,23 +970,16 @@ automatically when saving files.
 To apply formatting manually:
 
 ```shell
- $ poetry run black src/
+ $ poetry run black src/ tests/
 ```
 
-### Testing
+## Testing
 
-Automated tests are not currently implemented (see 
-[#16](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/16) for more information).
+Basic end-to-end tests are performed automatically in [Continuous Integration](#continuous-integration) to check the
+[Test Network](#test-network) can be processed via the Network Utility [CLI](#usage).
 
-#### Manual outputs testing
-
-Manual testing of outputs is strongly encouraged prior to a release.
-
-These should aim to be as comprehensive as possible, rather than only testing the outputs currently needed. This 
-currently requires manual/ad-hoc modification of the `NetworkManager.dump_*()` methods as shown in this commit:
-
-* https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/blob/9892b56c1669bd88dfd5b7212c2d05861c7b5fa0/src/bas_air_unit_network_dataset/__init__.py#L1112
-* https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/blob/9892b56c1669bd88dfd5b7212c2d05861c7b5fa0/src/bas_air_unit_network_dataset/__init__.py#L1134
+Test outputs are compared against known good reference files in `tests/resources/test-network/reference-outputs/` by
+comparing checksums on file contents using the `tests/compare_outputs.py` script.
 
 ### Continuous Integration
 
