@@ -1,0 +1,205 @@
+{
+  "waypoints": [
+    {
+      "callsign": "ALPHA",
+      "name": "Alpha",
+      "lon": -75.0146484375,
+      "lat": -69.91521433690127,
+      "comment": "There's unlimited juice?",
+      "last_accessed_at": "2012-04-24",
+      "last_accessed_by": "~conwat"
+    },
+    {
+      "callsign": "BRAVO",
+      "name": null,
+      "lon": -75.1904296875,
+      "lat": -70.83024762385253,
+      "comment": null,
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    },
+    {
+      "callsign": "CHARLE",
+      "name": "Charlie",
+      "lon": -71.4990234375,
+      "lat": -71.76019138754775,
+      "comment": "You're losing blood, aren't you?",
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    },
+    {
+      "callsign": "DELTA",
+      "name": "Delta",
+      "lon": -66.09375,
+      "lat": -72.75103864328744,
+      "comment": "How about a turtle?",
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    },
+    {
+      "callsign": "ECHO",
+      "name": "Echo",
+      "lon": -61.61132812500001,
+      "lat": -73.45347276327497,
+      "comment": "I don't criticize you!",
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    },
+    {
+      "callsign": "FOXTRT",
+      "name": "Foxtrot",
+      "lon": -70.224609375,
+      "lat": -73.17589717422607,
+      "comment": "Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!",
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    },
+    {
+      "callsign": "GOLF",
+      "name": "Golf",
+      "lon": -70.3125,
+      "lat": -74.20002150558591,
+      "comment": "I've always been deeply passionate about nature. 🌳",
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    },
+    {
+      "callsign": "HOTEL",
+      "name": "Hotel",
+      "lon": -65.4345703125,
+      "lat": -74.42577748401031,
+      "comment": "I don't know how I know that. I took four years of Spanish.",
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    },
+    {
+      "callsign": "INDIA",
+      "name": "India",
+      "lon": -63.017578125,
+      "lat": -75.70478638174052,
+      "comment": "I am getting rid of this thing. It has caused me nothing but pride and self-respect.",
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    },
+    {
+      "callsign": "JULIET",
+      "name": "Juliet",
+      "lon": -58.9306640625,
+      "lat": -76.34152331547646,
+      "comment": "There's not a lot of logic to it.",
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    },
+    {
+      "callsign": "KILO",
+      "name": "Kilo",
+      "lon": -55.37109374999999,
+      "lat": -77.16692692591407,
+      "comment": "Well, I hope you also carry a spare bowl of candy beans.",
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    },
+    {
+      "callsign": "LIMA",
+      "name": "Lima",
+      "lon": -50.71289062499999,
+      "lat": -78.08922921093165,
+      "comment": "Are you at all concerned about an uprising?",
+      "last_accessed_at": null,
+      "last_accessed_by": null
+    }
+  ],
+  "routes": [
+    {
+      "name": "Midnight",
+      "waypoints": [
+        {
+          "description": "Start",
+          "waypoint_designator": "BRAVO"
+        },
+        {
+          "description": "End",
+          "waypoint_designator": "ALPHA"
+        }
+      ]
+    },
+    {
+      "name": "Oak",
+      "waypoints": [
+        {
+          "description": "Start",
+          "waypoint_designator": "BRAVO"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "CHARLE"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "DELTA"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "ECHO"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "HOTEL"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "GOLF"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "FOXTRT"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "CHARLE"
+        },
+        {
+          "description": "End",
+          "waypoint_designator": "BRAVO"
+        }
+      ]
+    },
+    {
+      "name": "Flattery",
+      "waypoints": [
+        {
+          "description": "Start",
+          "waypoint_designator": "BRAVO"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "CHARLE"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "DELTA"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "HOTEL"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "INDIA"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "JULIET"
+        },
+        {
+          "description": null,
+          "waypoint_designator": "KILO"
+        },
+        {
+          "description": "End",
+          "waypoint_designator": "LIMA"
+        }
+      ]
+    }
+  ]
+}

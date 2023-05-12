@@ -17,6 +17,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#84](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/84)
 * Black code formatting
   [#81](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/81)
+* basic Continuous Integration
+  [#82](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/82)
+* improved Continuous Integration, verifying test network can be minimally processed
+  [#168](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/168)
 
 ### Changed
 

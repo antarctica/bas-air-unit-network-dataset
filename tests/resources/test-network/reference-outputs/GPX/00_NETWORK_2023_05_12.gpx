@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
+  <wpt lat="-69.91516669280827" lon="-75.01463335007429">
+    <name>ALPHA</name>
+    <desc>Name: Alpha | Co-Located with: Foo | Last assessed: 2012-04-24, by: ~conwat | Comment: There's unlimited juice?</desc>
+  </wpt>
+  <wpt lat="-70.8301666751504" lon="-75.19033329561353">
+    <name>BRAVO</name>
+    <desc>-</desc>
+  </wpt>
+  <wpt lat="-71.76016665995121" lon="-71.49899996817112">
+    <name>CHARLE</name>
+    <desc>Name: Charlie | Comment: You're loosing a lot of blood aren't you?</desc>
+  </wpt>
+  <wpt lat="-72.7509999834001" lon="-66.09375">
+    <name>DELTA</name>
+    <desc>Name: Delta | Comment: How about a turtle?</desc>
+  </wpt>
+  <wpt lat="-73.45333331264555" lon="-61.611166689544916">
+    <name>ECHO</name>
+    <desc>Name: Echo | Comment: I don't criticise you!</desc>
+  </wpt>
+  <wpt lat="-73.17583330906928" lon="-70.22449999116361">
+    <name>FOXTRT</name>
+    <desc>Name: Foxtrot | Comment: Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
+  </wpt>
+  <wpt lat="-74.20000003650784" lon="-70.3125">
+    <name>GOLF</name>
+    <desc>Name: Golf | Comment: I've always been deeply passionate about nature.</desc>
+  </wpt>
+  <wpt lat="-74.42566668614745" lon="-65.43449998833239">
+    <name>HOTEL</name>
+    <desc>Name: Hotel | Comment: I don't know how I know that. I took four years of Spanish.</desc>
+  </wpt>
+  <wpt lat="-75.70466665551066" lon="-63.017566641792655">
+    <name>INDIA</name>
+    <desc>Name: India | Comment: I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
+  </wpt>
+  <wpt lat="-76.34150002151728" lon="-58.93050002865493">
+    <name>JULIET</name>
+    <desc>Name: Juliet | Comment: There's not a lot of logic to it.</desc>
+  </wpt>
+  <wpt lat="-77.16683333739638" lon="-55.37100004032254">
+    <name>KILO</name>
+    <desc>Name: Kilo | Comment: Well, I hope you also carry a spare bowl of candy beans.</desc>
+  </wpt>
+  <wpt lat="-78.08921668678522" lon="-50.8461666572839">
+    <name>LIMA</name>
+    <desc>Name: Lima | Comment: Are you at all concerned about an uprising?</desc>
+  </wpt>
+  <rte>
+    <name>01_BRAVO_TO_ALPHA</name>
+    <rtept lat="-70.8301666751504" lon="-75.19033329561353">
+      <name>BRAVO</name>
+    </rtept>
+    <rtept lat="-69.91516669280827" lon="-75.01463335007429">
+      <name>ALPHA</name>
+      <cmt>There's unlimited juice?</cmt>
+    </rtept>
+  </rte>
+  <rte>
+    <name>02_BRAVO_TO_BRAVO</name>
+    <rtept lat="-70.8301666751504" lon="-75.19033329561353">
+      <name>BRAVO</name>
+    </rtept>
+    <rtept lat="-71.76016665995121" lon="-71.49899996817112">
+      <name>CHARLE</name>
+      <cmt>You're loosing a lot of blood aren't you?</cmt>
+    </rtept>
+    <rtept lat="-72.7509999834001" lon="-66.09375">
+      <name>DELTA</name>
+      <cmt>How about a turtle?</cmt>
+    </rtept>
+    <rtept lat="-73.45333331264555" lon="-61.611166689544916">
+      <name>ECHO</name>
+      <cmt>I don't criticise you!</cmt>
+    </rtept>
+    <rtept lat="-74.42566668614745" lon="-65.43449998833239">
+      <name>HOTEL</name>
+      <cmt>I don't know how I know that. I took four years of Spanish.</cmt>
+    </rtept>
+    <rtept lat="-74.20000003650784" lon="-70.3125">
+      <name>GOLF</name>
+      <cmt>I've always been deeply passionate about nature.</cmt>
+    </rtept>
+    <rtept lat="-73.17583330906928" lon="-70.22449999116361">
+      <name>FOXTRT</name>
+      <cmt>Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</cmt>
+    </rtept>
+    <rtept lat="-71.76016665995121" lon="-71.49899996817112">
+      <name>CHARLE</name>
+      <cmt>You're loosing a lot of blood aren't you?</cmt>
+    </rtept>
+    <rtept lat="-70.8301666751504" lon="-75.19033329561353">
+      <name>BRAVO</name>
+    </rtept>
+  </rte>
+  <rte>
+    <name>03_BRAVO_TO_LIMA</name>
+    <rtept lat="-70.8301666751504" lon="-75.19033329561353">
+      <name>BRAVO</name>
+    </rtept>
+    <rtept lat="-71.76016665995121" lon="-71.49899996817112">
+      <name>CHARLE</name>
+      <cmt>You're loosing a lot of blood aren't you?</cmt>
+    </rtept>
+    <rtept lat="-72.7509999834001" lon="-66.09375">
+      <name>DELTA</name>
+      <cmt>How about a turtle?</cmt>
+    </rtept>
+    <rtept lat="-74.42566668614745" lon="-65.43449998833239">
+      <name>HOTEL</name>
+      <cmt>I don't know how I know that. I took four years of Spanish.</cmt>
+    </rtept>
+    <rtept lat="-75.70466665551066" lon="-63.017566641792655">
+      <name>INDIA</name>
+      <cmt>I am getting rid of this thing. It has caused me nothing but pride and self-respect.</cmt>
+    </rtept>
+    <rtept lat="-76.34150002151728" lon="-58.93050002865493">
+      <name>JULIET</name>
+      <cmt>There's not a lot of logic to it.</cmt>
+    </rtept>
+    <rtept lat="-77.16683333739638" lon="-55.37100004032254">
+      <name>KILO</name>
+      <cmt>Well, I hope you also carry a spare bowl of candy beans.</cmt>
+    </rtept>
+    <rtept lat="-78.08921668678522" lon="-50.8461666572839">
+      <name>LIMA</name>
+      <cmt>Are you at all concerned about an uprising?</cmt>
+    </rtept>
+  </rte>
+</gpx>

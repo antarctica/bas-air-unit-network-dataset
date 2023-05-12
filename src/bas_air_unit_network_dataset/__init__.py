@@ -112,7 +112,8 @@ class Waypoint:
         if identifier is not None:
             self.identifier = identifier
 
-        self.geometry = self._loads_geometry(lon=lon, lat=lat, alt=alt)
+        if lon is not None or lat is not None or alt is not None:
+            self.geometry = self._loads_geometry(lon=lon, lat=lat, alt=alt)
 
         if name is not None:
             self.name = name
@@ -2062,6 +2063,3 @@ class NetworkManager:
     def __repr__(self) -> str:
         """String representation of a NetworkManager."""
         return f"<NetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"
-
-
-# change to trigger CI
