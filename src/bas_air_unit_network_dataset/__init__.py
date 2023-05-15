@@ -68,7 +68,6 @@ class Waypoint:
         identifier: Optional[str] = None,
         lon: Optional[float] = None,
         lat: Optional[float] = None,
-        alt: Optional[float] = None,
         name: Optional[str] = None,
         colocated_with: Optional[str] = None,
         last_accessed_at: Optional[date] = None,
@@ -86,8 +85,6 @@ class Waypoint:
         :param lon: longitude component of waypoint geometry
         :type lat: float
         :param lat: latitude component of waypoint geometry
-        :type alt: float
-        :param alt: optional altitude component of waypoint geometry
         :type name: str
         :param name: optionally, waypoint name/summary
         :type colocated_with: str
@@ -112,8 +109,8 @@ class Waypoint:
         if identifier is not None:
             self.identifier = identifier
 
-        if lon is not None or lat is not None or alt is not None:
-            self.geometry = self._loads_geometry(lon=lon, lat=lat, alt=alt)
+        if lon is not None or lat is not None:
+            self.geometry = [lon, lat]
 
         if name is not None:
             self.name = name
@@ -216,18 +213,14 @@ class Waypoint:
         :param geometry: waypoint geometry as a list of longitude/latitude values
         """
         lon = geometry[0]
-        if lon < -180 or lon > 180:
-            raise ValueError(f"Invalid Longitude, must be -180<=X<=180 not {lon}.")
         lat = geometry[1]
-        if lat < -90 or lat > 90:
-            raise ValueError(f"Invalid Latitude, must be -90<=Y<=+90 not {lat}.")
-        self._geometry = Point(lon, lat)
 
-        try:
-            alt = geometry[2]
-            self._geometry = Point(lon, lat, alt)
-        except IndexError:
-            pass
+        if -180 > lon > 180:
+            raise ValueError("Longitude must be between -180 and +180.")
+        if -90 > lat > 90:
+            raise ValueError("Latitude must be between -90 and +90.")
+
+        self._geometry = Point(lon, lat)
 
     @property
     def name(self) -> Optional[str]:
@@ -356,29 +349,6 @@ class Waypoint:
         :param comment: free-text descriptive comment for waypoint
         """
         self._comment = comment
-
-    @staticmethod
-    def _loads_geometry(lon: float, lat: float, alt: Optional[float]) -> Point:
-        """
-        Set waypoint geometry from properties in a generic feature.
-
-        :param lon: longitude component of waypoint geometry
-        :param lat: latitude component of waypoint geometry
-        :param alt: altitude/elevation component of waypoint geometry
-        :rtype: Point
-        :return: waypoint geometry
-        """
-        if lon is None or lat is None:
-            raise ValueError("A latitude (`lat`) and longitude (`lon`) value must be provided.")
-        if -180 > lon > 180:
-            raise ValueError("Latitude must be between -180 and +180.")
-        if -90 > lat > 90:
-            raise ValueError("Latitude must be between -90 and +90.")
-
-        if alt is None:
-            return Point(lon, lat)
-
-        return Point(lon, lat, alt)
 
     def loads_feature(self, feature: dict) -> None:
         """
