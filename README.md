@@ -395,16 +395,16 @@ the current implementation.
 
 #### Waypoints (information model)
 
-| Property           | Name             | Type                              | Occurrence | Length | Description                                                | Example                                   |
-|--------------------|------------------|-----------------------------------|------------|--------|------------------------------------------------------------|-------------------------------------------|
-| `id`               | ID               | String                            | 1          | 1 - .. | Unique identifier                                          | '01G7MY680N332AW9H9HR9SG15T'              |
-| `identifier`       | Identifier       | String                            | 1          | 1 - 6  | Unique reference                                           | 'ALPHA'                                   |
-| `geometry`         | Geometry         | Geometry (2D/3D Point, EPSG:4326) | 1          | -      | Position or location as a single coordinate                | 'SRID=4326;Point(-75.014648 -69.915214)'  |
-| `name`             | Name             | String                            | 0-1        | 1 - 17 | Full or formal name                                        | 'Alpha 001'                               |
-| `colocated_with`   | Co-located With  | String                            | 0-1        | 1 - .. | Features (from other domains) associated with the waypoint | 'Depot: Foo'                              |
-| `last_accessed_at` | Last Accessed At | Date                              | 0-1        | 1 - .. | When the Waypoint was last accessed or visited             | '2014-12-24'                              |
-| `last_accessed_by` | Last Accessed By | String                            | 0-1        | 1 - .. | Who last accessed or visited the Waypoint                  | 'Conwat'                                  |                            
-| `comment`          | Comment          | String                            | 0-1        | 1 - .. | Freetext description or comments                           | 'Alpha 001 is on a high ridge ...'        |
+| Property           | Name             | Type                           | Occurrence | Length | Description                                                | Example                                   |
+|--------------------|------------------|--------------------------------|------------|--------|------------------------------------------------------------|-------------------------------------------|
+| `id`               | ID               | String                         | 1          | 1 - .. | Unique identifier                                          | '01G7MY680N332AW9H9HR9SG15T'              |
+| `identifier`       | Identifier       | String                         | 1          | 1 - 6  | Unique reference                                           | 'ALPHA'                                   |
+| `geometry`         | Geometry         | Geometry (2D Point, EPSG:4326) | 1          | -      | Position or location as a single coordinate                | 'SRID=4326;Point(-75.014648 -69.915214)'  |
+| `name`             | Name             | String                         | 0-1        | 1 - 17 | Full or formal name                                        | 'Alpha 001'                               |
+| `colocated_with`   | Co-located With  | String                         | 0-1        | 1 - .. | Features (from other domains) associated with the waypoint | 'Depot: Foo'                              |
+| `last_accessed_at` | Last Accessed At | Date                           | 0-1        | 1 - .. | When the Waypoint was last accessed or visited             | '2014-12-24'                              |
+| `last_accessed_by` | Last Accessed By | String                         | 0-1        | 1 - .. | Who last accessed or visited the Waypoint                  | 'Conwat'                                  |                            
+| `comment`          | Comment          | String                         | 0-1        | 1 - .. | Freetext description or comments                           | 'Alpha 001 is on a high ridge ...'        |
 
 ##### ID (Waypoint)
 
@@ -429,10 +429,8 @@ Identifiers:
 
 Geometries:
 
-* MUST be expressed in decimal degrees using the EPSG:4326 projection.
-* MUST consist of either:
-  * a longitude (X) and latitude (Y) dimension (2D point)
-  * a longitude (X), latitude (Y) and elevation (Z) dimension (3D point)
+* MUST be expressed in decimal degrees using the EPSG:4326 projection
+* MUST consist of a longitude (X) and latitude (Y) dimension (2D point)
 
 ##### Name (Waypoint)
 
@@ -555,7 +553,7 @@ GeoPackage layer: `waypoints`
 | `fid`              | Feature ID       | Integer       | No       | Yes    | -          | Internal to database, primary key, auto-incrementing |
 | `id`               | ID               | ULID (String) | No       | Yes    | -          | -                                                    |
 | `identifer`        | Identifier       | String        | No       | Yes    | 6          | -                                                    |
-| `geometry`         | Geometry         | 2D/3D Point   | No       | No     | -          | -                                                    |
+| `geometry`         | Geometry         | 2D Point      | No       | No     | -          | -                                                    |
 | `name`             | Name             | String        | Yes      | No     | 17         | -                                                    |
 | `colocated_with`   | Co-located With  | String        | Yes      | No     | -          | -                                                    |
 | `last_accessed_at` | Last Accessed At | Date          | Yes      | No     | -          | -                                                    |

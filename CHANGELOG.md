@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Removed [BREAKING!]
+
+* 3D geometry support, waypoint geometries may no longer specify elevation values
+  [#150](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/150)
+
 ### Added
 
 * Flake8 code linting
