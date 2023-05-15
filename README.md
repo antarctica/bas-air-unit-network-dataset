@@ -620,12 +620,12 @@ A test network of 12 waypoints and 3 routes is used to:
 
 **WARNING!** This test network is entirely fictitious. It MUST NOT be used for any real navigation.
 
-The canonical test network is stored in `tests/resources/test-network/test-network.json`. This dataset does not follow
-any particular standard or format as it's intended to be a superset of other formats and support properties that may not
-be part of any standard.
+The canonical test network is stored in `tests/resources/test-network/test-network.json` and is versioned using a date
+in the `meta.version` property.
 
-Derived versions of the test network in some standard formats are also available (from the same directory) for testing 
-data loading, etc.
+This dataset does not follow any particular standard or output format as it's intended to be a superset of other 
+formats and support properties that may not be part of any standard. Derived versions of the network in some standard 
+formats are also available (from the same directory) for testing data loading, etc.
 
 #### Test network workspace directory
 
@@ -984,8 +984,9 @@ To apply formatting manually:
 
 If updating the [Test Network](#test-network), ensure to:
 
+1. update the version attribute in the test network to the current date
 1. recreate derived versions of the network as needed (for example the GPX derived output)
-2. update the [Test Network Workspace Directory](#test-network-workspace-directory)
+1. update the [Test Network Workspace Directory](#test-network-workspace-directory)
 
 ## Testing
 

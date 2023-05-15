@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "version": "2022-08-07"
+  },
   "waypoints": [
     {
       "callsign": "ALPHA",
