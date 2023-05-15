@@ -620,11 +620,20 @@ A test network of 12 waypoints and 3 routes is used to:
 
 **WARNING!** This test network is entirely fictitious. It MUST NOT be used for any real navigation.
 
+The canonical test network is stored in `tests/resources/test-network/test-network.json`. This dataset does not follow
+any particular standard or format as it's intended to be a superset of other formats and support properties that may not
+be part of any standard.
+
+Derived versions of the test network in some standard formats are also available (from the same directory) for testing 
+data loading, etc.
+
+#### Test network workspace directory
+
 A [Workspace Directory](#workspace-directory) for the test network is maintained in the
 [MAGIC Office 365 OneDrive](https://nercacuk.sharepoint.com/:f:/s/BASMagicTeam/EhBAbE0tTDxCt298WEPOWoMBtuV7yxOYuJ8bPslVdKlASQ)
 and is accessible to all BAS staff. When South, MAGIC will hold a copy of the test network on a hard drive.
 
-A QGIS project is provided to visualise the test network and ensure exported outputs match expected test data.
+A QGIS project is also provided to visualise the test network and ensure exported outputs match expected test data.
 
 ### Output formats
 
@@ -970,6 +979,13 @@ To apply formatting manually:
 ```shell
  $ poetry run black src/ tests/
 ```
+
+### Updating the test network
+
+If updating the [Test Network](#test-network), ensure to:
+
+1. recreate derived versions of the network as needed (for example the GPX derived output)
+2. update the [Test Network Workspace Directory](#test-network-workspace-directory)
 
 ## Testing
 
