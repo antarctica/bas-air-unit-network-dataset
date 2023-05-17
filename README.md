@@ -985,8 +985,14 @@ To apply formatting manually:
 If updating the [Test Network](#test-network), ensure to:
 
 1. update the version attribute in the test network to the current date
-1. recreate derived versions of the network as needed (for example the GPX derived output)
+1. recreate derived versions of the network as needed (for example the GPX derived output) [1]
 1. update the [Test Network Workspace Directory](#test-network-workspace-directory)
+
+[1]
+
+```
+$ poetry run python tests/create_derived_test_outputs.py
+```
 
 ## Testing
 

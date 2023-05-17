@@ -28,6 +28,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#168](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/168)
 * versioning to the test network
   [#173](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/173)
+* script to recreate test network as GeoJSON for testing in QGIS
+  [#174](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/174)
 
 ### Changed
 
