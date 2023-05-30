@@ -559,7 +559,7 @@ class RouteWaypoint:
 
     feature_schema = {
         "geometry": "None",
-        "properties": {"route_id": "str", "waypoint_id": "str", "sequence": "int", "comment": "str"},
+        "properties": {"route_id": "str", "waypoint_id": "str", "sequence": "int"},
     }
 
     feature_schema_spatial = {
@@ -567,9 +567,7 @@ class RouteWaypoint:
         "properties": feature_schema["properties"],
     }
 
-    def __init__(
-        self, waypoint: Optional[Waypoint] = None, sequence: Optional[int] = None, comment: Optional[str] = None
-    ) -> None:
+    def __init__(self, waypoint: Optional[Waypoint] = None, sequence: Optional[int] = None) -> None:
         """
         Create or load a routes, optionally setting parameters.
 
@@ -577,12 +575,9 @@ class RouteWaypoint:
         :param waypoint: the Waypoint that forms part of the Route Waypoint
         :type sequence: int
         :param sequence: order of waypoint in route
-        :type comment: str
-        :param comment: route specific waypoint comment
         """
         self._waypoint: Waypoint
         self._sequence: int
-        self._comment: Optional[str] = None
 
         if waypoint is not None and sequence is None:
             raise ValueError("A `sequence` value must be provided if `waypoint` is set.")
@@ -591,9 +586,6 @@ class RouteWaypoint:
         elif waypoint is not None and sequence is not None:
             self.waypoint = waypoint
             self.sequence = sequence
-
-        if comment is not None:
-            self.comment = comment
 
     @property
     def waypoint(self) -> Waypoint:
@@ -639,31 +631,6 @@ class RouteWaypoint:
         """
         self._sequence = sequence
 
-    @property
-    def comment(self) -> Optional[str]:
-        # As BaseCamp has no support for route based waypoint comments, always return just the waypoint comment
-        """
-        Route specific waypoint comment.
-
-        Note: As BaseCamp has no support for route based waypoint comments, always return the waypoint comment.
-
-        :rtype: str
-        :return: route specific waypoint comment
-        """
-        return self.waypoint.comment
-
-    @comment.setter
-    def comment(self, comment: str) -> None:
-        """
-        Set route specific waypoint comment.
-
-        Allows the waypoint to be contextualised (and replaced) with a route specific alternative.
-
-        :type comment: str
-        :param comment: route specific waypoint comment
-        """
-        self._comment = comment
-
     def loads_feature(self, feature: dict, waypoints: "WaypointCollection") -> None:
         """
         Create a route waypoint from a generic feature.
@@ -677,7 +644,6 @@ class RouteWaypoint:
         :param waypoints: collection of waypoints from which to load waypoint information
         """
         self.sequence = feature["properties"]["sequence"]
-        self.comment = feature["properties"]["comment"]
 
         try:
             self.waypoint = waypoints[feature["properties"]["waypoint_id"]]
@@ -709,11 +675,7 @@ class RouteWaypoint:
         """
         feature = {
             "geometry": None,
-            "properties": {
-                "waypoint_id": self.waypoint.fid,
-                "sequence": self.sequence,
-                "comment": self.comment,
-            },
+            "properties": {"waypoint_id": self.waypoint.fid, "sequence": self.sequence},
         }
 
         if inc_spatial:
@@ -758,11 +720,6 @@ class RouteWaypoint:
 
         route_waypoint = {**route_waypoint, **waypoint}
 
-        comment = "-"
-        if self.comment is not None:
-            comment = self.comment
-        route_waypoint["comment"] = comment
-
         return route_waypoint
 
     def dumps_gpx(self) -> GPXRoutePoint:
@@ -776,7 +733,7 @@ class RouteWaypoint:
         route_waypoint.name = self.waypoint.identifier
         route_waypoint.longitude = self.waypoint.geometry.x
         route_waypoint.latitude = self.waypoint.geometry.y
-        route_waypoint.comment = self.comment
+        route_waypoint.comment = self.waypoint.comment
 
         return route_waypoint
 
@@ -1953,11 +1910,7 @@ class NetworkManager:
             for route_waypoint in route.points:
                 _waypoint = self.waypoints.lookup(route_waypoint.name)
 
-                # ignore route waypoint descriptions, as BaseCamp just copies the waypoint description, rather than
-                # having a contextual description for each waypoint within a route.
-                _comment = None
-
-                _route_waypoint = RouteWaypoint(waypoint=_waypoint, sequence=sequence, comment=_comment)
+                _route_waypoint = RouteWaypoint(waypoint=_waypoint, sequence=sequence)
                 _route.waypoints.append(_route_waypoint)
                 sequence += 1
 

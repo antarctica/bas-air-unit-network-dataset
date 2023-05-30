@@ -1,0 +1,310 @@
+{
+ "features": [
+  {
+   "geometry": {
+    "coordinates": [
+     -75.0146484375,
+     -69.91521433690127
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "There's unlimited juice?",
+    "feature_type": "waypoint",
+    "identifier": "ALPHA",
+    "last_accessed_at": "2012-04-24",
+    "last_accessed_by": "~conwat",
+    "name": "Alpha"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -75.1904296875,
+     -70.83024762385253
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "feature_type": "waypoint",
+    "identifier": "BRAVO"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -71.4990234375,
+     -71.76019138754775
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "You're losing blood, aren't you?",
+    "feature_type": "waypoint",
+    "identifier": "CHARLE",
+    "name": "Charlie"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -66.09375,
+     -72.75103864328744
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "How about a turtle?",
+    "feature_type": "waypoint",
+    "identifier": "DELTA",
+    "name": "Delta"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -61.61132812500001,
+     -73.45347276327497
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "I don't criticize you!",
+    "feature_type": "waypoint",
+    "identifier": "ECHO",
+    "name": "Echo"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -70.224609375,
+     -73.17589717422607
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!",
+    "feature_type": "waypoint",
+    "identifier": "FOXTRT",
+    "name": "Foxtrot"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -70.3125,
+     -74.20002150558591
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "I've always been deeply passionate about nature. \ud83c\udf33",
+    "feature_type": "waypoint",
+    "identifier": "GOLF",
+    "name": "Golf"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -65.4345703125,
+     -74.42577748401031
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "I don't know how I know that. I took four years of Spanish.",
+    "feature_type": "waypoint",
+    "identifier": "HOTEL",
+    "name": "Hotel"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -63.017578125,
+     -75.70478638174052
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "I am getting rid of this thing. It has caused me nothing but pride and self-respect.",
+    "feature_type": "waypoint",
+    "identifier": "INDIA",
+    "name": "India"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -58.9306640625,
+     -76.34152331547646
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "There's not a lot of logic to it.",
+    "feature_type": "waypoint",
+    "identifier": "JULIET",
+    "name": "Juliet"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -55.37109374999999,
+     -77.16692692591407
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "Well, I hope you also carry a spare bowl of candy beans.",
+    "feature_type": "waypoint",
+    "identifier": "KILO",
+    "name": "Kilo"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     -50.71289062499999,
+     -78.08922921093165
+    ],
+    "type": "Point"
+   },
+   "properties": {
+    "comment": "Are you at all concerned about an uprising?",
+    "feature_type": "waypoint",
+    "identifier": "LIMA",
+    "name": "Lima"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     [
+      -75.1904296875,
+      -70.83024762385253
+     ],
+     [
+      -75.0146484375,
+      -69.91521433690127
+     ]
+    ],
+    "type": "LineString"
+   },
+   "properties": {
+    "feature_type": "route",
+    "name": "01_BRAVO_TO_ALPHA"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     [
+      -75.1904296875,
+      -70.83024762385253
+     ],
+     [
+      -71.4990234375,
+      -71.76019138754775
+     ],
+     [
+      -66.09375,
+      -72.75103864328744
+     ],
+     [
+      -61.61132812500001,
+      -73.45347276327497
+     ],
+     [
+      -65.4345703125,
+      -74.42577748401031
+     ],
+     [
+      -70.3125,
+      -74.20002150558591
+     ],
+     [
+      -70.224609375,
+      -73.17589717422607
+     ],
+     [
+      -71.4990234375,
+      -71.76019138754775
+     ],
+     [
+      -75.1904296875,
+      -70.83024762385253
+     ]
+    ],
+    "type": "LineString"
+   },
+   "properties": {
+    "feature_type": "route",
+    "name": "02_BRAVO_TO_BRAVO"
+   },
+   "type": "Feature"
+  },
+  {
+   "geometry": {
+    "coordinates": [
+     [
+      -75.1904296875,
+      -70.83024762385253
+     ],
+     [
+      -71.4990234375,
+      -71.76019138754775
+     ],
+     [
+      -66.09375,
+      -72.75103864328744
+     ],
+     [
+      -65.4345703125,
+      -74.42577748401031
+     ],
+     [
+      -63.017578125,
+      -75.70478638174052
+     ],
+     [
+      -58.9306640625,
+      -76.34152331547646
+     ],
+     [
+      -55.37109374999999,
+      -77.16692692591407
+     ],
+     [
+      -50.71289062499999,
+      -78.08922921093165
+     ]
+    ],
+    "type": "LineString"
+   },
+   "properties": {
+    "feature_type": "route",
+    "name": "03_BRAVO_TO_LIMA"
+   },
+   "type": "Feature"
+  }
+ ],
+ "name": "test-network",
+ "type": "FeatureCollection"
+}

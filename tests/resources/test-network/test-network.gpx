@@ -1,550 +1,120 @@
-<?xml version="1.0"?>
-<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:wptx1="http://www.garmin.com/xmlschemas/WaypointExtension/v1" xmlns:gpxtrx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:gpxtpx="http://www.garmin.com/xmlschemas/TrackPointExtension/v1" xmlns:gpxx="http://www.garmin.com/xmlschemas/GpxExtensions/v3" xmlns:trp="http://www.garmin.com/xmlschemas/TripExtensions/v1" xmlns:adv="http://www.garmin.com/xmlschemas/AdventuresExtensions/v1" xmlns:prs="http://www.garmin.com/xmlschemas/PressureExtension/v1" xmlns:tmd="http://www.garmin.com/xmlschemas/TripMetaDataExtensions/v1" xmlns:vptm="http://www.garmin.com/xmlschemas/ViaPointTransportationModeExtensions/v1" xmlns:ctx="http://www.garmin.com/xmlschemas/CreationTimeExtension/v1" xmlns:gpxacc="http://www.garmin.com/xmlschemas/AccelerationExtension/v1" xmlns:gpxpx="http://www.garmin.com/xmlschemas/PowerExtension/v1" xmlns:vidx1="http://www.garmin.com/xmlschemas/VideoExtension/v1" creator="Garmin Desktop App" version="1.1" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd http://www.garmin.com/xmlschemas/WaypointExtension/v1 http://www8.garmin.com/xmlschemas/WaypointExtensionv1.xsd http://www.garmin.com/xmlschemas/TrackPointExtension/v1 http://www.garmin.com/xmlschemas/TrackPointExtensionv1.xsd http://www.garmin.com/xmlschemas/GpxExtensions/v3 http://www8.garmin.com/xmlschemas/GpxExtensionsv3.xsd http://www.garmin.com/xmlschemas/ActivityExtension/v1 http://www8.garmin.com/xmlschemas/ActivityExtensionv1.xsd http://www.garmin.com/xmlschemas/AdventuresExtensions/v1 http://www8.garmin.com/xmlschemas/AdventuresExtensionv1.xsd http://www.garmin.com/xmlschemas/PressureExtension/v1 http://www.garmin.com/xmlschemas/PressureExtensionv1.xsd http://www.garmin.com/xmlschemas/TripExtensions/v1 http://www.garmin.com/xmlschemas/TripExtensionsv1.xsd http://www.garmin.com/xmlschemas/TripMetaDataExtensions/v1 http://www.garmin.com/xmlschemas/TripMetaDataExtensionsv1.xsd http://www.garmin.com/xmlschemas/ViaPointTransportationModeExtensions/v1 http://www.garmin.com/xmlschemas/ViaPointTransportationModeExtensionsv1.xsd http://www.garmin.com/xmlschemas/CreationTimeExtension/v1 http://www.garmin.com/xmlschemas/CreationTimeExtensionsv1.xsd http://www.garmin.com/xmlschemas/AccelerationExtension/v1 http://www.garmin.com/xmlschemas/AccelerationExtensionv1.xsd http://www.garmin.com/xmlschemas/PowerExtension/v1 http://www.garmin.com/xmlschemas/PowerExtensionv1.xsd http://www.garmin.com/xmlschemas/VideoExtension/v1 http://www.garmin.com/xmlschemas/VideoExtensionv1.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
   <metadata>
-    <link href="http://www.garmin.com">
-      <text>Garmin International</text>
-    </link>
-    <time>2022-07-08T16:21:12Z</time>
-    <bounds maxlat="-69.91516669280827" maxlon="-50.846166657283902" minlat="-78.089216686785221" minlon="-75.190333295613527"/>
+    <name>test-network</name>
   </metadata>
-  <wpt lat="-69.91516669280827" lon="-75.014633350074291">
-    <time>2022-07-08T15:18:34Z</time>
+  <wpt lat="-69.91521433690127" lon="-75.0146484375">
     <name>ALPHA</name>
-    <cmt>Alpha | Foo | 2012-04-24 | ~conwat | There's unlimited juice?</cmt>
-    <desc>Alpha | Foo | 2012-04-24 | ~conwat | There's unlimited juice?</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:18:34Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
+    <desc>Alpha | N/A | 2012-04-24 | ~conwat | There's unlimited juice?</desc>
   </wpt>
-  <wpt lat="-70.830166675150394" lon="-75.190333295613527">
-    <time>2022-07-08T15:21:06Z</time>
+  <wpt lat="-70.83024762385253" lon="-75.1904296875">
     <name>BRAVO</name>
-    <cmt>N/A | N/A | N/A | N/A | N/A</cmt>
     <desc>N/A | N/A | N/A | N/A | N/A</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:21:06Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
   </wpt>
-  <wpt lat="-71.76016665995121" lon="-71.49899996817112">
-    <time>2022-07-08T15:50:44Z</time>
+  <wpt lat="-71.76019138754775" lon="-71.4990234375">
     <name>CHARLE</name>
-    <cmt>Charlie | N/A | N/A | N/A | You're loosing a lot of blood aren't you?</cmt>
-    <desc>Charlie | N/A | N/A | N/A | You're loosing a lot of blood aren't you?</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:50:44Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
+    <desc>Charlie | N/A | N/A | N/A | You're losing blood, aren't you?</desc>
   </wpt>
-  <wpt lat="-72.750999983400106" lon="-66.09375">
-    <time>2022-07-08T15:51:24Z</time>
+  <wpt lat="-72.75103864328744" lon="-66.09375">
     <name>DELTA</name>
-    <cmt>Delta | N/A | N/A | N/A | How about a turtle?</cmt>
     <desc>Delta | N/A | N/A | N/A | How about a turtle?</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:51:24Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
   </wpt>
-  <wpt lat="-73.453333312645555" lon="-61.611166689544916">
-    <time>2022-07-08T15:51:57Z</time>
+  <wpt lat="-73.45347276327497" lon="-61.61132812500001">
     <name>ECHO</name>
-    <cmt>Echo | N/A | N/A | N/A | I don't criticise you!</cmt>
-    <desc>Echo | N/A | N/A | N/A | I don't criticise you!</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:51:57Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
+    <desc>Echo | N/A | N/A | N/A | I don't criticize you!</desc>
   </wpt>
-  <wpt lat="-73.175833309069276" lon="-70.224499991163611">
-    <time>2022-07-08T15:54:30Z</time>
+  <wpt lat="-73.17589717422607" lon="-70.224609375">
     <name>FOXTRT</name>
-    <cmt>Foxtrot | N/A | N/A | N/A | Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</cmt>
     <desc>Foxtrot | N/A | N/A | N/A | Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:54:30Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
   </wpt>
-  <wpt lat="-74.200000036507845" lon="-70.3125">
-    <time>2022-07-08T15:55:23Z</time>
+  <wpt lat="-74.20002150558591" lon="-70.3125">
     <name>GOLF</name>
-    <cmt>Golf | N/A | N/A | N/A | I've always been deeply passionate about nature.</cmt>
-    <desc>Golf | N/A | N/A | N/A | I've always been deeply passionate about nature.</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:55:23Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
+    <desc>Golf | N/A | N/A | N/A | I've always been deeply passionate about nature. 🌳</desc>
   </wpt>
-  <wpt lat="-74.425666686147451" lon="-65.434499988332391">
-    <time>2022-07-08T15:55:55Z</time>
+  <wpt lat="-74.42577748401031" lon="-65.4345703125">
     <name>HOTEL</name>
-    <cmt>Hotel | N/A | N/A | N/A | I don't know how I know that. I took four years of Spanish.</cmt>
     <desc>Hotel | N/A | N/A | N/A | I don't know how I know that. I took four years of Spanish.</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:55:55Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
   </wpt>
-  <wpt lat="-75.704666655510664" lon="-63.017566641792655">
-    <time>2022-07-08T15:56:25Z</time>
+  <wpt lat="-75.70478638174052" lon="-63.017578125">
     <name>INDIA</name>
-    <cmt>India | N/A | N/A | N/A | I am getting rid of this thing. It has caused me nothing but pride and self-respect.</cmt>
     <desc>India | N/A | N/A | N/A | I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:56:25Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
   </wpt>
-  <wpt lat="-76.341500021517277" lon="-58.930500028654933">
-    <time>2022-07-08T15:57:19Z</time>
+  <wpt lat="-76.34152331547646" lon="-58.9306640625">
     <name>JULIET</name>
-    <cmt>Juliet | N/A | N/A | N/A | There's not a lot of logic to it.</cmt>
     <desc>Juliet | N/A | N/A | N/A | There's not a lot of logic to it.</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:57:19Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
   </wpt>
-  <wpt lat="-77.166833337396383" lon="-55.371000040322542">
-    <time>2022-07-08T15:57:40Z</time>
+  <wpt lat="-77.16692692591407" lon="-55.37109374999999">
     <name>KILO</name>
-    <cmt>Kilo | N/A | N/A | N/A | Well, I hope you also carry a spare bowl of candy beans.</cmt>
     <desc>Kilo | N/A | N/A | N/A | Well, I hope you also carry a spare bowl of candy beans.</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T15:57:40Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
   </wpt>
-  <wpt lat="-78.089216686785221" lon="-50.846166657283902">
-    <time>2022-07-08T16:17:07Z</time>
+  <wpt lat="-78.08922921093165" lon="-50.71289062499999">
     <name>LIMA</name>
-    <cmt>Lima | N/A | N/A | N/A | Are you at all concerned about an uprising?</cmt>
     <desc>Lima | N/A | N/A | N/A | Are you at all concerned about an uprising?</desc>
-    <sym>Flag, Blue</sym>
-    <type>user</type>
-    <extensions>
-      <gpxx:WaypointExtension>
-        <gpxx:DisplayMode>SymbolAndName</gpxx:DisplayMode>
-      </gpxx:WaypointExtension>
-      <wptx1:WaypointExtension>
-        <wptx1:DisplayMode>SymbolAndName</wptx1:DisplayMode>
-      </wptx1:WaypointExtension>
-      <ctx:CreationTimeExtension>
-        <ctx:CreationTime>2022-07-08T16:17:07Z</ctx:CreationTime>
-      </ctx:CreationTimeExtension>
-    </extensions>
   </wpt>
   <rte>
     <name>01_BRAVO_TO_ALPHA</name>
-    <extensions>
-      <gpxx:RouteExtension>
-        <gpxx:IsAutoNamed>false</gpxx:IsAutoNamed>
-        <gpxx:DisplayColor>Magenta</gpxx:DisplayColor>
-      </gpxx:RouteExtension>
-    </extensions>
-    <rtept lat="-70.830166675150394" lon="-75.190333295613527">
-      <time>2022-07-08T15:21:06Z</time>
+    <rtept lat="-70.83024762385253" lon="-75.1904296875">
       <name>BRAVO</name>
-      <cmt>N/A | N/A | N/A | N/A | N/A</cmt>
-      <desc>N/A | N/A | N/A | N/A | N/A</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>000000000000FFFFFFFFFFFFFFFFFFFFFFFF</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-69.91516669280827" lon="-75.014633350074291">
-      <time>2022-07-08T15:18:34Z</time>
+    <rtept lat="-69.91521433690127" lon="-75.0146484375">
       <name>ALPHA</name>
-      <cmt>Alpha | Foo | 2012-04-24 | ~conwat | There's unlimited juice?</cmt>
-      <desc>Alpha | Foo | 2012-04-24 | ~conwat | There's unlimited juice?</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>000000000000FFFFFFFFFFFFFFFFFFFFFFFF</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
   </rte>
   <rte>
     <name>02_BRAVO_TO_BRAVO</name>
-    <extensions>
-      <gpxx:RouteExtension>
-        <gpxx:IsAutoNamed>false</gpxx:IsAutoNamed>
-        <gpxx:DisplayColor>Green</gpxx:DisplayColor>
-      </gpxx:RouteExtension>
-    </extensions>
-    <rtept lat="-70.830166675150394" lon="-75.190333295613527">
-      <time>2022-07-08T15:21:06Z</time>
+    <rtept lat="-70.83024762385253" lon="-75.1904296875">
       <name>BRAVO</name>
-      <cmt>N/A | N/A | N/A | N/A | N/A</cmt>
-      <desc>N/A | N/A | N/A | N/A | N/A</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>000000000000FFFFFFFFFFFFFFFFFFFFFFFF</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-71.76016665995121" lon="-71.49899996817112">
-      <time>2022-07-08T15:50:44Z</time>
+    <rtept lat="-71.76019138754775" lon="-71.4990234375">
       <name>CHARLE</name>
-      <cmt>Charlie | N/A | N/A | N/A | You're loosing a lot of blood aren't you?</cmt>
-      <desc>Charlie | N/A | N/A | N/A | You're loosing a lot of blood aren't you?</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CECA003F13CEBD</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-72.750999983400106" lon="-66.09375">
-      <time>2022-07-08T15:51:24Z</time>
+    <rtept lat="-72.75103864328744" lon="-66.09375">
       <name>DELTA</name>
-      <cmt>Delta | N/A | N/A | N/A | How about a turtle?</cmt>
-      <desc>Delta | N/A | N/A | N/A | How about a turtle?</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CDCA00B3F6C062</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-73.453333312645555" lon="-61.611166689544916">
-      <time>2022-07-08T15:51:57Z</time>
+    <rtept lat="-73.45347276327497" lon="-61.61132812500001">
       <name>ECHO</name>
-      <cmt>Echo | N/A | N/A | N/A | I don't criticise you!</cmt>
-      <desc>Echo | N/A | N/A | N/A | I don't criticise you!</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CECA00DC24E854</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-74.425666686147451" lon="-65.434499988332391">
-      <time>2022-07-08T15:55:55Z</time>
+    <rtept lat="-74.42577748401031" lon="-65.4345703125">
       <name>HOTEL</name>
-      <cmt>Hotel | N/A | N/A | N/A | I don't know how I know that. I took four years of Spanish.</cmt>
-      <desc>Hotel | N/A | N/A | N/A | I don't know how I know that. I took four years of Spanish.</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CDCA0037EF6F41</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-74.200000036507845" lon="-70.3125">
-      <time>2022-07-08T15:55:23Z</time>
+    <rtept lat="-74.20002150558591" lon="-70.3125">
       <name>GOLF</name>
-      <cmt>Golf | N/A | N/A | N/A | I've always been deeply passionate about nature.</cmt>
-      <desc>Golf | N/A | N/A | N/A | I've always been deeply passionate about nature.</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CDCA00D3DD950E</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-73.175833309069276" lon="-70.224499991163611">
-      <time>2022-07-08T15:54:30Z</time>
+    <rtept lat="-73.17589717422607" lon="-70.224609375">
       <name>FOXTRT</name>
-      <cmt>Foxtrot | N/A | N/A | N/A | Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</cmt>
-      <desc>Foxtrot | N/A | N/A | N/A | Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CECA00AC08B91C</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-71.76016665995121" lon="-71.49899996817112">
-      <time>2022-07-08T15:50:44Z</time>
+    <rtept lat="-71.76019138754775" lon="-71.4990234375">
       <name>CHARLE</name>
-      <cmt>Charlie | N/A | N/A | N/A | You're loosing a lot of blood aren't you?</cmt>
-      <desc>Charlie | N/A | N/A | N/A | You're loosing a lot of blood aren't you?</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CECA003F13CEBD</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-70.830166675150394" lon="-75.190333295613527">
-      <time>2022-07-08T15:21:06Z</time>
+    <rtept lat="-70.83024762385253" lon="-75.1904296875">
       <name>BRAVO</name>
-      <cmt>N/A | N/A | N/A | N/A | N/A</cmt>
-      <desc>N/A | N/A | N/A | N/A | N/A</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>000000000000FFFFFFFFFFFFFFFFFFFFFFFF</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
   </rte>
   <rte>
     <name>03_BRAVO_TO_LIMA</name>
-    <extensions>
-      <gpxx:RouteExtension>
-        <gpxx:IsAutoNamed>false</gpxx:IsAutoNamed>
-        <gpxx:DisplayColor>Cyan</gpxx:DisplayColor>
-      </gpxx:RouteExtension>
-    </extensions>
-    <rtept lat="-70.830166675150394" lon="-75.190333295613527">
-      <time>2022-07-08T15:21:06Z</time>
+    <rtept lat="-70.83024762385253" lon="-75.1904296875">
       <name>BRAVO</name>
-      <cmt>N/A | N/A | N/A | N/A</cmt>
-      <desc>N/A | N/A | N/A | N/A</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>000000000000FFFFFFFFFFFFFFFFFFFFFFFF</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-71.76016665995121" lon="-71.49899996817112">
-      <time>2022-07-08T15:50:44Z</time>
+    <rtept lat="-71.76019138754775" lon="-71.4990234375">
       <name>CHARLE</name>
-      <cmt>N/A | N/A | N/A | You're loosing a lot of blood aren't you?</cmt>
-      <desc>N/A | N/A | N/A | You're loosing a lot of blood aren't you?</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CECA003F13CEBD</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-72.750999983400106" lon="-66.09375">
-      <time>2022-07-08T15:51:24Z</time>
+    <rtept lat="-72.75103864328744" lon="-66.09375">
       <name>DELTA</name>
-      <cmt>N/A | N/A | N/A | How about a turtle?</cmt>
-      <desc>N/A | N/A | N/A | How about a turtle?</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CDCA00B3F6C062</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-74.425666686147451" lon="-65.434499988332391">
-      <time>2022-07-08T15:55:55Z</time>
+    <rtept lat="-74.42577748401031" lon="-65.4345703125">
       <name>HOTEL</name>
-      <cmt>N/A | N/A | N/A | I don't know how I know that. I took four years of Spanish.</cmt>
-      <desc>N/A | N/A | N/A | I don't know how I know that. I took four years of Spanish.</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CDCA0037EF6F41</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-75.704666655510664" lon="-63.017566641792655">
-      <time>2022-07-08T15:56:25Z</time>
+    <rtept lat="-75.70478638174052" lon="-63.017578125">
       <name>INDIA</name>
-      <cmt>N/A | N/A | N/A | I am getting rid of this thing. It has caused me nothing but pride and self-respect.</cmt>
-      <desc>N/A | N/A | N/A | I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CDCA0025EDBAC7</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-76.341500021517277" lon="-58.930500028654933">
-      <time>2022-07-08T15:57:19Z</time>
+    <rtept lat="-76.34152331547646" lon="-58.9306640625">
       <name>JULIET</name>
-      <cmt>N/A | N/A | N/A | There's not a lot of logic to it.</cmt>
-      <desc>N/A | N/A | N/A | There's not a lot of logic to it.</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CECA003E10DE7C</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-77.166833337396383" lon="-55.371000040322542">
-      <time>2022-07-08T15:57:40Z</time>
+    <rtept lat="-77.16692692591407" lon="-55.37109374999999">
       <name>KILO</name>
-      <cmt>N/A | N/A | N/A | Well, I hope you also carry a spare bowl of candy beans.</cmt>
-      <desc>N/A | N/A | N/A | Well, I hope you also carry a spare bowl of candy beans.</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>28004ACE7C000400461603CDCA00E1D27950</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
-    <rtept lat="-78.089216686785221" lon="-50.846166657283902">
-      <time>2022-07-08T16:17:07Z</time>
+    <rtept lat="-78.08922921093165" lon="-50.71289062499999">
       <name>LIMA</name>
-      <cmt>N/A | N/A | N/A | Are you at all concerned about an uprising?</cmt>
-      <desc>N/A | N/A | N/A | Are you at all concerned about an uprising?</desc>
-      <sym>Flag, Blue</sym>
-      <extensions>
-        <trp:ViaPoint>
-          <trp:CalculationMode>Direct</trp:CalculationMode>
-        </trp:ViaPoint>
-        <gpxx:RoutePointExtension>
-          <gpxx:Subclass>000000000000FFFFFFFFFFFFFFFFFFFFFFFF</gpxx:Subclass>
-        </gpxx:RoutePointExtension>
-      </extensions>
     </rtept>
   </rte>
 </gpx>

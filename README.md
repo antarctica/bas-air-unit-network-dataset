@@ -46,7 +46,6 @@ This service has a number of limitations, including:
 * the Air Unit Network utility does not require waypoint identifiers to be unique across all waypoints
 * the Air Unit Network utility does not require waypoint comments to follow the required structure
 * the Air Unit Network utility does not require waypoints within imported routes to be listed as standalone waypoints
-* contextual comments for waypoints within a route (e.g. 'Start of route') cannot be set using Garmin BaseCamp
 * comments for waypoints use an overly complex structure to support an ad-hoc serialisation format
 * Unicode characters (such as emoji) cannot be used in route/waypoint names, comments, etc.
 * CSV outputs are not designed for printing (i.e. column formatting and page breaks)
@@ -495,12 +494,8 @@ Waypoints in Routes:
   * i.e. waypoints in routes MUST be drawn from a common set, rather than defined ad-hoc or inline within a Route
 * MUST be expressed as a sequence:
   * i.e. a list in a specific order from a start to finish via any number of other places
-* MUST contain at least 2 Waypoints but MAY contain more:
-  * i.e. a start and end
 * MAY be included multiple times
   * i.e. the start and end can be the same Waypoint, or a route may pass through the same waypoint multiple times
-* MAY include a contextual comment or description
-  * e.g. 'Start of route'
 
 ### Data model
 
@@ -589,7 +584,6 @@ GeoPackage layer: `route_waypoints`
 | `route_id`    | Route ID    | ULID (String)  | No       | Yes                | -          | Foreign key to Route entity                                                 |
 | `waypoint_id` | Waypoint ID | ULID (String)  | No       | Yes                | -          | Foreign key to Waypoint entity                                              |
 | `sequence`    | Sequence    | Integer        | No       | Yes (within Route) | -          | Position of waypoint within a route, value must be unique within each route |
-| `comment`     | Comment     | String         | Yes      | No                 | -          | -                                                                           |
 
 **Note:** Though the `route_id` and `waypoint_id` columns are effectively foreign keys, they are not configured as 
 such within the GeoPackage.
@@ -610,21 +604,27 @@ Limitations:
 
 ### Test network
 
-A test network of 12 waypoints and 3 routes is used to:
+A network consisting of 12 waypoints and 3 routes is used to:
 
 1. test various edge cases
 2. provide consistency for repeatable testing
 3. prevent needing to use real data that might be sensitive
 
-**Note:** Route and waypoints in the test network are arbitrary and do not reflect any actual features.
-
 **WARNING!** This test network is entirely fictitious. It MUST NOT be used for any real navigation.
+
+The canonical test network is stored in `tests/resources/test-network/test-network.json` and is versioned using a date
+in the `meta.version` property. A QGIS project is also provided to visualise the test network and ensure derived 
+outputs match expected test data.
+
+This dataset does not follow any particular standard or output format as it's intended to be a superset of other 
+formats and support properties that may not be part of any standard. Derived versions of the network in some standard 
+formats are also available (from the same directory) for testing data loading, etc.
+
+#### Test network workspace directory
 
 A [Workspace Directory](#workspace-directory) for the test network is maintained in the
 [MAGIC Office 365 OneDrive](https://nercacuk.sharepoint.com/:f:/s/BASMagicTeam/EhBAbE0tTDxCt298WEPOWoMBtuV7yxOYuJ8bPslVdKlASQ)
 and is accessible to all BAS staff. When South, MAGIC will hold a copy of the test network on a hard drive.
-
-A QGIS project is provided to visualise the test network and ensure exported outputs match expected test data.
 
 ### Output formats
 
@@ -1071,6 +1071,33 @@ For all releases:
     * link to installation bundle (share link to archive in SharePoint)
 10. compress the [Installation Bundle](#installation-bundle) into a 7Zip archive (to allow fr transfer South via AMS) 
 11. copy the [Installation Bundle](#installation-bundle) and [Test Network](#test-network) to a hard drive to take South
+
+### Updating the test network
+
+If updating the [Test Network](#test-network), ensure to:
+
+1. update the version attribute in the test network to the current date
+1. recreate derived versions of the network as needed (for example the GPX derived output) [1]
+1. use the network utility to generate sample exports [2]
+1. manually verify the QGIS project for visualising the network is correct and update/fix as needed
+1. manually update the [Test Network Workspace Directory](#test-network-workspace-directory) as needed
+    * `test-network.gpx` -> `input.gpx`
+    * `reference-outputs/` -> `outputs/`
+
+[1]
+
+```
+$ poetry run python tests/create_derived_test_outputs.py
+```
+
+[2]
+
+```
+$ poetry run airnet import -d tests/resources/test-network/bas-air-unit-network-dataset.gpkg -i tests/resources/test-network/test-network.gpx
+$ poetry run airnet export -d tests/resources/test-network/bas-air-unit-network-dataset.gpkg -o tests/resources/test-network/reference-outputs/
+```
+
+After running, ensure all dates in files are updated to value set in `tests/compare_outputs.py`.
 
 ## Feedback
 

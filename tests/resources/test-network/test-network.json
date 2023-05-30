@@ -1,4 +1,7 @@
 {
+  "meta": {
+    "version": "2023-05-15"
+  },
   "waypoints": [
     {
       "callsign": "ALPHA",
@@ -111,92 +114,73 @@
   ],
   "routes": [
     {
-      "name": "Midnight",
+      "name": "01_BRAVO_TO_ALPHA",
       "waypoints": [
         {
-          "description": "Start",
           "waypoint_designator": "BRAVO"
         },
         {
-          "description": "End",
           "waypoint_designator": "ALPHA"
         }
       ]
     },
     {
-      "name": "Oak",
+      "name": "02_BRAVO_TO_BRAVO",
       "waypoints": [
         {
-          "description": "Start",
           "waypoint_designator": "BRAVO"
         },
         {
-          "description": null,
           "waypoint_designator": "CHARLE"
         },
         {
-          "description": null,
           "waypoint_designator": "DELTA"
         },
         {
-          "description": null,
           "waypoint_designator": "ECHO"
         },
         {
-          "description": null,
           "waypoint_designator": "HOTEL"
         },
         {
-          "description": null,
           "waypoint_designator": "GOLF"
         },
         {
-          "description": null,
           "waypoint_designator": "FOXTRT"
         },
         {
-          "description": null,
           "waypoint_designator": "CHARLE"
         },
         {
-          "description": "End",
           "waypoint_designator": "BRAVO"
         }
       ]
     },
     {
-      "name": "Flattery",
+      "name": "03_BRAVO_TO_LIMA",
       "waypoints": [
         {
-          "description": "Start",
           "waypoint_designator": "BRAVO"
         },
         {
-          "description": null,
           "waypoint_designator": "CHARLE"
         },
         {
-          "description": null,
           "waypoint_designator": "DELTA"
         },
         {
-          "description": null,
           "waypoint_designator": "HOTEL"
         },
         {
-          "description": null,
           "waypoint_designator": "INDIA"
         },
         {
-          "description": null,
           "waypoint_designator": "JULIET"
         },
         {
-          "description": null,
           "waypoint_designator": "KILO"
         },
         {
-          "description": "End",
           "waypoint_designator": "LIMA"
         }
       ]
