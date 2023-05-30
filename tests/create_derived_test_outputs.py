@@ -1,6 +1,5 @@
 import json
 from pathlib import Path
-from typing import List
 
 from gpxpy.gpx import GPX, GPXRoute, GPXRoutePoint, GPXWaypoint
 
