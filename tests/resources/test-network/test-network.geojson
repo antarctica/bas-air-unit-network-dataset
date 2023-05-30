@@ -208,7 +208,7 @@
    },
    "properties": {
     "feature_type": "route",
-    "name": "Midnight"
+    "name": "01_BRAVO_TO_ALPHA"
    },
    "type": "Feature"
   },
@@ -256,7 +256,7 @@
    },
    "properties": {
     "feature_type": "route",
-    "name": "Oak"
+    "name": "02_BRAVO_TO_BRAVO"
    },
    "type": "Feature"
   },
@@ -300,7 +300,7 @@
    },
    "properties": {
     "feature_type": "route",
-    "name": "Flattery"
+    "name": "03_BRAVO_TO_LIMA"
    },
    "type": "Feature"
   }

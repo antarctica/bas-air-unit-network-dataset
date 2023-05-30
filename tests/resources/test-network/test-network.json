@@ -114,7 +114,7 @@
   ],
   "routes": [
     {
-      "name": "Midnight",
+      "name": "01_BRAVO_TO_ALPHA",
       "waypoints": [
         {
           "waypoint_designator": "BRAVO"
@@ -125,7 +125,7 @@
       ]
     },
     {
-      "name": "Oak",
+      "name": "02_BRAVO_TO_BRAVO",
       "waypoints": [
         {
           "waypoint_designator": "BRAVO"
@@ -157,7 +157,7 @@
       ]
     },
     {
-      "name": "Flattery",
+      "name": "03_BRAVO_TO_LIMA",
       "waypoints": [
         {
           "waypoint_designator": "BRAVO"

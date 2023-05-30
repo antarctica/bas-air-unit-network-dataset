@@ -52,7 +52,7 @@
     <desc>Lima | N/A | N/A | N/A | Are you at all concerned about an uprising?</desc>
   </wpt>
   <rte>
-    <name>Midnight</name>
+    <name>01_BRAVO_TO_ALPHA</name>
     <rtept lat="-70.83024762385253" lon="-75.1904296875">
       <name>BRAVO</name>
     </rtept>
@@ -61,7 +61,7 @@
     </rtept>
   </rte>
   <rte>
-    <name>Oak</name>
+    <name>02_BRAVO_TO_BRAVO</name>
     <rtept lat="-70.83024762385253" lon="-75.1904296875">
       <name>BRAVO</name>
     </rtept>
@@ -91,7 +91,7 @@
     </rtept>
   </rte>
   <rte>
-    <name>Flattery</name>
+    <name>03_BRAVO_TO_LIMA</name>
     <rtept lat="-70.83024762385253" lon="-75.1904296875">
       <name>BRAVO</name>
     </rtept>

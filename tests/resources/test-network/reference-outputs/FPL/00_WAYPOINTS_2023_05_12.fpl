@@ -5,31 +5,31 @@
       <identifier>ALPHA</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-69.9151667</lat>
-      <lon>-75.0146334</lon>
+      <lat>-69.9152143</lat>
+      <lon>-75.0146484</lon>
       <comment>ALPHA</comment>
     </waypoint>
     <waypoint>
       <identifier>BRAVO</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-70.8301667</lat>
-      <lon>-75.1903333</lon>
+      <lat>-70.8302476</lat>
+      <lon>-75.1904297</lon>
       <comment>NO COMMENT</comment>
     </waypoint>
     <waypoint>
       <identifier>CHARLE</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-71.7601667</lat>
-      <lon>-71.499</lon>
+      <lat>-71.7601914</lat>
+      <lon>-71.4990234</lon>
       <comment>CHARLIE</comment>
     </waypoint>
     <waypoint>
       <identifier>DELTA</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-72.751</lat>
+      <lat>-72.7510386</lat>
       <lon>-66.09375</lon>
       <comment>DELTA</comment>
     </waypoint>
@@ -37,23 +37,23 @@
       <identifier>ECHO</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-73.4533333</lat>
-      <lon>-61.6111667</lon>
+      <lat>-73.4534728</lat>
+      <lon>-61.6113281</lon>
       <comment>ECHO</comment>
     </waypoint>
     <waypoint>
       <identifier>FOXTRT</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-73.1758333</lat>
-      <lon>-70.2245</lon>
+      <lat>-73.1758972</lat>
+      <lon>-70.2246094</lon>
       <comment>FOXTROT</comment>
     </waypoint>
     <waypoint>
       <identifier>GOLF</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-74.2</lat>
+      <lat>-74.2000215</lat>
       <lon>-70.3125</lon>
       <comment>GOLF</comment>
     </waypoint>
@@ -61,40 +61,40 @@
       <identifier>HOTEL</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-74.4256667</lat>
-      <lon>-65.4345</lon>
+      <lat>-74.4257775</lat>
+      <lon>-65.4345703</lon>
       <comment>HOTEL</comment>
     </waypoint>
     <waypoint>
       <identifier>INDIA</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-75.7046667</lat>
-      <lon>-63.0175666</lon>
+      <lat>-75.7047864</lat>
+      <lon>-63.0175781</lon>
       <comment>INDIA</comment>
     </waypoint>
     <waypoint>
       <identifier>JULIET</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-76.3415</lat>
-      <lon>-58.9305</lon>
+      <lat>-76.3415233</lat>
+      <lon>-58.9306641</lon>
       <comment>JULIET</comment>
     </waypoint>
     <waypoint>
       <identifier>KILO</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-77.1668333</lat>
-      <lon>-55.371</lon>
+      <lat>-77.1669269</lat>
+      <lon>-55.3710937</lon>
       <comment>KILO</comment>
     </waypoint>
     <waypoint>
       <identifier>LIMA</identifier>
       <type>USER WAYPOINT</type>
       <country-code>__</country-code>
-      <lat>-78.0892167</lat>
-      <lon>-50.8461667</lon>
+      <lat>-78.0892292</lat>
+      <lon>-50.7128906</lon>
       <comment>LIMA</comment>
     </waypoint>
   </waypoint-table>
