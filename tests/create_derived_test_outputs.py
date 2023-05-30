@@ -3,11 +3,30 @@ from pathlib import Path
 
 
 def load_test_network(path: Path) -> dict:
+    """
+    Load network features from JSON file.
+
+    :type path: Path
+    :param path: location of JSON file.
+    :rtype dict
+    :return feature data
+    """
     with open(path, mode="r") as network_file:
         return json.load(network_file)
 
 
 def convert_to_geojson(network: str, data: dict, path: Path) -> None:
+    """
+    Convert network features to GeoJSON.
+
+    So they can be visualised in GIS tools as the canonical format for test networks is not a standard format.
+
+    :param network: name of test network
+    :type data: dict
+    :param data: network features
+    :type path: Path
+    :param path: where to create output file
+    """
     features = {"type": "FeatureCollection", "name": network, "features": []}
 
     for waypoint in data["waypoints"]:
@@ -47,9 +66,7 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
 
 
 def main() -> None:
-    """
-    Program control.
-    """
+    """Program control."""
     network_name = "test-network"
     base_path = Path(f"tests/resources/{network_name}")
 
