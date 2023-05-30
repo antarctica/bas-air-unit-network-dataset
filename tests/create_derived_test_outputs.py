@@ -1,5 +1,8 @@
 import json
 from pathlib import Path
+from typing import List
+
+from gpxpy.gpx import GPX, GPXRoute, GPXRoutePoint, GPXWaypoint
 
 
 def load_test_network(path: Path) -> dict:
@@ -65,6 +68,66 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
         json.dump(features, file, indent=True, sort_keys=True)
 
 
+def convert_to_gpx(network: str, data: dict, path: Path) -> None:  # noqa: C901
+    """
+    Convert network features to GeoJSON.
+
+    So a test network can be loaded as an input file.
+
+    This method is essentially a stripped down version of the GPX export code within the main utility, with some minor
+    differences to things like the description syntax, which is not ideal.
+    In time this method should be replaced with a TestNetworkCollection that can load from a raw JSON input file.
+
+    :param network: name of test network
+    :type data: dict
+    :param data: network features
+    :type path: Path
+    :param path: where to create output file
+    """
+    gpx = GPX()
+    gpx.name = network
+
+    for waypoint in data["waypoints"]:
+        empty_property = "N/A"
+        properties = {
+            "name": empty_property,
+            "colocated_with": empty_property,
+            "last_accessed_at": empty_property,
+            "last_accessed_by": empty_property,
+            "comment": empty_property,
+        }
+        for property_ in properties:
+            if property_ in waypoint and waypoint[property_] is not None:
+                properties[property_] = waypoint[property_]
+
+        gpx_waypoint = GPXWaypoint()
+        gpx_waypoint.name = waypoint["callsign"]
+        gpx_waypoint.longitude = waypoint["lon"]
+        gpx_waypoint.latitude = waypoint["lat"]
+        gpx_waypoint.description = " | ".join(list(properties.values()))
+
+        gpx.waypoints.append(gpx_waypoint)
+
+    for route in data["routes"]:
+        gpx_route = GPXRoute()
+        gpx_route.name = route["name"]
+
+        for route_waypoint in route["waypoints"]:
+            for waypoint in data["waypoints"]:
+                if waypoint["callsign"] == route_waypoint["waypoint_designator"]:
+                    gpx_route_waypoint = GPXRoutePoint()
+                    gpx_route_waypoint.name = waypoint["callsign"]
+                    gpx_route_waypoint.longitude = waypoint["lon"]
+                    gpx_route_waypoint.latitude = waypoint["lat"]
+                    gpx_route.points.append(gpx_route_waypoint)
+                    break
+
+        gpx.routes.append(gpx_route)
+
+    with open(path, mode="w") as gpx_file:
+        gpx_file.write(gpx.to_xml())
+
+
 def main() -> None:
     """Program control."""
     network_name = "test-network"
@@ -72,11 +135,14 @@ def main() -> None:
 
     input_path = base_path.joinpath(f"{network_name}.json")
     geojson_path = base_path.joinpath(f"{network_name}.geojson")
+    gpx_path = base_path.joinpath(f"{network_name}.gpx")
 
     features = load_test_network(path=input_path)
     print("features loaded")
     convert_to_geojson(network=network_name, data=features, path=geojson_path)
     print("features converted to GeoJSON")
+    convert_to_gpx(network=network_name, data=features, path=gpx_path)
+    print("features converted to GPX")
 
 
 if __name__ == "__main__":
