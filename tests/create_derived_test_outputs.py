@@ -24,6 +24,8 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
 
     So they can be visualised in GIS tools as the canonical format for test networks is not a standard format.
 
+    In time this method should be replaced with a TestNetworkCollection that can export to GeoJSON.
+
     :param network: name of test network
     :type data: dict
     :param data: network features
@@ -36,17 +38,10 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
         feature = {
             "type": "Feature",
             "geometry": {"type": "Point", "coordinates": [waypoint["lon"], waypoint["lat"]]},
-            "properties": {
-                "feature_type": "waypoint",
-                "identifier": waypoint["callsign"],
-                "name": waypoint["name"],
-                "comment": waypoint["comment"],
-                "last_accessed_at": waypoint["last_accessed_at"],
-                "last_accessed_by": waypoint["last_accessed_by"],
-            },
+            "properties": {"feature_type": "waypoint", "identifier": waypoint["callsign"]},
         }
-        for property_ in ["name", "last_accessed_at", "last_accessed_by", "comment"]:
-            if waypoint[property_] is not None:
+        for property_ in ["name", "last_accessed_at", "last_accessed_by", "colocated_with", "comment"]:
+            if property_ in waypoint and waypoint[property_] is not None:
                 feature["properties"][property_] = waypoint[property_]
         features["features"].append(feature)
 
@@ -56,9 +51,9 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
             "geometry": {"type": "LineString", "coordinates": []},
             "properties": {"feature_type": "route", "name": route["name"]},
         }
-        for waypoint_id in route["waypoints"]:
+        for route_waypoint in route["waypoints"]:
             for waypoint in data["waypoints"]:
-                if waypoint["callsign"] == waypoint_id["waypoint_designator"]:
+                if waypoint["callsign"] == route_waypoint["waypoint_designator"]:
                     feature["geometry"]["coordinates"].append([waypoint["lon"], waypoint["lat"]])
                     break
 

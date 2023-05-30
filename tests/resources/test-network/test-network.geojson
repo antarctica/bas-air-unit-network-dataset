@@ -27,12 +27,8 @@
     "type": "Point"
    },
    "properties": {
-    "comment": null,
     "feature_type": "waypoint",
-    "identifier": "BRAVO",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
-    "name": null
+    "identifier": "BRAVO"
    },
    "type": "Feature"
   },
@@ -48,8 +44,6 @@
     "comment": "You're losing blood, aren't you?",
     "feature_type": "waypoint",
     "identifier": "CHARLE",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
     "name": "Charlie"
    },
    "type": "Feature"
@@ -66,8 +60,6 @@
     "comment": "How about a turtle?",
     "feature_type": "waypoint",
     "identifier": "DELTA",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
     "name": "Delta"
    },
    "type": "Feature"
@@ -84,8 +76,6 @@
     "comment": "I don't criticize you!",
     "feature_type": "waypoint",
     "identifier": "ECHO",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
     "name": "Echo"
    },
    "type": "Feature"
@@ -102,8 +92,6 @@
     "comment": "Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!",
     "feature_type": "waypoint",
     "identifier": "FOXTRT",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
     "name": "Foxtrot"
    },
    "type": "Feature"
@@ -120,8 +108,6 @@
     "comment": "I've always been deeply passionate about nature. \ud83c\udf33",
     "feature_type": "waypoint",
     "identifier": "GOLF",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
     "name": "Golf"
    },
    "type": "Feature"
@@ -138,8 +124,6 @@
     "comment": "I don't know how I know that. I took four years of Spanish.",
     "feature_type": "waypoint",
     "identifier": "HOTEL",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
     "name": "Hotel"
    },
    "type": "Feature"
@@ -156,8 +140,6 @@
     "comment": "I am getting rid of this thing. It has caused me nothing but pride and self-respect.",
     "feature_type": "waypoint",
     "identifier": "INDIA",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
     "name": "India"
    },
    "type": "Feature"
@@ -174,8 +156,6 @@
     "comment": "There's not a lot of logic to it.",
     "feature_type": "waypoint",
     "identifier": "JULIET",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
     "name": "Juliet"
    },
    "type": "Feature"
@@ -192,8 +172,6 @@
     "comment": "Well, I hope you also carry a spare bowl of candy beans.",
     "feature_type": "waypoint",
     "identifier": "KILO",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
     "name": "Kilo"
    },
    "type": "Feature"
@@ -210,8 +188,6 @@
     "comment": "Are you at all concerned about an uprising?",
     "feature_type": "waypoint",
     "identifier": "LIMA",
-    "last_accessed_at": null,
-    "last_accessed_by": null,
     "name": "Lima"
    },
    "type": "Feature"
