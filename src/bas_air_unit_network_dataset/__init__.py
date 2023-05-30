@@ -733,6 +733,7 @@ class RouteWaypoint:
         route_waypoint.name = self.waypoint.identifier
         route_waypoint.longitude = self.waypoint.geometry.x
         route_waypoint.latitude = self.waypoint.geometry.y
+        route_waypoint.comment = self.waypoint.comment
 
         return route_waypoint
 
