@@ -642,11 +642,11 @@ Format use-cases:
 
 Format details:
 
-| Format | Name                   | Version  | Encoding | Open Format          | Restricted Attributes | Extensions Available | Extensions Used  |
-|--------|------------------------|----------|----------|----------------------|-----------------------|----------------------|------------------|
-| CSV    | Comma Separated Value  | N/A      | Text     | Yes                  | No                    | No                   | N/A              |
-| GPX    | GPS Exchange Format    | 1.1      | XML      | Yes                  | Yes                   | Yes                  | No               |
-| FPL    | (Garmin) Flight Plan   | 1.0      | XML      | No (Vendor Specific) | Yes                   | Yes                  | No               |
+| Format | Name                   | Version  | File Type | Encoding    | Open Format          | Restricted Attributes | Extensions Available | Extensions Used  |
+|--------|------------------------|----------|-----------|-------------|----------------------|-----------------------|----------------------|------------------|
+| CSV    | Comma Separated Value  | N/A      | Text      | UTF-8 + BOM | Yes                  | No                    | No                   | N/A              |
+| GPX    | GPS Exchange Format    | 1.1      | XML       | UTF-8       | Yes                  | Yes                   | Yes                  | No               |
+| FPL    | (Garmin) Flight Plan   | 1.0      | XML       | UTF-8       | No (Vendor Specific) | Yes                   | Yes                  | No               |
 
 Outputs produced for each format: 
 
@@ -679,6 +679,8 @@ Where `.ext` is a relevant file extension for each format (i.e. `.csv` for CSV o
 
 Notes:
 
+* for compatibility with Microsoft Excel, CSV outputs include the UTF-8 Byte Order Mark (BOM), which may cause issues
+  with other tools/applications
 * CSV outputs use the first row as a column names header
 * outputs produced for all routes use a `route_name` column to distinguish rows related to each route
 * `waypoint.geometries` can optionally be included as separate latitude (Y) and longitude (X) columns in either:
