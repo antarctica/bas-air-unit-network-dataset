@@ -1158,7 +1158,7 @@ class Route:
             fieldnames = ["route_name"] + fieldnames
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
-        with open(path, mode="w", newline="") as output_file:
+        with open(path, mode="w", newline="", encoding="utf-8-sig") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(
@@ -1382,7 +1382,7 @@ class WaypointCollection:
             ]
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
-        with open(path, mode="w", newline="") as output_file:
+        with open(path, mode="w", newline="", encoding="utf-8-sig") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
 
@@ -1576,7 +1576,7 @@ class RouteCollection:
             )
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
-        with open(path, mode="w", newline="") as output_file:
+        with open(path, mode="w", newline="", encoding="utf-8-sig") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(route_waypoints)

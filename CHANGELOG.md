@@ -33,6 +33,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 * script to recreate test network as GeoJSON for testing in QGIS
   [#174](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/174)
 
+### Fixed
+
+* file encoding for CSV files when opened with Microsoft Excel
+  [#185](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/185)
+
 ### Changed
 
 * upgrading Python dependencies
