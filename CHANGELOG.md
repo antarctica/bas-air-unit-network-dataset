@@ -46,6 +46,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#138](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/138)
 * incorporating the test network into this project
   [#172](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/172)
+* waypoints will be sorted by their sequence when added to a route
+  [#164](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/164)
 
 ## [0.2.2] - 2022-10-21
 
