@@ -26,7 +26,7 @@ def _upper_alphanumeric_space_only(value: str) -> str:
     :param value: string to process
     :return: processed string
     """
-    return re.sub(r"[^A-Z\d ]+", "", value.upper())
+    return re.sub(r"[^A-Z\d ]+", "", value)
 
 
 def _upper_alphanumeric_only(value: str) -> str:
@@ -39,7 +39,7 @@ def _upper_alphanumeric_only(value: str) -> str:
     :param value: string to process
     :return: processed string
     """
-    return re.sub(r"[^A-Z\d]+", "", value.upper())
+    return re.sub(r"[^A-Z\d]+", "", value)
 
 
 class Namespaces(object):
@@ -118,13 +118,17 @@ class Waypoint:
     Concrete representation of an abstract waypoint using the FPL output format.
     """
 
+    max_identifier_length = 17
+    max_country_code_length = 2
+    max_comment_length = 25
+
     def __init__(
         self,
         identifier: Optional[str] = None,
         waypoint_type: Optional[str] = None,
         country_code: Optional[str] = None,
-        latitude: Optional[float] = None,
         longitude: Optional[float] = None,
+        latitude: Optional[float] = None,
         comment: Optional[str] = None,
     ) -> None:
         """
@@ -145,11 +149,11 @@ class Waypoint:
         """
         self.ns = Namespaces()
 
-        self._identifier: Optional[str] = None
-        self._type: Optional[str] = None
-        self._country_code: Optional[str] = None
-        self._latitude: Optional[float] = None
-        self._longitude: Optional[float] = None
+        self._identifier: str
+        self._type: str
+        self._country_code: str
+        self._longitude: float
+        self._latitude: float
         self._comment: Optional[str] = None
 
         if identifier is not None:
@@ -198,10 +202,9 @@ class Waypoint:
         :type identifier: str
         :param identifier: unique identifier
         """
-        if identifier is not None:
-            if len(identifier) > 12:
-                raise ValueError("Identifier must be 12 characters or less.")
-            self._identifier = _upper_alphanumeric_only(value=identifier)
+        if len(identifier) > self.max_identifier_length:
+            raise ValueError(f"Identifier must be {self.max_identifier_length} characters or less.")
+        self._identifier = _upper_alphanumeric_only(value=identifier)
 
     @property
     def waypoint_type(self) -> str:
@@ -264,46 +267,14 @@ class Waypoint:
         :type country_code: str
         :param country_code: two digit country code waypoint resides, or '__' for Antarctica
         """
-        if country_code is not None:
-            if len(country_code) > 2:
-                raise ValueError("Country code must be 2 characters or less.")
+        if len(country_code) > self.max_country_code_length:
+            raise ValueError(f"Country code must be {self.max_country_code_length} characters or less.")
 
         self._country_code = _upper_alphanumeric_only(value=country_code)
 
         # As an exception for Antarctica, we use '__' as the country code
         if country_code == "__":
             self._country_code = "__"
-
-    @property
-    def latitude(self) -> float:
-        """
-        Latitude component of FPL waypoint geometry.
-
-        :rtype: float
-        :returns waypoint geometry latitude
-        """
-        return self._latitude
-
-    @latitude.setter
-    def latitude(self, latitude: float) -> None:
-        """
-        Sets latitude component of waypoint geometry.
-
-        The FPL standard assumes geometries are (single) points using the EPSG:4326 CRS. Values outside ±90 will raise
-        a ValueError exception.
-
-        **Note:** The FPL standard does not allow values to use `90.0` and `-90.0` exactly (for reasons best known to
-        Garmin). This method will automatically convert values to be the closest values allowed (`±89.999999`).
-
-        :type latitude: float
-        :param latitude: latitude component of waypoint geometry
-        """
-        if latitude == 90:
-            latitude = 89.999999
-        elif latitude == -90:
-            latitude = -89.999999
-
-        self._latitude = latitude
 
     @property
     def longitude(self) -> float:
@@ -329,12 +300,49 @@ class Waypoint:
         :type longitude: float
         :param longitude: longitude component of waypoint geometry
         """
-        if longitude == 90:
-            longitude = 89.999999
-        elif longitude == -90:
-            longitude = -89.999999
+        if -180 > longitude > 180:
+            raise ValueError("Longitude must be between -180 and +180.")
+
+        if longitude == -180:
+            longitude = -179.999999
+        elif longitude == 180:
+            longitude = 179.999999
 
         self._longitude = longitude
+
+    @property
+    def latitude(self) -> float:
+        """
+        Latitude component of FPL waypoint geometry.
+
+        :rtype: float
+        :returns waypoint geometry latitude
+        """
+        return self._latitude
+
+    @latitude.setter
+    def latitude(self, latitude: float) -> None:
+        """
+        Sets latitude component of waypoint geometry.
+
+        The FPL standard assumes geometries are (single) points using the EPSG:4326 CRS. Values outside ±90 will raise
+        a ValueError exception.
+
+        **Note:** The FPL standard does not allow values to use `90.0` and `-90.0` exactly (for reasons best known to
+        Garmin). This method will automatically convert values to be the closest values allowed (`±89.999999`).
+
+        :type latitude: float
+        :param latitude: latitude component of waypoint geometry
+        """
+        if -90 > latitude > 90:
+            raise ValueError("Latitude must be between -90 and +90.")
+
+        if latitude == 90:
+            latitude = 89.999999
+        elif latitude == -90:
+            latitude = -89.999999
+
+        self._latitude = latitude
 
     @property
     def comment(self) -> str:
@@ -366,8 +374,8 @@ class Waypoint:
         :type comment: str
         :param comment: Optional comment/description
         """
-        if len(comment) > 25:
-            raise ValueError("Comments must be 25 characters or less.")
+        if len(comment) > self.max_comment_length:
+            raise ValueError(f"Comments must be {self.max_comment_length} characters or less.")
 
         self._comment = _upper_alphanumeric_space_only(value=comment)
 
@@ -409,6 +417,10 @@ class RoutePoint:
     Concrete representation of an abstract route waypoint (waypoints within a route) using the FPL output format.
     """
 
+    max_identifier_length = 17
+    max_country_code_length = 2
+    max_comment_length = 25
+
     def __init__(
         self,
         waypoint_identifier: Optional[str] = None,
@@ -427,9 +439,9 @@ class RoutePoint:
         """
         self.ns = Namespaces()
 
-        self._waypoint_identifier: Optional[str] = None
-        self._waypoint_type: Optional[str] = None
-        self._waypoint_country_code: Optional[str] = None
+        self._waypoint_identifier: str
+        self._waypoint_type: str
+        self._waypoint_country_code: str
 
         if waypoint_identifier is not None:
             self.waypoint_identifier = waypoint_identifier
@@ -452,8 +464,6 @@ class RoutePoint:
 
     @waypoint_identifier.setter
     def waypoint_identifier(self, waypoint_identifier: str) -> None:
-        if len(waypoint_identifier) > 12:
-            raise ValueError("Waypoint identifier must be 12 characters or less.")
         """
         Sets reference to a FPL waypoint based on the waypoint identifier.
 
@@ -463,8 +473,8 @@ class RoutePoint:
         :type waypoint_identifier: str
         :param waypoint_identifier: FPL waypoint identifier
         """
-        if len(waypoint_identifier) > 17:
-            raise ValueError("Waypoint identifier must be 17 characters or less.")
+        if len(waypoint_identifier) > self.max_identifier_length:
+            raise ValueError(f"Waypoint identifier must be {self.max_identifier_length} characters or less.")
 
         self._waypoint_identifier = _upper_alphanumeric_only(value=waypoint_identifier)
 
@@ -512,15 +522,13 @@ class RoutePoint:
 
         See the main FPL Waypoint class for more information on setting this property.
 
-            self._waypoint_country_code = _upper_alphanumeric_only(value=waypoint_country_code)
         :type waypoint_country_code: str
         :param waypoint_country_code:
         """
-        if waypoint_country_code is not None:
-            if len(waypoint_country_code) > 2:
-                raise ValueError("Country code must be 2 characters or less.")
+        if len(waypoint_country_code) > self.max_country_code_length:
+            raise ValueError(f"Country code must be {self.max_country_code_length} characters or less.")
 
-        self._waypoint_country_code = waypoint_country_code
+        self._waypoint_country_code = _upper_alphanumeric_only(value=waypoint_country_code)
 
         # As an exception for Antarctica, we use '__' as the country code
         if waypoint_country_code == "__":
@@ -555,6 +563,8 @@ class Route:
 
     See the abstract route class for general information on these properties and methods.
     """
+
+    max_route_waypoints = 3_000
 
     def __init__(
         self, name: Optional[str] = None, index: Optional[int] = None, points: Optional[List[dict]] = None
@@ -683,6 +693,9 @@ class Route:
         :param points: FPL route waypoints
         :raises ValueError: where more than 3,000 waypoints are added
         """
+        if len(points) > self.max_route_waypoints:
+            raise ValueError(f"FPL routes must have {self.max_route_waypoints} waypoints or fewer.")
+
         self._points = points
 
     def encode(self) -> Element:
@@ -700,8 +713,8 @@ class Route:
         route_index = SubElement(route, f"{{{self.ns.fpl}}}flight-plan-index")
         route_index.text = str(self.index)
 
-        if len(self.points) > 3000:
-            raise ValueError("FPL routes must have 3000 points or less.")
+        if len(self.points) > self.max_route_waypoints:
+            raise ValueError(f"FPL routes must have {self.max_route_waypoints} waypoints or fewer.")
 
         for route_point in self.points:
             route.append(route_point.encode())

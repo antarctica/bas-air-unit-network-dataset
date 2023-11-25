@@ -535,7 +535,7 @@ class Waypoint:
         waypoint.latitude = self.geometry.y
 
         if self.name is not None:
-            waypoint.comment = self.name
+            waypoint.comment = self.name.upper()
 
         return waypoint
 
