@@ -55,9 +55,9 @@ test:
     paths:
       - $TEST_OUTPUT
     expire_in: 1 month
-#  rules:
-#    - changes:
-#        - '**/*.py'
+  rules:
+    - changes:
+        - '**/*.py'
 
 lint:
   stage: 📋 lint
