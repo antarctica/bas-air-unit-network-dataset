@@ -366,7 +366,7 @@ Network utility are released.
 
 This project consists of:
 
-* a description of the waypoints and routes datasets for the BAS Air Unit
+* a description of the waypoints and routes datasets for the BAS Air Unit travel network
 * a Python command line utility to:
   * store waypoints and routes in a structured/neutral format (currently a GeoPackage)
   * import waypoints and routes from a GPX file from an editor such as Garmin BaseCamp
@@ -421,7 +421,7 @@ IDs:
 
 Identifiers:
 
-* MUST be between 1 and 6 uppercase alpha-numeric characters without spaces (A-Z, 0-9)
+* MUST be between 1 and 6 uppercase alphanumeric characters without spaces (A-Z, 0-9)
 * MUST be unique across all Waypoints
 
 ##### Geometry (Waypoint)
@@ -435,7 +435,7 @@ Geometries:
 
 If specified:
 
-* MUST be between 1 and 17 uppercase alpha-numeric or space characters (A-Z, 0-9, ' ')
+* MUST be between 1 and 17 uppercase alphanumeric or space characters (A-Z, 0-9, ' ')
 
 ##### Co-located with (Waypoint)
 
@@ -510,7 +510,7 @@ This data model describes how these entities are:
 * persisted as features within layers within an OGC GeoPackage (version 1.2)
 * represented as Python class instances (objects)
 
-This GeoPackage, and the data it contains, is considered the Source of Truth and definitive version/format.
+This GeoPackage and the data it contains, is considered the Source of Truth and definitive version/format.
 
 **Note:** This data model does not describe how entities are encoded in specific [Output Formats](#output-formats).
 
@@ -585,8 +585,8 @@ GeoPackage layer: `route_waypoints`
 | `waypoint_id` | Waypoint ID | ULID (String)  | No       | Yes                | -          | Foreign key to Waypoint entity                                              |
 | `sequence`    | Sequence    | Integer        | No       | Yes (within Route) | -          | Position of waypoint within a route, value must be unique within each route |
 
-**Note:** Though the `route_id` and `waypoint_id` columns are effectively foreign keys, they are not configured as 
-such within the GeoPackage.
+**Note:** Though the `route_id` and `waypoint_id` columns are effectively foreign keys, though they are not configured 
+as such within the GeoPackage.
 
 ### Source data
 
