@@ -885,12 +885,13 @@ class Route:
 
         Waypoints to be added must use the RouteWaypoint class as a wrapper around Waypoint objects.
 
-        Note this method will replace any existing waypoints within the route.
+        Note: Any existing waypoints will be replaced, waypoints will be sorted by their sequence value.
 
         :type route_waypoints: list
         :param route_waypoints: waypoints that make up route
         """
-        self._waypoints = route_waypoints
+        # sort route_waypoints by their sequence property
+        self._waypoints = sorted(route_waypoints, key=lambda route_waypoint: route_waypoint.sequence)
 
     @property
     def first_waypoint(self) -> Optional[RouteWaypoint]:
