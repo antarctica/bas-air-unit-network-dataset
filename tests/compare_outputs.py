@@ -89,12 +89,12 @@ def compare_outputs_with_reference(reference_paths: List[Path], comparison_paths
     :param comparison_paths:
     :raises RuntimeError: comparison file checksum does not match reference file
     """
-    for x, y in zip(reference_paths, comparison_paths):  # noqa B905: requires arugement that doesn't exist
+    for x, y in zip(reference_paths, comparison_paths):  # noqa B905: requires arugement that doesn't exist < Py 3.11
         x_sha256 = sha256sum(path=x)
         y_sha256 = sha256sum(path=y)
 
         if x_sha256 != y_sha256:
-            raise RuntimeError(f"File {x.stem !r} with SHA256 [{x_sha256}] != to {y.stem !r} [{y_sha256}].")
+            raise RuntimeError(f"File {x.name !r} with SHA256 [{x_sha256}] != to {y.name !r} [{y_sha256}].")
 
     print("SHA256 checksums match reference values.")
 
