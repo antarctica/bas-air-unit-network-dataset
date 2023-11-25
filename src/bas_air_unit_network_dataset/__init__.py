@@ -118,8 +118,10 @@ class Waypoint:
         if colocated_with is not None:
             self.colocated_with = colocated_with
 
-        if last_accessed_at is None and last_accessed_by is None:
-            raise ValueError("A `last_accessed_at` and `last_accessed_by` value value must be provided.")
+        if (last_accessed_at is not None and last_accessed_by is None) or (
+            last_accessed_at is None and last_accessed_by is not None
+        ):
+            raise ValueError("A `last_accessed_at` and `last_accessed_by` value must be provided.")
 
         self._last_accessed_at = last_accessed_at
         self._last_accessed_by = last_accessed_by
