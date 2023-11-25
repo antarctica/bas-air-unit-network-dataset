@@ -23,6 +23,8 @@ image:
 stages:
   - 🧪 test
   - 📋 lint
+  - 🏗 build
+  - 🚚 publish
 
 before_script:
     - apt-get update
@@ -68,3 +70,31 @@ lint:
   rules:
     - changes:
         - '**/*.py'
+
+build:
+  stage: 🏗 build
+  needs: []
+  script:
+    - poetry version 0.0.0
+    - poetry build
+  artifacts:
+    paths:
+      - dist
+    expire_in: 1 week
+  rules:
+    -
+      if: '$CI_COMMIT_TAG == null'
+      changes:
+        - '**/*.py'
+
+publish:
+  stage: 🚚 publish
+  needs:
+    - test
+    - lint
+  script:
+    - poetry config repositories.gitlab "$CI_SERVER_URL/api/v4/projects/$CI_PROJECT_ID/packages/pypi"
+    - poetry config http-basic.gitlab gitlab-ci-token "$CI_JOB_TOKEN" --local
+    - poetry publish --build --no-interaction --repository gitlab
+  rules:
+    - if: '$CI_COMMIT_TAG != null'
