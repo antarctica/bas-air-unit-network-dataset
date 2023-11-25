@@ -118,13 +118,13 @@ class Waypoint:
         if colocated_with is not None:
             self.colocated_with = colocated_with
 
-        if last_accessed_at is not None and last_accessed_by is None:
-            raise ValueError("A `last_accessed_by` value must be provided if `last_accessed_at` is set.")
-        elif last_accessed_at is None and last_accessed_by is not None:
-            raise ValueError("A `last_accessed_at` value must be provided if `last_accessed_by` is set.")
-        elif last_accessed_at is not None and last_accessed_by is not None:
-            self.last_accessed_at = last_accessed_at
-            self.last_accessed_by = last_accessed_by
+        if (last_accessed_at is not None and last_accessed_by is None) or (
+            last_accessed_at is None and last_accessed_by is not None
+        ):
+            raise ValueError("A `last_accessed_at` and `last_accessed_by` value must be provided.")
+
+        self._last_accessed_at = last_accessed_at
+        self._last_accessed_by = last_accessed_by
 
         if comment is not None:
             self.comment = comment
@@ -1723,7 +1723,6 @@ class RouteCollection:
 
 
 class NetworkManager:
-    # If you can come up with a better name for this class, you could win a prize!
     """
     A collection of Routes and Waypoints that form a network.
 
@@ -1862,7 +1861,6 @@ class NetworkManager:
             layer.writerecords(self.routes.dumps_features(inc_spatial=False, inc_waypoints=True, inc_route_id=True))
 
         # routes
-        # (only name and any other top/route level information is stored here, waypoints are stored in `route_waypoints`)
         with fiona.open(
             path, mode="w", driver="GPKG", crs=crs_from_epsg(4326), schema=Route.feature_schema, layer="routes"
         ) as layer:
@@ -1942,7 +1940,6 @@ class NetworkManager:
         self.waypoints.dump_csv(
             path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}_DD.csv")), inc_dd_lat_lon=True
         )
-        # combined/individual routes files omitted as they aren't needed by the Air Unit (#101)
 
     def dump_gpx(self, path: Optional[Path] = None) -> None:
         """
@@ -1950,7 +1947,6 @@ class NetworkManager:
 
         This method builds a network wide GPX file using the `dumps_gpx()` methods for routes and waypoints.
 
-        # waypoints and combined/individual routes files omitted as they aren't needed by the Air Unit (#101)
         Files and directories currently use BAS Air Unit specific naming conventions - this will be addressed in #46.
 
         A GPX file containing all waypoints and a GPX for each route would normally be generated, but as they are not
@@ -1961,7 +1957,6 @@ class NetworkManager:
         """
         path = self._get_output_path(path=path, fmt_dir="GPX")
 
-        # `network.gpx` needs access to both routes and waypoints so needs to be done at this level
         gpx = GPX()
         gpx.waypoints = self.waypoints.dumps_gpx().waypoints
         gpx.routes = self.routes.dumps_gpx().routes
