@@ -39,6 +39,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#185](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/185)
 * addressing security vulnerabilities
   [#195](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/195)
+* correcting double longitude value in convert to DDM function
+  [#196](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/196)
 
 ### Changed
 
