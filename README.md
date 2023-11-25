@@ -1000,6 +1000,11 @@ The Air Unit Network utility is distributed in two forms:
 
 The Python package is standard, pure Python Pip package, built by Poetry as a binary wheel and source package.
 
+Source and binary packages are built and published automatically using
+[Poetry](https://python-poetry.org) in [Continuous Deployment](#continuous-deployment).
+
+**Note:** Packages for non-tagged commits will use `0.0.0` as a version to indicate they're informal releases.
+
 To build the Python package manually:
 
 ```
@@ -1052,6 +1057,10 @@ First, [Create a Python Package](#python-package). Then within a
 (base) $ conda install -c conda-forge conda-pack
 (base) $ conda pack -n airnet -o airnet.tar.gz
 ```
+
+### Continuous Deployment
+
+All commits will trigger a Continuous Deployment process using GitLab's CI/CD platform, configured in `.gitlab-ci.yml`.
 
 ## Release procedure
 
