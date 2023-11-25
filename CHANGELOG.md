@@ -37,6 +37,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * file encoding for CSV files when opened with Microsoft Excel
   [#185](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/185)
+* addressing security vulnerabilities
+  [#195](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/195)
 
 ### Changed
 
