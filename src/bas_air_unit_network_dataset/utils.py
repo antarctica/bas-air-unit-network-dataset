@@ -47,7 +47,7 @@ def convert_coordinate_dd_2_ddm(lon: float, lat: float) -> Dict[str, str]:
     The DDM representation is used by pilots and is an output only format. Minutes are rounded to 6 decimal places.
 
     For example, a coordinate of '-50.846166657283902, -69.91516669280827' (lon, lat) becomes:
-    `{'lon': "50° 50.769999 50.769999' W", 'lat': "69° 54.910002' S"}`.
+    `{'lon': "50° 50.769999' W", 'lat': "69° 54.910002' S"}`.
 
     :type lon: float
     :param lon: longitude
@@ -59,7 +59,7 @@ def convert_coordinate_dd_2_ddm(lon: float, lat: float) -> Dict[str, str]:
     lat = _convert_coordinate_dd_2_ddm(lat, positive_symbol="N", negative_symbol="S")
 
     return {
-        "lon": f"{int(lon['degree'])}° {'{:.6f}'.format(lon['minutes'])} {'{:.6f}'.format(lon['minutes'])}' {lon['sign']}",
+        "lon": f"{int(lon['degree'])}° {'{:.6f}'.format(lon['minutes'])}' {lon['sign']}",
         "lat": f"{int(lat['degree'])}° {'{:.6f}'.format(lat['minutes'])}' {lat['sign']}",
     }
 
