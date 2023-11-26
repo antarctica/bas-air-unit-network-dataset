@@ -62,6 +62,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#164](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/164)
 * refactoring classes into more manageable modules
   [#202](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/202)
+* Aligning development environment stack with Ops Data Store
+  [#200](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/200)
 
 ### Removed
 
