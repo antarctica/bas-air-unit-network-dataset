@@ -12,12 +12,10 @@ from bas_air_unit_network_dataset.features.route_waypoint import RouteWaypoint
 from bas_air_unit_network_dataset.features.route import Route
 from bas_air_unit_network_dataset.collections.routes import RouteCollection
 from bas_air_unit_network_dataset.collections.waypoints import WaypointCollection
-from bas_air_unit_network_dataset.exporters.fpl import (
-    Fpl,
-    Route as FplRoute,
-    RoutePoint as FplRoutePoint,
-    Waypoint as FplWaypoint,
-)
+from bas_air_unit_network_dataset.exporters.fpl.fpl import Fpl
+from bas_air_unit_network_dataset.exporters.fpl.route import Route as FplRoute
+from bas_air_unit_network_dataset.exporters.fpl.route_waypoint import RouteWaypoint as FplRoutePoint
+from bas_air_unit_network_dataset.exporters.fpl.waypoint import Waypoint as FplWaypoint
 from bas_air_unit_network_dataset.features.route import Route
 from bas_air_unit_network_dataset.features.route_waypoint import RouteWaypoint
 from bas_air_unit_network_dataset.features.waypoint import Waypoint
