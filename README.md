@@ -86,11 +86,9 @@ A typical/example workspace directory contains:
         └── 00_NETWORK_2022_07_08.gpx
 ```
 
-* the `output/` directory contains files for use in GPS devices and as print-outs, organised by file type (CSV, GPX 
-  and FPL)
-* the `input.gpx` file contains routes and waypoints *exported* from Garmin BaseCamp to be *imported* into the Air 
-  Unit Network utility
-* the `bas-air-unit-network-dataset.gpkg` file is a GeoPackage used internally by the Air Unit Network utility
+* the `output/` directory contains files for use in GPS devices and as print-outs, organised by file type
+* the `input.gpx` GPX file contains routes and waypoints *exported* from an editor to be *imported* into the GeoPackage
+* the `bas-air-unit-network-dataset.gpkg` GeoPackage file used internally by the Air Unit Network utility for storage
 
 #### Access control
 
@@ -104,123 +102,58 @@ directory are restricted to users that need to edit information.
 
 To update waypoints and routes (the network) and create new files for use in GPS devices and as print-outs:
 
-1. [waypoints](#managing-waypoints-in-basecamp) and [routes](#managing-routes-in-basecamp) are created and edited using 
-   Garmin BaseCamp
-2. [export routes and waypoints from BaseCamp](#saving-waypoints-and-routes-from-basecamp) as a GPX file
-3. [import the GPX file into the Air Unit Network utility](#importing-waypoints-and-routes-into-the-network-utility)
+1. create waypoints and routes in an editor, such as Garmin BaseCamp, QGIS, etc. as per the software's instructions
+1. export waypoints and routes from this editor as a GPX file as per the software's instructions
+1. [import the GPX file into the Air Unit Network utility](#importing-waypoints-and-routes-into-the-network-utility)
 4. use the utility to [export the network in a range of formats](#exporting-waypoints-and-routes-using-the-network-utility) 
    (CSV, GPX and FPL)
 
-The subsections below describe these steps in more detail.
+#### Rules for creating waypoint features
 
-### Managing waypoints in BaseCamp
+Create waypoints as per these conventions (based on the [Information Model](#information-model):
 
-#### Create a new waypoint
-
-1. from the start menu, launch *BaseCamp*
-2. from the upper left hand panel, under *My Collection*, select *BAS Air Unit Network* -> *BAS Air Unit Network*
-3. choose the *Create a waypoint* tool (flag icon) from the top middle toolbar (creation tools)
-4. select the general location of the waypoint (precise position can be entered later)
-5. from the *General* tab of the waypoint properties screen that opens:
-   1. enter a suitable *Name* or identifier (maximum 6 characters)
-   2. enter a suitable *Comment*, which consists of 5 elements in the order below, each separated with a `|` (vertical 
-      bar) character:
-      1. *name*: a full, or formal name for the waypoint (maximum 17 characters)
-      2. *co-located with*: name of a related depot, instrument and/or other feature - use `N/A` if not relevant
-      3. *last accessed at*: date waypoint was last accessed in the form `YYYY-MM-DD` - use `N/A` if unvisited
-      4. *last accessed by*: pilot that that last accessed waypoint - use `N/A` if unvisited
-      5. *other information*: any other information - use `N/A` if not relevant
-6. from the *Advanced* tab:
-   1. if necessary, edit the *Position* to the correct latitude and longitude in degrees, decimal minutes (DDM) format
-7. close the waypoint properties screen
+- identifier/callsign: maximum 6 characters
+- comment: a string consisting of 5 elements in the order below, each separated with a `|` (vertical bar) character:
+    1. *name*: a full, or formal name for the waypoint (maximum 17 characters)
+    2. *co-located with*: name of a related depot, instrument and/or other feature - use `N/A` if not relevant
+    3. *last accessed at*: date waypoint was last accessed in the form `YYYY-MM-DD` - use `N/A` if unvisited
+    4. *last accessed by*: pilot that that last accessed waypoint - use `N/A` if unvisited
+    5. *other information*: any other information - use `N/A` if not relevant
 
 For example (a co-located, previously visited, waypoint with a full name and additional information):
 
-* name: `ALPHA`
+* identifier: `ALPHA`
 * comment: `Alpha 001 | Dog | 2014-12-24 | CW | Bring treats.`
-* position: `S69° 54.910' W75° 00.878'`
 
 For example (a standalone, unvisited, waypoint with no full/formal name or additional information):
 
-* name: `BRAVO`
+* identifier: `BRAVO`
 * comment: `N/A | N/A | N/A | N/A | N/A`
-* position: `S70° 49.810' W75° 11.420'`
 
 **Note:** Only the 'name' in a comment will be included in FPL waypoints.
 
-#### Edit an existing waypoint
+#### Rules for creating route features
 
-1. from the start menu, launch *BaseCamp*
-2. from the upper left hand panel, under *My Collection*, select *BAS Air Unit Network* -> *BAS Air Unit Network*
-3. from the lower left hand panel, right-click the waypoint to be edited and select *Get Info*
-4. from the waypoint properties screen, update (as needed):
-   1. the name (identifier)
-   2. comment (see rules above for how comments must be written)
-   3. position
+Create routes as per the route naming convention: 
 
-### Managing routes in BaseCamp
+- `{Route Number}_{Start Waypoint Identifier}_To_{End Waypoint Identifier}`
+- for example: `01_ALPHA_TO_BRAVO`
+- the first route should use `01` as a route number, `00` is a reserved value and should not be used
+- the maximum route number is `99`
 
-#### Create a new route
+#### Importing waypoints and routes into the Network utility
 
-1. from the start menu, launch *BaseCamp*
-2. from the upper left hand panel, under *My Collection*, select *BAS Air Unit Network* -> *BAS Air Unit Network*
-3. choose the *Create a route* tool (path/network icon) from the top middle toolbar (creation tools)
-4. from the window that opens:
-   1. enter the *starting* waypoint using the search box
-   2. enter the *ending* waypoint using the search box
-   3. select the *Go* command
-5. from the *Via Points* tab of the route properties screen that opens:
-   1. un-tick the *Autoname* checkbox
-   2. rename the route as per the route naming convention: 
-       * `{Route Number}_{Start Waypoint Identifier}_To_{End Waypoint Identifier}`
-       * for example: `01_ALPHA_TO_BRAVO`
-       * the first route should use `01` as a route number, `00` is a reserved value and should not be used
-   3. if additional waypoints should be added between start and end waypoints:
-      1. from the lower left navigation panel, drag waypoints into the route properties screen, in its position within 
-         the route
-   4. close the route properties screen
+**WARNING!** Importing replaces all existing information. Ensure you have suitable backups of existing data.
 
-#### Edit an existing route
-
-1. from the start menu, launch *BaseCamp*
-2. from the upper left hand panel, under *My Collection*, select *BAS Air Unit Network* -> *BAS Air Unit Network*
-3. from the lower left hand panel, right-click the route to be edited and select *Get Info*
-4. to remove a waypoint from the route:
-   1. right-click the route waypoint from the list and select *Remove*
-5. to add a new waypoint to the route:
-   1. from the lower left navigation panel, drag waypoints into the route properties screen, in its position within 
-      the route
-6. if the start or end waypoint in the route has changed, update the route name (see rules above for format)
-
-### Saving waypoints and routes from BaseCamp 
-
-1. from the start menu, launch *BaseCamp*
-2. from the upper left hand panel, under *My Collection*, select *BAS Air Unit Network* -> *BAS Air Unit Network*
-3. from the *File* menu, select *Export "BAS Air Unit Network"*
-4. name the file `input.gpx` and save to the [Workspace directory](#workspace-directory) (the existing file should be 
-   overwritten)
-5. set the export format as *GPX v1.1*
-
-### Importing waypoints and routes into the Network utility
-
-1. from the start menu, launch *Command Prompt* and run the commands in [1]
-
-**WARNING:** Importing replaces all existing information. Ensure you have suitable backups of existing data.
-
-[1]
-
-**Note:** If viewing this documentation as a PDF, some commands below may disappear off the page. If you select the 
-line you should be able to copy into a tool such as Notepad to view it in full.
+**Note:** Output for this example is based on the [Test Network](#test-network).
 
 ```
-$ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
+# if needed activate virtual environment
+$ source /path/to/venv/bin/activate
 
-# navigate to the workspace directory
-(airnet) $ cd '/path/to/workspace/directory'
-
-(airnet) $ C:\ProgramData\Miniconda3\envs\airnet\python.exe C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe import --dataset-path bas-air-unit-network-dataset.gpkg --input-path input.gpx
-Dataset is located at: /path/to/workspace/directory/bas-air-unit-network-dataset.gpkg
-Input is located at: /path/to/workspace/directory/input.gpx
+$ /path/to/venv/bin/airnet import --dataset-path /path/to/bas-air-unit-network-dataset.gpkg --input-path /path/to/input.gpx
+Dataset is located at: /path/to/bas-air-unit-network-dataset.gpkg
+Input is located at: /path/to/input.gpx
 
 <NetworkManager : 12 Waypoints - 3 Routes>
 
@@ -246,27 +179,15 @@ Routes [3]:
 Import complete
 ```
 
-### Exporting waypoints and routes using the Network utility
-
-1. from the start menu, launch *Command Prompt* and run the commands in [1]
-
-**Note:** If you encounter an error similar to [2], ensure you install the 
-[Microsoft Visual C++ Redistributable](#microsoft-visual-c-redistributable) from the installation bundle.
-
-[1]
-
-**Note:** If viewing this documentation as a PDF, some commands below may disappear off the page. If you select the 
-line you should be able to copy into a tool such as Notepad to view it in full.
+#### Exporting waypoints and routes using the Network utility
 
 ```
-$ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
+# if needed activate virtual environment
+$ source /path/to/venv/bin/activate
 
-# navigate to the workspace directory
-(airnet) $ cd '/path/to/workspace/directory'
-
-(airnet) $ C:\ProgramData\Miniconda3\envs\airnet\python.exe C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe export --dataset-path bas-air-unit-network-dataset.gpkg --output-path output/
-Dataset is located at: /path/to/workspace/directory/bas-air-unit-network-dataset.gpkg
-Output directory is is: /path/to/workspace/directory/output
+$ /path/to/venv/bin/airnet export --dataset-path /path/to/bas-air-unit-network-dataset.gpkg --output-path /path/to/output/dir/
+Dataset is located at: /path/to/bas-air-unit-network-dataset.gpkg
+Output directory is is: /path/to/output/dir/
 
 - CSV export complete
 - GPX export complete
@@ -274,93 +195,6 @@ Output directory is is: /path/to/workspace/directory/output
 
 Export complete
 ```
-
-[2]
-
-> The code execution cannot proceed because VCRUNTIME140.dll was not found. Reinstalling the program may fix this 
-> problem.
-
-## Installation
-
-### Install software
-
-**Note:** You will need an internet connection, administrator rights and access to the 
-[Installation bundle](#installation-bundle) to install the Air Unit Network utility.
-
-To install software needed to manage the Air Unit Network dataset:
-
-1. ensure all required Windows updates are installed
-2. download, or copy from a hard drive, the [Installation bundle](#installation-bundle)
-   1. these instructions assume you will download, or copy, the bundle to your *Downloads* directory
-3. from the installation bundle, install Garmin BaseCamp, and optionally, QGIS:
-   1. run `garmin-basecamp-installer.exe` to install Garmin BaseCamp
-   2. optionally, run `qgis-installer.msi` to install the Long Term Support (LTS) version of QGIS
-4. from the installation bundle, install Miniconda (needed to run the Air Unit Network utility):
-   1. run `miniconda-installer.exe` to install Miniconda
-   2. select the *All users (requires admin privileges)* installation option when asked 
-5. from the installation bundle, install LibXML2 (needed to run the Air Unit Network utility):
-   1. unzip the `libxml2.zip` archive to a temporary directory
-   2. copy the `libxml2` directory to `C:\Program Files`, such that `C:\Program Files\libxml2\bin\xmllint.exe` exists
-   3. from Windows Explorer, right-click *This PC* from the left hand panel and click *Properties* 
-      1. from the left hand menu of the System Control Panel screen, click *Advanced system settings*
-      2. from the *Advanced* tab of the System Properties screen, click *Environment Variables*
-      3. from the bottom section (System variables) select the *Path* variable and click *Edit*:
-         1. from the Edit environment variable screen, click *New*
-         2. enter `C:\Program Files\libxml2\bin` as a new entry (at the bottom of the list)
-      4. click *OK*, then *OK*, then *OK* again and close Control Panel
-   4. delete the temporary directory created earlier
-6. from the installation bundle, install the Air Unit Network utility virtual environment:
-   1. unzip the `airnet-virtual-environment.zip` archive to a temporary directory (this will take some time)
-   2. from the *View* tab in Explorer, check the *Hidden items* checkbox
-   3. copy the `airnet` directory to `C:\ProgramData\Miniconda3\envs`, such that 
-   `C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe` exists 
-   4. delete the temporary directory created earlier
-   5. optionally, uncheck the *Hidden items* checkbox in Explorer
-
-**Note:** Only versions of software within the Installation Bundle are supported.
-
-#### Microsoft Visual C++ redistributable
-
-In some cases you also need to install the Microsoft Visual C++ Redistributable package, which is needed for LibXML2.
-
-**Note:** Usually a version of this package will already be installed and these instructions are not necessary.
-
-To install the package:
-
-1. from the installation bundle run `microsoft-vc-installer.exe`
-2. reboot the computer after installation
-
-### Configure software
-
-#### Configure Garmin BaseCamp
-
-To configure Garmin BaseCamp needed to manage the Air Unit Network dataset:
-
-1. from the start menu, launch *BaseCamp*
-2. when asked for an activity type, select *Direct*
-3. from the upper left hand panel, under *My Collection*:
-   1. right-click and select *New List folder*
-   2. name the folder `BAS Air Unit Network`
-4. within this new folder:
-   1. right-click and select *New List*
-   2. name the list `BAS Air Unit Network`
-5. from the upper left hand panel, under *My Collection*, select *BAS Air Unit Network* -> *BAS Air Unit Network*
-6. from the *File* menu, select *Import into "BAS Air Unit Network"*
-7. select the `input.gpx` file from the [Workspace directory](#workspace-directory)
-
-### Installation bundle
-
-The installation bundle is a folder of supported software installers and packages. It is designed to run offline and be
-distributed via an external hard-drive.
-
-The definitive installation bundle is stored in the
-[MAGIC Office 365 OneDrive](https://nercacuk.sharepoint.com/:f:/s/BASMagicTeam/EvFtTOCBeClCgflcEju58OEBc5xeU0LuTxjxUwQ_V55LVg?e=Fs1gAi)
-and is accessible to all BAS staff. When South, MAGIC will hold a copy of the installation bundle on a hard drive.
-
-Software in the installation bundle will be updated periodically after testing, and when new versions of the Air Unit 
-Network utility are released.
-
-**Note:** Only versions of software within the Installation Bundle are supported.
 
 ## Implementation
 
@@ -600,7 +434,7 @@ Limitations:
 * Garmin BaseCamp does not support custom GPX extensions, except Garmin's own, limiting fields to the core GPX 
   specification
 * this requires non-standard fields (such as `waypoint.last_accessed_at`) to be added to the comment freetext field, 
-  making it more complex (see notes in the [Creating a Waypoint](#create-a-new-waypoint) section)
+  making it more complex (see notes in the [Creating a Waypoint](#rules-for-creating-waypoint-features) section)
 
 ### Test network
 
@@ -782,51 +616,36 @@ precedence.
 
 ## Setup
 
-### Populate the installation bundle
+### Requirements
 
-**Note:** You will need appropriate rights within the BAS MAGIC team OneDrive to complete these steps.
+- Python 3.8+
+- libxml2 with `xmlint` binary available on Path
+- read/write access to a suitable location for creating a [Workspace Directory](#workspace-directory)
 
-To populate the [Installation Bundle](#installation-bundle):
+**Note:** As of version 0.3.0, Windows is no longer a supported operating system for running this utility.
 
-* download the latest Garmin BaseCamp installer (Windows) and rename to `garmin-basecamp-installer.exe`
-* download the latest LTS QGIS installer (Windows) and rename to `qgis-installer.msi`
-* download the latest MiniConda installer (Python 3.9, Windows 64 bit) and rename to `miniconda-installer.exe`
-* download the latest LibXML2 Windows build:
-  * visit the [LibXML2](https://gitlab.gnome.org/GNOME/libxml2/-/tree/master/) Gnome project
-  * view the latest Continuous Deployment pipeline
-  * view the `cmake:msvc` job
-  * download the artefact
-  * extract the artefact Zip, rename the containing directory `libxml2` and rezip the directory as `libxml2.zip`
-* download the 
-  [Microsoft Visual C++ 2015 Redistributable Update 3 RC](https://www.microsoft.com/en-us/download/confirmation.aspx?id=52685) 
-  package [1] and rename to `microsoft-vc-installer.exe`
-* create a `build` directory and:
-  * download the latest 7-Zip installer and rename to `7zip-installer.exe`
+### Install Python package
 
-Before saving installers to the Installation Bundle, test them in a [deployment VM](#set-up-a-windows-deployment-vm).
+It is strongly recommended to install the [Python Package](#development) in a Python virtual environment:
 
-[1] This specific version (14.0.24123) was used because the latest version available at the time of testing (14.32.
-31332, Sept 2022) did not work. In the future, it may be that another version is needed, especially if the version of 
-LibXML2 changes.
+```
+$ python -m venv /path/to/venv
+$ source /path/to/venv/bin/activate
+$ python -m pip install --upgrade pip
+$ python -m pip install bas-air-unit-network-dataset
+```
 
 ### Set up a workspace directory
 
-1. using Windows Explorer, create a suitable directory to use a Workspace (typically on a shared drive or within a 
-   synced folder)
-2. from the start menu, launch *Command Prompt* and run the commands in [1]
+Typically, the [Workspace Directory](#workspace-directory) will be located on a shared drive or within a synced folder.
 
 **WARNING:** Running these commands within an existing workspace directory will reset the dataset, deleting any 
 existing data. Ensure you have suitable backups of existing data.
 
-[1]
-
-**Note:** If viewing this documentation as a PDF, some commands below may disappear off the page. If you select the 
-line you should be able to copy into a tool such as Notepad to view it in full.
-
 ```
-$ C:\ProgramData\Miniconda3\envs\airnet\Scripts\activate.bat
-
-(airnet) $ C:\ProgramData\Miniconda3\envs\airnet\python.exe C:\ProgramData\Miniconda3\envs\airnet\Scripts\airnet.exe init --dataset-path '/path/to/workspace/directory'
+# if needed activate virtual environment
+$ source /path/to/venv/bin/activate
+$ /path/to/venv/bin/airnet init --dataset-path '/path/to/workspace/directory'
 Dataset will be located at: '/path/to/workspace/directory'
 
 Dataset created at: '/path/to/workspace/directory'
