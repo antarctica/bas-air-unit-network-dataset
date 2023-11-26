@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#150](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/150)
 * Support for comments in route waypoints
   [#141](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/141)
+* Support for installing/running on Windows
+  [#198](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/198)
 
 ### Added
 

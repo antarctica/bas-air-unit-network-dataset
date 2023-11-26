@@ -832,30 +832,6 @@ Dataset will be located at: '/path/to/workspace/directory'
 Dataset created at: '/path/to/workspace/directory'
 ```
 
-### Setup a Windows deployment VM
-
-**Note:** You will access to the BAS MAGIC resource pool in the BAS vSphere instance to complete these steps.
-
-To create a test VM:
-
-1. login to the [BAS vSphere](https://bsv-vcsa-s1.nerc-bas.ac.uk/ui/) instance
-2. from the left panel, switch to the second view (to see templates)
-3. from the left panel, select *[root]* -> *Cambridge* -> *BASDEV* -> *air-unit-test-template*
-4. right-click and select *New VM from this template*:
-   1. select a suitable name (e.g. `air-unit-test5`) and choose the MAGIC folder/resource pool in the *BASDEV* cluster
-5. power on the resulting VM (the network may initially show as disconnected but will usually add itself)
-6. login as the IEUser with the shared password `Passw0rd!`.
-
-To create the VM template used above:
-
-1. download the VMware version of the 
-   [Microsoft Edge test VMs](https://developer.microsoft.com/en-us/microsoft-edge/tools/vms/)
-2. follow [these instructions](https://gitlab.data.bas.ac.uk/WSF/bas-base-images#vcentre) to create a VM template, 
-   making changes as needed:
-   1. name the VM and template `air-unit-test`
-   2. set the RAM to 8GB
-   3. you should not need to add a virtual network interface or CD device, as this will already be setup
-
 ## Development
 
 ### Development environment
@@ -987,18 +963,8 @@ All commits will trigger a Continuous Integration process using GitLab's CI/CD p
 
 ## Deployment
 
-The Air Unit Network utility is distributed in two forms:
-
-1. a Python package that can be installed through Pip from the
-   [PyPi](https://pypi.org/project/bas-air-unit-network-dataset/) registry
-2. a packaged Anaconda environment
-
-**Note:** Both distributions require OS dependencies to be installed separately (namely GDAL and LibXML2), see the 
-[Installation](#installation) section for more information.
-
-### Python package
-
-The Python package is standard, pure Python Pip package, built by Poetry as a binary wheel and source package.
+The Air Unit Network utility is distributed as a Python package installed through Pip from the
+[PyPi](https://pypi.org/project/bas-air-unit-network-dataset/) registry.
 
 Source and binary packages are built and published automatically using
 [Poetry](https://python-poetry.org) in [Continuous Deployment](#continuous-deployment).
@@ -1016,46 +982,6 @@ set as the `POETRY_PYPI_TOKEN_PYPI` environment variable. Then run:
 
 ```
 $ poetry publish --username british-antarctic-survey
-```
-
-### Packaged Anaconda environment
-
-The packaged Anaconda environment uses [Conda Pack](https://conda.github.io/conda-pack/) to create an OS/platform 
-specific archive of an Anaconda virtual environment, such that dependencies can be copied and installed offline. 
-This is designed for use in running the Air Unit Network utility in Antarctica.
-
-**Note:** This process will produce an environment that can be run on Windows (10), x86 64 bit computers only.
-
-First, [Create a Python Package](#python-package). Then within a 
-[Windows Deployment VM](#setup-a-windows-deployment-vm):
-
-1. connect to OneDrive, such that the [Installation Bundle](#installation-bundle) can be accessed and updated
-2. from the Installation Bundle, run `miniconda-installer.exe`, installing for all users
-3. from the 'build' directory in the Installation Bundle, run the 7Zip installer (`7z.exe`)
-4. from the start menu, launch *Anaconda PowerShell Prompt* with admin privileges and run the commands in [1]
-5. from the user *Downloads* directory, extract `airnet.tar.gz` using 7-zip: 
-   1. then, extract `airnet.tar` to `airnet/`
-   2. then, right-click `airnet/` -> *Send to* -> *Compressed (zipped) folder* to produce `airnet.zip`
-   3. rename `airnet.zip` to `airnet-virtual-environment.zip`
-   4. copy `airnet.zip` to the definitive copy of the [Installation Bundle](#installation-bundle), replacing the 
-      existing file
-
-[1]
-
-```shell
-(base) $ cd $env:userprofile
-(base) $ cd ./Downloads
-
-(base) $ conda create -n airnet
-(base) $ conda activate airnet
-(airnet) $ conda config --env --add channels conda-forge
-(airnet) $ conda config --env --set channel_priority strict
-(airnet) $ conda install fiona
-(airnet) $ python -m pip install bas-air-unit-network-dataset
-
-(airnet) $ conda activate base
-(base) $ conda install -c conda-forge conda-pack
-(base) $ conda pack -n airnet -o airnet.tar.gz
 ```
 
 ### Continuous Deployment
