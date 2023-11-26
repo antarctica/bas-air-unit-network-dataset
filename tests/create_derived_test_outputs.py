@@ -13,7 +13,7 @@ def load_test_network(path: Path) -> dict:
     :rtype dict
     :return feature data
     """
-    with open(path, mode="r") as network_file:
+    with path.open() as network_file:
         return json.load(network_file)
 
 
@@ -70,11 +70,11 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
 
         features["features"].append(feature)
 
-    with open(path, mode="w") as file:
+    with path.open(mode="w") as file:
         json.dump(features, file, indent=True, sort_keys=True)
 
 
-def convert_to_gpx(network: str, data: dict, path: Path) -> None:  # noqa: C901
+def convert_to_gpx(network: str, data: dict, path: Path) -> None:
     """
     Convert network features to GeoJSON.
 
@@ -130,7 +130,7 @@ def convert_to_gpx(network: str, data: dict, path: Path) -> None:  # noqa: C901
 
         gpx.routes.append(gpx_route)
 
-    with open(path, mode="w") as gpx_file:
+    with path.open(mode="w") as gpx_file:
         gpx_file.write(gpx.to_xml())
 
 
