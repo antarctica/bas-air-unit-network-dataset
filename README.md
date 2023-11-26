@@ -653,74 +653,59 @@ Dataset created at: '/path/to/workspace/directory'
 
 ## Development
 
-### Development environment
+### Local development environment
 
-Git and [Poetry](https://python-poetry.org) are required to set up a local development environment of this project.
+Check out project:
 
-**Note:** If you use [Pyenv](https://github.com/pyenv/pyenv), this project sets a local Python version for consistency.
-
-```shell
-# clone from the BAS GitLab instance if possible
+```
 $ git clone https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset.git
-
-# setup virtual environment
 $ cd air-unit-network-dataset
+```
+
+**Note:** If you do not have access to the BAS GitLab instance, clone from GitHub as a read-only copy instead.
+
+[Poetry](https://python-poetry.org/docs/#installation) is used for managing the Python environment and dependencies.
+
+[pyenv](https://github.com/pyenv/pyenv) is strongly recommended to ensure the Python version is the same as the one
+used in externally provisioned environments. This is currently *3.9.18*.
+
+```
+$ pyenv install 3.9.18
+$ pyenv local 3.9.18
 $ poetry install
 ```
 
-### Running commands in development
-
-Within a [Development Environment](#development-environment) use Poetry to test CLI commands. E.g.:
+### Running CLI locally
 
 ```
-$ poetry run airnet --help
+$ poetry run airnet [COMMAND] [ARGS]
 ```
+
+### Editorconfig
+
+For consistency is strongly recommended to configure your IDE or other editor to use the [EditorConfig](https://EditorConfig.org) settings defined in [`.editorconfig`](.editorconfig).
 
 ### Dependencies
-
-Python dependencies for this project are managed with [Poetry](https://python-poetry.org) in `pyproject.toml`.
-
-#### Adding new dependencies
-
-To add a new (development) dependency:
-
-```shell
-$ poetry add [dependency] (--group dev)
-```
 
 #### Dependency vulnerability checks
 
 The [Safety](https://pypi.org/project/safety/) package is used to check dependencies against known vulnerabilities.
 
-**IMPORTANT!** As with all security tools, Safety is an aid for spotting common mistakes, not a guarantee of secure
-code. In particular this is using the free vulnerability database, which is updated less frequently than paid options.
+**WARNING!** As with all security tools, Safety is an aid for spotting common mistakes, not a guarantee of secure code.
+In particular this is using the free vulnerability database, which is updated less frequently than paid options.
 
-This is a good tool for spotting low-hanging fruit in terms of vulnerabilities. It isn't a substitute for proper
-vetting of dependencies, or a proper audit of potential issues by security professionals. If in any doubt you MUST seek
-proper advice.
+Checks are run automatically in [Continuous Integration](#continuous-integration). To check locally:
 
-Checks are run automatically in [Continuous Integration](#continuous-integration).
-
-To check locally:
-
-```shell
+```
 $ poetry run safety check --full-report
 ```
 
 #### Static security scanning
 
-To ensure the security of this API, source code is checked against [Bandit](https://github.com/PyCQA/bandit) and 
-enforced as part of [Code linting](#code-linting).
+Ruff is configured to run [Bandit](https://github.com/PyCQA/bandit), a static analysis tool for Python.
 
-**Warning:** Bandit is a static analysis tool and can't check for issues that are only be detectable when running the
-application. As with all security tools, Bandit is an aid for spotting common mistakes, not a guarantee of secure code.
-To check manually:
-
-```
-$ poetry run bandit -r src/ tests/
-```
-
-Checks are run automatically in [Continuous Integration](#continuous-integration).
+**WARNING!** As with all security tools, Bandit is an aid for spotting common mistakes, not a guarantee of secure code.
+In particular this tool can't check for issues that are only be detectable when running code.
 
 #### `lxml` package (bandit)
 
@@ -741,31 +726,20 @@ process.
 
 ### Code linting
 
-[Flake8](https://flake8.pycqa.org) and various extensions are used to lint Python files. Specific checks, and any
-configuration options, are configured and documented in `pyproject.toml`.
+[Ruff](https://docs.astral.sh/ruff/) is used to lint and format Python files. Specific checks and config options are
+set in `pyproject.toml`. Linting checks are run automatically in [Continuous Integration](#continuous-integration).
 
-To check files manually:
+To check locally:
 
-```shell
-$ poetry run flake8 src/ tests/
+```
+$ poetry run ruff check src/ tests/
+$ poetry run ruff format --check src/ tests/
 ```
 
-Checks are run automatically in [Continuous Integration](#continuous-integration).
+To format files:
 
-### Code Style
-
-PEP-8 style and formatting guidelines must be used for this project, except the 80 character line limit.
-[Black](https://github.com/psf/black) is used for formatting, configured in `pyproject.toml` and enforced as part of
-[Python code linting](#code-linting).
-
-Black can be integrated with a range of editors, such as
-[PyCharm](https://black.readthedocs.io/en/stable/integrations/editors.html#pycharm-intellij-idea), to apply formatting
-automatically when saving files.
-
-To apply formatting manually:
-
-```shell
- $ poetry run black src/ tests/
+```
+$ poetry run ruff format src/ tests/
 ```
 
 ## Testing
