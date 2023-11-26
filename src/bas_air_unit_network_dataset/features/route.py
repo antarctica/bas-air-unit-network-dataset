@@ -7,7 +7,9 @@ import ulid
 from gpxpy.gpx import GPX, GPXRoute
 
 from bas_air_unit_network_dataset import Waypoint, RouteWaypoint
-from bas_air_unit_network_dataset.exporters.fpl import Fpl, Route as FplRoute, RoutePoint as FplRoutePoint
+from bas_air_unit_network_dataset.exporters.fpl.fpl import Fpl
+from bas_air_unit_network_dataset.exporters.fpl.route import Route as FplRoute
+from bas_air_unit_network_dataset.exporters.fpl.route_waypoint import RouteWaypoint as FplRouteWaypoint
 
 
 class Route:
@@ -498,7 +500,7 @@ class Route:
         route.index = flight_plan_index
 
         for route_waypoint in self.waypoints:
-            route_point = FplRoutePoint()
+            route_point = FplRouteWaypoint()
             route_point.waypoint_identifier = route_waypoint.waypoint.identifier
             route_point.waypoint_type = "USER WAYPOINT"
             route_point.waypoint_country_code = "__"

@@ -5,8 +5,8 @@ import ulid
 from gpxpy.gpx import GPXWaypoint
 from shapely.geometry import Point
 
-from bas_air_unit_network_dataset import convert_coordinate_dd_2_ddm
-from bas_air_unit_network_dataset.exporters.fpl import Waypoint as FplWaypoint
+from bas_air_unit_network_dataset.utils import convert_coordinate_dd_2_ddm
+from bas_air_unit_network_dataset.exporters.fpl.waypoint import Waypoint as FplWaypoint
 
 
 class Waypoint:

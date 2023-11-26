@@ -2,7 +2,8 @@ from typing import Optional, Dict
 
 from gpxpy.gpx import GPXRoutePoint
 
-from bas_air_unit_network_dataset import Waypoint, WaypointCollection
+from bas_air_unit_network_dataset.features.waypoint import Waypoint
+from bas_air_unit_network_dataset.collections.waypoints import WaypointCollection
 
 
 class RouteWaypoint:
