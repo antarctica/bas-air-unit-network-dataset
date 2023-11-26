@@ -60,6 +60,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#172](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/172)
 * waypoints will be sorted by their sequence when added to a route
   [#164](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/164)
+* refactoring classes into more manageable modules
+  [#202](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/202)
 
 ### Removed
 

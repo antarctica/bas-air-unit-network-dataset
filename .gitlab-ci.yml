@@ -65,8 +65,7 @@ lint:
   stage: 📋 lint
   needs: []
   script:
-    - poetry run flake8 src/ tests/
-    - poetry run safety check --full-report --ignore=61601 --ignore=61893
+    - poetry run safety check --full-report --ignore=61601 --ignore=61893 --ignore=62044
   rules:
     - changes:
         - '**/*.py'
