@@ -94,11 +94,11 @@ A typical/example workspace directory contains:
 
 The Air Unit Network utility does not include access control, therefore the permissions applied to the working directory
 should be used if access to information needs to be restricted. It is recommended that write permissions on the 
-directory are restricted to users that need to edit information.
+directory are restricted to users that have permission to edit information.
 
 ### Workflow
 
-**Note:** You need to complete the steps in the [Installation](#installation) section to complete this workflow.
+**Note:** You need to complete the steps in the [Setup](#setup) section to complete this workflow.
 
 To update waypoints and routes (the network) and create new files for use in GPS devices and as print-outs:
 
@@ -200,10 +200,10 @@ Export complete
 
 This project consists of:
 
-* a description of the waypoints and routes datasets for the BAS Air Unit travel network
-* a Python command line utility to:
+* a description and schema for the main BAS Air Unit travel network (routes and waypoints)
+* a Python library and command line utility to:
   * store waypoints and routes in a structured/neutral format (currently a GeoPackage)
-  * import waypoints and routes from a GPX file from an editor such as Garmin BaseCamp
+  * import waypoints and routes from a GPX file from an editor such as Garmin BaseCamp, QGIS, etc.
   * export waypoints and routes into a range of output formats (currently CSV, GPX and Garmin FPL)
 
 ### Information model
@@ -318,7 +318,7 @@ IDs:
 Names:
 
 * MUST use the format `{Sequence}_{First Waypoint Identifier}_TO_{Last Waypoint Identifier}`, where `{Sequence}` is 
-  a zero padded, auto-incrementing prefix (e.g. '01_', '02_', ..., '99_').
+  a zero padded, two character, auto-incrementing prefix (e.g. '01', '02', ..., '99').
 
 ##### Waypoints (Route)
 
@@ -729,7 +729,7 @@ Bandit identifies the use of `lxml` classes and methods as a security issue, spe
 > Element to parse untrusted XML data is known to be vulnerable to XML attacks
 
 The recommendation is to use a *safe* implementation of an XML processor (`defusedxml`) that can avoid entity bombs and 
-other XML processing attacks. However, `defusedxml` does not offer all of the methods we need and there does not appear
+other XML processing attacks. However, `defusedxml` does not offer all the methods we need and there does not appear
 to be such another processor that does provide them.
 
 The main vulnerability this security issue relates to is processing user input that can't be trusted. This isn't really
