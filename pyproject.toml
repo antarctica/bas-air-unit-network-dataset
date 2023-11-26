@@ -26,7 +26,7 @@ classifiers = [
 airnet = "bas_air_unit_network_dataset.cli:cli"
 
 [tool.poetry.dependencies]
-python = "^3.8.1"
+python = "^3.9"
 ulid-py = "^1.1.0"
 Shapely = "^1.8.2"
 Fiona = "^1.8.21"

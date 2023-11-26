@@ -18,7 +18,7 @@ cache:
     - .venv/   # for project dependencies
 
 image:
-  name: python:3.8-slim
+  name: python:3.9-slim
 
 stages:
   - 🧪 test
