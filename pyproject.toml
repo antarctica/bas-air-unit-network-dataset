@@ -39,12 +39,6 @@ click = "^8.1.3"
 ruff = "^0.1.6"
 safety = "^2.3.5"
 
-[tool.black]
-line-length = 120
-target-version = ['py38']
-include = '\.pyi?$'
-exclude = ''
-
 [tool.ruff]
 src = ["src"]
 line-length = 120
