@@ -7,8 +7,8 @@ from typing import Optional
 
 from gpxpy.gpx import GPX
 
-from bas_air_unit_network_dataset import Waypoint
 from bas_air_unit_network_dataset.exporters.fpl.fpl import Fpl
+from bas_air_unit_network_dataset.features.waypoint import Waypoint
 
 
 class WaypointCollection:

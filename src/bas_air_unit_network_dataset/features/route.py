@@ -8,12 +8,13 @@ from typing import ClassVar, Optional, Union
 import ulid
 from gpxpy.gpx import GPX, GPXRoute
 
-from bas_air_unit_network_dataset import RouteWaypoint, Waypoint
 from bas_air_unit_network_dataset.exporters.fpl.fpl import Fpl
 from bas_air_unit_network_dataset.exporters.fpl.route import Route as FplRoute
 from bas_air_unit_network_dataset.exporters.fpl.route_waypoint import (
     RouteWaypoint as FplRouteWaypoint,
 )
+from bas_air_unit_network_dataset.features.route_waypoint import RouteWaypoint
+from bas_air_unit_network_dataset.features.waypoint import Waypoint
 
 
 class Route:
