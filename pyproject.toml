@@ -23,7 +23,7 @@ classifiers = [
 ]
 
 [tool.poetry.scripts]
-airnet = "bas_air_unit_network_dataset.__main__:cli"
+airnet = "bas_air_unit_network_dataset.cli:cli"
 
 [tool.poetry.dependencies]
 python = "^3.8.1"
