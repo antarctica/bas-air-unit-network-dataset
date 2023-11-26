@@ -141,7 +141,10 @@ class RouteWaypoint:
         }
 
         if inc_spatial:
-            geometry = {"type": "Point", "coordinates": (self.waypoint.geometry.x, self.waypoint.geometry.y)}
+            geometry = {
+                "type": "Point",
+                "coordinates": (self.waypoint.geometry.x, self.waypoint.geometry.y),
+            }
             if self.waypoint.geometry.has_z:
                 geometry["coordinates"] = (
                     self.waypoint.geometry.x,
@@ -152,10 +155,16 @@ class RouteWaypoint:
 
         if use_identifiers:
             del feature["properties"]["waypoint_id"]
-            feature["properties"] = {**{"identifier": self.waypoint.identifier}, **feature["properties"]}
+            feature["properties"] = {
+                **{"identifier": self.waypoint.identifier},
+                **feature["properties"],
+            }
 
         if route_name is not None:
-            feature["properties"] = {**{"route_name": route_name}, **feature["properties"]}
+            feature["properties"] = {
+                **{"route_name": route_name},
+                **feature["properties"],
+            }
 
         if route_id is not None:
             feature["properties"] = {**{"route_id": route_id}, **feature["properties"]}

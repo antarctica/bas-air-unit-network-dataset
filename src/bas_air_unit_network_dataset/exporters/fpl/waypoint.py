@@ -3,7 +3,10 @@ from typing import Optional
 from lxml.etree import Element, SubElement
 
 from bas_air_unit_network_dataset.exporters.fpl import Namespaces, fpl_waypoint_types
-from bas_air_unit_network_dataset.exporters.fpl.utils import _upper_alphanumeric_only, _upper_alphanumeric_space_only
+from bas_air_unit_network_dataset.exporters.fpl.utils import (
+    _upper_alphanumeric_only,
+    _upper_alphanumeric_space_only,
+)
 
 
 class Waypoint:

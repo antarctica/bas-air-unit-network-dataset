@@ -178,7 +178,13 @@ class Fpl:
                 #
                 # Use `capture_output=True` in future when we can use Python 3.7+
                 subprocess.run(  # noqa: S274,S603 - nosec
-                    args=["xmllint", "--noout", "--schema", str(self.schema_path), str(document_path)],
+                    args=[
+                        "xmllint",
+                        "--noout",
+                        "--schema",
+                        str(self.schema_path),
+                        str(document_path),
+                    ],
                     stdout=subprocess.PIPE,
                     stderr=subprocess.PIPE,
                     check=True,

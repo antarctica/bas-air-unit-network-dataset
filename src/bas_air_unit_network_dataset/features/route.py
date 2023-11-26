@@ -9,7 +9,9 @@ from gpxpy.gpx import GPX, GPXRoute
 from bas_air_unit_network_dataset import Waypoint, RouteWaypoint
 from bas_air_unit_network_dataset.exporters.fpl.fpl import Fpl
 from bas_air_unit_network_dataset.exporters.fpl.route import Route as FplRoute
-from bas_air_unit_network_dataset.exporters.fpl.route_waypoint import RouteWaypoint as FplRouteWaypoint
+from bas_air_unit_network_dataset.exporters.fpl.route_waypoint import (
+    RouteWaypoint as FplRouteWaypoint,
+)
 
 
 class Route:
@@ -44,7 +46,10 @@ class Route:
     }
 
     # TODO: Determine why this requires an ordered dict when other schemas don't
-    feature_schema_waypoints_spatial = {"geometry": "Point", "properties": OrderedDict()}
+    feature_schema_waypoints_spatial = {
+        "geometry": "Point",
+        "properties": OrderedDict(),
+    }
     feature_schema_waypoints_spatial["properties"]["sequence"] = "int"
     feature_schema_waypoints_spatial["properties"]["identifier"] = "str"
     feature_schema_waypoints_spatial["properties"]["comment"] = "str"
@@ -284,7 +289,10 @@ class Route:
         for route_waypoint in self.waypoints:
             features.append(
                 route_waypoint.dumps_feature(
-                    inc_spatial=inc_spatial, route_id=_route_id, route_name=_route_name, use_identifiers=use_identifiers
+                    inc_spatial=inc_spatial,
+                    route_id=_route_id,
+                    route_name=_route_name,
+                    use_identifiers=use_identifiers,
                 )
             )
 
@@ -358,7 +366,10 @@ class Route:
             )
 
             if route_column:
-                route_waypoint_csv_row = {**{"route_name": self.name}, **route_waypoint_csv_row}
+                route_waypoint_csv_row = {
+                    **{"route_name": self.name},
+                    **route_waypoint_csv_row,
+                }
 
             csv_rows.append(route_waypoint_csv_row)
 

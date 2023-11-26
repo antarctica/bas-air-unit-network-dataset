@@ -381,7 +381,11 @@ class Waypoint:
         """
         geometry = {"type": "Point", "coordinates": (self.geometry.x, self.geometry.y)}
         if self.geometry.has_z:
-            geometry["coordinates"] = (self.geometry.x, self.geometry.y, self.geometry.z)
+            geometry["coordinates"] = (
+                self.geometry.x,
+                self.geometry.y,
+                self.geometry.z,
+            )
 
         return geometry
 

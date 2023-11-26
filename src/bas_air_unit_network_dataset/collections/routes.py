@@ -67,7 +67,10 @@ class RouteCollection:
                 features.append(route.dumps_feature(inc_spatial=inc_spatial, inc_waypoints=False))
                 continue
             features += route.dumps_feature(
-                inc_spatial=inc_spatial, inc_waypoints=True, inc_route_id=inc_route_id, inc_route_name=inc_route_name
+                inc_spatial=inc_spatial,
+                inc_waypoints=True,
+                inc_route_id=inc_route_id,
+                inc_route_name=inc_route_name,
             )
 
         return features
@@ -110,7 +113,10 @@ class RouteCollection:
         route_waypoints: List[dict] = []
         for route in self.routes:
             route_waypoints += route.dumps_csv(
-                inc_waypoints=True, route_column=True, inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon
+                inc_waypoints=True,
+                route_column=True,
+                inc_dd_lat_lon=inc_dd_lat_lon,
+                inc_ddm_lat_lon=inc_ddm_lat_lon,
             )
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
@@ -120,7 +126,11 @@ class RouteCollection:
             writer.writerows(route_waypoints)
 
     def dump_csv(
-        self, path: Path, separate_files: bool = False, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False
+        self,
+        path: Path,
+        separate_files: bool = False,
+        inc_dd_lat_lon: bool = False,
+        inc_ddm_lat_lon: bool = False,
     ) -> None:
         """
         Write routes as CSV files for further processing and/or visualisation.
@@ -135,9 +145,17 @@ class RouteCollection:
         :param inc_ddm_lat_lon: include latitude and longitude columns in degrees decimal minutes format
         """
         if separate_files:
-            self._dump_csv_separate(path=path, inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon)
+            self._dump_csv_separate(
+                path=path,
+                inc_dd_lat_lon=inc_dd_lat_lon,
+                inc_ddm_lat_lon=inc_ddm_lat_lon,
+            )
         else:
-            self._dump_csv_combined(path=path, inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon)
+            self._dump_csv_combined(
+                path=path,
+                inc_dd_lat_lon=inc_dd_lat_lon,
+                inc_ddm_lat_lon=inc_ddm_lat_lon,
+            )
 
     def dumps_gpx(self, inc_waypoints: bool = False) -> GPX:
         """
@@ -174,7 +192,10 @@ class RouteCollection:
         :param inc_waypoints: include waypoints alongside routes
         """
         for route in self.routes:
-            route.dump_gpx(path=path.joinpath(f"{route.name.upper()}.gpx"), inc_waypoints=inc_waypoints)
+            route.dump_gpx(
+                path=path.joinpath(f"{route.name.upper()}.gpx"),
+                inc_waypoints=inc_waypoints,
+            )
 
     def _dump_gpx_combined(self, path: Path) -> None:
         """
@@ -226,7 +247,10 @@ class RouteCollection:
 
         flight_plan_index = 1
         for route in self.routes:
-            route.dump_fpl(path=path.joinpath(f"{route.name.upper()}.fpl"), flight_plan_index=flight_plan_index)
+            route.dump_fpl(
+                path=path.joinpath(f"{route.name.upper()}.fpl"),
+                flight_plan_index=flight_plan_index,
+            )
             flight_plan_index += 1
 
     def __getitem__(self, _id: str) -> Route:

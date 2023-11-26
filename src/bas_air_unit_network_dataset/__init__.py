@@ -23,7 +23,12 @@ class NetworkManager:
     defined file naming and directory structure, which is specific to the BAS Air Unit.
     """
 
-    def __init__(self, dataset_path: Path, output_path: Optional[Path] = None, init: Optional[bool] = False) -> None:
+    def __init__(
+        self,
+        dataset_path: Path,
+        output_path: Optional[Path] = None,
+        init: Optional[bool] = False,
+    ) -> None:
         """
         Create or load a network of waypoints and routes, optionally setting parameters.
 
@@ -119,7 +124,10 @@ class NetworkManager:
                     route_waypoints_by_route_id[route_waypoint_feature["properties"]["route_id"]] = []
                 route_waypoints_by_route_id[route_waypoint_feature["properties"]["route_id"]].append(route_waypoint)
 
-            for route_id, route_waypoint_features in route_waypoints_by_route_id.items():
+            for (
+                route_id,
+                route_waypoint_features,
+            ) in route_waypoints_by_route_id.items():
                 route = self.routes[route_id]
                 route.waypoints = route_waypoint_features
 
@@ -149,13 +157,22 @@ class NetworkManager:
 
         # route_waypoints
         with fiona.open(
-            path, mode="w", driver="GPKG", schema=RouteWaypoint.feature_schema, layer="route_waypoints"
+            path,
+            mode="w",
+            driver="GPKG",
+            schema=RouteWaypoint.feature_schema,
+            layer="route_waypoints",
         ) as layer:
             layer.writerecords(self.routes.dumps_features(inc_spatial=False, inc_waypoints=True, inc_route_id=True))
 
         # routes
         with fiona.open(
-            path, mode="w", driver="GPKG", crs=crs_from_epsg(4326), schema=Route.feature_schema, layer="routes"
+            path,
+            mode="w",
+            driver="GPKG",
+            crs=crs_from_epsg(4326),
+            schema=Route.feature_schema,
+            layer="routes",
         ) as layer:
             layer.writerecords(self.routes.dumps_features(inc_spatial=False, inc_waypoints=False))
 
@@ -228,10 +245,12 @@ class NetworkManager:
         path = self._get_output_path(path=path, fmt_dir="CSV")
 
         self.waypoints.dump_csv(
-            path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.csv")), inc_ddm_lat_lon=True
+            path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.csv")),
+            inc_ddm_lat_lon=True,
         )
         self.waypoints.dump_csv(
-            path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}_DD.csv")), inc_dd_lat_lon=True
+            path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}_DD.csv")),
+            inc_dd_lat_lon=True,
         )
 
     def dump_gpx(self, path: Optional[Path] = None) -> None:

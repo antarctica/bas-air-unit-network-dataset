@@ -26,7 +26,13 @@ class AppCommand(click.core.Command):
                 help="Path to network dataset",
                 required=True,
                 envvar="AIRNET_DATASET_PATH",
-                type=click.Path(exists=True, file_okay=True, dir_okay=False, readable=True, resolve_path=True),
+                type=click.Path(
+                    exists=True,
+                    file_okay=True,
+                    dir_okay=False,
+                    readable=True,
+                    resolve_path=True,
+                ),
             ),
         )
 
@@ -67,7 +73,14 @@ def cli() -> None:
     help="Path to network dataset directory",
     required=True,
     envvar="AIRNET_DATASET_PATH",
-    type=click.Path(exists=False, file_okay=False, dir_okay=True, readable=True, writable=True, resolve_path=True),
+    type=click.Path(
+        exists=False,
+        file_okay=False,
+        dir_okay=True,
+        readable=True,
+        writable=True,
+        resolve_path=True,
+    ),
 )
 def init(dataset_path: str) -> None:
     """Initialises an empty network."""
@@ -112,7 +125,14 @@ def _import(dataset_path: str, input_path: str) -> None:
     help="Path to save outputs",
     required=True,
     envvar="AIRNET_OUTPUT_PATH",
-    type=click.Path(exists=True, file_okay=False, dir_okay=True, readable=True, writable=True, resolve_path=True),
+    type=click.Path(
+        exists=True,
+        file_okay=False,
+        dir_okay=True,
+        readable=True,
+        writable=True,
+        resolve_path=True,
+    ),
 )
 def export(dataset_path: str, output_path: str) -> None:
     """Export network, routes, waypoints as CSV/GPX/FPL outputs."""

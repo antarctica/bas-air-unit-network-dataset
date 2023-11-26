@@ -36,10 +36,22 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
     for waypoint in data["waypoints"]:
         feature = {
             "type": "Feature",
-            "geometry": {"type": "Point", "coordinates": [waypoint["lon"], waypoint["lat"]]},
-            "properties": {"feature_type": "waypoint", "identifier": waypoint["callsign"]},
+            "geometry": {
+                "type": "Point",
+                "coordinates": [waypoint["lon"], waypoint["lat"]],
+            },
+            "properties": {
+                "feature_type": "waypoint",
+                "identifier": waypoint["callsign"],
+            },
         }
-        for property_ in ["name", "last_accessed_at", "last_accessed_by", "colocated_with", "comment"]:
+        for property_ in [
+            "name",
+            "last_accessed_at",
+            "last_accessed_by",
+            "colocated_with",
+            "comment",
+        ]:
             if property_ in waypoint and waypoint[property_] is not None:
                 feature["properties"][property_] = waypoint[property_]
         features["features"].append(feature)
