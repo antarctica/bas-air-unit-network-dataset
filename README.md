@@ -2,7 +2,7 @@
 
 Management of the network of routes and waypoints used by the British Antarctic Survey (BAS) Air Unit.
 
-Including a utility for the Air Unit to process routes and waypoints for use in their handheld and aircraft GPS devices.
+Including a utility to process routes and waypoints for use in handheld and aircraft GPS devices used by the Air Unit.
 
 ## Overview
 
@@ -17,7 +17,7 @@ To support the BAS Air Unit manage their network of routes and waypoints such th
 ### Background
 
 This project was developed in response to discussions and requests with the BAS Air Unit to review and simplify the 
-process they used to manage their network of waypoints, and to ensure it's future sustainability.
+process they used to manage their network of waypoints, and to ensure its future sustainability.
 
 BAS staff can read more about this background in this 
 [GitLab issue](https://gitlab.data.bas.ac.uk/MAGIC/ops-support/-/issues/134) [Internal].
@@ -86,7 +86,7 @@ A typical/example workspace directory contains:
         └── 00_NETWORK_2022_07_08.gpx
 ```
 
-* the `output/` directory contains files for use in GPS devices and as print outs, organised by file type (CSV, GPX 
+* the `output/` directory contains files for use in GPS devices and as print-outs, organised by file type (CSV, GPX 
   and FPL)
 * the `input.gpx` file contains routes and waypoints *exported* from Garmin BaseCamp to be *imported* into the Air 
   Unit Network utility
@@ -95,14 +95,14 @@ A typical/example workspace directory contains:
 #### Access control
 
 The Air Unit Network utility does not include access control, therefore the permissions applied to the working directory
-should be used if access to information needs to be restricted. It is recommended that wrtite permissions on the 
+should be used if access to information needs to be restricted. It is recommended that write permissions on the 
 directory are restricted to users that need to edit information.
 
 ### Workflow
 
 **Note:** You need to complete the steps in the [Installation](#installation) section to complete this workflow.
 
-To update waypoints and routes (the network) and create new files for use in GPS devices and as print outs:
+To update waypoints and routes (the network) and create new files for use in GPS devices and as print-outs:
 
 1. [waypoints](#managing-waypoints-in-basecamp) and [routes](#managing-routes-in-basecamp) are created and edited using 
    Garmin BaseCamp
@@ -111,7 +111,7 @@ To update waypoints and routes (the network) and create new files for use in GPS
 4. use the utility to [export the network in a range of formats](#exporting-waypoints-and-routes-using-the-network-utility) 
    (CSV, GPX and FPL)
 
-The sub-sections below describe these steps in more detail.
+The subsections below describe these steps in more detail.
 
 ### Managing waypoints in BaseCamp
 
@@ -152,7 +152,7 @@ For example (a standalone, unvisited, waypoint with no full/formal name or addit
 
 1. from the start menu, launch *BaseCamp*
 2. from the upper left hand panel, under *My Collection*, select *BAS Air Unit Network* -> *BAS Air Unit Network*
-3. from the lower left hand panel, right click the waypoint to be edited and select *Get Info*
+3. from the lower left hand panel, right-click the waypoint to be edited and select *Get Info*
 4. from the waypoint properties screen, update (as needed):
    1. the name (identifier)
    2. comment (see rules above for how comments must be written)
@@ -184,9 +184,9 @@ For example (a standalone, unvisited, waypoint with no full/formal name or addit
 
 1. from the start menu, launch *BaseCamp*
 2. from the upper left hand panel, under *My Collection*, select *BAS Air Unit Network* -> *BAS Air Unit Network*
-3. from the lower left hand panel, right click the route to be edited and select *Get Info*
+3. from the lower left hand panel, right-click the route to be edited and select *Get Info*
 4. to remove a waypoint from the route:
-   1. right click the route waypoint from the list and select *Remove*
+   1. right-click the route waypoint from the list and select *Remove*
 5. to add a new waypoint to the route:
    1. from the lower left navigation panel, drag waypoints into the route properties screen, in its position within 
       the route
@@ -301,7 +301,7 @@ To install software needed to manage the Air Unit Network dataset:
 5. from the installation bundle, install LibXML2 (needed to run the Air Unit Network utility):
    1. unzip the `libxml2.zip` archive to a temporary directory
    2. copy the `libxml2` directory to `C:\Program Files`, such that `C:\Program Files\libxml2\bin\xmllint.exe` exists
-   3. from Windows Explorer, right click *This PC* from the left hand panel and click *Properties* 
+   3. from Windows Explorer, right-click *This PC* from the left hand panel and click *Properties* 
       1. from the left hand menu of the System Control Panel screen, click *Advanced system settings*
       2. from the *Advanced* tab of the System Properties screen, click *Environment Variables*
       3. from the bottom section (System variables) select the *Path* variable and click *Edit*:
@@ -415,7 +415,7 @@ IDs:
   * the same scheme SHOULD be used for all IDs
   * non-sequential schemes are recommended
 
-**Note:** This ID can be used to refer to each Waypoint in other systems (i.e. as an foreign identifier).
+**Note:** This ID can be used to refer to each Waypoint in other systems (i.e. as a foreign identifier).
 
 ##### Identifiers (Waypoint)
 
@@ -477,7 +477,7 @@ IDs:
   * the same scheme SHOULD be used for all IDs
   * non-sequential schemes are recommended
 
-**Note:** This ID can be used to refer to each Route in other systems (i.e. as an foreign identifier).
+**Note:** This ID can be used to refer to each Route in other systems (i.e. as a foreign identifier).
 
 ##### Name (Route)
 
@@ -718,7 +718,7 @@ Limitations:
 * the `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by` and `waypoint.comment` 
   properties are not included in FPL waypoint comments, as they are limited to 17 characters [1]
 * underscores (`_`) characters are stripped from route names *within* FPL files (rather than the names *of* FPL 
-  files), a local override is used to replace underscores with spaces (` `) to workaround this limitation
+  files), a local override is used to replace underscores with spaces (` `) to work around this limitation
 * FPL metadata fields (author, last updated, etc.) are not currently populated
 * `waypoint.geometries` containing an elevation (Z) dimension are not included in FPL outputs
 
@@ -772,7 +772,7 @@ Parameter values for the `airnet` command line interface (CLI) can be provided u
 typically used when automating commands as part of a script or other automation workflow. 
 
 | Parameter               | Environment Variable  |
-| ----------------------- | --------------------- |
+|-------------------------|-----------------------|
 | `-d` / `--dataset-path` | `AIRNET_DATASET_PATH` |
 | `-i` / `--input-path`   | `AIRNET_INPUT_PATH`   |
 | `-o` / `--output-path`  | `AIRNET_OUTPUT_PATH`  |
@@ -803,13 +803,13 @@ To populate the [Installation Bundle](#installation-bundle):
 * create a `build` directory and:
   * download the latest 7-Zip installer and rename to `7zip-installer.exe`
 
-Before saving installers to the Installation Bundle, test them in a [deployment VM](#setup-a-windows-deployment-vm).
+Before saving installers to the Installation Bundle, test them in a [deployment VM](#set-up-a-windows-deployment-vm).
 
 [1] This specific version (14.0.24123) was used because the latest version available at the time of testing (14.32.
-31332, Sept 2022) did not work. In future, it may be that another version is needed, especially if the version of 
+31332, Sept 2022) did not work. In the future, it may be that another version is needed, especially if the version of 
 LibXML2 changes.
 
-### Setup a workspace directory
+### Set up a workspace directory
 
 1. using Windows Explorer, create a suitable directory to use a Workspace (typically on a shared drive or within a 
    synced folder)
