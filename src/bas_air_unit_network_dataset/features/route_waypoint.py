@@ -49,12 +49,11 @@ class RouteWaypoint:
         if waypoint is None and sequence is not None:
             msg = "A `waypoint` value must be provided if `sequence` is set."
             raise ValueError(msg)
-        if waypoint is None and sequence is None:
-            msg = "A `waypoint` and `sequence` value must be provided."
-            raise ValueError(msg)
 
-        self.waypoint = waypoint
-        self.sequence = sequence
+        if waypoint is not None:
+            self.waypoint = waypoint
+        if sequence is not None:
+            self.sequence = sequence
 
     @property
     def waypoint(self) -> Waypoint:
