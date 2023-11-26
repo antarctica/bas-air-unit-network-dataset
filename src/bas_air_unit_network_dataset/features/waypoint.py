@@ -364,9 +364,7 @@ class Waypoint:
         if feature["properties"]["last_accessed_at"] is not None and feature["properties"]["last_accessed_by"] is None:
             msg = "A `last_accessed_by` value must be provided if `last_accessed_at` is set."
             raise ValueError(msg)
-        if (
-            feature["properties"]["last_accessed_at"] is None and feature["properties"]["last_accessed_by"] is not None
-        ):
+        if feature["properties"]["last_accessed_at"] is None and feature["properties"]["last_accessed_by"] is not None:
             msg = "A `last_accessed_at` value must be provided if `last_accessed_by` is set."
             raise ValueError(msg)
         if (
