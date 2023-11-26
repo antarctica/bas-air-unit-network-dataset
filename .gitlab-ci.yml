@@ -65,7 +65,6 @@ lint:
   stage: 📋 lint
   needs: []
   script:
-#    - poetry run ruff check src/ tests/ --output-format gitlab > lint-results.json
     - poetry run ruff check src/ tests/
     - poetry run ruff format --check src/ tests/
     - poetry run safety check --full-report --ignore=61601 --ignore=61893 --ignore=62044
