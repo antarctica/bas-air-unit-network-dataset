@@ -5,8 +5,7 @@ from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Optional
 
-from importlib_resources import as_file as resource_path_as_file
-from importlib_resources import files as resource_path
+from importlib_resources import path as resource_path
 from lxml.etree import Element, ElementTree
 from lxml.etree import tostring as element_string
 
@@ -58,8 +57,8 @@ class Fpl:
         """
         self.ns = Namespaces()
 
-        with resource_path_as_file(resource_path("bas_air_unit_network_dataset.schemas.garmin")) as schema_dir:
-            self.schema_path = schema_dir.joinpath("FlightPlanv1.xsd")
+        with resource_path("bas_air_unit_network_dataset.exporters.fpl.schemas.garmin", "FlightPlanv1.xsd") as path:
+            self.schema_path = path
 
         self._waypoints: list[Waypoint] = []
         self._route: Optional[Route] = None
