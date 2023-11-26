@@ -1,12 +1,14 @@
+from __future__ import annotations
+
 from datetime import date
-from typing import Optional, List
+from typing import ClassVar, Optional
 
 import ulid
 from gpxpy.gpx import GPXWaypoint
 from shapely.geometry import Point
 
-from bas_air_unit_network_dataset.utils import convert_coordinate_dd_2_ddm
 from bas_air_unit_network_dataset.exporters.fpl.waypoint import Waypoint as FplWaypoint
+from bas_air_unit_network_dataset.utils import convert_coordinate_dd_2_ddm
 
 
 class Waypoint:
@@ -30,7 +32,7 @@ class Waypoint:
     identifier_max_length = 6
     name_max_length = 17
 
-    feature_schema_spatial = {
+    feature_schema_spatial: ClassVar[dict] = {
         "geometry": "Point",
         "properties": {
             "id": "str",
@@ -43,7 +45,7 @@ class Waypoint:
         },
     }
 
-    csv_schema = {
+    csv_schema: ClassVar[dict] = {
         "identifier": "str",
         "name": "str",
         "colocated_with": "str",
@@ -110,7 +112,8 @@ class Waypoint:
         if (last_accessed_at is not None and last_accessed_by is None) or (
             last_accessed_at is None and last_accessed_by is not None
         ):
-            raise ValueError("A `last_accessed_at` and `last_accessed_by` value must be provided.")
+            msg = "A `last_accessed_at` and `last_accessed_by` value must be provided."
+            raise ValueError(msg)
 
         self._last_accessed_at = last_accessed_at
         self._last_accessed_by = last_accessed_by
@@ -175,7 +178,8 @@ class Waypoint:
         :param identifier: waypoint identifier
         """
         if len(identifier) > Waypoint.identifier_max_length:
-            raise ValueError(f"Identifiers must be 6 characters or less. {identifier!r} is {len(identifier)}.")
+            msg = f"Identifiers must be 6 characters or less. {identifier!r} is {len(identifier)}."
+            raise ValueError(msg)
 
         self._identifier = identifier
 
@@ -192,7 +196,7 @@ class Waypoint:
         return self._geometry
 
     @geometry.setter
-    def geometry(self, geometry: List[float]) -> None:
+    def geometry(self, geometry: list[float]) -> None:
         """
         Set waypoint geometry.
 
@@ -205,9 +209,11 @@ class Waypoint:
         lat = geometry[1]
 
         if -180 > lon > 180:
-            raise ValueError("Longitude must be between -180 and +180.")
+            msg = "Longitude must be between -180 and +180."
+            raise ValueError(msg)
         if -90 > lat > 90:
-            raise ValueError("Latitude must be between -90 and +90.")
+            msg = "Latitude must be between -90 and +90."
+            raise ValueError(msg)
 
         self._geometry = Point(lon, lat)
 
@@ -244,7 +250,8 @@ class Waypoint:
         :param name: waypoint name/summary
         """
         if len(name) > Waypoint.name_max_length:
-            raise ValueError(f"Names must be 17 characters or less. {name!r} is {len(name)}.")
+            msg = f"Names must be 17 characters or less. {name!r} is {len(name)}."
+            raise ValueError(msg)
 
         self._name = name
 
@@ -352,23 +359,22 @@ class Waypoint:
 
         if feature["properties"]["name"] is not None:
             self.name = feature["properties"]["name"]
-
         if feature["properties"]["colocated_with"] is not None:
             self.colocated_with = feature["properties"]["colocated_with"]
-
         if feature["properties"]["last_accessed_at"] is not None and feature["properties"]["last_accessed_by"] is None:
-            raise ValueError("A `last_accessed_by` value must be provided if `last_accessed_at` is set.")
-        elif (
+            msg = "A `last_accessed_by` value must be provided if `last_accessed_at` is set."
+            raise ValueError(msg)
+        if (
             feature["properties"]["last_accessed_at"] is None and feature["properties"]["last_accessed_by"] is not None
         ):
-            raise ValueError("A `last_accessed_at` value must be provided if `last_accessed_by` is set.")
-        elif (
+            msg = "A `last_accessed_at` value must be provided if `last_accessed_by` is set."
+            raise ValueError(msg)
+        if (
             feature["properties"]["last_accessed_at"] is not None
             and feature["properties"]["last_accessed_by"] is not None
         ):
             self.last_accessed_at = date.fromisoformat(feature["properties"]["last_accessed_at"])
             self.last_accessed_by = feature["properties"]["last_accessed_by"]
-
         if feature["properties"]["comment"] is not None:
             self.comment = feature["properties"]["comment"]
 
@@ -488,7 +494,7 @@ class Waypoint:
         waypoint.longitude = self.geometry.x
         waypoint.latitude = self.geometry.y
 
-        description_parts: List[str] = []
+        description_parts: list[str] = []
         if self.name is not None:
             description_parts.append(f"Name: {self.name}")
         if self.colocated_with is not None:
@@ -533,5 +539,5 @@ class Waypoint:
         return waypoint
 
     def __repr__(self) -> str:
-        """String representation of a Waypoint."""
+        """Represent Waypoint as a string."""
         return f"<Waypoint {self.fid} :- [{self.identifier.ljust(6, '_')}], {self.geometry}>"

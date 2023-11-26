@@ -1,6 +1,9 @@
+from __future__ import annotations
+
 import csv
+from collections.abc import Iterator
 from pathlib import Path
-from typing import List, Optional, Iterator
+from typing import Optional
 
 from gpxpy.gpx import GPX
 
@@ -18,10 +21,10 @@ class WaypointCollection:
 
     def __init__(self) -> None:
         """Create routes collection."""
-        self._waypoints: List[Waypoint] = []
+        self._waypoints: list[Waypoint] = []
 
     @property
-    def waypoints(self) -> List[Waypoint]:
+    def waypoints(self) -> list[Waypoint]:
         """
         Get all waypoints in collection as Waypoint classes.
 
@@ -59,7 +62,7 @@ class WaypointCollection:
 
         return None
 
-    def dump_features(self, inc_spatial: bool = True) -> List[dict]:
+    def dump_features(self, inc_spatial: bool = True) -> list[dict]:
         """
         Build all waypoints in collection as generic features for further processing.
 
@@ -88,7 +91,7 @@ class WaypointCollection:
         :type inc_ddm_lat_lon: bool
         :param inc_ddm_lat_lon: include latitude and longitude columns in degrees decimal minutes format
         """
-        fieldnames: List[str] = list(Waypoint.csv_schema.keys())
+        fieldnames: list[str] = list(Waypoint.csv_schema.keys())
         if inc_dd_lat_lon:
             fieldnames = [
                 "identifier",
@@ -126,7 +129,7 @@ class WaypointCollection:
             ]
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
-        with open(path, mode="w", newline="", encoding="utf-8-sig") as output_file:
+        with path.open(mode="w", newline="", encoding="utf-8-sig") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
 
@@ -154,7 +157,7 @@ class WaypointCollection:
         :type path: path
         :param path: Output path
         """
-        with open(path, mode="w") as gpx_file:
+        with path.open(mode="w") as gpx_file:
             gpx_file.write(self.dumps_gpx().to_xml())
 
     def dumps_fpl(self) -> Fpl:
@@ -205,9 +208,9 @@ class WaypointCollection:
         return self._waypoints.__iter__()
 
     def __len__(self) -> int:
-        """Number of Waypoints within WaypointCollection."""
+        """Waypoints in WaypointCollection."""
         return len(self.waypoints)
 
     def __repr__(self) -> str:
-        """String representation of a WaypointCollection."""
+        """Representation of WaypointCollection as a string."""
         return f"<WaypointCollection : {self.__len__()} waypoints>"

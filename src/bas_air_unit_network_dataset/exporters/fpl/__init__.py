@@ -1,7 +1,9 @@
+from typing import ClassVar
+
 fpl_waypoint_types = ["USER WAYPOINT", "AIRPORT", "NDB", "VOR", "INT", "INT-VRP"]
 
 
-class Namespaces(object):
+class Namespaces:
     """
     Namespaces for the Garmin FPL XML schema.
 
@@ -14,11 +16,11 @@ class Namespaces(object):
 
     _root_namespace = fpl
 
-    _schema_locations = {
+    _schema_locations: ClassVar[dict] = {
         "fpl": "http://www8.garmin.com/xmlschemas/FlightPlanv1.xsd",
     }
 
-    namespaces = {
+    namespaces: ClassVar[dict] = {
         "fpl": fpl,
         "xsi": xsi,
     }
@@ -54,7 +56,7 @@ class Namespaces(object):
     @staticmethod
     def schema_locations() -> str:
         """
-        Generates the value for a `xsi:schemaLocation` attribute.
+        Generate the value for a `xsi:schemaLocation` attribute.
 
         Defines the XML Schema Document (XSD) for each namespace in an XML tree
 

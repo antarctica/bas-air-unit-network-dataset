@@ -1,17 +1,19 @@
+from __future__ import annotations
+
 from datetime import date
 from pathlib import Path
-from typing import Dict, List, Optional
+from typing import Optional
 
 import fiona
 from fiona.crs import from_epsg as crs_from_epsg
 from gpxpy import parse as gpx_parse
 from gpxpy.gpx import GPX
 
-from bas_air_unit_network_dataset.features.waypoint import Waypoint
-from bas_air_unit_network_dataset.features.route_waypoint import RouteWaypoint
-from bas_air_unit_network_dataset.features.route import Route
 from bas_air_unit_network_dataset.collections.routes import RouteCollection
 from bas_air_unit_network_dataset.collections.waypoints import WaypointCollection
+from bas_air_unit_network_dataset.features.route import Route
+from bas_air_unit_network_dataset.features.route_waypoint import RouteWaypoint
+from bas_air_unit_network_dataset.features.waypoint import Waypoint
 from bas_air_unit_network_dataset.utils import file_name_with_date
 
 
@@ -53,7 +55,8 @@ class NetworkManager:
         self.output_path: Optional[Path] = None
         if output_path is not None:
             if not dataset_path.exists():
-                raise FileNotFoundError("Output path does not exist.")
+                msg = "Output path does not exist."
+                raise FileNotFoundError(msg)
             self.output_path = output_path
 
     def _get_output_path(self, path: Optional[Path], fmt_dir: Optional[str] = None) -> Path:
@@ -74,7 +77,8 @@ class NetworkManager:
             path = self.output_path
 
         if path is None:
-            raise FileNotFoundError("No output path specified")
+            msg = "No output path specified"
+            raise FileNotFoundError(msg)
 
         path = path.resolve()
         if fmt_dir is not None:
@@ -83,7 +87,8 @@ class NetworkManager:
         path.mkdir(parents=True, exist_ok=True)
 
         if not path.exists():
-            raise FileNotFoundError("Output path does not exist.")
+            msg = "Output path does not exist."
+            raise FileNotFoundError(msg)
 
         return path
 
@@ -115,12 +120,12 @@ class NetworkManager:
                 self.routes.append(route)
         with fiona.open(path, mode="r", driver="GPKG", layer="route_waypoints") as layer:
             # process route waypoints and group by route
-            route_waypoints_by_route_id: Dict[str, List[RouteWaypoint]] = {}
+            route_waypoints_by_route_id: dict[str, list[RouteWaypoint]] = {}
             for route_waypoint_feature in layer:
                 route_waypoint = RouteWaypoint()
                 route_waypoint.loads_feature(feature=route_waypoint_feature, waypoints=self.waypoints)
 
-                if route_waypoint_feature["properties"]["route_id"] not in route_waypoints_by_route_id.keys():
+                if route_waypoint_feature["properties"]["route_id"] not in route_waypoints_by_route_id:
                     route_waypoints_by_route_id[route_waypoint_feature["properties"]["route_id"]] = []
                 route_waypoints_by_route_id[route_waypoint_feature["properties"]["route_id"]].append(route_waypoint)
 
@@ -186,7 +191,7 @@ class NetworkManager:
         :type path: Path
         :param path: input GPX file path
         """
-        with open(path, mode="r", encoding="utf-8-sig") as gpx_file:
+        with path.open(mode="r", encoding="utf-8-sig") as gpx_file:
             gpx_data = gpx_parse(gpx_file)
 
         # waypoints
@@ -272,7 +277,7 @@ class NetworkManager:
         gpx = GPX()
         gpx.waypoints = self.waypoints.dumps_gpx().waypoints
         gpx.routes = self.routes.dumps_gpx().routes
-        with open(path.joinpath(file_name_with_date("00_NETWORK_{{date}}.gpx")), mode="w") as gpx_file:
+        with path.joinpath(file_name_with_date("00_NETWORK_{{date}}.gpx")).open(mode="w") as gpx_file:
             gpx_file.write(gpx.to_xml())
 
     def dump_fpl(self, path: Optional[Path] = None) -> None:
@@ -292,5 +297,5 @@ class NetworkManager:
         self.routes.dump_fpl(path=path, separate_files=True)
 
     def __repr__(self) -> str:
-        """String representation of a NetworkManager."""
+        """Represent NetworkManager as a string."""
         return f"<NetworkManager : {len(self.waypoints)} Waypoints - {len(self.routes)} Routes>"

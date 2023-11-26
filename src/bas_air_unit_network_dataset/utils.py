@@ -1,10 +1,13 @@
-from datetime import datetime
-from typing import Dict, List, Union
+from __future__ import annotations
+
+from contextlib import suppress
+from datetime import datetime, timezone
+from typing import Union
 
 
-def _convert_coordinate_dd_2_ddm(coordinate: float, positive_symbol: str, negative_symbol: str) -> Dict[str, float]:
+def _convert_coordinate_dd_2_ddm(coordinate: float, positive_symbol: str, negative_symbol: str) -> dict[str, float]:
     """
-    Converts a coordinate axis from decimal degrees (DD) to degrees decimal minutes (DDM).
+    Convert a coordinate axis from decimal degrees (DD) to degrees decimal minutes (DDM).
 
     The maths and logic used for this conversion is taken from the US Polar Geospatial Centre (PGC) coordinate
     converter - https://github.com/PolarGeospatialCenter/pgc-coordinate-converter,
@@ -21,18 +24,16 @@ def _convert_coordinate_dd_2_ddm(coordinate: float, positive_symbol: str, negati
     :rtype: dict
     :return: Converted coordinate split into degrees, minutes and positive/negative symbol
     """
-    coordinate_elements: List[str] = str(coordinate).split(".")
+    coordinate_elements: list[str] = str(coordinate).split(".")
 
-    ddm_coordinate: Dict[str, Union[float, str]] = {
+    ddm_coordinate: dict[str, Union[float, str]] = {
         "degree": abs(float(coordinate_elements[0])),
         "minutes": 0,
         "sign": negative_symbol,
     }
 
-    try:
+    with suppress(IndexError):
         ddm_coordinate["minutes"] = abs(float(f"0.{coordinate_elements[1]}") * 60.0)
-    except IndexError:
-        pass
 
     if coordinate >= 0:
         ddm_coordinate["sign"] = positive_symbol
@@ -40,7 +41,7 @@ def _convert_coordinate_dd_2_ddm(coordinate: float, positive_symbol: str, negati
     return ddm_coordinate
 
 
-def convert_coordinate_dd_2_ddm(lon: float, lat: float) -> Dict[str, str]:
+def convert_coordinate_dd_2_ddm(lon: float, lat: float) -> dict[str, str]:
     """
     Convert coordinate from decimal degrees (DD) to degrees decimal minutes (DDM).
 
@@ -66,7 +67,7 @@ def convert_coordinate_dd_2_ddm(lon: float, lat: float) -> Dict[str, str]:
 
 def file_name_with_date(name: str) -> str:
     """
-    Generates a string where a placeholder is replaced with the current date.
+    Generate file name string with placeholder replaced by current date.
 
     This function is intended for use in generating date stamped file names. The date value is formatted as an ISO 8601
     date (i.e. 'YYYY-MM-DD'). The input file name must contain the placeholder '{{date}}' to be correctly substituted.
@@ -78,4 +79,4 @@ def file_name_with_date(name: str) -> str:
     :rtype str
     :return: file name containing current date
     """
-    return name.replace("{{date}}", f"{datetime.utcnow().date().strftime('%Y_%m_%d')}")
+    return name.replace("{{date}}", f"{datetime.now(tz=timezone.utc).date().strftime('%Y_%m_%d')}")

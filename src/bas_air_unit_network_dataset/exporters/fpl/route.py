@@ -1,4 +1,6 @@
-from typing import Optional, List
+from __future__ import annotations
+
+from typing import Optional
 
 from lxml.etree import Element, SubElement
 
@@ -24,7 +26,7 @@ class Route:
         self,
         name: Optional[str] = None,
         index: Optional[int] = None,
-        points: Optional[List[dict]] = None,
+        points: Optional[list[dict]] = None,
     ) -> None:
         """
         Create FPL route, optionally setting parameters.
@@ -40,7 +42,7 @@ class Route:
 
         self._name: Optional[str] = None
         self._index: Optional[int] = None
-        self._points: Optional[List[RouteWaypoint]] = []
+        self._points: Optional[list[RouteWaypoint]] = []
 
         if name is not None:
             self.name = name
@@ -64,7 +66,7 @@ class Route:
     @name.setter
     def name(self, name: str) -> None:
         """
-        Sets FPL route name.
+        Set FPL route name.
 
         The FPL standard restricts route names to 25 characters, longer names will raise a ValueError exception.
 
@@ -87,7 +89,8 @@ class Route:
         :raises ValueError: where the route name is over the 25 character limit
         """
         if len(name) > 25:
-            raise ValueError("Name must be 25 characters or less.")
+            msg = "Name must be 25 characters or less."
+            raise ValueError(msg)
 
         # Handle BAS specific correction (see method description)
         name = name.replace("_", " ")
@@ -109,7 +112,7 @@ class Route:
     @index.setter
     def index(self, index: int) -> None:
         """
-        Sets FPL route index.
+        Set FPL route index.
 
         This index value uniquely identifies a route across all other routes. The FPL standard restricts route indexes
         to the range 0-98 (not 0-99), using whole integers. Values outside this range will raise a ValueError.
@@ -119,12 +122,13 @@ class Route:
         :raises ValueError: where the route index is outside the allowed range
         """
         if index > 99:
-            raise ValueError("Index must be 98 or less.")
+            msg = "Index must be 98 or less."
+            raise ValueError(msg)
 
         self._index = index
 
     @property
-    def points(self) -> List[RouteWaypoint]:
+    def points(self) -> list[RouteWaypoint]:
         """
         FPL route waypoints.
 
@@ -136,9 +140,9 @@ class Route:
         return self._points
 
     @points.setter
-    def points(self, points: List[RouteWaypoint]) -> None:
+    def points(self, points: list[RouteWaypoint]) -> None:
         """
-        Sets FPL route waypoints.
+        Set FPL route waypoints.
 
         See the RoutePoint class for more information.
 
@@ -151,7 +155,8 @@ class Route:
         :raises ValueError: where more than 3,000 waypoints are added
         """
         if len(points) > self.max_route_waypoints:
-            raise ValueError(f"FPL routes must have {self.max_route_waypoints} waypoints or fewer.")
+            msg = f"FPL routes must have {self.max_route_waypoints} waypoints or fewer."
+            raise ValueError(msg)
 
         self._points = points
 
@@ -171,7 +176,8 @@ class Route:
         route_index.text = str(self.index)
 
         if len(self.points) > self.max_route_waypoints:
-            raise ValueError(f"FPL routes must have {self.max_route_waypoints} waypoints or fewer.")
+            msg = f"FPL routes must have {self.max_route_waypoints} waypoints or fewer."
+            raise ValueError(msg)
 
         for route_point in self.points:
             route.append(route_point.encode())

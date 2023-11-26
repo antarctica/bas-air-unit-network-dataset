@@ -83,7 +83,7 @@ def cli() -> None:
     ),
 )
 def init(dataset_path: str) -> None:
-    """Initialises an empty network."""
+    """Initialise an empty network."""
     _dataset_path = Path(dataset_path).joinpath("bas-air-unit-network-dataset.gpkg")
     click.echo(f"Dataset will be located at: {_dataset_path}")
     click.echo("")

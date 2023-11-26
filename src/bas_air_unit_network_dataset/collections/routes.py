@@ -1,6 +1,8 @@
+from __future__ import annotations
+
 import csv
+from collections.abc import Iterator
 from pathlib import Path
-from typing import List, Iterator
 
 from gpxpy.gpx import GPX
 
@@ -16,10 +18,10 @@ class RouteCollection:
 
     def __init__(self) -> None:
         """Create routes collection."""
-        self._routes: List[Route] = []
+        self._routes: list[Route] = []
 
     @property
-    def routes(self) -> List[Route]:
+    def routes(self) -> list[Route]:
         """
         Get all routes in collection as Route classes.
 
@@ -43,7 +45,7 @@ class RouteCollection:
         inc_waypoints: bool = False,
         inc_route_id: bool = False,
         inc_route_name: bool = False,
-    ) -> List[dict]:
+    ) -> list[dict]:
         """
         Build all routes in collection as generic features for further processing.
 
@@ -99,7 +101,7 @@ class RouteCollection:
 
     def _dump_csv_combined(self, path: Path, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> None:
         """
-        Writes all routes to a single CSV file for further processing and/or visualisation.
+        Write all routes to a single CSV file for further processing and/or visualisation.
 
         :type path: path
         :param path: Output path
@@ -108,9 +110,9 @@ class RouteCollection:
         :type inc_ddm_lat_lon: bool
         :param inc_ddm_lat_lon: include latitude and longitude columns in degrees decimal minutes format
         """
-        fieldnames: List[str] = ["route_name"] + list(Route.csv_schema_waypoints.keys())
+        fieldnames: list[str] = ["route_name", *list(Route.csv_schema_waypoints.keys())]
 
-        route_waypoints: List[dict] = []
+        route_waypoints: list[dict] = []
         for route in self.routes:
             route_waypoints += route.dumps_csv(
                 inc_waypoints=True,
@@ -120,7 +122,7 @@ class RouteCollection:
             )
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
-        with open(path, mode="w", newline="", encoding="utf-8-sig") as output_file:
+        with path.open(mode="w", newline="", encoding="utf-8-sig") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(route_waypoints)
@@ -199,12 +201,12 @@ class RouteCollection:
 
     def _dump_gpx_combined(self, path: Path) -> None:
         """
-        Writes all routes to a single GPX file for use in GPS devices.
+        Write all routes to a single GPX file for use in GPS devices.
 
         :type path: path
         :param path: Output path
         """
-        with open(path, mode="w") as gpx_file:
+        with path.open(mode="w") as gpx_file:
             gpx_file.write(self.dumps_gpx().to_xml())
 
     def dump_gpx(self, path: Path, separate_files: bool = False, inc_waypoints: bool = False) -> None:
@@ -222,7 +224,7 @@ class RouteCollection:
         """
         if separate_files:
             self._dump_gpx_separate(path=path, inc_waypoints=inc_waypoints)
-            return None
+            return
 
         self._dump_gpx_combined(path=path)
 
@@ -243,7 +245,8 @@ class RouteCollection:
         :param separate_files: generate separate files per route
         """
         if not separate_files:
-            raise RuntimeError("FPL does not support combined routes, `separate_files` must be set to True.")
+            msg = "FPL does not support combined routes, `separate_files` must be set to True."
+            raise RuntimeError(msg)
 
         flight_plan_index = 1
         for route in self.routes:
@@ -275,9 +278,9 @@ class RouteCollection:
         return self.routes.__iter__()
 
     def __len__(self) -> int:
-        """Number of Routes within RouteCollection."""
+        """Routes in RouteCollection."""
         return len(self.routes)
 
     def __repr__(self) -> str:
-        """String representation of an RouteCollection."""
+        """Represent RouteCollection as a string."""
         return f"<RouteCollection : {self.__len__()} routes>"

@@ -1,9 +1,11 @@
-from typing import Optional, Dict
+from __future__ import annotations
+
+from typing import ClassVar, Optional
 
 from gpxpy.gpx import GPXRoutePoint
 
-from bas_air_unit_network_dataset.features.waypoint import Waypoint
 from bas_air_unit_network_dataset.collections.waypoints import WaypointCollection
+from bas_air_unit_network_dataset.features.waypoint import Waypoint
 
 
 class RouteWaypoint:
@@ -19,12 +21,12 @@ class RouteWaypoint:
     See the 'Information Model' section of the library README for more information.
     """
 
-    feature_schema = {
+    feature_schema: ClassVar[dict] = {
         "geometry": "None",
         "properties": {"route_id": "str", "waypoint_id": "str", "sequence": "int"},
     }
 
-    feature_schema_spatial = {
+    feature_schema_spatial: ClassVar[dict] = {
         "geometry": "Point",
         "properties": feature_schema["properties"],
     }
@@ -42,12 +44,17 @@ class RouteWaypoint:
         self._sequence: int
 
         if waypoint is not None and sequence is None:
-            raise ValueError("A `sequence` value must be provided if `waypoint` is set.")
-        elif waypoint is None and sequence is not None:
-            raise ValueError("A `waypoint` value must be provided if `sequence` is set.")
-        elif waypoint is not None and sequence is not None:
-            self.waypoint = waypoint
-            self.sequence = sequence
+            msg = "A `sequence` value must be provided if `waypoint` is set."
+            raise ValueError(msg)
+        if waypoint is None and sequence is not None:
+            msg = "A `waypoint` value must be provided if `sequence` is set."
+            raise ValueError(msg)
+        if waypoint is None and sequence is None:
+            msg = "A `waypoint` and `sequence` value must be provided."
+            raise ValueError(msg)
+
+        self.waypoint = waypoint
+        self.sequence = sequence
 
     @property
     def waypoint(self) -> Waypoint:
@@ -93,7 +100,7 @@ class RouteWaypoint:
         """
         self._sequence = sequence
 
-    def loads_feature(self, feature: dict, waypoints: "WaypointCollection") -> None:
+    def loads_feature(self, feature: dict, waypoints: WaypointCollection) -> None:
         """
         Create a route waypoint from a generic feature.
 
@@ -110,9 +117,8 @@ class RouteWaypoint:
         try:
             self.waypoint = waypoints[feature["properties"]["waypoint_id"]]
         except KeyError as e:
-            raise KeyError(
-                f"Waypoint with ID {feature['properties']['waypoint_id']!r} not found in available waypoints."
-            ) from e
+            msg = f"Waypoint with ID {feature['properties']['waypoint_id']!r} not found in available waypoints."
+            raise KeyError(msg) from e
 
     def dumps_feature(
         self,
@@ -171,7 +177,7 @@ class RouteWaypoint:
 
         return feature
 
-    def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> Dict[str, str]:
+    def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> dict[str, str]:
         """
         Build CSV data for route waypoint.
 
@@ -189,9 +195,7 @@ class RouteWaypoint:
         del waypoint["last_accessed_at"]
         del waypoint["last_accessed_by"]
 
-        route_waypoint = {**route_waypoint, **waypoint}
-
-        return route_waypoint
+        return {**route_waypoint, **waypoint}
 
     def dumps_gpx(self) -> GPXRoutePoint:
         """
