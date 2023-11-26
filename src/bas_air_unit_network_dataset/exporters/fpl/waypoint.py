@@ -1,9 +1,14 @@
+from __future__ import annotations
+
 from typing import Optional
 
 from lxml.etree import Element, SubElement
 
 from bas_air_unit_network_dataset.exporters.fpl import Namespaces, fpl_waypoint_types
-from bas_air_unit_network_dataset.exporters.fpl.utils import _upper_alphanumeric_only, _upper_alphanumeric_space_only
+from bas_air_unit_network_dataset.exporters.fpl.utils import (
+    _upper_alphanumeric_only,
+    _upper_alphanumeric_space_only,
+)
 
 
 class Waypoint:
@@ -77,7 +82,7 @@ class Waypoint:
     @identifier.setter
     def identifier(self, identifier: str) -> None:
         """
-        Sets FPL waypoint identifier.
+        Set FPL waypoint identifier.
 
         The FPL standard uses identifiers as foreign keys for referencing waypoints within routes, identifiers should
         therefore be unique values.
@@ -98,7 +103,8 @@ class Waypoint:
         :param identifier: unique identifier
         """
         if len(identifier) > self.max_identifier_length:
-            raise ValueError(f"Identifier must be {self.max_identifier_length} characters or less.")
+            msg = f"Identifier must be {self.max_identifier_length} characters or less."
+            raise ValueError(msg)
         self._identifier = _upper_alphanumeric_only(value=identifier)
 
     @property
@@ -114,7 +120,7 @@ class Waypoint:
     @waypoint_type.setter
     def waypoint_type(self, waypoint_type: str) -> None:
         """
-        Sets FPL waypoint type.
+        Set FPL waypoint type.
 
         The FPL standard defines several types of waypoint defined in the `fpl_waypoint_types` list and which include:
         - "USER WAYPOINT": user defined
@@ -131,7 +137,8 @@ class Waypoint:
         :param waypoint_type: waypoint type, typically 'USER WAYPOINT'
         """
         if waypoint_type not in fpl_waypoint_types:
-            raise ValueError(f"Waypoint type must be one of {' '.join(fpl_waypoint_types)!r}")
+            msg = f"Waypoint type must be one of {' '.join(fpl_waypoint_types)!r}"
+            raise ValueError(msg)
 
         self._type = waypoint_type
 
@@ -150,7 +157,7 @@ class Waypoint:
     @country_code.setter
     def country_code(self, country_code: str) -> None:
         """
-        Used for organising and finding waypoints.
+        Set country code for organising and finding waypoints.
 
         The FPL standard restricts country codes to 2 characters, which must consist of upper case alphanumeric
         characters (A-Z 0-9) only. Values containing invalid characters will be silently dropped, except where noted
@@ -163,7 +170,8 @@ class Waypoint:
         :param country_code: two digit country code waypoint resides, or '__' for Antarctica
         """
         if len(country_code) > self.max_country_code_length:
-            raise ValueError(f"Country code must be {self.max_country_code_length} characters or less.")
+            msg = f"Country code must be {self.max_country_code_length} characters or less."
+            raise ValueError(msg)
 
         self._country_code = _upper_alphanumeric_only(value=country_code)
 
@@ -184,7 +192,7 @@ class Waypoint:
     @longitude.setter
     def longitude(self, longitude: float) -> None:
         """
-        Sets longitude component of waypoint geometry.
+        Set longitude component of waypoint geometry.
 
         The FPL standard assumes geometries are (single) points using the EPSG:4326 CRS. Values outside ±180 will raise
         a ValueError exception.
@@ -196,7 +204,8 @@ class Waypoint:
         :param longitude: longitude component of waypoint geometry
         """
         if -180 > longitude > 180:
-            raise ValueError("Longitude must be between -180 and +180.")
+            msg = "Longitude must be between -180 and +180."
+            raise ValueError(msg)
 
         if longitude == -180:
             longitude = -179.999999
@@ -218,7 +227,7 @@ class Waypoint:
     @latitude.setter
     def latitude(self, latitude: float) -> None:
         """
-        Sets latitude component of waypoint geometry.
+        Set latitude component of waypoint geometry.
 
         The FPL standard assumes geometries are (single) points using the EPSG:4326 CRS. Values outside ±90 will raise
         a ValueError exception.
@@ -230,7 +239,8 @@ class Waypoint:
         :param latitude: latitude component of waypoint geometry
         """
         if -90 > latitude > 90:
-            raise ValueError("Latitude must be between -90 and +90.")
+            msg = "Latitude must be between -90 and +90."
+            raise ValueError(msg)
 
         if latitude == 90:
             latitude = 89.999999
@@ -254,7 +264,7 @@ class Waypoint:
     @comment.setter
     def comment(self, comment: str) -> None:
         """
-        Sets optional FPL waypoint comment.
+        Set optional FPL waypoint comment.
 
         The FPL standard restricts waypoint comments to 25 characters, longer values will raise a ValueError exception.
 
@@ -270,7 +280,8 @@ class Waypoint:
         :param comment: Optional comment/description
         """
         if len(comment) > self.max_comment_length:
-            raise ValueError(f"Comments must be {self.max_comment_length} characters or less.")
+            msg = f"Comments must be {self.max_comment_length} characters or less."
+            raise ValueError(msg)
 
         self._comment = _upper_alphanumeric_space_only(value=comment)
 

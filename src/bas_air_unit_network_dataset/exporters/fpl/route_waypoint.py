@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from typing import Optional
 
 from lxml.etree import Element, SubElement
@@ -61,7 +63,7 @@ class RouteWaypoint:
     @waypoint_identifier.setter
     def waypoint_identifier(self, waypoint_identifier: str) -> None:
         """
-        Sets reference to a FPL waypoint based on the waypoint identifier.
+        Set reference to a FPL waypoint based on the waypoint identifier.
 
         As this value is a reference to an unknown set of waypoints, this value cannot be validated, except when loaded
         into the GPS device (which does have access to the set of waypoints).
@@ -70,7 +72,8 @@ class RouteWaypoint:
         :param waypoint_identifier: FPL waypoint identifier
         """
         if len(waypoint_identifier) > self.max_identifier_length:
-            raise ValueError(f"Waypoint identifier must be {self.max_identifier_length} characters or less.")
+            msg = f"Waypoint identifier must be {self.max_identifier_length} characters or less."
+            raise ValueError(msg)
 
         self._waypoint_identifier = _upper_alphanumeric_only(value=waypoint_identifier)
 
@@ -95,7 +98,8 @@ class RouteWaypoint:
         :param waypoint_type: FPL waypoint type
         """
         if waypoint_type not in fpl_waypoint_types:
-            raise ValueError(f"Waypoint type must be one of {' '.join(fpl_waypoint_types)!r}")
+            msg = f"Waypoint type must be one of {' '.join(fpl_waypoint_types)!r}"
+            raise ValueError(msg)
 
         self._waypoint_type = waypoint_type
 
@@ -119,10 +123,11 @@ class RouteWaypoint:
         See the main FPL Waypoint class for more information on setting this property.
 
         :type waypoint_country_code: str
-        :param waypoint_country_code:
+        :param waypoint_country_code: FPL waypoint country code
         """
         if len(waypoint_country_code) > self.max_country_code_length:
-            raise ValueError(f"Country code must be {self.max_country_code_length} characters or less.")
+            msg = f"Country code must be {self.max_country_code_length} characters or less."
+            raise ValueError(msg)
 
         self._waypoint_country_code = _upper_alphanumeric_only(value=waypoint_country_code)
 

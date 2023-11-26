@@ -1,15 +1,20 @@
+from __future__ import annotations
+
 import csv
 from collections import OrderedDict
 from pathlib import Path
-from typing import Optional, List, Dict, Union
+from typing import ClassVar, Optional, Union
 
 import ulid
 from gpxpy.gpx import GPX, GPXRoute
 
-from bas_air_unit_network_dataset import Waypoint, RouteWaypoint
 from bas_air_unit_network_dataset.exporters.fpl.fpl import Fpl
 from bas_air_unit_network_dataset.exporters.fpl.route import Route as FplRoute
-from bas_air_unit_network_dataset.exporters.fpl.route_waypoint import RouteWaypoint as FplRouteWaypoint
+from bas_air_unit_network_dataset.exporters.fpl.route_waypoint import (
+    RouteWaypoint as FplRouteWaypoint,
+)
+from bas_air_unit_network_dataset.features.route_waypoint import RouteWaypoint
+from bas_air_unit_network_dataset.features.waypoint import Waypoint
 
 
 class Route:
@@ -33,23 +38,27 @@ class Route:
     See the 'Information Model' section of the library README for more information.
     """
 
-    feature_schema = {
+    feature_schema: ClassVar[dict] = {
         "geometry": "None",
         "properties": {"id": "str", "name": "str"},
     }
 
-    feature_schema_spatial = {
+    feature_schema_spatial: ClassVar[dict] = {
         "geometry": "LineString",
         "properties": {"id": "str", "name": "str"},
     }
 
-    # TODO: Determine why this requires an ordered dict when other schemas don't
-    feature_schema_waypoints_spatial = {"geometry": "Point", "properties": OrderedDict()}
+    # TODO: Determine why this needs an ordered dict
+    # https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/205
+    feature_schema_waypoints_spatial: ClassVar[dict] = {
+        "geometry": "Point",
+        "properties": OrderedDict(),
+    }
     feature_schema_waypoints_spatial["properties"]["sequence"] = "int"
     feature_schema_waypoints_spatial["properties"]["identifier"] = "str"
     feature_schema_waypoints_spatial["properties"]["comment"] = "str"
 
-    csv_schema_waypoints = {
+    csv_schema_waypoints: ClassVar[dict] = {
         "sequence": "str",
         "identifier": "str",
         "name": "str",
@@ -60,7 +69,7 @@ class Route:
     def __init__(
         self,
         name: Optional[str] = None,
-        route_waypoints: Optional[List[Dict[str, Union[str, Waypoint]]]] = None,
+        route_waypoints: Optional[list[dict[str, Union[str, Waypoint]]]] = None,
     ) -> None:
         """
         Create or load a route, optionally setting parameters.
@@ -75,7 +84,7 @@ class Route:
         self._id: str = str(ulid.new())
 
         self._name: str
-        self._waypoints: List[RouteWaypoint] = []
+        self._waypoints: list[RouteWaypoint] = []
 
         if name is not None:
             self.name = name
@@ -135,7 +144,7 @@ class Route:
         self._name = name
 
     @property
-    def waypoints(self) -> List[RouteWaypoint]:
+    def waypoints(self) -> list[RouteWaypoint]:
         """
         Get waypoints that make up route.
 
@@ -151,7 +160,7 @@ class Route:
         return self._waypoints
 
     @waypoints.setter
-    def waypoints(self, route_waypoints: List[RouteWaypoint]) -> None:
+    def waypoints(self, route_waypoints: list[RouteWaypoint]) -> None:
         """
         Set waypoints within route.
 
@@ -257,7 +266,7 @@ class Route:
         inc_route_id: bool = False,
         inc_route_name: bool = False,
         use_identifiers: bool = False,
-    ) -> List[dict]:
+    ) -> list[dict]:
         """
         Build waypoints within route as a set of generic features for further processing.
 
@@ -284,7 +293,10 @@ class Route:
         for route_waypoint in self.waypoints:
             features.append(
                 route_waypoint.dumps_feature(
-                    inc_spatial=inc_spatial, route_id=_route_id, route_name=_route_name, use_identifiers=use_identifiers
+                    inc_spatial=inc_spatial,
+                    route_id=_route_id,
+                    route_name=_route_name,
+                    use_identifiers=use_identifiers,
                 )
             )
 
@@ -297,7 +309,7 @@ class Route:
         inc_route_id: bool = False,
         inc_route_name: bool = False,
         use_identifiers: bool = False,
-    ) -> Union[dict, List[dict]]:
+    ) -> Union[dict, list[dict]]:
         """
         Build route as a generic feature for further processing.
 
@@ -333,7 +345,7 @@ class Route:
         route_column: bool = False,
         inc_dd_lat_lon: bool = True,
         inc_ddm_lat_lon: bool = True,
-    ) -> List[dict]:
+    ) -> list[dict]:
         """
         Build CSV data for route.
 
@@ -349,16 +361,20 @@ class Route:
         :return: rows of generated CSV data for route, a list of dictionaries
         """
         if not inc_waypoints:
-            raise RuntimeError("Routes without waypoints cannot be dumped to CSV, set `inc_waypoints` to True.")
+            msg = "Routes without waypoints cannot be dumped to CSV, set `inc_waypoints` to True."
+            raise RuntimeError(msg)
 
-        csv_rows: List[Dict] = []
+        csv_rows: list[dict] = []
         for route_waypoint in self.waypoints:
             route_waypoint_csv_row = route_waypoint.dumps_csv(
                 inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon
             )
 
             if route_column:
-                route_waypoint_csv_row = {**{"route_name": self.name}, **route_waypoint_csv_row}
+                route_waypoint_csv_row = {
+                    **{"route_name": self.name},
+                    **route_waypoint_csv_row,
+                }
 
             csv_rows.append(route_waypoint_csv_row)
 
@@ -389,7 +405,7 @@ class Route:
         :param inc_ddm_lat_lon: include latitude and longitude columns in degrees decimal minutes format
         """
         # this process is very inelegant and needs improving to remove duplication [#110]
-        fieldnames: List[str] = list(Route.csv_schema_waypoints.keys())
+        fieldnames: list[str] = list(Route.csv_schema_waypoints.keys())
         if inc_dd_lat_lon:
             fieldnames = [
                 "sequence",
@@ -430,10 +446,10 @@ class Route:
             ]
 
         if route_column:
-            fieldnames = ["route_name"] + fieldnames
+            fieldnames = ["route_name", *fieldnames]
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]
-        with open(path, mode="w", newline="", encoding="utf-8-sig") as output_file:
+        with path.open(mode="w", newline="", encoding="utf-8-sig") as output_file:
             writer = csv.DictWriter(output_file, fieldnames=fieldnames)
             writer.writeheader()
             writer.writerows(
@@ -478,7 +494,7 @@ class Route:
         :type inc_waypoints: bool
         :param inc_waypoints: include waypoints alongside routes
         """
-        with open(path, mode="w") as gpx_file:
+        with path.open(mode="w") as gpx_file:
             gpx_file.write(self.dumps_gpx(inc_waypoints=inc_waypoints).to_xml())
 
     def dumps_fpl(self, flight_plan_index: int) -> Fpl:
@@ -522,11 +538,11 @@ class Route:
         :type flight_plan_index: int
         :param flight_plan_index: FPL index
         """
-        with open(path, mode="w") as xml_file:
+        with path.open(mode="w") as xml_file:
             xml_file.write(self.dumps_fpl(flight_plan_index=flight_plan_index).dumps_xml().decode())
 
     def __repr__(self) -> str:
-        """String representation of a Route."""
+        """Represent Route as a string."""
         start = "-"
         end = "-"
 

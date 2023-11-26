@@ -636,7 +636,7 @@ precedence.
 
 ### Requirements
 
-- Python 3.8+
+- Python 3.9+
 - libxml2 with `xmlint` binary available on Path
 - read/write access to a suitable location for creating a [Workspace Directory](#workspace-directory)
 

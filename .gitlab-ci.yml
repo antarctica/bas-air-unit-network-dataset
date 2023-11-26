@@ -18,7 +18,7 @@ cache:
     - .venv/   # for project dependencies
 
 image:
-  name: python:3.8-slim
+  name: python:3.9-slim
 
 stages:
   - 🧪 test
@@ -65,7 +65,7 @@ lint:
   stage: 📋 lint
   needs: []
   script:
-    - poetry run ruff check src/ tests/ --output-format gitlab > lint-results.json
+    - poetry run ruff check src/ tests/
     - poetry run ruff format --check src/ tests/
     - poetry run safety check --full-report --ignore=61601 --ignore=61893 --ignore=62044
   artifacts:

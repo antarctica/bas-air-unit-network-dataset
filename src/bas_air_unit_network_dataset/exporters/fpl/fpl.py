@@ -1,10 +1,14 @@
+from __future__ import annotations
+
 import subprocess
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Optional, List
+from typing import Optional
 
-from importlib_resources import as_file as resource_path_as_file, files as resource_path
-from lxml.etree import Element, ElementTree, tostring as element_string
+from importlib_resources import as_file as resource_path_as_file
+from importlib_resources import files as resource_path
+from lxml.etree import Element, ElementTree
+from lxml.etree import tostring as element_string
 
 from bas_air_unit_network_dataset.exporters.fpl import Namespaces
 from bas_air_unit_network_dataset.exporters.fpl.route import Route
@@ -43,7 +47,7 @@ class Fpl:
     authoring information and using different symbols. See #31 for more information.
     """
 
-    def __init__(self, waypoints: Optional[List[Waypoint]] = None, route: Optional[Route] = None) -> None:
+    def __init__(self, waypoints: Optional[list[Waypoint]] = None, route: Optional[Route] = None) -> None:
         """
         Create FPL, optionally setting parameters.
 
@@ -57,7 +61,7 @@ class Fpl:
         with resource_path_as_file(resource_path("bas_air_unit_network_dataset.schemas.garmin")) as schema_dir:
             self.schema_path = schema_dir.joinpath("FlightPlanv1.xsd")
 
-        self._waypoints: List[Waypoint] = []
+        self._waypoints: list[Waypoint] = []
         self._route: Optional[Route] = None
 
         if waypoints is not None:
@@ -67,7 +71,7 @@ class Fpl:
             self.route = route
 
     @property
-    def waypoints(self) -> List[Waypoint]:
+    def waypoints(self) -> list[Waypoint]:
         """
         List of waypoints for FPLs that describe an index of waypoints (type 2).
 
@@ -79,9 +83,9 @@ class Fpl:
         return self._waypoints
 
     @waypoints.setter
-    def waypoints(self, waypoints: List[Waypoint]) -> None:
+    def waypoints(self, waypoints: list[Waypoint]) -> None:
         """
-        Sets waypoints for FPLs that describe an index of waypoints (type 1).
+        Set waypoints for FPLs that describe an index of waypoints (type 1).
 
         :type waypoints: list
         :param waypoints: Set of FPL waypoints
@@ -103,7 +107,7 @@ class Fpl:
     @route.setter
     def route(self, route: Route) -> None:
         """
-        Sets the route for FPLs that are describe routes (type 2).
+        Set the route for FPLs that are describe routes (type 2).
 
         :type route: Route
         :param route: FPL route
@@ -149,12 +153,12 @@ class Fpl:
         :type path: Path
         :param path: XML output path
         """
-        with open(path, mode="w") as xml_file:
+        with path.open(mode="w") as xml_file:
             xml_file.write(self.dumps_xml().decode())
 
     def validate(self) -> None:
         """
-        Validates the contents of a flight plan against a XSD schema.
+        Validate contents of a flight plan against a XSD schema.
 
         The external `xmllint` binary is used for validation as the `lxml` methods do not easily support relative paths
         for schemas that use imports/includes.
@@ -177,11 +181,17 @@ class Fpl:
                 # Namely, that this package will be run in a secure/controlled environments against pre-trusted files.
                 #
                 # Use `capture_output=True` in future when we can use Python 3.7+
-                subprocess.run(  # noqa: S274,S603 - nosec
-                    args=["xmllint", "--noout", "--schema", str(self.schema_path), str(document_path)],
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
+                subprocess.run(
+                    args=[
+                        "xmllint",
+                        "--noout",
+                        "--schema",
+                        str(self.schema_path),
+                        str(document_path),
+                    ],
+                    capture_output=True,
                     check=True,
                 )
             except subprocess.CalledProcessError as e:
-                raise RuntimeError(f"Record validation failed: {e.stderr.decode()}") from e
+                msg = f"Record validation failed: {e.stderr.decode()}"
+                raise RuntimeError(msg) from e
