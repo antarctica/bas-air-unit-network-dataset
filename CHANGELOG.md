@@ -66,6 +66,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#200](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/200)
 * Upgrading to Python 3.9.x
   [#202](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/202)
+* Including FPL XSD schema refactored to be included as static file
+  [#203](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/203)
 
 ### Removed
 

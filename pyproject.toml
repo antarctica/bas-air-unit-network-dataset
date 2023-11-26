@@ -21,6 +21,7 @@ classifiers = [
     "Topic :: Text Processing :: Markup :: XML",
     "Topic :: Utilities"
 ]
+include = ["src/bas_air_unit_network_dataset/exporters/fpl/schemas/garmin/FlightPlanv1.xsd"]
 
 [tool.poetry.scripts]
 airnet = "bas_air_unit_network_dataset.cli:cli"
