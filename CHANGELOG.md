@@ -34,6 +34,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#174](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/174)
 * Continuous Deployment
   [#167](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/167)
+* GitLab release issue template
+  [#124](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/124)
 
 ### Fixed
 
