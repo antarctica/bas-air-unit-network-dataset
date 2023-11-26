@@ -26,13 +26,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#84](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/84)
 * Black code formatting
   [#81](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/81)
-* basic Continuous Integration
+* Basic Continuous Integration
   [#82](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/82)
-* improved Continuous Integration, verifying test network can be minimally processed
+* Improved Continuous Integration, verifying test network can be minimally processed
   [#168](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/168)
-* versioning to the test network
+* Versioning to the test network
   [#173](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/173)
-* script to recreate test network as GeoJSON for testing in QGIS
+* Script to recreate test network as GeoJSON for testing in QGIS
   [#174](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/174)
 * Continuous Deployment
   [#167](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/167)
@@ -41,26 +41,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-* file encoding for CSV files when opened with Microsoft Excel
+* File encoding for CSV files when opened with Microsoft Excel
   [#185](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/185)
-* addressing security vulnerabilities
+* Addressing security vulnerabilities
   [#195](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/195)
-* correcting double longitude value in convert to DDM function
+* Correcting double longitude value in convert to DDM function
   [#196](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/196)
-* various bugs and improvements to FPL exporter
+* Various bugs and improvements to FPL exporter
   [#197](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/197)
 
 ### Changed
 
-* upgrading Python dependencies
+* Upgrading Python dependencies
   [#140](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/140)
-* downgrading required Python version to 3.8, for compatibility with the Operations Data Store project
+* Downgrading required Python version to 3.8, for compatibility with the Operations Data Store project
   [#138](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/138)
-* incorporating the test network into this project
+* Incorporating the test network into this project
   [#172](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/172)
-* waypoints will be sorted by their sequence when added to a route
+* Waypoints will be sorted by their sequence when added to a route
   [#164](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/164)
-* refactoring classes into more manageable modules
+* Refactoring classes into more manageable modules
   [#202](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/202)
 * Aligning development environment stack with Ops Data Store
   [#200](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/200)
@@ -74,26 +74,26 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* note that on Windows the working directory must be on the same drive as the Python interpreter
+* Note that on Windows the working directory must be on the same drive as the Python interpreter
   [#128](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/128)
 
 ### Fixed
 
-* creating datasets in a path with missing parent directories
+* Creating datasets in a path with missing parent directories
   [#128](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/128)
-* files encoded as UTF-8 with BOM, which could not be parsed correctly as input files
+* Files encoded as UTF-8 with BOM, which could not be parsed correctly as input files
   [#130](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/130)
 
 ## [0.2.1] - 2022-09-29
 
 ### Added
 
-* fix for missing Microsoft Visual C++ redistributable
+* Fix for missing Microsoft Visual C++ redistributable
   [#122](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/122)
 
 ### Fixed
 
-* typo in LibXML2 installation instructions
+* Typo in LibXML2 installation instructions
   [#121](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/121)
 
 ## [0.2.0] - 2022-09-28 [BREAKING!]
@@ -102,7 +102,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * `designator` field in waypoints changed to `identifier`
   [#114](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/114)
-* splitting `comment` field into `name` and `comment` fields (as part of overall GPX `cmt` field)
+* Splitting `comment` field into `name` and `comment` fields (as part of overall GPX `cmt` field)
   [#99](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/99)
 * `description` field maximum length limited to maximum FPL comment length
   [#105](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/105)
@@ -111,22 +111,22 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* option to create CSV outputs with DD and/or DDM lat lon fields
+* Option to create CSV outputs with DD and/or DDM lat lon fields
   [#94](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/94)
-* missing documentation for setting CLI parameters using environment variables
+* Missing documentation for setting CLI parameters using environment variables
   [#65](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/65)
-* background section in README
+* Background section in README
   [#109](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/109)
 
 ### Fixed
 
-* corrected to use spaces rather than underscores in FPL route names
+* Corrected to use spaces rather than underscores in FPL route names
   [#95](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/95)
-* command example parameters used the wrong values
+* Command example parameters used the wrong values
   [#97](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/97)
-* output format table incorrectly stated CSV files produced a network output
+* Output format table incorrectly stated CSV files produced a network output
   [#96](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/96)
-* incorrect installation instructions for setting the user vs. system PATH environment variable
+* Incorrect installation instructions for setting the user vs. system PATH environment variable
   [#91](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/91)
 
 ### Changed
@@ -142,7 +142,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* core `Waypoint`, `WaypointCollection`, `Route`, `RouteCollection`, `RouteWaypoint` classes, and initial 
+* Core `Waypoint`, `WaypointCollection`, `Route`, `RouteCollection`, `RouteWaypoint` classes, and initial 
   `NetworkManager` class
   [#5](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/5)
 * CSV export
@@ -151,21 +151,21 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#2](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/2)
 * FPL export
   [#4](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/4)
-* degrees decimal minutes (DDM) coordinate formatting for CSV export
+* Degrees decimal minutes (DDM) coordinate formatting for CSV export
   [#36](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/36)
 * GeoPackage persistence layer
   [#9](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/9)
-* basic CLI
+* Basic CLI
   [#41](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/41)
 * GPX import from Garmin BaseCamp
   [#47](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/47)
-* information/data model documentation
+* Information/data model documentation
   [#10](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/11)
-* project documentation
+* Project documentation
   [#35](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/35)
-* installation bundle for required software
+* Installation bundle for required software
   [#52](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/52)
-* test network data
+* Test network data
   [#6](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/6)
 * QGIS visualisation for test network
   [#27](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/27)
@@ -176,13 +176,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Fixed
 
-* waypoints table being duplicated in FPL export
+* Waypoints table being duplicated in FPL export
   [#38](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/38)
-* description/comment property not included in CSV export
+* Description/comment property not included in CSV export
   [#40](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/40)
-* waypoints in network GPX file ony including waypoints used in routes
+* Waypoints in network GPX file ony including waypoints used in routes
   [#53](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/53)
 * CSV newline line separator incorrect on Windows
   [#63](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/63)
-* incorrect file names used in output directory
+* Incorrect file names used in output directory
   [#66](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/66)

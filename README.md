@@ -454,11 +454,29 @@ This dataset does not follow any particular standard or output format as it's in
 formats and support properties that may not be part of any standard. Derived versions of the network in some standard 
 formats are also available (from the same directory) for testing data loading, etc.
 
-#### Test network workspace directory
+#### Updating test network
 
-A [Workspace Directory](#workspace-directory) for the test network is maintained in the
-[MAGIC Office 365 OneDrive](https://nercacuk.sharepoint.com/:f:/s/BASMagicTeam/EhBAbE0tTDxCt298WEPOWoMBtuV7yxOYuJ8bPslVdKlASQ)
-and is accessible to all BAS staff. When South, MAGIC will hold a copy of the test network on a hard drive.
+If updating the test network, ensure to:
+
+1. update the version attribute in the test network to the current date
+1. recreate derived versions of the network as needed (for example the GPX derived output) [1]
+1. use the network utility to generate sample exports [2]
+1. manually verify the QGIS project for visualising the network is correct and update/fix as needed
+
+[1]
+
+```
+$ poetry run python tests/create_derived_test_outputs.py
+```
+
+[2]
+
+```
+$ poetry run airnet import -d tests/resources/test-network/bas-air-unit-network-dataset.gpkg -i tests/resources/test-network/test-network.gpx
+$ poetry run airnet export -d tests/resources/test-network/bas-air-unit-network-dataset.gpkg -o tests/resources/test-network/reference-outputs/
+```
+
+After running, ensure all dates in files are updated to values set in `tests/compare_outputs.py`.
 
 ### Output formats
 
@@ -788,44 +806,10 @@ All commits will trigger a Continuous Deployment process using GitLab's CI/CD pl
 
 To create a release, create an issue using the *release* issue template and follow the included checklist.
 
-### Updating the test network
-
-If updating the [Test Network](#test-network), ensure to:
-
-1. update the version attribute in the test network to the current date
-1. recreate derived versions of the network as needed (for example the GPX derived output) [1]
-1. use the network utility to generate sample exports [2]
-1. manually verify the QGIS project for visualising the network is correct and update/fix as needed
-1. manually update the [Test Network Workspace Directory](#test-network-workspace-directory) as needed
-    * `test-network.gpx` -> `input.gpx`
-    * `reference-outputs/` -> `outputs/`
-
-[1]
-
-```
-$ poetry run python tests/create_derived_test_outputs.py
-```
-
-[2]
-
-```
-$ poetry run airnet import -d tests/resources/test-network/bas-air-unit-network-dataset.gpkg -i tests/resources/test-network/test-network.gpx
-$ poetry run airnet export -d tests/resources/test-network/bas-air-unit-network-dataset.gpkg -o tests/resources/test-network/reference-outputs/
-```
-
-After running, ensure all dates in files are updated to value set in `tests/compare_outputs.py`.
-
 ## Feedback
 
-The maintainer of this project is the BAS Mapping and Geographic Information Centre (MAGIC), they can be contacted at:
-[magic@bas.ac.uk](mailto:magic@bas.ac.uk).
-
-## Issue tracking
-
-This project uses issue tracking, see the
-[Issue tracker](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues) for more information.
-
-**Note:** Read & write access to this issue tracker is restricted. Contact the project maintainer to request access.
+This project is maintained by the BAS Mapping and Geographic Information Centre
+([MAGIC](https://bas.ac.uk/teams/magic)), contactable at: [magic@bas.ac.uk](mailto:magic@bas.ac.uk).
 
 ## License
 
