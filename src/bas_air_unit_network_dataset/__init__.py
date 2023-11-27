@@ -250,11 +250,11 @@ class NetworkManager:
         path = self._get_output_path(path=path, fmt_dir="CSV")
 
         self.waypoints.dump_csv(
-            path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.csv")),
+            path=path.joinpath(file_name_with_date("00_WAYPOINTS_DDM_{{date}}.csv")),
             inc_ddm_lat_lon=True,
         )
         self.waypoints.dump_csv(
-            path=path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}_DD.csv")),
+            path=path.joinpath(file_name_with_date("00_WAYPOINTS_DD_{{date}}.csv")),
             inc_dd_lat_lon=True,
         )
 
