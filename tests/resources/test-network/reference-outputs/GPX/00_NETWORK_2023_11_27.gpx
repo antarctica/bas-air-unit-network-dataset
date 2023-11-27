@@ -2,7 +2,7 @@
 <gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
   <wpt lat="-69.91521433690127" lon="-75.0146484375">
     <name>ALPHA</name>
-    <desc>Name: Alpha | Last assessed: 2012-04-24, by: ~conwat | Comment: There's unlimited juice?</desc>
+    <desc>Name: Alpha | Co-Located with: Alpha 001 | Last assessed: 2012-04-24, by: ~conwat | Comment: There's unlimited juice?</desc>
   </wpt>
   <wpt lat="-70.83024762385253" lon="-75.1904296875">
     <name>BRAVO</name>

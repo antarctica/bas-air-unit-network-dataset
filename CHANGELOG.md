@@ -38,6 +38,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#167](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/167)
 * GitLab release issue template
   [#124](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/124)
+* Co-located example in test network
+  [#178](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/178)
 
 ### Fixed
 
@@ -49,6 +51,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#196](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/196)
 * Various bugs and improvements to FPL exporter
   [#197](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/197)
+* Using correct terminology for waypoint identifiers
+  [#177](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/177)
 
 ### Changed
 
