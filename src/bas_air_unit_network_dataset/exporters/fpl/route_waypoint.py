@@ -37,12 +37,12 @@ class RouteWaypoint:
         """
         self.ns = Namespaces()
 
-        self._waypoint_identifier: str
+        self._waypoint_reference: str
         self._waypoint_type: str
         self._waypoint_country_code: str
 
         if waypoint_identifier is not None:
-            self.waypoint_identifier = waypoint_identifier
+            self.waypoint_reference = waypoint_identifier
 
         if waypoint_type is not None:
             self.waypoint_type = waypoint_type
@@ -51,17 +51,17 @@ class RouteWaypoint:
             self.waypoint_country_code = waypoint_country_code
 
     @property
-    def waypoint_identifier(self) -> str:
+    def waypoint_reference(self) -> str:
         """
         Identifier of related FPL waypoint.
 
         :rtype: str
         :return: FPL waypoint identifier
         """
-        return self._waypoint_identifier
+        return self._waypoint_reference
 
-    @waypoint_identifier.setter
-    def waypoint_identifier(self, waypoint_identifier: str) -> None:
+    @waypoint_reference.setter
+    def waypoint_reference(self, waypoint_identifier: str) -> None:
         """
         Set reference to a FPL waypoint based on the waypoint identifier.
 
@@ -75,7 +75,7 @@ class RouteWaypoint:
             msg = f"Waypoint identifier must be {self.max_identifier_length} characters or less."
             raise ValueError(msg)
 
-        self._waypoint_identifier = _upper_alphanumeric_only(value=waypoint_identifier)
+        self._waypoint_reference = _upper_alphanumeric_only(value=waypoint_identifier)
 
     @property
     def waypoint_type(self) -> str:
@@ -145,7 +145,7 @@ class RouteWaypoint:
         route_point = Element(f"{{{self.ns.fpl}}}route-point", nsmap=self.ns.nsmap())
 
         waypoint_identifier = SubElement(route_point, f"{{{self.ns.fpl}}}waypoint-identifier")
-        waypoint_identifier.text = self.waypoint_identifier
+        waypoint_identifier.text = self.waypoint_reference
 
         waypoint_type = SubElement(route_point, f"{{{self.ns.fpl}}}waypoint-type")
         waypoint_type.text = self.waypoint_type
