@@ -517,7 +517,7 @@ class Route:
 
         for route_waypoint in self.waypoints:
             route_point = FplRouteWaypoint()
-            route_point.waypoint_identifier = route_waypoint.waypoint.identifier
+            route_point.waypoint_reference = route_waypoint.waypoint.identifier
             route_point.waypoint_type = "USER WAYPOINT"
             route_point.waypoint_country_code = "__"
             route.points.append(route_point)

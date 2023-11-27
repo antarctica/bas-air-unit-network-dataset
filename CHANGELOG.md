@@ -75,6 +75,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#203](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/203)
 * Updating naming format for CSV outputs to include coordinate format consistently
   [#180](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/180)
+* Renaming `FPLRouteWaypoint.waypoint_identifier` to `FPLRouteWaypoint.waypoint_reference` to better reflect its purpose
+  [#158](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/158)
 
 ### Removed
 
