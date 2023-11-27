@@ -9,11 +9,11 @@ from fiona.crs import from_epsg as crs_from_epsg
 from gpxpy import parse as gpx_parse
 from gpxpy.gpx import GPX
 
-from bas_air_unit_network_dataset.collections.routes import RouteCollection
-from bas_air_unit_network_dataset.collections.waypoints import WaypointCollection
-from bas_air_unit_network_dataset.features.route import Route
-from bas_air_unit_network_dataset.features.route_waypoint import RouteWaypoint
-from bas_air_unit_network_dataset.features.waypoint import Waypoint
+from bas_air_unit_network_dataset.models.route import Route
+from bas_air_unit_network_dataset.models.route_waypoint import RouteWaypoint
+from bas_air_unit_network_dataset.models.routes import RouteCollection
+from bas_air_unit_network_dataset.models.waypoint import Waypoint
+from bas_air_unit_network_dataset.models.waypoints import WaypointCollection
 from bas_air_unit_network_dataset.utils import file_name_with_date
 
 
