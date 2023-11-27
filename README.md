@@ -542,7 +542,6 @@ Notes:
 Limitations:
 
 * all properties are encoded as strings, without type hints using extended CSV schemes etc.
-* `waypoint.geometries` containing an elevation (Z) dimension are not included in CSV outputs
 * CSV outputs are not validated
 
 #### Output format - GPX
@@ -571,7 +570,6 @@ Limitations:
 * underscores (`_`) characters are stripped from route names *within* FPL files (rather than the names *of* FPL 
   files), a local override is used to replace underscores with spaces (` `) to work around this limitation
 * FPL metadata fields (author, last updated, etc.) are not currently populated
-* `waypoint.geometries` containing an elevation (Z) dimension are not included in FPL outputs
 
 [1] This limit comes from the specific UI shown in the aircraft GPS used by the BAS Air Unit.
 
