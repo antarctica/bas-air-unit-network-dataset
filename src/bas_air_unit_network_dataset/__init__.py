@@ -201,17 +201,23 @@ class NetworkManager:
             _waypoint.geometry = [waypoint.longitude, waypoint.latitude]
 
             if waypoint.description is not None and waypoint.description != "N/A | N/A | N/A | N/A | N/A":
-                comment_elements = waypoint.description.split(" | ")
-                if comment_elements[0] != "N/A":
-                    _waypoint.name = comment_elements[0]
-                if comment_elements[1] != "N/A":
-                    _waypoint.colocated_with = comment_elements[1]
-                if comment_elements[2] != "N/A":
-                    _waypoint.last_accessed_at = date.fromisoformat(comment_elements[2])
-                if comment_elements[3] != "N/A":
-                    _waypoint.last_accessed_by = comment_elements[3]
-                if comment_elements[4] != "N/A":
-                    _waypoint.comment = comment_elements[4]
+                comment_elements = waypoint.description.split("|")
+                name = comment_elements[0].strip()
+                colocated_with = comment_elements[1].strip()
+                last_accessed_at = comment_elements[2].strip()
+                last_accessed_by = comment_elements[3].strip()
+                comment = comment_elements[4].strip()
+
+                if name != "N/A":
+                    _waypoint.name = name
+                if colocated_with != "N/A":
+                    _waypoint.colocated_with = colocated_with
+                if last_accessed_at != "N/A":
+                    _waypoint.last_accessed_at = date.fromisoformat(last_accessed_at)
+                if last_accessed_by != "N/A":
+                    _waypoint.last_accessed_by = last_accessed_by
+                if comment != "N/A":
+                    _waypoint.comment = comment
 
             self.waypoints.append(_waypoint)
 

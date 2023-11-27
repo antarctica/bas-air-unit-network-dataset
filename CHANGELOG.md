@@ -53,6 +53,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#197](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/197)
 * Using correct terminology for waypoint identifiers
   [#177](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/177)
+* Improve waypoint comment parsing
+  [#132](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/132)
 
 ### Changed
 
