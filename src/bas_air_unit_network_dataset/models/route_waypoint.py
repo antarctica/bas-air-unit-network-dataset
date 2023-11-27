@@ -4,8 +4,8 @@ from typing import ClassVar, Optional
 
 from gpxpy.gpx import GPXRoutePoint
 
-from bas_air_unit_network_dataset.collections.waypoints import WaypointCollection
-from bas_air_unit_network_dataset.features.waypoint import Waypoint
+from bas_air_unit_network_dataset.models.waypoint import Waypoint
+from bas_air_unit_network_dataset.models.waypoints import WaypointCollection
 
 
 class RouteWaypoint:

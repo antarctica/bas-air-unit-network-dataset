@@ -6,7 +6,7 @@ from pathlib import Path
 
 from gpxpy.gpx import GPX
 
-from bas_air_unit_network_dataset.features.route import Route
+from bas_air_unit_network_dataset.models.route import Route
 
 
 class RouteCollection:

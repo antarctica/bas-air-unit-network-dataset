@@ -13,8 +13,8 @@ from bas_air_unit_network_dataset.exporters.fpl.route import Route as FplRoute
 from bas_air_unit_network_dataset.exporters.fpl.route_waypoint import (
     RouteWaypoint as FplRouteWaypoint,
 )
-from bas_air_unit_network_dataset.features.route_waypoint import RouteWaypoint
-from bas_air_unit_network_dataset.features.waypoint import Waypoint
+from bas_air_unit_network_dataset.models.route_waypoint import RouteWaypoint
+from bas_air_unit_network_dataset.models.waypoint import Waypoint
 
 
 class Route:
