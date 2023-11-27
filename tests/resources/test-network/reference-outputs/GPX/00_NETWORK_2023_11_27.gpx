@@ -2,51 +2,50 @@
 <gpx xmlns="http://www.topografix.com/GPX/1/1" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.topografix.com/GPX/1/1 http://www.topografix.com/GPX/1/1/gpx.xsd" version="1.1" creator="gpx.py -- https://github.com/tkrajina/gpxpy">
   <wpt lat="-69.91521433690127" lon="-75.0146484375">
     <name>ALPHA</name>
-    <desc>Name: Alpha | Co-Located with: Alpha 001 | Last assessed: 2012-04-24, by: ~conwat | Comment: There's unlimited juice?</desc>
+    <desc>Alpha</desc>
   </wpt>
   <wpt lat="-70.83024762385253" lon="-75.1904296875">
     <name>BRAVO</name>
-    <desc>-</desc>
   </wpt>
   <wpt lat="-71.76019138754775" lon="-71.4990234375">
     <name>CHARLE</name>
-    <desc>Name: Charlie | Comment: You're losing blood, aren't you?</desc>
+    <desc>Charlie</desc>
   </wpt>
   <wpt lat="-72.75103864328744" lon="-66.09375">
     <name>DELTA</name>
-    <desc>Name: Delta | Comment: How about a turtle?</desc>
+    <desc>Delta</desc>
   </wpt>
   <wpt lat="-73.45347276327497" lon="-61.61132812500001">
     <name>ECHO</name>
-    <desc>Name: Echo | Comment: I don't criticize you!</desc>
+    <desc>Echo</desc>
   </wpt>
   <wpt lat="-73.17589717422607" lon="-70.224609375">
     <name>FOXTRT</name>
-    <desc>Name: Foxtrot | Comment: Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
+    <desc>Foxtrot</desc>
   </wpt>
   <wpt lat="-74.20002150558591" lon="-70.3125">
     <name>GOLF</name>
-    <desc>Name: Golf | Comment: I've always been deeply passionate about nature. 🌳</desc>
+    <desc>Golf</desc>
   </wpt>
   <wpt lat="-74.42577748401031" lon="-65.4345703125">
     <name>HOTEL</name>
-    <desc>Name: Hotel | Comment: I don't know how I know that. I took four years of Spanish.</desc>
+    <desc>Hotel</desc>
   </wpt>
   <wpt lat="-75.70478638174052" lon="-63.017578125">
     <name>INDIA</name>
-    <desc>Name: India | Comment: I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
+    <desc>India</desc>
   </wpt>
   <wpt lat="-76.34152331547646" lon="-58.9306640625">
     <name>JULIET</name>
-    <desc>Name: Juliet | Comment: There's not a lot of logic to it.</desc>
+    <desc>Juliet</desc>
   </wpt>
   <wpt lat="-77.16692692591407" lon="-55.37109374999999">
     <name>KILO</name>
-    <desc>Name: Kilo | Comment: Well, I hope you also carry a spare bowl of candy beans.</desc>
+    <desc>Kilo</desc>
   </wpt>
   <wpt lat="-78.08922921093165" lon="-50.71289062499999">
     <name>LIMA</name>
-    <desc>Name: Lima | Comment: Are you at all concerned about an uprising?</desc>
+    <desc>Lima</desc>
   </wpt>
   <rte>
     <name>01_BRAVO_TO_ALPHA</name>

@@ -542,7 +542,6 @@ Notes:
 Limitations:
 
 * all properties are encoded as strings, without type hints using extended CSV schemes etc.
-* `waypoint.geometries` containing an elevation (Z) dimension are not included in CSV outputs
 * CSV outputs are not validated
 
 #### Output format - GPX
@@ -554,9 +553,8 @@ Notes:
 Limitations:
 
 * GPX metadata fields (author, last updated, etc.) are not currently populated
-* the `waypoint.name`, `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by` 
-  and `waypoint.comment`, properties are combined into the GPX comment field, as GPX lacks fields for these properties
-* `waypoint.geometries` containing an elevation (Z) dimension are not included in GPX outputs
+* the GPX comment field is set to the `waypoint.name` property only, as GPS devices used by the Air Unit only support 
+  comments of upto 16 characters
 
 #### Output format - FPL
 
@@ -572,7 +570,6 @@ Limitations:
 * underscores (`_`) characters are stripped from route names *within* FPL files (rather than the names *of* FPL 
   files), a local override is used to replace underscores with spaces (` `) to work around this limitation
 * FPL metadata fields (author, last updated, etc.) are not currently populated
-* `waypoint.geometries` containing an elevation (Z) dimension are not included in FPL outputs
 
 [1] This limit comes from the specific UI shown in the aircraft GPS used by the BAS Air Unit.
 
