@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#141](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/141)
 * Support for installing/running on Windows
   [#198](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/198)
+* GPX waypoint descriptions now only contain the waypoint name, rather than additional properties (such as comment)
+  [#126](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/126)
 
 ### Added
 

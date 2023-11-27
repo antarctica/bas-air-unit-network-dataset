@@ -491,20 +491,7 @@ class Waypoint:
         waypoint.name = self.identifier
         waypoint.longitude = self.geometry.x
         waypoint.latitude = self.geometry.y
-
-        description_parts: list[str] = []
-        if self.name is not None:
-            description_parts.append(f"Name: {self.name}")
-        if self.colocated_with is not None:
-            description_parts.append(f"Co-Located with: {self.colocated_with}")
-        if self.last_accessed_at is not None and self.last_accessed_by is not None:
-            description_parts.append(f"Last assessed: {self.last_accessed_at.isoformat()}, by: {self.last_accessed_by}")
-        if self.comment is not None:
-            description_parts.append(f"Comment: {self.comment}")
-
-        waypoint.description = "-"
-        if len(description_parts) > 0:
-            waypoint.description = " | ".join(description_parts)
+        waypoint.description = self.name
 
         return waypoint
 

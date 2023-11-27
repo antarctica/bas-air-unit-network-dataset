@@ -554,9 +554,8 @@ Notes:
 Limitations:
 
 * GPX metadata fields (author, last updated, etc.) are not currently populated
-* the `waypoint.name`, `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by` 
-  and `waypoint.comment`, properties are combined into the GPX comment field, as GPX lacks fields for these properties
-* `waypoint.geometries` containing an elevation (Z) dimension are not included in GPX outputs
+* the GPX comment field is set to the `waypoint.name` property only, as GPS devices used by the Air Unit only support 
+  comments of upto 16 characters
 
 #### Output format - FPL
 
