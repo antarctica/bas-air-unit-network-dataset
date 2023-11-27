@@ -73,6 +73,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#202](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/202)
 * Including FPL XSD schema refactored to be included as static file
   [#203](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/203)
+* Updating naming format for CSV outputs to include coordinate format consistently
+  [#180](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/180)
 
 ### Removed
 

@@ -46,8 +46,8 @@ def make_paths(base_path: Path, date_: date) -> list[Path]:
     date_str = date_.isoformat().replace("-", "_")
 
     return [
-        base_path.joinpath(f"./CSV/00_WAYPOINTS_{date_str}.csv"),
-        base_path.joinpath(f"./CSV/00_WAYPOINTS_{date_str}_DD.csv"),
+        base_path.joinpath(f"./CSV/00_WAYPOINTS_DDM_{date_str}.csv"),
+        base_path.joinpath(f"./CSV/00_WAYPOINTS_DD_{date_str}.csv"),
         base_path.joinpath(f"./FPL/00_WAYPOINTS_{date_str}.fpl"),
         base_path.joinpath("./FPL/01_BRAVO_TO_ALPHA.fpl"),
         base_path.joinpath("./FPL/02_BRAVO_TO_BRAVO.fpl"),
