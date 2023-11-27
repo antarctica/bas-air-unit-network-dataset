@@ -42,7 +42,7 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
             },
             "properties": {
                 "feature_type": "waypoint",
-                "identifier": waypoint["callsign"],
+                "identifier": waypoint["identifier"],
             },
         }
         for property_ in [
@@ -60,11 +60,11 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
         feature = {
             "type": "Feature",
             "geometry": {"type": "LineString", "coordinates": []},
-            "properties": {"feature_type": "route", "name": route["name"]},
+            "properties": {"feature_type": "route", "identifier": route["identifier"]},
         }
         for route_waypoint in route["waypoints"]:
             for waypoint in data["waypoints"]:
-                if waypoint["callsign"] == route_waypoint["waypoint_designator"]:
+                if waypoint["identifier"] == route_waypoint["waypoint_designator"]:
                     feature["geometry"]["coordinates"].append([waypoint["lon"], waypoint["lat"]])
                     break
 
@@ -107,7 +107,7 @@ def convert_to_gpx(network: str, data: dict, path: Path) -> None:
                 properties[property_] = waypoint[property_]
 
         gpx_waypoint = GPXWaypoint()
-        gpx_waypoint.name = waypoint["callsign"]
+        gpx_waypoint.name = waypoint["identifier"]
         gpx_waypoint.longitude = waypoint["lon"]
         gpx_waypoint.latitude = waypoint["lat"]
         gpx_waypoint.description = " | ".join(list(properties.values()))
@@ -116,13 +116,13 @@ def convert_to_gpx(network: str, data: dict, path: Path) -> None:
 
     for route in data["routes"]:
         gpx_route = GPXRoute()
-        gpx_route.name = route["name"]
+        gpx_route.name = route["identifier"]
 
         for route_waypoint in route["waypoints"]:
             for waypoint in data["waypoints"]:
-                if waypoint["callsign"] == route_waypoint["waypoint_designator"]:
+                if waypoint["identifier"] == route_waypoint["waypoint_designator"]:
                     gpx_route_waypoint = GPXRoutePoint()
-                    gpx_route_waypoint.name = waypoint["callsign"]
+                    gpx_route_waypoint.name = waypoint["identifier"]
                     gpx_route_waypoint.longitude = waypoint["lon"]
                     gpx_route_waypoint.latitude = waypoint["lat"]
                     gpx_route.points.append(gpx_route_waypoint)

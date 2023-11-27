@@ -1,19 +1,20 @@
 {
   "meta": {
-    "version": "2023-05-15"
+    "version": "2023-11-27"
   },
   "waypoints": [
     {
-      "callsign": "ALPHA",
+      "identifier": "ALPHA",
       "name": "Alpha",
       "lon": -75.0146484375,
       "lat": -69.91521433690127,
+      "colocated_with": "Alpha 001",
       "comment": "There's unlimited juice?",
       "last_accessed_at": "2012-04-24",
       "last_accessed_by": "~conwat"
     },
     {
-      "callsign": "BRAVO",
+      "identifier": "BRAVO",
       "name": null,
       "lon": -75.1904296875,
       "lat": -70.83024762385253,
@@ -22,7 +23,7 @@
       "last_accessed_by": null
     },
     {
-      "callsign": "CHARLE",
+      "identifier": "CHARLE",
       "name": "Charlie",
       "lon": -71.4990234375,
       "lat": -71.76019138754775,
@@ -31,7 +32,7 @@
       "last_accessed_by": null
     },
     {
-      "callsign": "DELTA",
+      "identifier": "DELTA",
       "name": "Delta",
       "lon": -66.09375,
       "lat": -72.75103864328744,
@@ -40,7 +41,7 @@
       "last_accessed_by": null
     },
     {
-      "callsign": "ECHO",
+      "identifier": "ECHO",
       "name": "Echo",
       "lon": -61.61132812500001,
       "lat": -73.45347276327497,
@@ -49,7 +50,7 @@
       "last_accessed_by": null
     },
     {
-      "callsign": "FOXTRT",
+      "identifier": "FOXTRT",
       "name": "Foxtrot",
       "lon": -70.224609375,
       "lat": -73.17589717422607,
@@ -58,7 +59,7 @@
       "last_accessed_by": null
     },
     {
-      "callsign": "GOLF",
+      "identifier": "GOLF",
       "name": "Golf",
       "lon": -70.3125,
       "lat": -74.20002150558591,
@@ -67,7 +68,7 @@
       "last_accessed_by": null
     },
     {
-      "callsign": "HOTEL",
+      "identifier": "HOTEL",
       "name": "Hotel",
       "lon": -65.4345703125,
       "lat": -74.42577748401031,
@@ -76,7 +77,7 @@
       "last_accessed_by": null
     },
     {
-      "callsign": "INDIA",
+      "identifier": "INDIA",
       "name": "India",
       "lon": -63.017578125,
       "lat": -75.70478638174052,
@@ -85,7 +86,7 @@
       "last_accessed_by": null
     },
     {
-      "callsign": "JULIET",
+      "identifier": "JULIET",
       "name": "Juliet",
       "lon": -58.9306640625,
       "lat": -76.34152331547646,
@@ -94,7 +95,7 @@
       "last_accessed_by": null
     },
     {
-      "callsign": "KILO",
+      "identifier": "KILO",
       "name": "Kilo",
       "lon": -55.37109374999999,
       "lat": -77.16692692591407,
@@ -103,7 +104,7 @@
       "last_accessed_by": null
     },
     {
-      "callsign": "LIMA",
+      "identifier": "LIMA",
       "name": "Lima",
       "lon": -50.71289062499999,
       "lat": -78.08922921093165,
@@ -114,7 +115,7 @@
   ],
   "routes": [
     {
-      "name": "01_BRAVO_TO_ALPHA",
+      "identifier": "01_BRAVO_TO_ALPHA",
       "waypoints": [
         {
           "waypoint_designator": "BRAVO"
@@ -125,7 +126,7 @@
       ]
     },
     {
-      "name": "02_BRAVO_TO_BRAVO",
+      "identifier": "02_BRAVO_TO_BRAVO",
       "waypoints": [
         {
           "waypoint_designator": "BRAVO"
@@ -157,7 +158,7 @@
       ]
     },
     {
-      "name": "03_BRAVO_TO_LIMA",
+      "identifier": "03_BRAVO_TO_LIMA",
       "waypoints": [
         {
           "waypoint_designator": "BRAVO"
