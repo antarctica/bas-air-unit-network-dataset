@@ -9,7 +9,7 @@ variables:
 
   # tests
   TEST_PATH: test_run
-  TEST_GPKG: $TEST_PATH/bas-air-unit-network-dataset.gpkg
+  TEST_GPX: tests/resources/test-network/test-network.gpx
   TEST_OUTPUT: $TEST_PATH/outputs
 
 cache:
@@ -45,6 +45,7 @@ test:
   needs: []
   script:
     - mkdir -p $TEST_OUTPUT
+    - poetry run python tests/create_test_data.py $TEST_GPX $TEST_OUTPUT
     - poetry run python tests/compare_outputs.py $TEST_OUTPUT
 
   artifacts:

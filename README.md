@@ -469,6 +469,7 @@ $ poetry run python tests/create_derived_test_outputs.py
 [2]
 
 ```
+$ poetry run python tests/create_outputs.py
 ```
 
 After running, ensure all dates in files are updated to values set in `tests/compare_outputs.py`.
@@ -712,10 +713,20 @@ $ poetry run ruff format src/ tests/
 ## Testing
 
 Basic end-to-end tests are performed automatically in [Continuous Integration](#continuous-integration) to check the
-[Test Network](#test-network) can be processed via the Network Utility [CLI](#usage).
+[Test Network](#test-network) can be processed via the Network Utility using the 
+[`tests/create_outputs.py`](tests/create_outputs.py).
 
-Test outputs are compared against known good reference files in `tests/resources/test-network/reference-outputs/` by
-comparing checksums on file contents using the `tests/compare_outputs.py` script.
+```
+$ poetry run python ./tests/create_outputs.py ./tests/resources/test-network/test-network.gpx ./tests/out
+```
+
+Test outputs are compared against known good reference files in 
+[`tests/resources/test-network/reference-outputs/`](tests/resources/test-network/reference-outputs) by
+comparing checksums on file contents using the [`tests/compare_outputs.py`](tests/compare_outputs.py) script.
+
+```
+$ poetry run python ./tests/compare_outputs.py ./tests/out
+```
 
 ### Continuous Integration
 
