@@ -6,9 +6,7 @@ from lxml.etree import Element, SubElement
 
 from bas_air_unit_network_dataset.exporters.fpl import Namespaces
 from bas_air_unit_network_dataset.exporters.fpl.route_waypoint import RouteWaypoint
-from bas_air_unit_network_dataset.exporters.fpl.utils import (
-    _upper_alphanumeric_space_only,
-)
+from bas_air_unit_network_dataset.exporters.fpl.utils import _upper_alphanumeric_space_only
 
 
 class Route:

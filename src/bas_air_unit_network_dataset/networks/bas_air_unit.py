@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+from copy import copy
 from pathlib import Path
 from typing import Optional
 
@@ -68,7 +69,8 @@ class MainAirUnitNetwork(Network):
         Route in this network are assumed to be exclusive, with each route assigned a flight plan index corresponding
         to its insert/append order, starting from `1`. I.e. the third route added to the collection has an index of `3`.
 
-        Files are named according to Air Unit conventions.
+        Files are named according to Air Unit conventions. The Air Unit uses underscores as separators in route names,
+        which aren't allowed, so we convert these to spaces (which are).
         """
         base_path = self._output_path.joinpath("FPL")
         base_path.mkdir(parents=True, exist_ok=True)
@@ -78,8 +80,12 @@ class MainAirUnitNetwork(Network):
 
         flight_plan_index = 1
         for route in self.routes:
-            route.dump_fpl(
-                path=base_path.joinpath(f"{route.name.upper()}.fpl"),
+            fpl_route = copy(route)
+            fpl_route.name = fpl_route.name.replace("_", " ")
+            file_name = f"{str(flight_plan_index).zfill(2)}_{route.waypoints[0].waypoint.identifier.upper()}_TO_{route.waypoints[-1].waypoint.identifier.upper()}.fpl"
+
+            fpl_route.dump_fpl(
+                path=base_path.joinpath(file_name),
                 flight_plan_index=flight_plan_index,
             )
             flight_plan_index += 1
