@@ -376,6 +376,37 @@ class Waypoint:
         if feature["properties"]["comment"] is not None:
             self.comment = feature["properties"]["comment"]
 
+    def loads_gpx(self, gpx_waypoint: GPXWaypoint) -> None:
+        """
+        Create a Waypoint from a GPX element.
+
+        :type gpx_waypoint: GPXWaypoint
+        :param gpx_waypoint: GPX element representing a Waypoint
+        """
+        self.identifier = gpx_waypoint.name
+        self.geometry = [gpx_waypoint.longitude, gpx_waypoint.latitude]
+
+        if gpx_waypoint.description is None or gpx_waypoint.description == "N/A | N/A | N/A | N/A | N/A":
+            pass
+
+        comment_elements = gpx_waypoint.description.split("|")
+        name = comment_elements[0].strip()
+        colocated_with = comment_elements[1].strip()
+        last_accessed_at = comment_elements[2].strip()
+        last_accessed_by = comment_elements[3].strip()
+        comment = comment_elements[4].strip()
+
+        if name != "N/A":
+            self.name = name
+        if colocated_with != "N/A":
+            self.colocated_with = colocated_with
+        if last_accessed_at != "N/A":
+            self.last_accessed_at = date.fromisoformat(last_accessed_at)
+        if last_accessed_by != "N/A":
+            self.last_accessed_by = last_accessed_by
+        if comment != "N/A":
+            self.comment = comment
+
     def dumps_feature_geometry(self) -> dict:
         """
         Build waypoint geometry for use in a generic feature.
