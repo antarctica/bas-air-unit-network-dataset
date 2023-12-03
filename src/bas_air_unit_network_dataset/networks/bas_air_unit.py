@@ -73,7 +73,7 @@ class MainAirUnitNetwork(Network):
         base_path = self._output_path.joinpath("FPL")
         base_path.mkdir(parents=True, exist_ok=True)
 
-        waypoints_path = base_path.joinpath(file_name_with_date("00_NETWORK_{{date}}.fpl"))
+        waypoints_path = base_path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.fpl"))
         self.waypoints.dump_fpl(path=waypoints_path)
 
         flight_plan_index = 1
