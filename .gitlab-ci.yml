@@ -12,6 +12,9 @@ variables:
   TEST_GPX: tests/resources/test-network/test-network.gpx
   TEST_OUTPUT: $TEST_PATH/outputs
 
+  # publishing
+  PYPI_USER: british-antarctic-survey
+
 cache:
   paths:
     - .cache/pip  # for pipx/pip
@@ -92,8 +95,6 @@ publish:
     - test
     - lint
   script:
-    - poetry config repositories.gitlab "$CI_SERVER_URL/api/v4/projects/$CI_PROJECT_ID/packages/pypi"
-    - poetry config http-basic.gitlab gitlab-ci-token "$CI_JOB_TOKEN" --local
-    - poetry publish --build --no-interaction --repository gitlab
+    - poetry publish --build --no-interaction --username $PYPI_USER
   rules:
     - if: '$CI_COMMIT_TAG != null'

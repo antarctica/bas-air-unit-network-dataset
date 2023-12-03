@@ -6,7 +6,7 @@
 1. [ ] bump Python package version `poetry version [minor/patch]`
 1. [ ] close release in `CHANGELOG.md`
 1. [ ] push changes, merge into `main` and tag commit with version
-1. [ ] create new [GitLab release](https://gitlab.data.bas.ac.uk/MAGIC/ops-data-store/-/releases)
+1. [ ] create new [GitLab release](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/releases)
     - set title to related release
     - set release notes to change log entry
     - associate with relevant tag and milestone 
