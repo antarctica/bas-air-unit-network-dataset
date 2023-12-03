@@ -1,11 +1,11 @@
 from __future__ import annotations
 
 import subprocess
+from importlib.resources import path as resource_path
 from pathlib import Path
 from tempfile import TemporaryDirectory
 from typing import Optional
 
-from importlib_resources import path as resource_path
 from lxml.etree import Element, ElementTree
 from lxml.etree import tostring as element_string
 
@@ -57,8 +57,8 @@ class Fpl:
         """
         self.ns = Namespaces()
 
-        with resource_path("bas_air_unit_network_dataset.exporters.fpl.schemas.garmin", "FlightPlanv1.xsd") as path:
-            self.schema_path = path
+        with resource_path("bas_air_unit_network_dataset.exporters.fpl", "__init__.py") as path:
+            self.schema_path = path.parent.joinpath("schemas/garmin/FlightPlanv1.xsd")
 
         self._waypoints: list[Waypoint] = []
         self._route: Optional[Route] = None

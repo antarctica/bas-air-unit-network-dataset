@@ -21,6 +21,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 * Updating documentation to reflect current status of project
   [#201](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/201)
+* Updating Python dependencies
+  [#210](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/210)
 
 ## [0.3.0] - 2023-11-27 [BREAKING!]
 
