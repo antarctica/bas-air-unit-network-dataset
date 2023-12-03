@@ -45,7 +45,7 @@ test:
   needs: []
   script:
     - mkdir -p $TEST_OUTPUT
-    - poetry run python tests/create_test_data.py $TEST_GPX $TEST_OUTPUT
+    - poetry run python tests/create_output.py $TEST_GPX $TEST_OUTPUT
     - poetry run python tests/compare_outputs.py $TEST_OUTPUT
 
   artifacts:
