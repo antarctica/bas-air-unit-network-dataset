@@ -12,7 +12,11 @@ To support the BAS Air Unit manage their network of routes and waypoints such th
 
 * information is internally consistent, through defined structures and constraints
 * information is interoperable between different systems, through the use of open/standard formats
-* information is well described and sharable with other teams, through distribution as datasets
+* information is well described and sharable with other teams, through distribution as datasets (through the 
+  [Ops Data Store 🛡](https://gitlab.data.bas.ac.uk/MAGIC/ops-data-store) for example)
+
+**Note:** This project is focused on needs within the British Antarctic Survey. It has been open-sourced in case it's
+of use to others with similar or related needs. Some resources, indicated with a 🛡 symbol, are not accessible publicly.
 
 ### Background
 
@@ -20,7 +24,7 @@ This project was developed in response to discussions and requests with the BAS 
 process they used to manage their network of waypoints, and to ensure its future sustainability.
 
 BAS staff can read more about this background in this 
-[GitLab issue](https://gitlab.data.bas.ac.uk/MAGIC/ops-support/-/issues/134) [Internal].
+[GitLab issue 🛡](https://gitlab.data.bas.ac.uk/MAGIC/ops-support/-/issues/134).
 
 ### Status
 
@@ -32,31 +36,23 @@ This project is a mature alpha. This means:
   * may change at any time (in terms of implementation or functionality)
 * documentation may be missing or incorrect
 * support for this project is provided on a best efforts / 'as is' basis
-* outputs from this project should not be relied upon for operation use without through scrutiny
+* outputs from this project should not be relied upon for operation use without thorough scrutiny
 
 ### Limitations
 
 This service has a number of limitations, including:
 
-* the default base map used in Garmin BaseCamp is not useful for Antarctica
-* the Air Unit Network utility is only supported on Windows computers
-* the Air Unit Network utility does not support multiple users importing data at the same time
-* the Air Unit Network utility does not create backups when importing new data
+* the Air Unit Network utility does not support multiple, or additional, networks
 * the Air Unit Network utility does not require route names to follow the required naming convention
 * the Air Unit Network utility does not require waypoint identifiers to be unique across all waypoints
-* the Air Unit Network utility does not require waypoint comments to follow the required structure
+* the Air Unit Network utility does not require waypoint comments to follow the required GPX comment structure
 * the Air Unit Network utility does not require waypoints within imported routes to be listed as standalone waypoints
-* comments for waypoints use an overly complex structure to support an ad-hoc serialisation format
-* Unicode characters (such as emoji) cannot be used in route/waypoint names, comments, etc.
+* comments for waypoints use an overly complex structure to support an ad-hoc serialisation format within GPX files
+* Unicode characters (such as emoji) are unsupported in route/waypoint names, comments, etc.
 * CSV outputs are not designed for printing (i.e. column formatting and page breaks)
-* the workspace directory and its data is only available at Rothera (i.e. it isn't synced back to Cambridge)
 
-Some or all of these limitations will be addressed in [Future improvements](#future-improvements) to this project.
-
-### Future improvements
-
-See the project [issue tracker](#issue-tracking) for a backlog of planned features and ideas to further improve this
-project.
+Some or all of these limitations may be addressed in future improvements to this project. See the project 
+[issue tracker 🛡](https://gitlab.data.bas.ac.uk/MAGIC/ops-data-store/-/issues) for details.
 
 ## Usage
 
@@ -272,13 +268,13 @@ This data model uses three entities:
 
 #### FIDs
 
-Feature Identifiers (FIDs) are created automatically when features are persisted to GeoPackages. FIDs are unique 
-auto-incrementing integers, and used as primary keys within database tables.
+Feature Identifiers (FIDs) are created automatically for features without one. FIDs are unique auto-incrementing 
+integers, suitable for use as primary keys within relational database.
 
 FIDs SHOULD be considered an implementation detail, and SHOULD be ignored in favour of ID properties (i.e. 'ID' rather 
-than 'FID').
+than 'FID') outside the specific technology being used.
 
-FIDs SHOULD NOT be exposed to end users and their values or structure MUST NOT be relied upon.
+Consequently, FIDs SHOULD NOT be exposed to end users and their values or structure MUST NOT be relied upon.
 
 #### ULIDs
 
@@ -413,7 +409,7 @@ Outputs produced for each format:
 Where 'All Waypoints (Only)' outputs are produced, waypoints will be sorted alphabetically.
 
 [1] These outputs can be produced but are intentionally excluded as they aren't used by the Air Unit. See this 
-[GitLab issue](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/101) [Internal] for details.
+[GitLab issue 🛡](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/101) for details.
 
 #### Output file names
 
@@ -491,8 +487,7 @@ number of other changes have been made to the local version of the FPL schema. T
 * altering the regular expression used for the `<country-name>` element to allow the `_` characters
 
 **Note:** It is hoped these local modifications will be removed in future through testing with the in-aircraft GPS.
-See [#12](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/32) for more information.
-
+See [#12 🛡](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/32) for more information.
 
 ## Setup
 
