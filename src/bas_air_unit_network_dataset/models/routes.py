@@ -222,34 +222,6 @@ class RouteCollection:
 
         self._dump_gpx_combined(path=path)
 
-    def dump_fpl(self, path: Path, separate_files: bool = False) -> None:
-        """
-        Write routes as Garmin FPL files for use in aircraft GPS devices.
-
-        This method is a wrapper around the `dump_fpl()` method for each route (FPL doesn't support combined routes).
-
-        Route collections are assumed to be exclusive, with each route assigned a flight plan index corresponding to its
-        insert order, starting from `1`. I.e. the third route added to the collection has an index of `3`.
-
-        Files and directories currently use BAS Air Unit specific naming conventions - this will be addressed in #46.
-
-        :type path: Path
-        :param path: base path for exported files
-        :type separate_files: bool
-        :param separate_files: generate separate files per route
-        """
-        if not separate_files:
-            msg = "FPL does not support combined routes, `separate_files` must be set to True."
-            raise RuntimeError(msg)
-
-        flight_plan_index = 1
-        for route in self.routes:
-            route.dump_fpl(
-                path=path.joinpath(f"{route.name.upper()}.fpl"),
-                flight_plan_index=flight_plan_index,
-            )
-            flight_plan_index += 1
-
     def __getitem__(self, _id: str) -> Route:
         """
         Get a Route by its ID.
