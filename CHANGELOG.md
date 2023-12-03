@@ -8,6 +8,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ## [Unreleased]
 
 ## [0.3.0] - 2023-11-27
+### Removed [BREAKING!]
+
+* CLI support
+  [#208](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/208)
+
 
 ### Removed [BREAKING!]
 

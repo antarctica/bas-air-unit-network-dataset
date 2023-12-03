@@ -44,13 +44,7 @@ test:
   stage: 🧪 test
   needs: []
   script:
-    - poetry run airnet --help
     - mkdir -p $TEST_OUTPUT
-    - poetry run airnet init -d $TEST_PATH
-    - poetry run airnet import -d $TEST_GPKG -i tests/resources/test-network/test-network.gpx
-    - poetry run airnet inspect -d $TEST_GPKG
-    - poetry run airnet export -d $TEST_GPKG -o $TEST_OUTPUT
-    - tree $TEST_OUTPUT
     - poetry run python tests/compare_outputs.py $TEST_OUTPUT
 
   artifacts:
