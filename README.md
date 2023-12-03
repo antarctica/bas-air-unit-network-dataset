@@ -60,65 +60,17 @@ project.
 
 ## Usage
 
-### Workspace directory
+### Loading features from GPX files
 
-The *workspace directory* contains all files related to this project. This directory should be shared between all 
-users/computers that require access by storing on a shared drive or synced folder accessible to relevant users.
+If using a GPX file to load waypoints and routes into a network, for waypoints these requirements must be met in 
+addition to the constraints from the [Information Model](#information-model):
 
-**Note:** To create a new workspace directory, see the [Setup](#setup) section.
-
-A typical/example workspace directory contains:
-
-```
-/path/to/workspace/directory
-├── bas-air-unit-network-dataset.gpkg
-├── input.gpx
-└── output/
-    ├── CSV/
-    │   ├── 00_WAYPOINTS_2022_07_08.csv
-    │   ├── 00_WAYPOINTS_2022_07_08_DD.csv
-    ├── FPL/
-    │   ├── 00_WAYPOINTS_2022_07_08.fpl
-    │   ├── 01_BRAVO_TO_ALPHA.fpl
-    │   ├── 02_BRAVO_TO_BRAVO.fpl
-    │   └── 03_bBRAVO_TO_LIMA.fpl
-    └── GPX/
-        └── 00_NETWORK_2022_07_08.gpx
-```
-
-* the `output/` directory contains files for use in GPS devices and as print-outs, organised by file type
-* the `input.gpx` GPX file contains routes and waypoints *exported* from an editor to be *imported* into the GeoPackage
-* the `bas-air-unit-network-dataset.gpkg` GeoPackage file used internally by the Air Unit Network utility for storage
-
-#### Access control
-
-The Air Unit Network utility does not include access control, therefore the permissions applied to the working directory
-should be used if access to information needs to be restricted. It is recommended that write permissions on the 
-directory are restricted to users that have permission to edit information.
-
-### Workflow
-
-**Note:** You need to complete the steps in the [Setup](#setup) section to complete this workflow.
-
-To update waypoints and routes (the network) and create new files for use in GPS devices and as print-outs:
-
-1. create waypoints and routes in an editor, such as Garmin BaseCamp, QGIS, etc. as per the software's instructions
-1. export waypoints and routes from this editor as a GPX file as per the software's instructions
-1. [import the GPX file into the Air Unit Network utility](#importing-waypoints-and-routes-into-the-network-utility)
-4. use the utility to [export the network in a range of formats](#exporting-waypoints-and-routes-using-the-network-utility) 
-   (CSV, GPX and FPL)
-
-#### Rules for creating waypoint features
-
-Create waypoints as per these conventions (based on the [Information Model](#information-model):
-
-- identifier/callsign: maximum 6 characters
-- comment: a string consisting of 5 elements in the order below, each separated with a `|` (vertical bar) character:
-    1. *name*: a full, or formal name for the waypoint (maximum 17 characters)
-    2. *co-located with*: name of a related depot, instrument and/or other feature - use `N/A` if not relevant
-    3. *last accessed at*: date waypoint was last accessed in the form `YYYY-MM-DD` - use `N/A` if unvisited
-    4. *last accessed by*: pilot that that last accessed waypoint - use `N/A` if unvisited
-    5. *other information*: any other information - use `N/A` if not relevant
+- the GPX comment field should consist of 5 elements, in the order below, separated with a vertical bar (`|`):
+  - *name*: a full, or formal name for the waypoint (maximum 17 characters)
+  - *co-located with*: name of a related depot, instrument and/or other feature - use `N/A` if not relevant
+  - *last accessed at*: date waypoint was last accessed in the form `YYYY-MM-DD` - use `N/A` if unvisited
+  - *last accessed by*: pilot that that last accessed waypoint - use `N/A` if unvisited
+  - *comment*: any other information - use `N/A` if not relevant
 
 For example (a co-located, previously visited, waypoint with a full name and additional information):
 
@@ -132,75 +84,51 @@ For example (a standalone, unvisited, waypoint with no full/formal name or addit
 
 **Note:** Only the 'name' in a comment will be included in FPL waypoints.
 
-#### Rules for creating route features
+### Creating outputs
 
-Create routes as per the route naming convention: 
+See the [`tests/create_outputs.py`](tests/create_outputs.py) for an example of converting a set of input waypoints and 
+routes into output formats, creating an [Output Directory](#output-directory), using an instance of the 
+`MainAirUnitNetwork` class.
 
-- `{Route Number}_{Start Waypoint Identifier}_To_{End Waypoint Identifier}`
-- for example: `01_ALPHA_TO_BRAVO`
-- the first route should use `01` as a route number, `00` is a reserved value and should not be used
-- the maximum route number is `99`
+The `Network` class (on which the `MainAirUnitNetwork` class is based) includes a built-in method for loading features 
+from a GPX file (used in the example above). To load data from other data sources, construct `Waypoint` and `Route` 
+features directly and add to the Network class.
 
-#### Importing waypoints and routes into the Network utility
+### Output directory
 
-**WARNING!** Importing replaces all existing information. Ensure you have suitable backups of existing data.
+When using the `MainAirUnitNetwork` class from this project to process waypoints and routes, an output directory 
+similar to the example below will be created. This directory should be held in a suitable location where all relevant
+users can access it.
 
-**Note:** Output for this example is based on the [Test Network](#test-network).
-
-```
-# if needed activate virtual environment
-$ source /path/to/venv/bin/activate
-
-$ /path/to/venv/bin/airnet import --dataset-path /path/to/bas-air-unit-network-dataset.gpkg --input-path /path/to/input.gpx
-Dataset is located at: /path/to/bas-air-unit-network-dataset.gpkg
-Input is located at: /path/to/input.gpx
-
-<NetworkManager : 12 Waypoints - 3 Routes>
-
-Waypoints [12]:
-01. <Waypoint 01G7T144RF7WENM8PBKC15W1YB :- [ALPHA_], POINT (-75.01463335007429 -69.91516669280827)>
-02. <Waypoint 01G7T144RFVMA8XSD2NES8EFW0 :- [BRAVO_], POINT (-75.19033329561353 -70.8301666751504)>
-03. <Waypoint 01G7T144RFBM65YQC317D7XCC8 :- [CHARLE], POINT (-71.49899996817112 -71.76016665995121)>
-04. <Waypoint 01G7T144RFXNTDVKXCEBTW4DSJ :- [DELTA_], POINT (-66.09375 -72.7509999834001)>
-05. <Waypoint 01G7T144RFMSAZZQEAD5ANBTAN :- [ECHO__], POINT (-61.611166689544916 -73.45333331264555)>
-06. <Waypoint 01G7T144RFVJFRW1VY0MFQNW06 :- [FOXTRT], POINT (-70.22449999116361 -73.17583330906928)>
-07. <Waypoint 01G7T144RFSM18AJ9G2A3GKGZ9 :- [GOLF__], POINT (-70.3125 -74.20000003650784)>
-08. <Waypoint 01G7T144RFFA3B2009P6FAXC3H :- [HOTEL_], POINT (-65.43449998833239 -74.42566668614745)>
-09. <Waypoint 01G7T144RFP1F3EB58V421Y65S :- [INDIA_], POINT (-63.017566641792655 -75.70466665551066)>
-10. <Waypoint 01G7T144RFTW3RN38TNR6TJ585 :- [JULIET], POINT (-58.93050002865493 -76.34150002151728)>
-11. <Waypoint 01G7T144RFV5N138VMTC80WTA1 :- [KILO__], POINT (-55.37100004032254 -77.16683333739638)>
-12. <Waypoint 01G7T144RFNDB0TEMY911J8VN7 :- [LIMA__], POINT (-50.8461666572839 -78.08921668678522)>
-
-Routes [3]:
-01. <Route 01G7T144RF040ETQSEBGS73A9Z :- [01_BRAVO_TO_ALPHA], 2 waypoints, Start/End: BRAVO  / ALPHA >
-02. <Route 01G7T144RFAN8RKG006NJ2CC4B :- [02_BRAVO_TO_BRAVO], 9 waypoints, Start/End: BRAVO  / BRAVO >
-03. <Route 01G7T144RFGTXKKJGA1V6CM24F :- [03_BRAVO_TO_LIMA], 8 waypoints, Start/End: BRAVO  / LIMA  >
-
-Import complete
-```
-
-#### Exporting waypoints and routes using the Network utility
+A typical/example output directory:
 
 ```
-# if needed activate virtual environment
-$ source /path/to/venv/bin/activate
-
-$ /path/to/venv/bin/airnet export --dataset-path /path/to/bas-air-unit-network-dataset.gpkg --output-path /path/to/output/dir/
-Dataset is located at: /path/to/bas-air-unit-network-dataset.gpkg
-Output directory is is: /path/to/output/dir/
-
-- CSV export complete
-- GPX export complete
-- FPL export complete
-
-Export complete
+/path/to/output/directory
+├── CSV
+│   ├── 00_WAYPOINTS_DDM_2023_12_03.csv
+│   └── 00_WAYPOINTS_DD_2023_12_03.csv
+├── FPL
+│   ├── 00_NETWORK_2023_12_03.fpl
+│   ├── 01_BRAVO_TO_ALPHA.fpl
+│   ├── 02_BRAVO_TO_BRAVO.fpl
+│   └── 03_BRAVO_TO_LIMA.fpl
+└── GPX
+    └── 00_NETWORK_2023_12_03.gpx
 ```
+
+#### Access control
+
+The Air Unit Network utility does not include access control. If needed, access controls should be applied to the
+output directory, as is the case for the [Ops Data Store 🛡](https://gitlab.data.bas.ac.uk/MAGIC/ops-data-store) for 
+example.
 
 ## Implementation
 
 This project consists of:
 
 * a description and schema for the main BAS Air Unit travel network (routes and waypoints)
+* a Python library to:
+  * import waypoints and routes from a GPX file, or other data source
   * export waypoints and routes into a range of output formats (currently CSV, GPX and Garmin FPL)
 
 ### Information model
@@ -330,23 +258,17 @@ Waypoints in Routes:
 
 ### Data model
 
-The BAS Air Unit Network data model implements the [Information model](#information-model) using three entities:
+For use within the Python library included in this project, and as a reference to implementors for storing entities, a 
+data model implementing the [Information model](#information-model) is available. For the later use-case, this data model assumes the
+use of a relational model, specifically for SQLite (as an OGC GeoPackage) and PostgreSQL. 
+
+This data model uses three entities:
 
 1. **Waypoint**: Point features with attributes
 2. **Route**: Features to contextualise a set of Waypoints, with attributes (such as route name)
 3. **RouteWaypoint**: join between a Waypoint and a Route, with contextual attributes (such as sequence within route)
 
-This data model describes how these entities are:
-
-* persisted as features within layers within an OGC GeoPackage (version 1.2)
-* represented as Python class instances (objects)
-
-This GeoPackage and the data it contains, is considered the Source of Truth and definitive version/format.
-
 **Note:** This data model does not describe how entities are encoded in specific [Output Formats](#output-formats).
-
-**Note:** This data model does not describe specifics about how entities are encoded in GeoPackages (i.e. database 
-schema), or describe GeoPackage meta tables, which are managed automatically by libraries used by this utility.
 
 #### FIDs
 
@@ -419,20 +341,6 @@ GeoPackage layer: `route_waypoints`
 **Note:** Though the `route_id` and `waypoint_id` columns are effectively foreign keys, though they are not configured 
 as such within the GeoPackage.
 
-### Source data
-
-Input/source data MUST be saved in a GPX (GPS Exchange Format) version 1.1 file to be imported into this project.
-
-**Note:** Only GPX files produced by Garmin BaseCamp are supported. GPX files produced by other tools may also work but 
-are not formally supported.
-
-Limitations:
-
-* Garmin BaseCamp does not support custom GPX extensions, except Garmin's own, limiting fields to the core GPX 
-  specification
-* this requires non-standard fields (such as `waypoint.last_accessed_at`) to be added to the comment freetext field, 
-  making it more complex (see notes in the [Creating a Waypoint](#rules-for-creating-waypoint-features) section)
-
 ### Test network
 
 A network consisting of 12 waypoints and 3 routes is used to:
@@ -477,8 +385,6 @@ After running, ensure all dates in files are updated to values set in `tests/com
 ### Output formats
 
 #### Supported formats
-
-**Note:** The GeoPackage used in the [Data Model](#data-model) is not a supported output format.
 
 Format use-cases:
 
@@ -607,22 +513,6 @@ $ python -m venv /path/to/venv
 $ source /path/to/venv/bin/activate
 $ python -m pip install --upgrade pip
 $ python -m pip install bas-air-unit-network-dataset
-```
-
-### Set up a workspace directory
-
-Typically, the [Workspace Directory](#workspace-directory) will be located on a shared drive or within a synced folder.
-
-**WARNING:** Running these commands within an existing workspace directory will reset the dataset, deleting any 
-existing data. Ensure you have suitable backups of existing data.
-
-```
-# if needed activate virtual environment
-$ source /path/to/venv/bin/activate
-$ /path/to/venv/bin/airnet init --dataset-path '/path/to/workspace/directory'
-Dataset will be located at: '/path/to/workspace/directory'
-
-Dataset created at: '/path/to/workspace/directory'
 ```
 
 ## Development
