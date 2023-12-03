@@ -78,7 +78,7 @@ class Route:
 
         :type name: str
         :param name: route name, up to 25 uppercase alphanumeric or space separator characters only
-        :raises ValueError: where the route name is over the 25 character limit
+        :raises ValueError: where the route name is over the 25-character limit
         """
         if len(name) > 25:
             msg = "Name must be 25 characters or less."
