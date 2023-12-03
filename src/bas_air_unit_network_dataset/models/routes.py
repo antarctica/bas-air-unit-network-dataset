@@ -81,8 +81,6 @@ class RouteCollection:
         """
         Write each route as a CSV file for further processing and/or visualisation.
 
-        Files and directories currently use BAS Air Unit specific naming conventions - this will be addressed in #46.
-
         :type path: Path
         :param path: base path for exported files
         :type inc_dd_lat_lon: bool
@@ -92,7 +90,7 @@ class RouteCollection:
         """
         for route in self.routes:
             route.dump_csv(
-                path=path.joinpath(f"{route.name.upper()}.csv"),
+                path=path.joinpath(f"{route.name}.csv"),
                 inc_waypoints=True,
                 route_column=False,
                 inc_dd_lat_lon=inc_dd_lat_lon,
@@ -186,8 +184,6 @@ class RouteCollection:
         """
         Write each route as a GPX file for use in GPS devices.
 
-        Files and directories currently use BAS Air Unit specific naming conventions - this will be addressed in #46.
-
         :type path: Path
         :param path: base path for exported files
         :type inc_waypoints: bool
@@ -195,7 +191,7 @@ class RouteCollection:
         """
         for route in self.routes:
             route.dump_gpx(
-                path=path.joinpath(f"{route.name.upper()}.gpx"),
+                path=path.joinpath(f"{route.name}.gpx"),
                 inc_waypoints=inc_waypoints,
             )
 
@@ -212,8 +208,6 @@ class RouteCollection:
     def dump_gpx(self, path: Path, separate_files: bool = False, inc_waypoints: bool = False) -> None:
         """
         Write routes as GPX files for use in GPS devices.
-
-        Files and directories currently use BAS Air Unit specific naming conventions - this will be addressed in #46.
 
         :type path: Path
         :param path: base path for exported files

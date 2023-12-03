@@ -78,12 +78,6 @@ class Route:
         will become:
         > 'FOOABC 123 DEF 456 G' (20 characters).
 
-        Note: The FPL standard uses spaces (' ') as a separator character, however the BAS Air Unit typically use
-        underscores ('_') instead. This method will automatically (and silently) replace underscores with spaces to
-        avoid this causing errors.
-
-        # TODO: This logic should move to BAS specific classes, see #46.
-
         :type name: str
         :param name: route name, up to 25 uppercase alphanumeric or space separator characters only
         :raises ValueError: where the route name is over the 25 character limit
@@ -91,9 +85,6 @@ class Route:
         if len(name) > 25:
             msg = "Name must be 25 characters or less."
             raise ValueError(msg)
-
-        # Handle BAS specific correction (see method description)
-        name = name.replace("_", " ")
 
         self._name = _upper_alphanumeric_space_only(value=name)
 
