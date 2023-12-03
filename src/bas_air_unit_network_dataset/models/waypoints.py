@@ -5,7 +5,7 @@ from collections.abc import Iterator
 from pathlib import Path
 from typing import Optional
 
-from gpxpy.gpx import GPX
+from gpxpy.gpx import GPX, GPXWaypoint
 
 from bas_air_unit_network_dataset.exporters.fpl.fpl import Fpl
 from bas_air_unit_network_dataset.models.waypoint import Waypoint
@@ -61,6 +61,19 @@ class WaypointCollection:
                 return waypoint
 
         return None
+
+    def loads_gpx(self, gpx_waypoints: list[GPXWaypoint]) -> None:
+        """
+        Read waypoints from GPX data.
+
+        :type gpx_waypoints: list[GPXWaypoint]
+        :param gpx_waypoints list of GPX waypoints
+        """
+        for gpx_waypoint in gpx_waypoints:
+            waypoint = Waypoint()
+            waypoint.loads_gpx(gpx_waypoint=gpx_waypoint)
+
+            self.append(waypoint)
 
     def dump_features(self, inc_spatial: bool = True) -> list[dict]:
         """
