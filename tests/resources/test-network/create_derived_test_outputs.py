@@ -5,14 +5,7 @@ from gpxpy.gpx import GPX, GPXRoute, GPXRoutePoint, GPXWaypoint
 
 
 def load_test_network(path: Path) -> dict:
-    """
-    Load network features from JSON file.
-
-    :type path: Path
-    :param path: location of JSON file.
-    :rtype dict
-    :return feature data
-    """
+    """Load network features from JSON file."""
     with path.open() as network_file:
         return json.load(network_file)
 
@@ -25,10 +18,8 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
 
     In time this method should be replaced with a TestNetworkCollection that can export to GeoJSON.
 
-    :param network: name of test network
-    :type data: dict
+    :param network: network name
     :param data: network features
-    :type path: Path
     :param path: where to create output file
     """
     features = {"type": "FeatureCollection", "name": network, "features": []}
@@ -50,6 +41,8 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
             "last_accessed_at",
             "last_accessed_by",
             "colocated_with",
+            "fuel",
+            "elevation_ft",
             "comment",
         ]:
             if property_ in waypoint and waypoint[property_] is not None:
@@ -84,10 +77,8 @@ def convert_to_gpx(network: str, data: dict, path: Path) -> None:
     differences to things like the description syntax, which is not ideal.
     In time this method should be replaced with a TestNetworkCollection that can load from a raw JSON input file.
 
-    :param network: name of test network
-    :type data: dict
+    :param network: network name
     :param data: network features
-    :type path: Path
     :param path: where to create output file
     """
     gpx = GPX()
@@ -100,11 +91,15 @@ def convert_to_gpx(network: str, data: dict, path: Path) -> None:
             "colocated_with": empty_property,
             "last_accessed_at": empty_property,
             "last_accessed_by": empty_property,
+            "fuel": empty_property,
+            "elevation_ft": empty_property,
             "comment": empty_property,
         }
         for property_ in properties:
             if property_ in waypoint and waypoint[property_] is not None:
                 properties[property_] = waypoint[property_]
+                if isinstance(properties[property_], int):
+                    properties[property_] = str(properties[property_])
 
         gpx_waypoint = GPXWaypoint()
         gpx_waypoint.name = waypoint["identifier"]
@@ -146,9 +141,9 @@ def main() -> None:
     features = load_test_network(path=input_path)
     print("features loaded")
     convert_to_geojson(network=network_name, data=features, path=geojson_path)
-    print("features converted to GeoJSON")
+    print(f"features converted to GeoJSON - {geojson_path.resolve()}")
     convert_to_gpx(network=network_name, data=features, path=gpx_path)
-    print("features converted to GPX")
+    print(f"features converted to GPX - {gpx_path.resolve()}")
 
 
 if __name__ == "__main__":

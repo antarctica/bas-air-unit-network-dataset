@@ -1,6 +1,6 @@
 {
   "meta": {
-    "version": "2023-11-27"
+    "version": "2024-11-22"
   },
   "waypoints": [
     {
@@ -9,108 +9,130 @@
       "lon": -75.0146484375,
       "lat": -69.91521433690127,
       "colocated_with": "Alpha 001",
-      "comment": "There's unlimited juice?",
       "last_accessed_at": "2012-04-24",
-      "last_accessed_by": "~conwat"
+      "last_accessed_by": "~conwat",
+      "fuel": 10,
+      "elevation_ft": 1200,
+      "comment": "There's unlimited juice?"
     },
     {
       "identifier": "BRAVO",
       "name": null,
       "lon": -75.1904296875,
       "lat": -70.83024762385253,
-      "comment": null,
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "fuel": null,
+      "elevation_ft": null,
+      "comment": null
     },
     {
       "identifier": "CHARLE",
       "name": "Charlie",
       "lon": -71.4990234375,
       "lat": -71.76019138754775,
-      "comment": "You're losing blood, aren't you?",
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "fuel": null,
+      "elevation_ft": null,
+      "comment": "You're losing blood, aren't you?"
     },
     {
       "identifier": "DELTA",
       "name": "Delta",
       "lon": -66.09375,
       "lat": -72.75103864328744,
-      "comment": "How about a turtle?",
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "fuel": null,
+      "elevation_ft": null,
+      "comment": "How about a turtle?"
     },
     {
       "identifier": "ECHO",
       "name": "Echo",
       "lon": -61.61132812500001,
       "lat": -73.45347276327497,
-      "comment": "I don't criticize you!",
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "fuel": null,
+      "elevation_ft": null,
+      "comment": "I don't criticize you!"
     },
     {
       "identifier": "FOXTRT",
       "name": "Foxtrot",
       "lon": -70.224609375,
       "lat": -73.17589717422607,
-      "comment": "Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!",
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "fuel": null,
+      "elevation_ft": null,
+      "comment": "Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!"
     },
     {
       "identifier": "GOLF",
       "name": "Golf",
       "lon": -70.3125,
       "lat": -74.20002150558591,
-      "comment": "I've always been deeply passionate about nature. 🌳",
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "fuel": null,
+      "elevation_ft": null,
+      "comment": "I've always been deeply passionate about nature. 🌳"
     },
     {
       "identifier": "HOTEL",
       "name": "Hotel",
       "lon": -65.4345703125,
       "lat": -74.42577748401031,
-      "comment": "I don't know how I know that. I took four years of Spanish.",
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "fuel": null,
+      "elevation_ft": null,
+      "comment": "I don't know how I know that. I took four years of Spanish."
     },
     {
       "identifier": "INDIA",
       "name": "India",
       "lon": -63.017578125,
       "lat": -75.70478638174052,
-      "comment": "I am getting rid of this thing. It has caused me nothing but pride and self-respect.",
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "fuel": null,
+      "elevation_ft": null,
+      "comment": "I am getting rid of this thing. It has caused me nothing but pride and self-respect."
     },
     {
       "identifier": "JULIET",
       "name": "Juliet",
       "lon": -58.9306640625,
       "lat": -76.34152331547646,
-      "comment": "There's not a lot of logic to it.",
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "fuel": null,
+      "elevation_ft": null,
+      "comment": "There's not a lot of logic to it."
     },
     {
       "identifier": "KILO",
       "name": "Kilo",
       "lon": -55.37109374999999,
       "lat": -77.16692692591407,
-      "comment": "Well, I hope you also carry a spare bowl of candy beans.",
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "comment": "Well, I hope you also carry a spare bowl of candy beans."
     },
     {
       "identifier": "LIMA",
       "name": "Lima",
       "lon": -50.71289062499999,
       "lat": -78.08922921093165,
-      "comment": "Are you at all concerned about an uprising?",
       "last_accessed_at": null,
-      "last_accessed_by": null
+      "last_accessed_by": null,
+      "fuel": null,
+      "elevation_ft": null,
+      "comment": "Are you at all concerned about an uprising?"
     }
   ],
   "routes": [

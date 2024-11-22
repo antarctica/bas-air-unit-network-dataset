@@ -4,7 +4,7 @@ from hashlib import sha256
 from pathlib import Path
 
 reference_path = Path("./tests/resources/test-network/reference-outputs/")
-reference_date = date(2023, 11, 27)
+reference_date = date(2024, 11, 22)
 
 
 def sha256sum(path: Path) -> str:

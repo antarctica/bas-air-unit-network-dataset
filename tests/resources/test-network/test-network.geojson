@@ -11,7 +11,9 @@
    "properties": {
     "colocated_with": "Alpha 001",
     "comment": "There's unlimited juice?",
+    "elevation_ft": 1200,
     "feature_type": "waypoint",
+    "fuel": 10,
     "identifier": "ALPHA",
     "last_accessed_at": "2012-04-24",
     "last_accessed_by": "~conwat",
