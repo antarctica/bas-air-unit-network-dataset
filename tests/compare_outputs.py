@@ -8,14 +8,7 @@ reference_date = date(2024, 11, 22)
 
 
 def sha256sum(path: Path) -> str:
-    """
-    Calculate checksum for file using SHA256 hash.
-
-    :type path: Path
-    :param path: file to hash
-    :rtype: str
-    :return: SHA256 checksum
-    """
+    """Calculate checksum for file using SHA256."""
     file_hash = sha256()
 
     with path.open("rb") as file:
@@ -36,11 +29,8 @@ def make_paths(base_path: Path, date_: date) -> list[Path]:
 
     A date is required as some output file names include the current date.
 
-    :type base_path: path
     :param base_path: directory containing instance of test network
-    :type date_: date
     :param date_:
-    :rtype list
     :return: paths that should exist
     """
     date_str = date_.isoformat().replace("-", "_")
@@ -63,9 +53,7 @@ def check_for_unexpected_paths(expected_paths: list[Path], search_path: Path) ->
     If an unexpected file is found, the file name is checked against a list of ignored values (system files etc.).
     If not ignored, a RuntimeError will be raised for the unexpected file.
 
-    :type expected_paths: list
-    :param expected_paths: paths that are expected in directory
-    :type search_path: Path
+    :param expected_paths: expected directory paths
     :param search_path: directory to check
     :raises RuntimeError: unexpected path found
     """

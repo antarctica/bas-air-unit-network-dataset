@@ -28,6 +28,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 ### Removed
 
 * unnecessary docblock elements (opportunistic, not yet complete)
+  [#224](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/224)
 
 ## [0.4.0] - 2023-12-03 [BREAKING!]
 
