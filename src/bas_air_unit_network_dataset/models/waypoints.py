@@ -114,6 +114,8 @@ class WaypointCollection:
                 "longitude_dd",
                 "last_accessed_at",
                 "last_accessed_by",
+                "fuel",
+                "elevation_ft",
                 "comment",
             ]
         if inc_ddm_lat_lon:
@@ -125,6 +127,8 @@ class WaypointCollection:
                 "longitude_ddm",
                 "last_accessed_at",
                 "last_accessed_by",
+                "fuel",
+                "elevation_ft",
                 "comment",
             ]
         if inc_dd_lat_lon and inc_ddm_lat_lon:
@@ -138,6 +142,8 @@ class WaypointCollection:
                 "longitude_ddm",
                 "last_accessed_at",
                 "last_accessed_by",
+                "fuel",
+                "elevation_ft",
                 "comment",
             ]
 

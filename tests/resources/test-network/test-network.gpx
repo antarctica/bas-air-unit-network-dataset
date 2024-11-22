@@ -5,51 +5,51 @@
   </metadata>
   <wpt lat="-69.91521433690127" lon="-75.0146484375">
     <name>ALPHA</name>
-    <desc>Alpha | Alpha 001 | 2012-04-24 | ~conwat | There's unlimited juice?</desc>
+    <desc>Alpha | Alpha 001 | 2012-04-24 | ~conwat | 10 | 1200 | There's unlimited juice?</desc>
   </wpt>
   <wpt lat="-70.83024762385253" lon="-75.1904296875">
     <name>BRAVO</name>
-    <desc>N/A | N/A | N/A | N/A | N/A</desc>
+    <desc>N/A | N/A | N/A | N/A | N/A | N/A | N/A</desc>
   </wpt>
   <wpt lat="-71.76019138754775" lon="-71.4990234375">
     <name>CHARLE</name>
-    <desc>Charlie | N/A | N/A | N/A | You're losing blood, aren't you?</desc>
+    <desc>Charlie | N/A | N/A | N/A | N/A | N/A | You're losing blood, aren't you?</desc>
   </wpt>
   <wpt lat="-72.75103864328744" lon="-66.09375">
     <name>DELTA</name>
-    <desc>Delta | N/A | N/A | N/A | How about a turtle?</desc>
+    <desc>Delta | N/A | N/A | N/A | N/A | N/A | How about a turtle?</desc>
   </wpt>
   <wpt lat="-73.45347276327497" lon="-61.61132812500001">
     <name>ECHO</name>
-    <desc>Echo | N/A | N/A | N/A | I don't criticize you!</desc>
+    <desc>Echo | N/A | N/A | N/A | N/A | N/A | I don't criticize you!</desc>
   </wpt>
   <wpt lat="-73.17589717422607" lon="-70.224609375">
     <name>FOXTRT</name>
-    <desc>Foxtrot | N/A | N/A | N/A | Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
+    <desc>Foxtrot | N/A | N/A | N/A | N/A | N/A | Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!</desc>
   </wpt>
   <wpt lat="-74.20002150558591" lon="-70.3125">
     <name>GOLF</name>
-    <desc>Golf | N/A | N/A | N/A | I've always been deeply passionate about nature. 🌳</desc>
+    <desc>Golf | N/A | N/A | N/A | N/A | N/A | I've always been deeply passionate about nature. 🌳</desc>
   </wpt>
   <wpt lat="-74.42577748401031" lon="-65.4345703125">
     <name>HOTEL</name>
-    <desc>Hotel | N/A | N/A | N/A | I don't know how I know that. I took four years of Spanish.</desc>
+    <desc>Hotel | N/A | N/A | N/A | N/A | N/A | I don't know how I know that. I took four years of Spanish.</desc>
   </wpt>
   <wpt lat="-75.70478638174052" lon="-63.017578125">
     <name>INDIA</name>
-    <desc>India | N/A | N/A | N/A | I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
+    <desc>India | N/A | N/A | N/A | N/A | N/A | I am getting rid of this thing. It has caused me nothing but pride and self-respect.</desc>
   </wpt>
   <wpt lat="-76.34152331547646" lon="-58.9306640625">
     <name>JULIET</name>
-    <desc>Juliet | N/A | N/A | N/A | There's not a lot of logic to it.</desc>
+    <desc>Juliet | N/A | N/A | N/A | N/A | N/A | There's not a lot of logic to it.</desc>
   </wpt>
   <wpt lat="-77.16692692591407" lon="-55.37109374999999">
     <name>KILO</name>
-    <desc>Kilo | N/A | N/A | N/A | Well, I hope you also carry a spare bowl of candy beans.</desc>
+    <desc>Kilo | N/A | N/A | N/A | N/A | N/A | Well, I hope you also carry a spare bowl of candy beans.</desc>
   </wpt>
   <wpt lat="-78.08922921093165" lon="-50.71289062499999">
     <name>LIMA</name>
-    <desc>Lima | N/A | N/A | N/A | Are you at all concerned about an uprising?</desc>
+    <desc>Lima | N/A | N/A | N/A | N/A | N/A | Are you at all concerned about an uprising?</desc>
   </wpt>
   <rte>
     <name>01_BRAVO_TO_ALPHA</name>
