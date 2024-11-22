@@ -25,12 +25,7 @@ class WaypointCollection:
 
     @property
     def waypoints(self) -> list[Waypoint]:
-        """
-        Get all waypoints in collection as Waypoint classes.
-
-        :rtype: list
-        :return: routes in collection as Waypoint classes
-        """
+        """Get all waypoints in collection as Waypoint classes."""
         return self._waypoints
 
     def append(self, waypoint: Waypoint) -> None:
@@ -38,9 +33,6 @@ class WaypointCollection:
         Add waypoint to collection.
 
         For consistency waypoints are sorted by identifier.
-
-        :type waypoint: Waypoint
-        :param waypoint: additional waypoint
         """
         self._waypoints.append(waypoint)
         self._waypoints = sorted(self.waypoints, key=lambda x: x.identifier)
@@ -51,10 +43,7 @@ class WaypointCollection:
 
         Returns `None` if no matching waypoint found.
 
-        :type identifier: str
         :param identifier: waypoint identifier
-        :rtype: Waypoint
-        :return: specified waypoint, or None if no match
         """
         for waypoint in self._waypoints:
             if waypoint.identifier == identifier:
@@ -66,7 +55,6 @@ class WaypointCollection:
         """
         Read waypoints from GPX data.
 
-        :type gpx_waypoints: list[GPXWaypoint]
         :param gpx_waypoints list of GPX waypoints
         """
         for gpx_waypoint in gpx_waypoints:
@@ -81,10 +69,7 @@ class WaypointCollection:
 
         This method is a wrapper around the `dumps_feature()` method for each waypoint.
 
-        :type inc_spatial: bool
         :param inc_spatial: whether to include the geometry of each waypoint in generated features
-        :rtype: list
-        :return: features for each waypoint in collection
         """
         features = []
 
@@ -97,11 +82,8 @@ class WaypointCollection:
         """
         Write waypoints as a CSV file for further processing and/or visualisation.
 
-        :type path: path
         :param path: Output path
-        :type inc_dd_lat_lon: bool
         :param inc_dd_lat_lon: include latitude and longitude columns in decimal degree format
-        :type inc_ddm_lat_lon: bool
         :param inc_ddm_lat_lon: include latitude and longitude columns in degrees decimal minutes format
         """
         fieldnames: list[str] = list(Waypoint.csv_schema.keys())
@@ -156,12 +138,7 @@ class WaypointCollection:
                 writer.writerow(waypoint.dumps_csv(inc_dd_lat_lon=inc_dd_lat_lon, inc_ddm_lat_lon=inc_ddm_lat_lon))
 
     def dumps_gpx(self) -> GPX:
-        """
-        Build a GPX document for all waypoints within collection.
-
-        :rtype: GPX
-        :return: generated GPX file containing all waypoints in collection
-        """
+        """Build a GPX document for all waypoints within collection."""
         gpx = GPX()
 
         for waypoint in self.waypoints:
@@ -170,22 +147,12 @@ class WaypointCollection:
         return gpx
 
     def dump_gpx(self, path: Path) -> None:
-        """
-        Write waypoints as a GPX file for use in GPS devices.
-
-        :type path: path
-        :param path: Output path
-        """
+        """Write waypoints as a GPX file for use in GPS devices."""
         with path.open(mode="w") as gpx_file:
             gpx_file.write(self.dumps_gpx().to_xml())
 
     def dumps_fpl(self) -> Fpl:
-        """
-        Build a FPL document for all waypoints within collection.
-
-        :rtype: FPL
-        :return: generated FPL file containing all waypoints in collection
-        """
+        """Build a FPL document for all waypoints within collection."""
         fpl = Fpl()
 
         for waypoint in self.waypoints:
@@ -196,12 +163,7 @@ class WaypointCollection:
         return fpl
 
     def dump_fpl(self, path: Path) -> None:
-        """
-        Write waypoints as a FPL file for use in aircraft GPS devices.
-
-        :type path: path
-        :param path: Output path
-        """
+        """Write waypoints as a FPL file for use in aircraft GPS devices."""
         fpl = self.dumps_fpl()
         fpl.dump_xml(path=path)
 
@@ -209,11 +171,7 @@ class WaypointCollection:
         """
         Get a waypoint by its ID.
 
-        :type _id: Waypoint
         :param _id: a waypoint ID (distinct from a waypoint's Identifier)
-        :rtype Waypoint
-        :return: specified Waypoint
-
         :raises KeyError: if no Waypoint exists with the requested ID
         """
         for waypoint in self._waypoints:

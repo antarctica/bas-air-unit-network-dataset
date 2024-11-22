@@ -76,21 +76,13 @@ class Waypoint:
 
         Waypoints will be assigned a unique and persistent feature ID automatically.
 
-        :type identifier: str
         :param identifier: unique reference for waypoint
-        :type lon: float
         :param lon: longitude component of waypoint geometry
-        :type lat: float
         :param lat: latitude component of waypoint geometry
-        :type name: str
         :param name: optionally, waypoint name/summary
-        :type colocated_with: str
         :param colocated_with: optionally, things near waypoint, or other names waypoint is known as
-        :type last_accessed_at: date
         :param last_accessed_at: optionally, the date waypoint was last accessed
-        :type last_accessed_by: str
         :param last_accessed_by: optionally, identifier of last agent to access waypoint.
-        :type comment: str
         :param fuel: optionally, fuel quantity at waypoint
         :param elevation_ft: optionally, waypoint elevation in feet
         :param comment: free-text descriptive comment for waypoint
@@ -143,7 +135,6 @@ class Waypoint:
 
         A unique and typically persistent value.
 
-        :rtype: str
         :return: feature ID
         """
         return self._id
@@ -158,7 +149,6 @@ class Waypoint:
 
         Typically, a persistent, but otherwise unique, value but which may not be recognisable by humans.
 
-        :type _id: str
         :param _id: feature ID
         """
         self._id = str(ulid.from_str(_id))
@@ -170,7 +160,6 @@ class Waypoint:
 
         Unique value identifying waypoint.
 
-        :rtype: str
         :return: unique reference for waypoint
         """
         return self._identifier
@@ -189,7 +178,6 @@ class Waypoint:
         E.g. if a waypoint has an identifier 'FOXTRT' (to fit the six-character limit), the name can be 'FOXTROT' or
         'Foxtrot'.
 
-        :type identifier: str
         :param identifier: waypoint identifier
         """
         if len(identifier) > Waypoint.identifier_max_length:
@@ -205,7 +193,6 @@ class Waypoint:
 
         Geometries use the EPSG:4326 CRS.
 
-        :rtype: Point
         :return: waypoint geometry
         """
         return self._geometry
@@ -217,7 +204,6 @@ class Waypoint:
 
         Values should be in [longitude, latitude] axis order using the EPSG:4326 CRS.
 
-        :type geometry: list
         :param geometry: waypoint geometry as a list of longitude/latitude values
         """
         lon = geometry[0]
@@ -244,7 +230,6 @@ class Waypoint:
 
         Returns `None` if name unknown.
 
-        :rtype: str
         :return: waypoint name/summary
         """
         return self._name
@@ -261,7 +246,6 @@ class Waypoint:
         E.g. if a waypoint has an identifier 'FOXTRT' (to fit the six-character limit), the name can be 'FOXTROT' or
         'Foxtrot'.
 
-        :type name: str
         :param name: waypoint name/summary
         """
         if len(name) > Waypoint.name_max_length:
@@ -277,7 +261,6 @@ class Waypoint:
 
         Returns `None` if date unknown. Values are free text and unstructured.
 
-        :rtype: str
         :return: things near waypoint, or other names waypoint is known as
         """
         return self._colocated_with
@@ -290,7 +273,6 @@ class Waypoint:
         For example a waypoint may be used as the reference for an instrument, or might be referred to as something
         else by another team or project. This value is free text and unstructured.
 
-        :type: str
         :param colocated_with: things near waypoint, or other names waypoint is known as
         """
         self._colocated_with = colocated_with
@@ -302,7 +284,6 @@ class Waypoint:
 
         Returns `None` if date unknown.
 
-        :rtype: date
         :return: the date waypoint was last accessed
         """
         return self._last_accessed_at
@@ -312,7 +293,6 @@ class Waypoint:
         """
         Set when waypoint was last accessed.
 
-        :type _date: date
         :param _date: the date waypoint was last accessed
         """
         self._last_accessed_at = _date
@@ -324,7 +304,6 @@ class Waypoint:
 
         Returns `None` if identity unknown.
 
-        :rtype: str
         :return: identifier of last agent to access waypoint, if known
         """
         return self._last_accessed_by
@@ -382,7 +361,6 @@ class Waypoint:
         """
         Waypoint comment.
 
-        :rtype: str
         :return: free-text descriptive comment for waypoint
         """
         return self._comment
@@ -392,7 +370,6 @@ class Waypoint:
         """
         Set waypoint comment.
 
-        :type comment: str
         :param comment: free-text descriptive comment for waypoint
         """
         self._comment = comment
@@ -401,7 +378,6 @@ class Waypoint:
         """
         Create a Waypoint from a generic feature.
 
-        :type feature: dict
         :param feature: feature representing a Waypoint
         """
         self.fid = feature["properties"]["id"]
@@ -433,7 +409,6 @@ class Waypoint:
         """
         Create a Waypoint from a GPX element.
 
-        :type gpx_waypoint: GPXWaypoint
         :param gpx_waypoint: GPX element representing a Waypoint
         """
         self.identifier = gpx_waypoint.name
@@ -470,7 +445,6 @@ class Waypoint:
         """
         Build waypoint geometry for use in a generic feature.
 
-        :rtype: dict
         :return: Waypoint geometry
         """
         geometry = {"type": "Point", "coordinates": (self.geometry.x, self.geometry.y)}
@@ -487,10 +461,7 @@ class Waypoint:
         """
         Build waypoint as a generic feature for further processing.
 
-        :type inc_spatial: bool
         :param inc_spatial: whether to include the geometry of the route and/or route waypoints in generated features
-        :rtype: dict
-        :return: feature for waypoint
         """
         feature = {
             "geometry": None,
@@ -514,11 +485,8 @@ class Waypoint:
         """
         Build CSV data for waypoint.
 
-        :type inc_dd_lat_lon: bool
         :param inc_dd_lat_lon: include latitude and longitude columns in decimal degree format
-        :type inc_ddm_lat_lon: bool
         :param inc_ddm_lat_lon: include latitude and longitude columns in degrees decimal minutes format
-        :rtype: dict
         :return: row of generated CSV data for waypoint
         """
         geometry_ddm = convert_coordinate_dd_2_ddm(lon=self.geometry.x, lat=self.geometry.y)
@@ -579,7 +547,6 @@ class Waypoint:
         As the GPX standard does not have properties defined for attributes such as name and/or last accessed at, they
         are concatenated as part of the free-text description field.
 
-        :rtype: GPXWaypoint
         :return: generated GPX element for waypoint
         """
         waypoint = GPXWaypoint()
@@ -602,7 +569,6 @@ class Waypoint:
         The FPL country code is hard-coded to a conventional value used by the BAS Air Unit for Antarctica. This will
         be reviewed in #157.
 
-        :rtype: FplWaypoint
         :return: generated FPL element for waypoint
         """
         waypoint = FplWaypoint()
