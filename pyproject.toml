@@ -26,13 +26,13 @@ include = ["src/bas_air_unit_network_dataset/exporters/fpl/schemas/garmin/Flight
 [tool.poetry.dependencies]
 python = "^3.9"
 ulid-py = "^1.1.0"
-Shapely = "^1.8.2"
-Fiona = "^1.8.21"
+Shapely = "^2.0.6"
+Fiona = "^1.10.1"
 gpxpy = "^1.6.2"
-lxml = "^4.9.3"
+lxml = "^5.3"
 
 [tool.poetry.group.linting.dependencies]
-ruff = "^0.1.6"
+ruff = "^0.7.4"
 safety = "^2.3.5"
 
 [tool.ruff]
