@@ -41,6 +41,7 @@ class Waypoint:
             "colocated_with": "str",
             "last_accessed_at": "date",
             "last_accessed_by": "str",
+            "fuel": "int",
             "elevation_ft": "int",
             "comment": "str",
         },
@@ -52,6 +53,7 @@ class Waypoint:
         "colocated_with": "str",
         "last_accessed_at": "date",
         "last_accessed_by": "str",
+        "fuel": "int",
         "elevation_ft": "int",
         "comment": "str",
     }
@@ -65,6 +67,7 @@ class Waypoint:
         colocated_with: Optional[str] = None,
         last_accessed_at: Optional[date] = None,
         last_accessed_by: Optional[str] = None,
+        fuel: Optional[int] = None,
         elevation_ft: Optional[int] = None,
         comment: Optional[str] = None,
     ) -> None:
@@ -88,6 +91,8 @@ class Waypoint:
         :type last_accessed_by: str
         :param last_accessed_by: optionally, identifier of last agent to access waypoint.
         :type comment: str
+        :param fuel: optionally, fuel quantity at waypoint
+        :param elevation_ft: optionally, waypoint elevation in feet
         :param comment: free-text descriptive comment for waypoint
         """
         self._id: str = str(ulid.new())
@@ -121,6 +126,9 @@ class Waypoint:
 
         self._last_accessed_at = last_accessed_at
         self._last_accessed_by = last_accessed_by
+
+        if fuel is not None:
+            self._fuel = fuel
 
         if elevation_ft is not None:
             self._elevation_ft = elevation_ft
@@ -334,6 +342,24 @@ class Waypoint:
         self._last_accessed_by = last_accessed_by
 
     @property
+    def fuel(self) -> Optional[int]:
+        """
+        Amount of fuel at waypoint.
+
+        Returns `None` if unknown. Values are positive integers.
+        """
+        return self._fuel
+
+    @fuel.setter
+    def fuel(self, fuel: int) -> None:
+        """Set amount of fuel at waypoint."""
+        if fuel < 0:
+            msg = "Fuel must be a positive integer."
+            raise ValueError(msg)
+
+        self._fuel = fuel
+
+    @property
     def elevation_ft(self) -> Optional[int]:
         """
         Waypoint elevation in feet.
@@ -421,8 +447,9 @@ class Waypoint:
         colocated_with = comment_elements[1].strip()
         last_accessed_at = comment_elements[2].strip()
         last_accessed_by = comment_elements[3].strip()
-        comment = comment_elements[4].strip()
+        fuel = comment_elements[4].strip()
         elevation_ft = comment_elements[5].strip()
+        comment = comment_elements[6].strip()
 
         if name != "N/A":
             self.name = name
@@ -432,6 +459,8 @@ class Waypoint:
             self.last_accessed_at = date.fromisoformat(last_accessed_at)
         if last_accessed_by != "N/A":
             self.last_accessed_by = last_accessed_by
+        if fuel != "N/A":
+            self.fuel = int(fuel)
         if elevation_ft != "N/A":
             self.elevation_ft = int(elevation_ft)
         if comment != "N/A":
