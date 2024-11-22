@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Added
+
+* waypoint fuel attribute
+  [#221](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/221)
+* waypoint elevation (ft) attribute
+  [#222](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/222)
+
 ### Changed
 
 * Dependencies updated
@@ -15,6 +22,12 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#220](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/220)
 * CI/CD config updated to latest conventions inc. automated releases
   [#220](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/220)
+* Test network updated to include new waypoint properties
+  [#222](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/222)
+
+### Removed
+
+* unnecessary docblock elements (opportunistic, not yet complete)
 
 ## [0.4.0] - 2023-12-03 [BREAKING!]
 
