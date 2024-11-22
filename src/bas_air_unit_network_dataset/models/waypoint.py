@@ -95,6 +95,7 @@ class Waypoint:
         self._colocated_with: Optional[str] = None
         self._last_accessed_at: Optional[date] = None
         self._last_accessed_by: Optional[str] = None
+        self._fuel: Optional[int] = None
         self._elevation_ft: Optional[int] = None
         self._comment: Optional[str] = None
 
@@ -400,6 +401,8 @@ class Waypoint:
         ):
             self.last_accessed_at = date.fromisoformat(feature["properties"]["last_accessed_at"])
             self.last_accessed_by = feature["properties"]["last_accessed_by"]
+        if feature["properties"]["fuel"] is not None:
+            self.fuel = feature["properties"]["fuel"]
         if feature["properties"]["elevation_ft"] is not None:
             self.elevation_ft = feature["properties"]["elevation_ft"]
         if feature["properties"]["comment"] is not None:
@@ -472,6 +475,8 @@ class Waypoint:
                 "colocated_with": self.colocated_with,
                 "last_accessed_at": self.last_accessed_at,
                 "last_accessed_by": self.last_accessed_by,
+                "fuel": self.fuel,
+                "elevation_ft": self.elevation_ft,
                 "comment": self.comment,
             },
         }
@@ -507,6 +512,10 @@ class Waypoint:
         if self.last_accessed_by is not None:
             last_accessed_by = self.last_accessed_by
 
+        fuel = "-"
+        if self.fuel is not None:
+            fuel = self.fuel
+
         elevation_ft = "-"
         if self.elevation_ft is not None:
             elevation_ft = self.elevation_ft
@@ -525,6 +534,7 @@ class Waypoint:
             "longitude_ddm": geometry_ddm["lon"],
             "last_accessed_at": last_accessed_at,
             "last_accessed_by": last_accessed_by,
+            "fuel": fuel,
             "elevation_ft": elevation_ft,
             "comment": comment,
         }
