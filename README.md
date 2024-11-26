@@ -53,7 +53,7 @@ $ python -m pip install bas-air-unit-network-dataset
 If loading waypoints and routes from a GPX file, these requirements must be met in addition to the constraints from the 
 [Information Model](IMPLEMENTATION.md#information-model):
 
-- the GPX comment field should consist of 7 elements, in the order below, separated with a vertical bar (`|`):
+- the GPX comment field should consist of 8 elements, in the order below, separated with a vertical bar (`|`):
   - *name*: a full, or formal name for the waypoint (maximum 17 characters)
   - *co-located with*: name of a related depot, instrument and/or other feature - use `N/A` if not applicable
   - *last accessed at*: date waypoint was last accessed in the form `YYYY-MM-DD` - use `N/A` if unvisited
@@ -61,16 +61,17 @@ If loading waypoints and routes from a GPX file, these requirements must be met 
   - *fuel*: amount of fuel at a waypoint, as a positive whole number - use `N/A` if not applicable
   - *elevation_ft*: elevation at waypoint, as a positive whole number - use `N/A` if not applicable
   - *comment*: any other information - use `N/A` if not applicable
+  - *category*: a grouping value - use `N/A` if not applicable
 
-For example (a co-located, previously visited, waypoint with a full name and additional information):
+For example (a co-located, previously visited, waypoint with a full name, additional information and a category):
 
 * identifier: `ALPHA`
-* comment: `Alpha 001 | Dog | 2014-12-24 | CW | 10 | 130 | Bring treats.`
+* comment: `Alpha 001 | Dog | 2014-12-24 | CW | 10 | 130 | Bring treats. | Animals`
 
 For example (a standalone, unvisited, waypoint with no full/formal name or additional information):
 
 * identifier: `BRAVO`
-* comment: `N/A | N/A | N/A | N/A | N/A | N/A | N/A`
+* comment: `N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A`
 
 **Note:** Only the 'name' in a comment will be included in FPL waypoints.
 

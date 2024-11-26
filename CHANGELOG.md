@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#221](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/221)
 * waypoint elevation (ft) attribute
   [#222](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/222)
+* Waypoint category attribute
+  [#225](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/225)
 
 ### Changed
 

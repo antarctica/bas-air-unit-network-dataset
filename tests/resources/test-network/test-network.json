@@ -13,7 +13,8 @@
       "last_accessed_by": "~conwat",
       "fuel": 10,
       "elevation_ft": 1200,
-      "comment": "There's unlimited juice?"
+      "comment": "There's unlimited juice?",
+      "category": "Island"
     },
     {
       "identifier": "BRAVO",
@@ -24,7 +25,8 @@
       "last_accessed_by": null,
       "fuel": null,
       "elevation_ft": null,
-      "comment": null
+      "comment": null,
+      "category": null
     },
     {
       "identifier": "CHARLE",
@@ -35,7 +37,8 @@
       "last_accessed_by": null,
       "fuel": null,
       "elevation_ft": null,
-      "comment": "You're losing blood, aren't you?"
+      "comment": "You're losing blood, aren't you?",
+      "category": "Island"
     },
     {
       "identifier": "DELTA",
@@ -46,7 +49,8 @@
       "last_accessed_by": null,
       "fuel": null,
       "elevation_ft": null,
-      "comment": "How about a turtle?"
+      "comment": "How about a turtle?",
+      "category": "Triangle 🔺"
     },
     {
       "identifier": "ECHO",
@@ -57,7 +61,8 @@
       "last_accessed_by": null,
       "fuel": null,
       "elevation_ft": null,
-      "comment": "I don't criticize you!"
+      "comment": "I don't criticize you!",
+      "category": "Triangle 🔺"
     },
     {
       "identifier": "FOXTRT",
@@ -68,7 +73,8 @@
       "last_accessed_by": null,
       "fuel": null,
       "elevation_ft": null,
-      "comment": "Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!"
+      "comment": "Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!",
+      "category": "_-:;()@&$#"
     },
     {
       "identifier": "GOLF",
@@ -79,7 +85,8 @@
       "last_accessed_by": null,
       "fuel": null,
       "elevation_ft": null,
-      "comment": "I've always been deeply passionate about nature. 🌳"
+      "comment": "I've always been deeply passionate about nature. 🌳",
+      "category": "_-:;()@&$#"
     },
     {
       "identifier": "HOTEL",
@@ -90,7 +97,8 @@
       "last_accessed_by": null,
       "fuel": null,
       "elevation_ft": null,
-      "comment": "I don't know how I know that. I took four years of Spanish."
+      "comment": "I don't know how I know that. I took four years of Spanish.",
+      "category": "Triangle 🔺"
     },
     {
       "identifier": "INDIA",
@@ -101,7 +109,8 @@
       "last_accessed_by": null,
       "fuel": null,
       "elevation_ft": null,
-      "comment": "I am getting rid of this thing. It has caused me nothing but pride and self-respect."
+      "comment": "I am getting rid of this thing. It has caused me nothing but pride and self-respect.",
+      "category": "LINE LAND"
     },
     {
       "identifier": "JULIET",
@@ -112,7 +121,8 @@
       "last_accessed_by": null,
       "fuel": null,
       "elevation_ft": null,
-      "comment": "There's not a lot of logic to it."
+      "comment": "There's not a lot of logic to it.",
+      "category": "LINE LAND"
     },
     {
       "identifier": "KILO",
@@ -121,7 +131,8 @@
       "lat": -77.16692692591407,
       "last_accessed_at": null,
       "last_accessed_by": null,
-      "comment": "Well, I hope you also carry a spare bowl of candy beans."
+      "comment": "Well, I hope you also carry a spare bowl of candy beans.",
+      "category": "LINE LAND"
     },
     {
       "identifier": "LIMA",
@@ -132,7 +143,8 @@
       "last_accessed_by": null,
       "fuel": null,
       "elevation_ft": null,
-      "comment": "Are you at all concerned about an uprising?"
+      "comment": "Are you at all concerned about an uprising?",
+      "category": "LINE LAND"
     }
   ],
   "routes": [

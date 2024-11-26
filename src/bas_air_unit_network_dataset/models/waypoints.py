@@ -99,6 +99,7 @@ class WaypointCollection:
                 "fuel",
                 "elevation_ft",
                 "comment",
+                "category",
             ]
         if inc_ddm_lat_lon:
             fieldnames = [
@@ -112,6 +113,7 @@ class WaypointCollection:
                 "fuel",
                 "elevation_ft",
                 "comment",
+                "category",
             ]
         if inc_dd_lat_lon and inc_ddm_lat_lon:
             fieldnames = [
@@ -127,6 +129,7 @@ class WaypointCollection:
                 "fuel",
                 "elevation_ft",
                 "comment",
+                "category",
             ]
 
         # newline parameter needed to avoid extra blank lines in files on Windows [#63]

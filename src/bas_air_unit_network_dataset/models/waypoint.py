@@ -44,6 +44,7 @@ class Waypoint:
             "fuel": "int",
             "elevation_ft": "int",
             "comment": "str",
+            "category": "str",
         },
     }
 
@@ -56,6 +57,7 @@ class Waypoint:
         "fuel": "int",
         "elevation_ft": "int",
         "comment": "str",
+        "category": "str",
     }
 
     def __init__(
@@ -70,6 +72,7 @@ class Waypoint:
         fuel: Optional[int] = None,
         elevation_ft: Optional[int] = None,
         comment: Optional[str] = None,
+        category: Optional[str] = None,
     ) -> None:
         """
         Create or load a waypoint, optionally setting parameters.
@@ -86,6 +89,7 @@ class Waypoint:
         :param fuel: optionally, fuel quantity at waypoint
         :param elevation_ft: optionally, waypoint elevation in feet
         :param comment: free-text descriptive comment for waypoint
+        :param category: single free-text group for waypoint
         """
         self._id: str = str(ulid.new())
 
@@ -98,6 +102,7 @@ class Waypoint:
         self._fuel: Optional[int] = None
         self._elevation_ft: Optional[int] = None
         self._comment: Optional[str] = None
+        self._category: Optional[str] = None
 
         if identifier is not None:
             self.identifier = identifier
@@ -128,6 +133,9 @@ class Waypoint:
 
         if comment is not None:
             self.comment = comment
+
+        if category is not None:
+            self.category = category
 
     @property
     def fid(self) -> str:
@@ -375,6 +383,24 @@ class Waypoint:
         """
         self._comment = comment
 
+    @property
+    def category(self) -> Optional[str]:
+        """
+        Waypoint category.
+
+        :return: single free-text group for waypoint
+        """
+        return self._category
+
+    @category.setter
+    def category(self, category: str) -> None:
+        """
+        Set waypoint category.
+
+        :param category: single free-text group for waypoint
+        """
+        self._category = category
+
     def loads_feature(self, feature: dict) -> None:
         """
         Create a Waypoint from a generic feature.
@@ -407,6 +433,8 @@ class Waypoint:
             self.elevation_ft = feature["properties"]["elevation_ft"]
         if feature["properties"]["comment"] is not None:
             self.comment = feature["properties"]["comment"]
+        if feature["properties"]["category"] is not None:
+            self.category = feature["properties"]["category"]
 
     def loads_gpx(self, gpx_waypoint: GPXWaypoint) -> None:
         """
@@ -417,7 +445,10 @@ class Waypoint:
         self.identifier = gpx_waypoint.name
         self.geometry = [gpx_waypoint.longitude, gpx_waypoint.latitude]
 
-        if gpx_waypoint.description is None or gpx_waypoint.description == "N/A | N/A | N/A | N/A | N/A | N/A | N/A":
+        if (
+            gpx_waypoint.description is None
+            or gpx_waypoint.description == "N/A | N/A | N/A | N/A | N/A | N/A | N/A | N/A"
+        ):
             pass
 
         comment_elements = gpx_waypoint.description.split("|")
@@ -428,6 +459,7 @@ class Waypoint:
         fuel = comment_elements[4].strip()
         elevation_ft = comment_elements[5].strip()
         comment = comment_elements[6].strip()
+        category = comment_elements[7].strip()
 
         if name != "N/A":
             self.name = name
@@ -443,6 +475,8 @@ class Waypoint:
             self.elevation_ft = int(elevation_ft)
         if comment != "N/A":
             self.comment = comment
+        if category != "N/A":
+            self.category = category
 
     def dumps_feature_geometry(self) -> dict:
         """
@@ -478,6 +512,7 @@ class Waypoint:
                 "fuel": self.fuel,
                 "elevation_ft": self.elevation_ft,
                 "comment": self.comment,
+                "category": self.category,
             },
         }
 
@@ -524,6 +559,10 @@ class Waypoint:
         if self.comment is not None:
             comment = self.comment
 
+        category = "-"
+        if self.category is not None:
+            category = self.category
+
         csv_feature = {
             "identifier": self.identifier,
             "name": name,
@@ -537,6 +576,7 @@ class Waypoint:
             "fuel": fuel,
             "elevation_ft": elevation_ft,
             "comment": comment,
+            "category": category,
         }
 
         if not inc_dd_lat_lon:
