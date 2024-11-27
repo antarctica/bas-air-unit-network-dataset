@@ -15,6 +15,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#222](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/222)
 * Waypoint category attribute
   [#225](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/225)
+* Waypoints PDF export
+  [#22](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/22)
 
 ### Changed
 

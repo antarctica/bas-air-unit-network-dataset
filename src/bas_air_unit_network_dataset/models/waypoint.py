@@ -8,6 +8,7 @@ from gpxpy.gpx import GPXWaypoint
 from shapely.geometry import Point
 
 from bas_air_unit_network_dataset.exporters.fpl.waypoint import Waypoint as FplWaypoint
+from bas_air_unit_network_dataset.exporters.report.waypoint import WaypointsReportWaypoint
 from bas_air_unit_network_dataset.utils import convert_coordinate_dd_2_ddm
 
 
@@ -633,6 +634,25 @@ class Waypoint:
             waypoint.comment = self.name.upper()
 
         return waypoint
+
+    def dumps_report(self) -> WaypointsReportWaypoint:
+        """
+        Build waypoint for use in reports.
+
+        These objects are intended to be combined into reports elsewhere.
+        """
+        return WaypointsReportWaypoint(
+            id=self.identifier,
+            geometry=self.geometry,
+            name=self.name,
+            colocated_with=self.colocated_with,
+            last_accessed_at=self.last_accessed_at,
+            last_accessed_by=self.last_accessed_by,
+            fuel=self.fuel,
+            elevation_ft=self.elevation_ft,
+            comment=self.comment,
+            category=self.category,
+        )
 
     def __repr__(self) -> str:
         """Represent Waypoint as a string."""

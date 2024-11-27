@@ -87,6 +87,9 @@ comparing checksums on file contents using the [`tests/compare_outputs.py`](test
 $ poetry run python ./tests/compare_outputs.py ./tests/out
 ```
 
+**Note:** Because PDF reports include a timestamp, these are not compared as the checksum/hash value would never match.
+Manual testing is therefore encouraged as a workaround.
+
 ### Test network
 
 A network consisting of 12 waypoints and 3 routes is used to:

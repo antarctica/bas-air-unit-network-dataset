@@ -1,0 +1,37 @@
+<article id="{{ id }}">
+    <header>
+        <h1>{{ title }}</h1>
+    </header>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Colocated</th>
+                <th>Lat (DDM)</th>
+                <th>Lon (DDM)</th>
+                <th>Elv (FT)</th>
+                <th>Fuel</th>
+                <th>Last Visit By</th>
+                <th>Last Visit At</th>
+                <th>Comment</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in items %}
+                <tr>
+                    <td class="mono">{{ item.id }}</td>
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.colocated_with }}</td>
+                    <td>{{ item.lat_ddm_padded }}</td>
+                    <td>{{ item.lon_ddm_padded }}</td>
+                    <td>{{ item.elevation_ft }}</td>
+                    <td>{{ item.fuel }}</td>
+                    <td>{{ item.last_accessed_by }}</td>
+                    <td>{{ item.last_accessed_at_fmt }}</td>
+                    <td class="width-20">{{ item.comment }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</article>

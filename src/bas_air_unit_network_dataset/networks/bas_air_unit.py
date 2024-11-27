@@ -4,6 +4,9 @@ from copy import copy
 from pathlib import Path
 from typing import Optional
 
+from importlib_resources import as_file as resources_as_file
+from importlib_resources import files as resources_files
+
 from bas_air_unit_network_dataset.models.network import Network
 from bas_air_unit_network_dataset.models.routes import RouteCollection
 from bas_air_unit_network_dataset.models.waypoints import WaypointCollection
@@ -89,3 +92,22 @@ class MainAirUnitNetwork(Network):
                 flight_plan_index=flight_plan_index,
             )
             flight_plan_index += 1
+
+    def dump_pdf(self) -> None:
+        """
+        Write waypoints as a PDF formatted report files for visualisation and/or printing.
+
+        Waypoints are written using decimal degrees minutes (DDM) and YYYY-MMM-DD dates to suit the BAS Air Unit.
+
+        Files are named according to Air Unit conventions.
+        """
+        base_path = self._output_path.joinpath("PDF")
+        base_path.mkdir(parents=True, exist_ok=True)
+
+        title = "Air Unit Waypoints"
+        template_name = "air_unit_waypoints.j2"
+        waypoints_report_path = base_path.joinpath(file_name_with_date("00_WAYPOINTS_{{date}}.pdf"))
+
+        with resources_as_file(resources_files("bas_air_unit_network_dataset.resources.templates")) as templates_path:
+            template_path = templates_path / template_name
+            self.waypoints.dump_report_pdf(template_path=template_path, title=title, path=waypoints_report_path)
