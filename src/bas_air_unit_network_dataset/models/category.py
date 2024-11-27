@@ -6,7 +6,7 @@ DEFAULT_CATEGORY_COLOUR = "#a3a3a3"  # neutral-400
 CATEGORY_COLOURS = [
     "#ef4444",  # red
     "#f97316",  # orange
-    # "#f59e0b",  # amber (disabled, too similar to yellow)
+    # "#f59e0b",  # amber (disabled, too similar to yellow)  # noqa: ERA001
     "#eab308",  # yellow
     "#84cc16",  # lime
     # "#22c55e",  # green (disabled, too similar to emerald)
@@ -26,9 +26,11 @@ CATEGORY_COLOURS = [
 
 @dataclass
 class Category:
+    """A label used to group or categorise a set of waypoints."""
+
     name: str
     colour: str = DEFAULT_CATEGORY_COLOUR
     weight: float = 0.4
 
-    def __post_init__(self):
+    def __post_init__(self) -> None:
         self.slug = slugify(self.name)

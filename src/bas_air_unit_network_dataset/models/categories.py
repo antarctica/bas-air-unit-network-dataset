@@ -1,13 +1,15 @@
-from bas_air_unit_network_dataset.models.category import Category, DEFAULT_CATEGORY_COLOUR, CATEGORY_COLOURS
+from bas_air_unit_network_dataset.models.category import CATEGORY_COLOURS, DEFAULT_CATEGORY_COLOUR, Category
 
 
 class Categories:
-    def __init__(self, categories: list[str]):
+    """A collection/set of categories."""
+
+    def __init__(self, categories: list[str]) -> None:
         self._categories: list[Category] = []
         self._make_categories(categories)
 
     def _make_categories(self, names: list[str]) -> None:
-        unique_names_sorted = sorted(list(set(name for name in names if name is not None)))
+        unique_names_sorted = sorted({name for name in names if name is not None})
 
         for i, name in enumerate(unique_names_sorted):
             try:
@@ -23,8 +25,10 @@ class Categories:
 
     @property
     def as_list(self) -> list[Category]:
+        """Get categories as a list of objects."""
         return self._categories
 
     @property
     def colours(self) -> dict[str, str]:
+        """Get categories as a dict where keys are category slugs and values are the assigned colour value."""
         return {category.slug: category.colour for category in self._categories}

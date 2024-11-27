@@ -521,7 +521,7 @@ class Waypoint:
 
         return feature
 
-    def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> dict:
+    def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> dict:  # noqa: C901
         """
         Build CSV data for waypoint.
 
