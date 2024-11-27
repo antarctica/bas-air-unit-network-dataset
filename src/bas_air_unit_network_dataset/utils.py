@@ -65,6 +65,24 @@ def convert_coordinate_dd_2_ddm(lon: float, lat: float) -> dict[str, str]:
     }
 
 
+def convert_coordinate_dd_2_ddm_padded(lon: float, lat: float) -> dict[str, str]:
+    """
+    Convert coordinate from decimal degrees (DD) to degrees decimal minutes (DDM) with padding.
+
+    In this format values used fixed padding for easier reading in tabular form.
+
+    For example, a coordinate of '-50.846166657283902, -69.91516669280827' (lon, lat) becomes:
+    `{'lon': "050° 50.769999' W", 'lat': "069° 54.910002' S"}`.
+    """
+    lon = _convert_coordinate_dd_2_ddm(lon, positive_symbol="E", negative_symbol="W")
+    lat = _convert_coordinate_dd_2_ddm(lat, positive_symbol="N", negative_symbol="S")
+
+    return {
+        "lon": f"{str(int(lon['degree'])).zfill(3)}° {'{:.6f}'.format(lon['minutes']).zfill(9)}' {lon['sign']}",
+        "lat": f"{str(int(lat['degree'])).zfill(2)}° {'{:.6f}'.format(lat['minutes']).zfill(9)}' {lat['sign']}",
+    }
+
+
 def file_name_with_date(name: str) -> str:
     """
     Generate file name string with placeholder replaced by current date.

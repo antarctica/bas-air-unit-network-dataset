@@ -247,19 +247,21 @@ as such within the GeoPackage.
 
 Format use-cases:
 
-| Format | Use Case                          |
-|--------|-----------------------------------|
-| CSV    | Human readable, printed reference |
-| GPX    | Machine readable, handheld GPS    |
-| FPL    | Machine readable, aircraft GPS    |
+| Format | Use Case                               |
+|--------|----------------------------------------|
+| CSV    | Human readable, unformatted            |
+| GPX    | Machine readable, handheld GPS         |
+| FPL    | Machine readable, aircraft GPS         |
+| PDF    | Human readable, formatted for printing | 
 
 Format details:
 
-| Format | Name                   | Version  | File Type | Encoding    | Open Format          | Restricted Attributes | Extensions Available | Extensions Used  |
-|--------|------------------------|----------|-----------|-------------|----------------------|-----------------------|----------------------|------------------|
-| CSV    | Comma Separated Value  | N/A      | Text      | UTF-8 + BOM | Yes                  | No                    | No                   | N/A              |
-| GPX    | GPS Exchange Format    | 1.1      | XML       | UTF-8       | Yes                  | Yes                   | Yes                  | No               |
-| FPL    | (Garmin) Flight Plan   | 1.0      | XML       | UTF-8       | No (Vendor Specific) | Yes                   | Yes                  | No               |
+| Format | Name                     | Version | File Type | Encoding    | Open Format          | Restricted Attributes | Extensions Available | Extensions Used |
+|--------|--------------------------|---------|-----------|-------------|----------------------|-----------------------|----------------------|-----------------|
+| CSV    | Comma Separated Value    | N/A     | Text      | UTF-8 + BOM | Yes                  | No                    | No                   | N/A             |
+| GPX    | GPS Exchange Format      | 1.1     | XML       | UTF-8       | Yes                  | Yes                   | Yes                  | No              |
+| FPL    | (Garmin) Flight Plan     | 1.0     | XML       | UTF-8       | No (Vendor Specific) | Yes                   | Yes                  | No              |
+| PDF    | Portable Document Format | ?       | Binary    | UTF-8       | No (Vendor Specific) | No                    | No                   | N/A             |
 
 Outputs produced for each format: 
 
@@ -268,8 +270,11 @@ Outputs produced for each format:
 | CSV    | No            | No         | Yes                  | No [1]            | No                              |
 | GPX    | No            | No         | No [1]               | No [1]            | Yes                             |
 | FPL    | No            | Yes        | Yes                  | No                | No                              |
+| PDF    | No            | No         | Yes                  | No                | No                              |
 
 Where 'All Waypoints (Only)' outputs are produced, waypoints will be sorted alphabetically.
+
+The PDF export is a specific 'All Waypoints' report.
 
 [1] These outputs can be produced but are intentionally excluded as they aren't used by the Air Unit. See this 
 [GitLab issue 🛡](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/101) for details.
@@ -326,8 +331,9 @@ Notes:
 
 Limitations:
 
-* the `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by` and `waypoint.comment` 
-  properties are not included in FPL waypoint comments, as they are limited to 17 characters [1]
+* the `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by`, `waypoint.fuel`, 
+  `waypoint.elevation_ft`, `waypoint.comment` and `waypoint.category` properties are not included in FPL waypoint 
+  comments, as they are limited to 17 characters [1]
 * underscores (`_`) characters are stripped from route names *within* FPL files (rather than the names *of* FPL 
   files), a local override is used to replace underscores with spaces (` `) to work around this limitation
 * FPL metadata fields (author, last updated, etc.) are not currently populated
@@ -351,3 +357,24 @@ number of other changes have been made to the local version of the FPL schema. T
 
 **Note:** It is hoped these local modifications will be removed in future through testing with the in-aircraft GPS.
 See [#12 🛡](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/32) for more information.
+
+### Output format - PDF
+
+Notes:
+
+- PDF outputs are generated from HTML via a Jinja template, with each template being use-case specific
+- the only supported use-case groups waypoints in the main BAS Air Unit Network by category followed by all waypoints
+- waypoint categories and waypoints with each category are sorted alphabetically by `waypoint.identifier`
+- each waypoint group is assigned a unique colour, in a predefined order
+- `waypoint.last_accessed_at` is formatted as `YYYY-MMM-DD` where the month is a short name (e.g. `APR` for `April`)
+- lat/lon values are formatted as degrees, decimal minutes (DDM) which fixed precision/padding for ease of reading
+
+Limitations:
+
+- waypoint category names are converted to slugs to create CSS classes, values using only special characters will be 
+  conflated (e.g. category names `#` and `!!!` will both have a slug of `-`)
+- waypoint categories slugs are case-insensitive and will be conflated (e.g. `foo` and `FOO` both have a slug `foo`)
+- due to limited space, some waypoint headings are truncated (`co-located` -> `colocated`, `elevation_ft` -> `Elv (Ft)`, 
+  `last_accessed_at` -> `Last Visit At`, `last_accessed_by` -> `Last Visit By`)
+- waypoint category colours are limited to a maximum of 15, with any additional categories using a fallback (grey)
+- 

@@ -50,7 +50,7 @@ image: python:3.9-slim
 
   # setup OS packages
   - apt-get update
-  - apt-get install -y tree libxml2-utils
+  - apt-get install -y tree libxml2-utils libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0
 
   # setup app deps
   - poetry install --no-interaction --no-ansi

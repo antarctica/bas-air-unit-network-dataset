@@ -2,12 +2,17 @@ from __future__ import annotations
 
 import csv
 from collections.abc import Iterator
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Optional
 
 from gpxpy.gpx import GPX, GPXWaypoint
+from jinja2 import Environment, FileSystemLoader
+from weasyprint import HTML
 
 from bas_air_unit_network_dataset.exporters.fpl.fpl import Fpl
+from bas_air_unit_network_dataset.exporters.report.waypoint import WaypointsReportWaypoint
+from bas_air_unit_network_dataset.models.categories import Categories
 from bas_air_unit_network_dataset.models.waypoint import Waypoint
 
 
@@ -27,6 +32,20 @@ class WaypointCollection:
     def waypoints(self) -> list[Waypoint]:
         """Get all waypoints in collection as Waypoint classes."""
         return self._waypoints
+
+    @property
+    def report_waypoints(self) -> list[WaypointsReportWaypoint]:
+        """Get all waypoints in collection structured for use in reports."""
+        return [waypoint.dumps_report() for waypoint in self.waypoints]
+
+    @property
+    def categories(self) -> Categories:
+        """Get category objects for waypoints in collection."""
+        categories = [waypoint.category for waypoint in self.waypoints]
+        return Categories(categories)
+
+    def _report_waypoints_in_category(self, category: str) -> list[WaypointsReportWaypoint]:
+        return [waypoint for waypoint in self.report_waypoints if waypoint.category == category]
 
     def append(self, waypoint: Waypoint) -> None:
         """
@@ -169,6 +188,41 @@ class WaypointCollection:
         """Write waypoints as a FPL file for use in aircraft GPS devices."""
         fpl = self.dumps_fpl()
         fpl.dump_xml(path=path)
+
+    def dumps_report_html(self, template_path: Path, title: str) -> str:
+        """Build an HTML report for waypoints."""
+        if not template_path.exists():
+            msg = f"Error: template not found: {template_path.absolute()}"
+            raise FileNotFoundError(msg)
+
+        jinja = Environment(loader=FileSystemLoader(template_path.parent), autoescape=True)
+        template = jinja.get_template(template_path.name)
+
+        categories = self.categories
+        item_categories = []
+        for category in categories.as_list:
+            item_categories.append({"category": category, "rows": self._report_waypoints_in_category(category.name)})
+
+        meta = {
+            "title": title,
+            "time": datetime.now(tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S %Z"),
+            "template": template_path.name,
+            "category_colours": categories.colours,
+        }
+
+        return template.render(items=self.report_waypoints, item_categories=item_categories, meta=meta)
+
+    def dump_report_html(self, template_path: Path, title: str, path: Path) -> None:
+        """Write waypoints report as an HTML file."""
+        html = self.dumps_report_html(template_path=template_path, title=title)
+        with path.open(mode="w") as file:
+            file.write(html)
+
+    def dump_report_pdf(self, template_path: Path, title: str, path: Path) -> None:
+        """Write waypoints report as a PDF file."""
+        pdf = HTML(string=self.dumps_report_html(template_path=template_path, title=title))
+        with path.open(mode="wb") as file:
+            pdf.write_pdf(file)
 
     def __getitem__(self, _id: str) -> Waypoint:
         """

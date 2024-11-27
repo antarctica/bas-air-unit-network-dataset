@@ -26,6 +26,7 @@ def main() -> None:
     network.dump_csv()
     network.dump_gpx()
     network.dump_fpl()
+    network.dump_pdf()
 
     print("\nOutput files:")
     for path in output_path.glob("**/*"):

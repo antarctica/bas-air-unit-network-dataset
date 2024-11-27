@@ -100,8 +100,10 @@ similar to the example below will be created:
 │   ├── 01_BRAVO_TO_ALPHA.fpl
 │   ├── 02_BRAVO_TO_BRAVO.fpl
 │   └── 03_BRAVO_TO_LIMA.fpl
-└── GPX
-    └── 00_NETWORK_2023_12_03.gpx
+├── GPX
+│   ├── 00_NETWORK_2023_12_03.gpx
+└── PDF
+    └── 00_WAYPOINTS_2023_12_03.pdf
 ```
 
 #### Access control
