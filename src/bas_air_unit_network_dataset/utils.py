@@ -49,12 +49,6 @@ def convert_coordinate_dd_2_ddm(lon: float, lat: float) -> dict[str, str]:
 
     For example, a coordinate of '-50.846166657283902, -69.91516669280827' (lon, lat) becomes:
     `{'lon': "50° 50.769999' W", 'lat': "69° 54.910002' S"}`.
-
-    :type lon: float
-    :param lon: longitude
-    :type lat: float
-    :param lat: latitude
-    :return:
     """
     lon = _convert_coordinate_dd_2_ddm(lon, positive_symbol="E", negative_symbol="W")
     lat = _convert_coordinate_dd_2_ddm(lat, positive_symbol="N", negative_symbol="S")

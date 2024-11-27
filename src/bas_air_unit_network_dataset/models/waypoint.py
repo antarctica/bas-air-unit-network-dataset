@@ -144,8 +144,6 @@ class Waypoint:
         Waypoint feature ID.
 
         A unique and typically persistent value.
-
-        :return: feature ID
         """
         return self._id
 
@@ -169,8 +167,6 @@ class Waypoint:
         Waypoint identifier.
 
         Unique value identifying waypoint.
-
-        :return: unique reference for waypoint
         """
         return self._identifier
 
@@ -202,8 +198,6 @@ class Waypoint:
         Waypoint geometry.
 
         Geometries use the EPSG:4326 CRS.
-
-        :return: waypoint geometry
         """
         return self._geometry
 
@@ -239,8 +233,6 @@ class Waypoint:
         'Foxtrot'.
 
         Returns `None` if name unknown.
-
-        :return: waypoint name/summary
         """
         return self._name
 
@@ -270,8 +262,6 @@ class Waypoint:
         What waypoint is near or also known as by others.
 
         Returns `None` if date unknown. Values are free text and unstructured.
-
-        :return: things near waypoint, or other names waypoint is known as
         """
         return self._colocated_with
 
@@ -293,8 +283,6 @@ class Waypoint:
         When was waypoint last accessed, if known.
 
         Returns `None` if date unknown.
-
-        :return: the date waypoint was last accessed
         """
         return self._last_accessed_at
 
@@ -313,8 +301,6 @@ class Waypoint:
         Who last accessed waypoint, if known.
 
         Returns `None` if identity unknown.
-
-        :return: identifier of last agent to access waypoint, if known
         """
         return self._last_accessed_by
 
@@ -368,11 +354,7 @@ class Waypoint:
 
     @property
     def comment(self) -> Optional[str]:
-        """
-        Waypoint comment.
-
-        :return: free-text descriptive comment for waypoint
-        """
+        """Waypoint comment (free text)."""
         return self._comment
 
     @comment.setter
@@ -386,11 +368,7 @@ class Waypoint:
 
     @property
     def category(self) -> Optional[str]:
-        """
-        Waypoint category.
-
-        :return: single free-text group for waypoint
-        """
+        """Waypoint category/group (free text)."""
         return self._category
 
     @category.setter
@@ -480,11 +458,7 @@ class Waypoint:
             self.category = category
 
     def dumps_feature_geometry(self) -> dict:
-        """
-        Build waypoint geometry for use in a generic feature.
-
-        :return: Waypoint geometry
-        """
+        """Build waypoint geometry for use in a generic feature."""
         geometry = {"type": "Point", "coordinates": (self.geometry.x, self.geometry.y)}
         if self.geometry.has_z:
             geometry["coordinates"] = (
@@ -524,11 +498,10 @@ class Waypoint:
 
     def dumps_csv(self, inc_dd_lat_lon: bool = False, inc_ddm_lat_lon: bool = False) -> dict:  # noqa: C901
         """
-        Build CSV data for waypoint.
+        Build CSV data row for waypoint.
 
         :param inc_dd_lat_lon: include latitude and longitude columns in decimal degree format
         :param inc_ddm_lat_lon: include latitude and longitude columns in degrees decimal minutes format
-        :return: row of generated CSV data for waypoint
         """
         geometry_ddm = convert_coordinate_dd_2_ddm(lon=self.geometry.x, lat=self.geometry.y)
 
@@ -597,8 +570,6 @@ class Waypoint:
 
         As the GPX standard does not have properties defined for attributes such as name and/or last accessed at, they
         are concatenated as part of the free-text description field.
-
-        :return: generated GPX element for waypoint
         """
         waypoint = GPXWaypoint()
         waypoint.name = self.identifier
@@ -619,8 +590,6 @@ class Waypoint:
 
         The FPL country code is hard-coded to a conventional value used by the BAS Air Unit for Antarctica. This will
         be reviewed in #157.
-
-        :return: generated FPL element for waypoint
         """
         waypoint = FplWaypoint()
 
