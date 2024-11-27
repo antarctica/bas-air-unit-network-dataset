@@ -43,6 +43,7 @@ the current implementation.
 | `fuel`             | Fuel             | Integer                        | 0-1        | 1 - .. | Fuel (amount)                                              | '10'                                     |
 | `elevation_ft`     | Elevation (ft)   | Integer                        | 0-1        | 1 - .. | Elevation (in feet)                                        | 1200                                     |
 | `comment`          | Comment          | String                         | 0-1        | 1 - .. | Freetext description or comments                           | 'Alpha 001 is on a high ridge ...'       |
+| `category`         | Category         | String                         | 0-1        | 1 - .. | Grouping label                                             | 'Islands'                                |
 
 #### ID (Waypoint)
 
@@ -107,6 +108,10 @@ If specified:
 * MUST be a positive integer
 
 #### Comment (Waypoint)
+
+No special comments.
+
+#### Category (Waypoint)
 
 No special comments.
 
@@ -201,6 +206,7 @@ GeoPackage layer: `waypoints`
 | `fuel`             | Fuel             | Integer       | Yes      | No     | -          | -                                                    |
 | `elevation_ft`     | Elevation (ft)   | Integer       | Yes      | No     | -          | -                                                    |
 | `comment`          | Comment          | String        | Yes      | No     | -          | -                                                    |
+| `category`         | Category         | String        | Yes      | No     | -          | -                                                    |
 
 ### Routes (data model)
 

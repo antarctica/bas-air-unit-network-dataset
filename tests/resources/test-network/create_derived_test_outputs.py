@@ -44,6 +44,7 @@ def convert_to_geojson(network: str, data: dict, path: Path) -> None:
             "fuel",
             "elevation_ft",
             "comment",
+            "category"
         ]:
             if property_ in waypoint and waypoint[property_] is not None:
                 feature["properties"][property_] = waypoint[property_]
@@ -94,6 +95,7 @@ def convert_to_gpx(network: str, data: dict, path: Path) -> None:
             "fuel": empty_property,
             "elevation_ft": empty_property,
             "comment": empty_property,
+            "category": empty_property
         }
         for property_ in properties:
             if property_ in waypoint and waypoint[property_] is not None:

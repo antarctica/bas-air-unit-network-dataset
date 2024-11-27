@@ -1,13 +1,13 @@
-﻿identifier,name,colocated_with,latitude_ddm,longitude_ddm,last_accessed_at,last_accessed_by,fuel,elevation_ft,comment
-ALPHA,Alpha,Alpha 001,69° 54.912860' S,75° 0.878906' W,2012-04-24,~conwat,10,1200,There's unlimited juice?
-BRAVO,-,-,70° 49.814857' S,75° 11.425781' W,-,-,-,-,-
-CHARLE,Charlie,-,71° 45.611483' S,71° 29.941406' W,-,-,-,-,"You're losing blood, aren't you?"
-DELTA,Delta,-,72° 45.062319' S,66° 5.625000' W,-,-,-,-,How about a turtle?
-ECHO,Echo,-,73° 27.208366' S,61° 36.679688' W,-,-,-,-,I don't criticize you!
-FOXTRT,Foxtrot,-,73° 10.553830' S,70° 13.476562' W,-,-,-,-,"Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!"
-GOLF,Golf,-,74° 12.001290' S,70° 18.750000' W,-,-,-,-,I've always been deeply passionate about nature. 🌳
-HOTEL,Hotel,-,74° 25.546649' S,65° 26.074219' W,-,-,-,-,I don't know how I know that. I took four years of Spanish.
-INDIA,India,-,75° 42.287183' S,63° 1.054688' W,-,-,-,-,I am getting rid of this thing. It has caused me nothing but pride and self-respect.
-JULIET,Juliet,-,76° 20.491399' S,58° 55.839844' W,-,-,-,-,There's not a lot of logic to it.
-KILO,Kilo,-,77° 10.015616' S,55° 22.265625' W,-,-,-,-,"Well, I hope you also carry a spare bowl of candy beans."
-LIMA,Lima,-,78° 5.353753' S,50° 42.773437' W,-,-,-,-,Are you at all concerned about an uprising?
+﻿identifier,name,colocated_with,latitude_ddm,longitude_ddm,last_accessed_at,last_accessed_by,fuel,elevation_ft,comment,category
+ALPHA,Alpha,Alpha 001,69° 54.912860' S,75° 0.878906' W,2012-04-24,~conwat,10,1200,There's unlimited juice?,Island
+BRAVO,-,-,70° 49.814857' S,75° 11.425781' W,-,-,-,-,-,-
+CHARLE,Charlie,-,71° 45.611483' S,71° 29.941406' W,-,-,-,-,"You're losing blood, aren't you?",Island
+DELTA,Delta,-,72° 45.062319' S,66° 5.625000' W,-,-,-,-,How about a turtle?,Triangle 🔺
+ECHO,Echo,-,73° 27.208366' S,61° 36.679688' W,-,-,-,-,I don't criticize you!,Triangle 🔺
+FOXTRT,Foxtrot,-,73° 10.553830' S,70° 13.476562' W,-,-,-,-,"Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!",_-:;()@&$#
+GOLF,Golf,-,74° 12.001290' S,70° 18.750000' W,-,-,-,-,I've always been deeply passionate about nature. 🌳,_-:;()@&$#
+HOTEL,Hotel,-,74° 25.546649' S,65° 26.074219' W,-,-,-,-,I don't know how I know that. I took four years of Spanish.,Triangle 🔺
+INDIA,India,-,75° 42.287183' S,63° 1.054688' W,-,-,-,-,I am getting rid of this thing. It has caused me nothing but pride and self-respect.,LINE LAND
+JULIET,Juliet,-,76° 20.491399' S,58° 55.839844' W,-,-,-,-,There's not a lot of logic to it.,LINE LAND
+KILO,Kilo,-,77° 10.015616' S,55° 22.265625' W,-,-,-,-,"Well, I hope you also carry a spare bowl of candy beans.",LINE LAND
+LIMA,Lima,-,78° 5.353753' S,50° 42.773437' W,-,-,-,-,Are you at all concerned about an uprising?,LINE LAND
