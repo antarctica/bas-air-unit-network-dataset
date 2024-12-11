@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed
+
+* using '-' rather than 'None' in PDF report where values are null
+  [#227](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/227)
+
 ## [0.5.0] - 2024-11-27
 
 ### Added
