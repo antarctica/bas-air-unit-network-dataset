@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [0.5.1] - 2024-12-11
+
 ### Changed
 
 * using '-' rather than 'None' in PDF report where values are null
