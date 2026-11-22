@@ -1,33 +1,36 @@
-[tool.poetry]
+[project]
 name = "bas-air-unit-network-dataset"
 version = "0.5.1"
 description = "Utility to process routes and waypoints used by the British Antarctic Survey (BAS) Air Unit"
-authors = ["Felix Fennell <felnne@bas.ac.uk>"]
+authors = [{ name = "Felix Fennell", email = "felnne@bas.ac.uk" }]
 license = "MIT"
 readme = "README.md"
-homepage = "https://github.com/antarctica/bas-air-unit-network-dataset"
-repository = "https://github.com/antarctica/bas-air-unit-network-dataset"
+requires-python = ">=3.9"
 classifiers = [
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
 ]
-include = ["src/bas_air_unit_network_dataset/exporters/fpl/schemas/garmin/FlightPlanv1.xsd"]
+dependencies = [
+    "Fiona>=1.10.1,<2.0.0",
+    "Shapely>=2.0.6,<3.0.0",
+    "gpxpy>=1.6.2,<2.0.0",
+    "importlib-resources>=6.4.5,<7.0.0",
+    "jinja2>=3.1.4,<4.0.0",
+    "lxml>=5.3,<6.0.0",
+    "python-slugify>=8.0.4,<9.0.0",
+    "ulid-py>=1.1.0,<2.0.0",
+    "weasyprint>=63.0,<64.0",
+]
 
-[tool.poetry.dependencies]
-python = "^3.9"
-ulid-py = "^1.1.0"
-Shapely = "^2.0.6"
-Fiona = "^1.10.1"
-gpxpy = "^1.6.2"
-lxml = "^5.3"
-jinja2 = "^3.1.4"
-weasyprint = "^63.0"
-python-slugify = "^8.0.4"
-importlib-resources = "^6.4.5"
+[project.urls]
+Homepage = "https://github.com/antarctica/bas-air-unit-network-dataset"
+Repository = "https://github.com/antarctica/bas-air-unit-network-dataset"
 
-[tool.poetry.group.linting.dependencies]
-ruff = "^0.7.4"
-safety = "^3.2.11"
+[dependency-groups]
+dev = [
+    "ruff>=0.7.4,<0.8.0",
+    "safety>=3.2.11,<4.0.0",
+]
 
 [tool.ruff]
 src = ["src"]
@@ -77,5 +80,5 @@ ignore = ['ANN101', 'D100', 'D104', 'D105', 'D107', 'D203', 'D212', 'D402', 'E50
 #  UP007 | for requring `Optional[T]` to be written as `T | None` which isn't supported by Python 3.9
 
 [build-system]
-requires = ["poetry-core>=1.0.0"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.13.9,<0.14"]
+build-backend = "uv_build"

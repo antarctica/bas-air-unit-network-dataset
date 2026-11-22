@@ -12,48 +12,38 @@ stages:
   - 📣 release
 
 variables:
-  # CI config
-  PIP_CACHE_DIR: "$CI_PROJECT_DIR/.cache/pip"
-
   # Secrets (set in GitLab CI/CD settings)
   # - SAFETY_API_KEY
   #   - https://start.1password.com/open/i?a=QSB6V7TUNVEOPPPWR6G7S2ARJ4&v=k34cpwfkqaxp2r56u4aklza6ni&i=swbuhnii4ego6qycyqknvtk7gi&h=magic.1password.eu
+
+  # UV
+  UV_VERSION: "0.13.9"
+  # PYTHON_VERSION: "3.12"
+  PYTHON_INSTALL_VERSION: "3.12"
+  PYTHON_APP_VERSION: "3.9"
+  BASE_LAYER: trixie-slim
+  UV_LINK_MODE: copy
 
   # App tests
   TEST_PATH: test_run
   TEST_GPX: tests/resources/test-network/test-network.gpx
   TEST_OUTPUT: $TEST_PATH/outputs
 
-cache:
-  paths:
-    - .cache/pip  # for pipx/pip
-    - .venv/      # for project dependencies
-
-image: python:3.9-slim
+#image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
+image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_INSTALL_VERSION-$BASE_LAYER
 
 .before_script_python: &before_script_python
-  # setup python
-  - python --version
-  - python -m pip install --upgrade pip
-
-  # setup poetry
-  - python -m pip install pipx
-  - python -m pipx install poetry==1.8.2
-  - python -m pipx ensurepath
-  - export PATH=/root/.local/bin:$PATH
-  - poetry --version
-  - poetry config virtualenvs.in-project true
-  - poetry check
-
-.before_script_python_app_deps: &before_script_python_app_deps
-  - *before_script_python
-
   # setup OS packages
   - apt-get update
   - apt-get install -y tree libxml2-utils libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0
 
+  # setup python
+  - uv --version
+
   # setup app deps
-  - poetry install --no-interaction --no-ansi
+  - uv python install "$PYTHON_APP_VERSION"
+  - uv sync --all-groups
+  - uv run python --version
 
 .before_script_release: &before_script_release
   - apk add --no-cache curl jq
@@ -62,11 +52,11 @@ test:
   stage: 🧪 test
   needs: []
   before_script:
-    - *before_script_python_app_deps
+    - *before_script_python
   script:
     - mkdir -p $TEST_OUTPUT
-    - poetry run python tests/create_outputs.py $TEST_GPX $TEST_OUTPUT
-    - poetry run python tests/compare_outputs.py $TEST_OUTPUT
+    - uv run python tests/create_outputs.py $TEST_GPX $TEST_OUTPUT
+    - uv run python tests/compare_outputs.py $TEST_OUTPUT
   artifacts:
     paths:
       - $TEST_OUTPUT
@@ -79,10 +69,10 @@ ruff:
   stage: 📋 lint
   needs: []
   before_script:
-    - *before_script_python_app_deps
+    - *before_script_python
   script:
-    - poetry run ruff check src/ tests/
-    - poetry run ruff format --check src/ tests/
+    - uv run ruff check src/ tests/
+    - uv run ruff format --check src/ tests/
   artifacts:
     reports:
       codequality: lint-results.json
@@ -90,19 +80,19 @@ ruff:
     - changes:
         - '**/*.py'
 
-safety:
-  stage: 📋 lint
-  needs: []
-  before_script:
-    - *before_script_python_app_deps
-  script:
-    - poetry run safety --stage cicd scan --detailed-output
-  rules:
-    -
-      changes:
-        - '.safety-policy.yml'
-        - 'poetry.lock'
-      if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG == null'
+#safety:
+#  stage: 📋 lint
+#  needs: []
+#  before_script:
+#    - *before_script_python
+#  script:
+#    - uv run safety --stage cicd scan --detailed-output
+#  rules:
+#    -
+#      changes:
+#        - '.safety-policy.yml'
+#        - 'poetry.lock'
+#      if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG == null'
 
 build:
   stage: 🏗 build
@@ -110,7 +100,7 @@ build:
   before_script:
     - *before_script_python
   script:
-    - poetry build
+    - uv build
   artifacts:
     paths:
       - dist/
@@ -120,27 +110,27 @@ build:
       changes:
         - '**/*.py'
         - 'pyproject.toml'
-        - 'poetry.lock'
+        - 'uv.lock'
       if: '$CI_COMMIT_BRANCH != "main" || $CI_COMMIT_TAG != null'
 
-publish:
-  stage: 📦 publish
-  needs:
-    - job: build
-      artifacts: true
-  before_script:
-    - *before_script_python
-    - poetry config pypi-token.pypi $PYPI_TOKEN --local
-    - poetry check
-  script:
-    - poetry publish --no-interaction
-  rules:
-    - if: $CI_COMMIT_TAG
+#publish:
+#  stage: 📦 publish
+#  needs:
+#    - job: build
+#      artifacts: true
+#  before_script:
+#    - *before_script_python
+#    - poetry config pypi-token.pypi $PYPI_TOKEN --local
+#    - poetry check
+#  script:
+#    - poetry publish --no-interaction
+#  rules:
+#    - if: $CI_COMMIT_TAG
 
 release:
   stage: 📣 release
-  needs:
-    - job: publish
+#  needs:
+#    - job: publish
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   before_script:
     - *before_script_release
