@@ -18,9 +18,7 @@ variables:
 
   # UV
   UV_VERSION: "0.13.9"
-  # PYTHON_VERSION: "3.12"
-  PYTHON_INSTALL_VERSION: "3.12"
-  PYTHON_APP_VERSION: "3.9"
+  PYTHON_VERSION: "3.12"
   BASE_LAYER: trixie-slim
   UV_LINK_MODE: copy
 
@@ -29,8 +27,7 @@ variables:
   TEST_GPX: tests/resources/test-network/test-network.gpx
   TEST_OUTPUT: $TEST_PATH/outputs
 
-#image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
-image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_INSTALL_VERSION-$BASE_LAYER
+image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
 
 .before_script_python: &before_script_python
   # setup OS packages
@@ -41,7 +38,6 @@ image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_INSTALL_VERSION-$BASE_LAYE
   - uv --version
 
   # setup app deps
-  - uv python install "$PYTHON_APP_VERSION"
   - uv sync --all-groups
   - uv run python --version
 
@@ -79,20 +75,6 @@ ruff:
   rules:
     - changes:
         - '**/*.py'
-
-#safety:
-#  stage: 📋 lint
-#  needs: []
-#  before_script:
-#    - *before_script_python
-#  script:
-#    - uv run safety --stage cicd scan --detailed-output
-#  rules:
-#    -
-#      changes:
-#        - '.safety-policy.yml'
-#        - 'poetry.lock'
-#      if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG == null'
 
 build:
   stage: 🏗 build
