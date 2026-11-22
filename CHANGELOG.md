@@ -7,10 +7,19 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+### Changed [BREAKING!]
+
+* Minimum Python version changed to 3.12
+  [#234](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/234)
+
 ### Changed
 
 * Switching from Poetry to UV for Python environment and dependencies management, and build system
   [#233](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/233)
+* Project dependencies upgraded
+  [#234](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/234)
+* Safety dependencies vulnerability checking replaced with `uv audit`
+  [#234](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/234)
 
 ## [0.5.1] - 2024-12-11
 

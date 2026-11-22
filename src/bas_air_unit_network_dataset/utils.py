@@ -1,7 +1,7 @@
 from __future__ import annotations
 
 from contextlib import suppress
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Union
 
 
@@ -61,19 +61,19 @@ def convert_coordinate_dd_2_ddm(lon: float, lat: float) -> dict[str, str]:
 
 def convert_coordinate_dd_2_ddm_padded(lon: float, lat: float) -> dict[str, str]:
     """
-    Convert coordinate from decimal degrees (DD) to degrees decimal minutes (DDM) with padding.
+    Convert coordinate from decimal degrees (DD) to degrees decimal minutes (DDM) with padding and rounding.
 
     In this format values used fixed padding for easier reading in tabular form.
 
     For example, a coordinate of '-50.846166657283902, -69.91516669280827' (lon, lat) becomes:
-    `{'lon': "050° 50.769999' W", 'lat': "069° 54.910002' S"}`.
+    `{'lon': "050° 50.770' W", 'lat': "069° 54.910' S"}`.
     """
     lon = _convert_coordinate_dd_2_ddm(lon, positive_symbol="E", negative_symbol="W")
     lat = _convert_coordinate_dd_2_ddm(lat, positive_symbol="N", negative_symbol="S")
 
     return {
-        "lon": f"{str(int(lon['degree'])).zfill(3)}° {'{:.6f}'.format(lon['minutes']).zfill(9)}' {lon['sign']}",
-        "lat": f"{str(int(lat['degree'])).zfill(2)}° {'{:.6f}'.format(lat['minutes']).zfill(9)}' {lat['sign']}",
+        "lon": f"{str(int(lon['degree'])).zfill(3)}° {'{:.6f}'.format(round(lon['minutes'], 3)).zfill(9)}' {lon['sign']}",
+        "lat": f"{str(int(lat['degree'])).zfill(2)}° {'{:.6f}'.format(round(lat['minutes'], 3)).zfill(9)}' {lat['sign']}",
     }
 
 
@@ -91,4 +91,4 @@ def file_name_with_date(name: str) -> str:
     :rtype str
     :return: file name containing current date
     """
-    return name.replace("{{date}}", f"{datetime.now(tz=timezone.utc).date().strftime('%Y_%m_%d')}")
+    return name.replace("{{date}}", f"{datetime.now(tz=UTC).date().strftime('%Y_%m_%d')}")

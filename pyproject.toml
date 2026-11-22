@@ -5,7 +5,7 @@ description = "Utility to process routes and waypoints used by the British Antar
 authors = [{ name = "Felix Fennell", email = "felnne@bas.ac.uk" }]
 license = "MIT"
 readme = "README.md"
-requires-python = ">=3.9"
+requires-python = ">=3.12"
 classifiers = [
     "Intended Audience :: Science/Research",
     "License :: OSI Approved :: MIT License",
@@ -14,12 +14,12 @@ dependencies = [
     "Fiona>=1.10.1,<2.0.0",
     "Shapely>=2.0.6,<3.0.0",
     "gpxpy>=1.6.2,<2.0.0",
-    "importlib-resources>=6.4.5,<7.0.0",
+    "importlib-resources>=7.1.0,<8.0.0",
     "jinja2>=3.1.4,<4.0.0",
-    "lxml>=5.3,<6.0.0",
-    "python-slugify>=8.0.4,<9.0.0",
+    "lxml>=6.1.0,<7.0.0",
+    "python-slugify>=9.1.0,<10.0.0",
     "ulid-py>=1.1.0,<2.0.0",
-    "weasyprint>=63.0,<64.0",
+    "weasyprint>=70.0,<71.0",
 ]
 
 [project.urls]
@@ -29,13 +29,12 @@ Repository = "https://github.com/antarctica/bas-air-unit-network-dataset"
 [dependency-groups]
 dev = [
     "ruff>=0.7.4,<0.8.0",
-    "safety>=3.2.11,<4.0.0",
 ]
 
 [tool.ruff]
 src = ["src"]
 line-length = 120
-target-version = "py39"
+target-version = "py312"
 exclude = ["*/old/*"]
 
 [tool.ruff.lint]

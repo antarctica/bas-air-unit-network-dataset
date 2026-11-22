@@ -2,7 +2,7 @@ from __future__ import annotations
 
 import csv
 from collections.abc import Iterator
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 from typing import Optional
 
@@ -205,7 +205,7 @@ class WaypointCollection:
 
         meta = {
             "title": title,
-            "time": datetime.now(tz=timezone.utc).strftime("%Y-%m-%d %H:%M:%S %Z"),
+            "time": datetime.now(tz=UTC).strftime("%Y-%m-%d %H:%M:%S %Z"),
             "template": template_path.name,
             "category_colours": categories.colours,
         }

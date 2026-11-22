@@ -1,5 +1,5 @@
 import argparse
-from datetime import date, datetime, timezone
+from datetime import UTC, date, datetime
 from hashlib import sha256
 from pathlib import Path
 
@@ -78,7 +78,7 @@ def compare_outputs_with_reference(reference_paths: list[Path], comparison_paths
     :param comparison_paths:
     :raises RuntimeError: comparison file checksum does not match reference file
     """
-    for x, y in zip(reference_paths, comparison_paths):
+    for x, y in zip(reference_paths, comparison_paths, strict=True):
         if y.suffix == ".pdf":
             continue
 
@@ -104,7 +104,7 @@ def main() -> None:
     print(f"{outputs_path.resolve() =}")
 
     reference_paths = make_paths(base_path=reference_path.resolve(), date_=reference_date)
-    outputs_paths = make_paths(base_path=outputs_path.resolve(), date_=datetime.now(tz=timezone.utc).date())
+    outputs_paths = make_paths(base_path=outputs_path.resolve(), date_=datetime.now(tz=UTC).date())
 
     check_for_unexpected_paths(expected_paths=reference_paths, search_path=reference_path.resolve())
     check_for_unexpected_paths(expected_paths=outputs_paths, search_path=outputs_path.resolve())
