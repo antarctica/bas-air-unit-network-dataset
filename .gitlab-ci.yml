@@ -22,7 +22,9 @@ variables:
   TASK_BIN: "uv run task"
 
   # Secrets (set in GitLab CI/CD settings)
-  # - PYPI_TOKEN
+  # - PROJECT_ACCESS_TOKEN
+  #   - https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/settings/access_tokens
+  #   - (name: 'gitlab_ci' scope: 'read_api', role: 'reporter')
 
 image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
 
@@ -137,17 +139,21 @@ publish:
   rules:
     - if: '$CI_COMMIT_TAG != null'
 
-release:
+
+gitlab_release:
   stage: 📣 release
-#  needs:
-#    - job: publish
+  needs:
+    - job: publish
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   before_script:
-    - *before_script_release
+    - apk add --no-cache curl jq
 
     - export TAG_NO_PREFIX=$(echo $CI_COMMIT_TAG | cut -c 2-)
     # for a string v0.8.13, replace last digit to always be 0
     - export TAG_NO_PATCH=$(echo $CI_COMMIT_TAG | sed 's/[0-9]$/0/')
+
+    - 'curl -s -H "Authorization: Bearer $PROJECT_ACCESS_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/packages" > data.json'
+    - export PACKAGE_ID=$(cat data.json | jq -r ".[] | select(.version==\"$TAG_NO_PREFIX\") | .id") && rm data.json
 
     - 'curl -s -H "Authorization: Bearer $PROJECT_ACCESS_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/milestones?title=$CI_COMMIT_TAG" > milestone_exact.json'
     - 'curl -s -H "Authorization: Bearer $PROJECT_ACCESS_TOKEN" "$CI_API_V4_URL/projects/$CI_PROJECT_ID/milestones?title=$TAG_NO_PATCH" > milestone-minor.json'
@@ -168,6 +174,7 @@ release:
 
     # the release section cannot access variables defined in a script but can read from a file :|
     - echo "$TAG_NO_PREFIX" > tag_no_prefix.txt
+    - echo "$PACKAGE_ID" > package_id.txt
     - echo "$MILESTONE_TITLE" > milestone_title.txt
   script:
     - echo 'releasing'
@@ -183,7 +190,7 @@ release:
           url: '$CI_PROJECT_URL/-/blob/$CI_COMMIT_TAG/README.md'
           link_type: runbook
         - name: Python Package
-          url: 'https://pypi.org/project/bas-air-unit-network-dataset/$(cat tag_no_prefix.txt)/'
+          url: '$CI_PROJECT_URL/-/packages/$(cat package_id.txt)'
           link_type: package
   rules:
     - if: $CI_COMMIT_TAG

@@ -35,6 +35,8 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#236](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/236)
 * Aligning and improving CI/CD config
   [#236](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/236)
+* Publishing packages to GitLab package registry instead of PyPi
+  [#238](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/238)
 
 ## [0.5.1] - 2024-12-11
 
