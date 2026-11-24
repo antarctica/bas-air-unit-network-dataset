@@ -1,11 +1,14 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import date
-from typing import ClassVar, Self
+from typing import TYPE_CHECKING, ClassVar, Self
 
-from bas_air_unit_network_dataset.models.base.waypoint import Waypoint as BaseWaypoint
 from bas_air_unit_network_dataset.utils import convert_coordinate_dd_2_ddm_padded
+
+if TYPE_CHECKING:
+    from datetime import date
+
+    from bas_air_unit_network_dataset.models.base.waypoint import Waypoint as BaseWaypoint
 
 
 @dataclass
@@ -27,6 +30,7 @@ class WaypointsReportWaypoint:
     category: str | None = None
 
     def __post_init__(self) -> None:
+        """Post-initialisation validation and processing."""
         ddm_padded_x, ddm_padded_y = convert_coordinate_dd_2_ddm_padded(lon=self.lon, lat=self.lat)
         self.lon_ddm_padded = ddm_padded_x
         self.lat_ddm_padded = ddm_padded_y
@@ -37,7 +41,7 @@ class WaypointsReportWaypoint:
     @classmethod
     def loads(cls, waypoint: BaseWaypoint) -> Self:
         """Load a base waypoint as a Waypoints Report waypoint."""
-        return WaypointsReportWaypoint(
+        return cls(
             id=waypoint.identifier,
             lon=waypoint.geometry.x,
             lat=waypoint.geometry.y,

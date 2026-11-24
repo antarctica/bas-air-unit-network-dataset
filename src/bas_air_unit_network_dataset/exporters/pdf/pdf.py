@@ -1,9 +1,14 @@
-from pathlib import Path
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from pathlib import Path
 
 try:
     from weasyprint import HTML
 except (ImportError, OSError) as exc:
-    msg = "PDF output is required, but WeasyPrint or its dependencies could not be loaded."
+    msg = "Cannot load WeasyPrint or its dependencies for PDF outputs."
     raise RuntimeError(msg) from exc
 
 

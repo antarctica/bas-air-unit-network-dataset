@@ -1,13 +1,13 @@
 ﻿identifier,name,colocated_with,latitude_ddm,longitude_ddm,last_accessed_at,last_accessed_by,fuel,elevation_ft,comment,category
 ALPHA,Alpha,Alpha 001,69° 54.912840' S,75° 0.878880' W,2012-04-24,~conwat,10,1200,There's unlimited juice?,Island
-BRAVO,,,70° 49.814880' S,75° 11.425800' W,,,,,,
-CHARLE,Charlie,,71° 45.611460' S,71° 29.941380' W,,,,,"You're losing blood, aren't you?",Island
-DELTA,Delta,,72° 45.062340' S,66° 5.625000' W,,,,,How about a turtle?,Triangle 🔺
-ECHO,Echo,,73° 27.208380' S,61° 36.679680' W,,,,,I don't criticize you!,Triangle 🔺
-FOXTRT,Foxtrot,,73° 10.553820' S,70° 13.476540' W,,,,,"Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!",_-:;()@&$#
-GOLF,Golf,,74° 12.001320' S,70° 18.750000' W,,,,,I've always been deeply passionate about nature. 🌳,_-:;()@&$#
-HOTEL,Hotel,,74° 25.546620' S,65° 26.074200' W,,,,,I don't know how I know that. I took four years of Spanish.,Triangle 🔺
-INDIA,India,,75° 42.287160' S,63° 1.054680' W,,,,,I am getting rid of this thing. It has caused me nothing but pride and self-respect.,LINE LAND
-JULIET,Juliet,,76° 20.491380' S,58° 55.839840' W,,,,,There's not a lot of logic to it.,LINE LAND
-KILO,Kilo,,77° 10.015620' S,55° 22.265640' W,,,,,"Well, I hope you also carry a spare bowl of candy beans.",LINE LAND
-LIMA,Lima,,78° 5.353740' S,50° 42.773460' W,,,,,Are you at all concerned about an uprising?,LINE LAND
+BRAVO,-,-,70° 49.814880' S,75° 11.425800' W,-,-,-,-,-,-
+CHARLE,Charlie,-,71° 45.611460' S,71° 29.941380' W,-,-,-,-,"You're losing blood, aren't you?",Island
+DELTA,Delta,-,72° 45.062340' S,66° 5.625000' W,-,-,-,-,How about a turtle?,Triangle 🔺
+ECHO,Echo,-,73° 27.208380' S,61° 36.679680' W,-,-,-,-,I don't criticize you!,Triangle 🔺
+FOXTRT,Foxtrot,-,73° 10.553820' S,70° 13.476540' W,-,-,-,-,"Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!",_-:;()@&$#
+GOLF,Golf,-,74° 12.001320' S,70° 18.750000' W,-,-,-,-,I've always been deeply passionate about nature. 🌳,_-:;()@&$#
+HOTEL,Hotel,-,74° 25.546620' S,65° 26.074200' W,-,-,-,-,I don't know how I know that. I took four years of Spanish.,Triangle 🔺
+INDIA,India,-,75° 42.287160' S,63° 1.054680' W,-,-,-,-,I am getting rid of this thing. It has caused me nothing but pride and self-respect.,LINE LAND
+JULIET,Juliet,-,76° 20.491380' S,58° 55.839840' W,-,-,-,-,There's not a lot of logic to it.,LINE LAND
+KILO,Kilo,-,77° 10.015620' S,55° 22.265640' W,-,-,-,-,"Well, I hope you also carry a spare bowl of candy beans.",LINE LAND
+LIMA,Lima,-,78° 5.353740' S,50° 42.773460' W,-,-,-,-,Are you at all concerned about an uprising?,LINE LAND

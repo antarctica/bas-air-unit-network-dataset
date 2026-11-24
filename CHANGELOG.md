@@ -5,12 +5,23 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
+<!--suppress MarkdownUnresolvedLinkLabel -->
+
 ## [Unreleased]
 
 ### Changed [BREAKING!]
 
 * Minimum Python version changed to 3.12
   [#234](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/234)
+
+### Added
+
+* Taskipy task runner for project development tasks
+  [#236](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/236)
+* Type checking via `ty`
+  [#236](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/236)
+* Pre-commit hook via `prek`
+  [#236](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/236)
 
 ### Changed
 
@@ -20,6 +31,10 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
   [#234](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/234)
 * Safety dependencies vulnerability checking replaced with `uv audit`
   [#234](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/234)
+* Ruff linting rules updated
+  [#236](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/236)
+* Aligning and improving CI/CD config
+  [#236](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/236)
 
 ## [0.5.1] - 2024-12-11
 
@@ -230,7 +245,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ### Added
 
-* Core `Waypoint`, `WaypointCollection`, `Route`, `RouteCollection`, `RouteWaypoint` classes, and initial 
+* Core `Waypoint`, `WaypointCollection`, `Route`, `RouteCollection`, `RouteWaypoint` classes, and initial
   `NetworkManager` class
   [#5](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/5)
 * CSV export

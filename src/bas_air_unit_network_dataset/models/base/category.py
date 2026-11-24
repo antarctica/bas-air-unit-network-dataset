@@ -1,3 +1,5 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
 
 from slugify import slugify
@@ -33,4 +35,5 @@ class Category:
     weight: float = 0.4
 
     def __post_init__(self) -> None:
+        """Post-initialisation validation and processing."""
         self.slug = slugify(self.name)

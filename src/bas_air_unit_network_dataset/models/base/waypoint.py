@@ -2,10 +2,12 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 from datetime import date
-from typing import ClassVar, Self
+from typing import TYPE_CHECKING, ClassVar, Self
 
-from geojson.feature import Feature
 from shapely.geometry import Point
+
+if TYPE_CHECKING:
+    from geojson.feature import Feature
 
 
 @dataclass
@@ -57,10 +59,10 @@ class Waypoint:
 
     def __post_init__(self) -> None:
         """Post-initialisation validation and processing."""
-        if not -180 <= self.lon <= 180:
+        if not -180 <= self.lon <= 180:  # noqa: PLR2004
             msg = "Longitude must be between -180 and +180."
             raise ValueError(msg) from None
-        if not -90 <= self.lat <= 90:
+        if not -90 <= self.lat <= 90:  # noqa: PLR2004
             msg = "Latitude must be between -90 and +90."
             raise ValueError(msg) from None
 
@@ -102,7 +104,7 @@ class Waypoint:
     @classmethod
     def loads_feature(cls, feature: Feature) -> Self:
         """Create a Waypoint from a GeoJSON point feature."""
-        return Waypoint(
+        return cls(
             lon=feature.geometry.coordinates[0],
             lat=feature.geometry.coordinates[1],
             identifier=feature.properties["identifier"],

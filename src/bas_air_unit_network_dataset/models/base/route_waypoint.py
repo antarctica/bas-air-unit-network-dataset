@@ -1,8 +1,10 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import TYPE_CHECKING
 
-from bas_air_unit_network_dataset.models.base.waypoint import Waypoint
+if TYPE_CHECKING:
+    from bas_air_unit_network_dataset.models.base.waypoint import Waypoint
 
 
 @dataclass

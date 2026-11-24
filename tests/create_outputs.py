@@ -15,11 +15,11 @@ def _split_geojson(source: Path) -> tuple[FeatureCollection, FeatureCollection]:
     routes = FeatureCollection(features=[])
     with source.open() as f:
         fc = geojson.load(f)
-        for f in fc.features:
-            if f.properties["feature_type"] == "waypoint":
-                waypoints.features.append(f)
-            elif f.properties["feature_type"] == "route":
-                routes.features.append(f)
+        for feat in fc.features:
+            if feat.properties["feature_type"] == "waypoint":
+                waypoints.features.append(feat)
+            elif feat.properties["feature_type"] == "route":
+                routes.features.append(feat)
     return waypoints, routes
 
 

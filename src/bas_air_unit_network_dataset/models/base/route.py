@@ -1,13 +1,15 @@
 from __future__ import annotations
 
 from dataclasses import dataclass, field
-from typing import Self
-
-from geojson import Feature
-from geojson.geometry import LineString
+from typing import TYPE_CHECKING, Self
 
 from bas_air_unit_network_dataset.models.base.route_waypoint import RouteWaypoint
-from bas_air_unit_network_dataset.models.base.waypoint import Waypoint
+
+if TYPE_CHECKING:
+    from geojson import Feature
+    from geojson.geometry import LineString
+
+    from bas_air_unit_network_dataset.models.base.waypoint import Waypoint
 
 
 @dataclass
@@ -92,7 +94,7 @@ class Route:
     @classmethod
     def loads_feature(cls, feature: Feature, reference_waypoints: list[Waypoint]) -> Self:
         """Create a Route from a GeoJSON linestring feature and reference Waypoints."""
-        return Route(
+        return cls(
             name=feature.properties["identifier"],
             waypoints=Route._resolve_waypoints(geom=feature.geometry, waypoints=reference_waypoints),
         )
