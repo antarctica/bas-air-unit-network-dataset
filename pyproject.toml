@@ -28,6 +28,7 @@ Repository = "https://github.com/antarctica/bas-air-unit-network-dataset"
 
 [dependency-groups]
 dev = [
+    "dunamai>=1.26.5",
     "ruff>=0.17.5",
     "taskipy>=1.14.1",
     "ty>=0.0.105",
@@ -36,6 +37,12 @@ dev = [
 
 [tool.uv.exclude-newer-package]
 # intentionally empty
+
+[[tool.uv.index]]
+name = "self"
+url = "https://gitlab.data.bas.ac.uk/api/v4/projects/984/packages/pypi/simple"
+publish-url = "https://gitlab.data.bas.ac.uk/api/v4/projects/984/packages/pypi"
+explicit = true
 
 [tool.taskipy.variables]
 # TODO: docs_targets = "docs/ README.md CHANGELOG.md"
@@ -52,6 +59,7 @@ prek = { cmd = "prek run --all-files", help = "Run pre-hooks hooks on all files 
 audit = { cmd = "uv audit --frozen", help = "Check for insecure dependencies" }
 outdated = { cmd = "uv tree --all-groups --outdated --depth=1", help = "List outdated directed dependencies" }
 # app dev
+release = { cmd = "python -m tasks.release", help = "Prepapre app release" }
 version = { cmd = "uv version", help = "Show app version" }
 test-outputs = { cmd = "echo '!! run `uv run python tests/create_outputs.py` (taskipy cannot load PDF libs)'", help = "Generate outputs for test network" }
 test-compare = { cmd = "python tests/compare_outputs.py", help = "Compare generated outputs against known test references." }
