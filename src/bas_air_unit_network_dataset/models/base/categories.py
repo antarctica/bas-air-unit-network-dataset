@@ -1,4 +1,4 @@
-from bas_air_unit_network_dataset.models.category import CATEGORY_COLOURS, DEFAULT_CATEGORY_COLOUR, Category
+from bas_air_unit_network_dataset.models.base.category import CATEGORY_COLOURS, DEFAULT_CATEGORY_COLOUR, Category
 
 
 class Categories:
