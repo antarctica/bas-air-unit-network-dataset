@@ -13,19 +13,13 @@ stages:
 
 variables:
   # Secrets (set in GitLab CI/CD settings)
-  # - SAFETY_API_KEY
-  #   - https://start.1password.com/open/i?a=QSB6V7TUNVEOPPPWR6G7S2ARJ4&v=k34cpwfkqaxp2r56u4aklza6ni&i=swbuhnii4ego6qycyqknvtk7gi&h=magic.1password.eu
+  # - PYPI_TOKEN
 
   # UV
   UV_VERSION: "0.13.9"
   PYTHON_VERSION: "3.12"
   BASE_LAYER: trixie-slim
   UV_LINK_MODE: copy
-
-  # App tests
-  TEST_PATH: test_run
-  TEST_GPX: tests/resources/test-network/test-network.gpx
-  TEST_OUTPUT: $TEST_PATH/outputs
 
 image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
 
@@ -50,12 +44,11 @@ test:
   before_script:
     - *before_script_python
   script:
-    - mkdir -p $TEST_OUTPUT
-    - uv run python tests/create_outputs.py $TEST_GPX $TEST_OUTPUT
-    - uv run python tests/compare_outputs.py $TEST_OUTPUT
+    - uv run python tests/create_outputs.py
+    - uv run python tests/compare_outputs.py
   artifacts:
     paths:
-      - $TEST_OUTPUT
+      - tests/out
     expire_in: 1 month
   rules:
     - changes:

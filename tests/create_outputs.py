@@ -1,33 +1,54 @@
-import argparse
+from datetime import UTC, datetime
 from pathlib import Path
 
-from bas_air_unit_network_dataset.networks.bas_air_unit import MainAirUnitNetwork
+import geojson
+from geojson import FeatureCollection
+
+from bas_air_unit_network_dataset.models.base.route import Route
+from bas_air_unit_network_dataset.models.base.waypoint import Waypoint
+from bas_air_unit_network_dataset.networks.bas_air_unit_main import BasAirUnitMainNetwork
+
+
+def _split_geojson(source: Path) -> tuple[FeatureCollection, FeatureCollection]:
+    """Divide test network feature collection into routes and waypoints."""
+    waypoints = FeatureCollection(features=[])
+    routes = FeatureCollection(features=[])
+    with source.open() as f:
+        fc = geojson.load(f)
+        for f in fc.features:
+            if f.properties["feature_type"] == "waypoint":
+                waypoints.features.append(f)
+            elif f.properties["feature_type"] == "route":
+                routes.features.append(f)
+    return waypoints, routes
+
+
+def _run(input_path: Path, output_path: Path) -> None:
+    """Create outputs."""
+    updated_at = datetime.now(tz=UTC).date()
+    waypoint_features, route_features = _split_geojson(input_path)
+
+    waypoints = [Waypoint.loads_feature(wp) for wp in waypoint_features.features]
+    routes = [Route.loads_feature(feature=r, reference_waypoints=waypoints) for r in route_features.features]
+    network = BasAirUnitMainNetwork(update_at=updated_at, output_path=output_path, waypoints=waypoints, routes=routes)
+    print(network.display())
+
+    network.dump_waypoints_csv()
+    network.dump_network_gpx()
+    network.dump_waypoints_fpl()
+    network.dump_routes_fpl()
+    network.dump_waypoints_report_pdf()
 
 
 def main() -> None:
-    """Program control."""
-    parser = argparse.ArgumentParser()
-    parser.add_argument("input_gpx")
-    parser.add_argument("output_dir")
-    args = parser.parse_args()
+    """Entrypoint."""
+    base_path = Path(__file__).parent
+    input_path = base_path / "resources" / "test-network" / "test-network.geojson"
+    output_path = base_path / "out"
+    print(f"{input_path.resolve() =}")
+    print(f"{output_path.resolve() =}")
 
-    input_path = Path(args.input_gpx)
-    output_path = Path(args.output_dir)
-
-    print(f"Input path: {input_path.resolve()}")
-    print(f"Output path: {output_path.resolve()}")
-
-    input_gpx = Path("./tests/resources/test-network/test-network.gpx")
-    network = MainAirUnitNetwork(output_path=output_path)
-
-    network.load_gpx(path=input_gpx)
-    network.display()
-
-    network.dump_csv()
-    network.dump_gpx()
-    network.dump_fpl()
-    network.dump_pdf()
-
+    _run(input_path=input_path, output_path=output_path)
     print("\nOutput files:")
     for path in output_path.glob("**/*"):
         print(path.resolve())

@@ -38,9 +38,6 @@ class Namespaces:
         dict key (this is a lxml convention). This will create an invalid namespace map for use in XPath queries, this
         can be overcome using the `suppress_root_namespace` parameter, which will create a 'regular' map.
 
-        :type suppress_root_namespace: bool
-        :param suppress_root_namespace: When true, respects a root prefix as a default if set
-        :return: dictionary of Namespaces indexed by prefix
         """
         nsmap = {}
 
@@ -62,8 +59,6 @@ class Namespaces:
 
         E.g. 'xsi:schemaLocation="http://www.w3.org/1999/xlink https://www.w3.org/1999/xlink.xsd"'
 
-        :rtype: str
-        :return: schema location attribute value
         """
         schema_locations = ""
         for prefix, location in Namespaces._schema_locations.items():

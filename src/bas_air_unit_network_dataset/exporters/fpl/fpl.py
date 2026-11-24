@@ -10,8 +10,7 @@ from lxml.etree import Element, ElementTree
 from lxml.etree import tostring as element_string
 
 from bas_air_unit_network_dataset.exporters.fpl import Namespaces
-from bas_air_unit_network_dataset.exporters.fpl.route import Route
-from bas_air_unit_network_dataset.exporters.fpl.waypoint import Waypoint
+from bas_air_unit_network_dataset.models.formats.fpl import Route, Waypoint
 
 
 class Fpl:
@@ -39,89 +38,30 @@ class Fpl:
 
     There is no formal link or reference between a type (1) and (2) file, instead all files are loaded together within
     the GPS device, meaning waypoints are shared across all routes and routes must be globally unique via an 'index'
-    property (from 0 to 98, not 99).
+    property.
 
     It is possible for a single FPL to contain both waypoints and routes, however this is not used operationally (at
     least not by the BAS Air Unit). There are other properties supported by FPLs which we don't yet support, such as
     authoring information and using different symbols. See #31 for more information.
     """
 
+    ns = Namespaces()
+
     def __init__(self, waypoints: Optional[list[Waypoint]] = None, route: Optional[Route] = None) -> None:
-        """
-        Create FPL, optionally setting parameters.
-
-        :type waypoints: list
-        :param waypoints: optional list of FPL waypoints
-        :type route: list
-        :param route: optional list of FPL routes
-        """
-        self.ns = Namespaces()
-
+        """Create FPL, with either a set of waypoints (type 1 files) or a route (type 2)."""
         with resource_path("bas_air_unit_network_dataset.exporters.fpl", "__init__.py") as path:
             self.schema_path = path.parent.joinpath("schemas/garmin/FlightPlanv1.xsd")
 
-        self._waypoints: list[Waypoint] = []
-        self._route: Optional[Route] = None
+        self._waypoints: list[Waypoint] = waypoints or []
+        self._route: Optional[Route] = route
 
-        if waypoints is not None:
-            self.waypoints = waypoints
-
-        if route is not None:
-            self.route = route
-
-    @property
-    def waypoints(self) -> list[Waypoint]:
+    def dumps(self) -> bytes:
         """
-        List of waypoints for FPLs that describe an index of waypoints (type 2).
+        Build an XML element for a FPL flight plan.
 
-        Note: these are a list of FPL specific representations of the waypoints.
+        Elements for any waypoints and routes are included as needed.
 
-        :rtype: list
-        :return: Set of FPL waypoints
-        """
-        return self._waypoints
-
-    @waypoints.setter
-    def waypoints(self, waypoints: list[Waypoint]) -> None:
-        """
-        Set waypoints for FPLs that describe an index of waypoints (type 1).
-
-        :type waypoints: list
-        :param waypoints: Set of FPL waypoints
-        """
-        self._waypoints = waypoints
-
-    @property
-    def route(self) -> Route:
-        """
-        The route set for FPLs that are describe routes (type 2).
-
-        Note: this is an FPL specific representation of the route.
-
-        :rtype: Route
-        :return: FPL route
-        """
-        return self._route
-
-    @route.setter
-    def route(self, route: Route) -> None:
-        """
-        Set the route for FPLs that are describe routes (type 2).
-
-        :type route: Route
-        :param route: FPL route
-        """
-        self._route = route
-
-    def dumps_xml(self) -> bytes:
-        """
-        Build an XML element tree for the flight plan and generate an XML document.
-
-        Elements for any waypoints and routes contained in the flight plan are added to a route element. An XML document
-        is generated from this root, encoded as a UTF-8 byte string, with pretty-printing and an XML declaration.
-
-        :rtype: bytes
-        :return: XML document as byte string
+        Returned as an XML document, encoded as a UTF-8 byte string, with pretty-printing and an XML declaration.
         """
         root = Element(
             f"{{{self.ns.fpl}}}flight-plan",
@@ -131,55 +71,40 @@ class Fpl:
             nsmap=self.ns.nsmap(),
         )
 
-        if len(self.waypoints) > 1:
+        if len(self._waypoints) > 0:
             waypoints_table = Element(f"{{{self.ns.fpl}}}waypoint-table")
-            for waypoint in self.waypoints:
-                waypoints_table.append(waypoint.encode())
+            for waypoint in self._waypoints:
+                waypoints_table.append(waypoint.dumps())
             root.append(waypoints_table)
 
-        if self.route is not None:
-            root.append(self.route.encode())
+        if self._route is not None:
+            root.append(self._route.dumps())
 
         document = ElementTree(root)
         return element_string(document, pretty_print=True, xml_declaration=True, encoding="utf-8")
 
-    def dump_xml(self, path: Path) -> None:
-        """
-        Write the flight plan to a file as XML.
-
-        XML is the only supported file format for FPLs. This method is wrapper around the `dumps_xml()` method.
-
-        :type path: Path
-        :param path: XML output path
-        """
-        with path.open(mode="w") as xml_file:
-            xml_file.write(self.dumps_xml().decode())
-
     def validate(self) -> None:
         """
-        Validate contents of a flight plan against a XSD schema.
+        Validate a flight plan against the FPL XSD schema.
 
-        The external `xmllint` binary is used for validation as the `lxml` methods do not easily support relative paths
-        for schemas that use imports/includes.
+        The external `xmllint` binary is used for validation as `lxml` methods do not easily support relative paths for
+        schemas that use imports/includes.
 
-        Schemas are loaded from an XSD directory within this package using a backport of the `importlib.files` method.
-        The current flight plan object is written as an XML file to a temporary directory to pass to xmllint.
+        Schemas are loaded from an XSD directory within this package. The current flight plan is written to a temporary
+        directory to pass to xmllint.
 
-        The xmllint binary returns a 0 exit code if the record validates successfully. Therefore, any other exit code
-        can be, and is, considered a validation failure, raising a RuntimeError exception.
-
-        :raises RuntimeError: where validation fails, message includes any stderr output from xmllint
+        xmllint returns a 0 exit code if the record validates successfully - any other exit code is considered a
+        validation failure, raising a RuntimeError exception.
         """
         with TemporaryDirectory() as document_path:
             document_path = Path(document_path).joinpath("fpl.xml")
-            self.dump_xml(path=document_path)
+            with document_path.open(mode="w") as f:
+                f.write(self.dumps().decode())
 
             try:
                 # Exempting Bandit/flake8 security issue (using subprocess)
                 # It is assumed that there are other protections in place to prevent untrusted input being a concern.
                 # Namely, that this package will be run in a secure/controlled environments against pre-trusted files.
-                #
-                # Use `capture_output=True` in future when we can use Python 3.7+
                 subprocess.run(
                     args=[
                         "xmllint",
