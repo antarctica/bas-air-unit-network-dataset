@@ -1,11 +1,14 @@
+from __future__ import annotations
+
 from dataclasses import dataclass
-from typing import Self
+from typing import TYPE_CHECKING, Self
 
 from gpxpy.gpx import GPXRoute, GPXRoutePoint, GPXWaypoint
 
-from bas_air_unit_network_dataset.models.base.route import Route as BaseRoute
-from bas_air_unit_network_dataset.models.base.route_waypoint import RouteWaypoint as BaseRouteWaypoint
-from bas_air_unit_network_dataset.models.base.waypoint import Waypoint as BaseWaypoint
+if TYPE_CHECKING:
+    from bas_air_unit_network_dataset.models.base.route import Route as BaseRoute
+    from bas_air_unit_network_dataset.models.base.route_waypoint import RouteWaypoint as BaseRouteWaypoint
+    from bas_air_unit_network_dataset.models.base.waypoint import Waypoint as BaseWaypoint
 
 
 @dataclass
@@ -21,7 +24,7 @@ class Waypoint:
     @classmethod
     def loads(cls, waypoint: BaseWaypoint) -> Self:
         """Load a base waypoint as a GPX waypoint."""
-        return Waypoint(
+        return cls(
             identifier=waypoint.identifier,
             name=waypoint.name,
             longitude=waypoint.geometry.x,
@@ -48,12 +51,12 @@ class RouteWaypoint:
     """Route waypoint for use in a GPX document."""
 
     waypoint: Waypoint
-    comment: str = "-"
+    comment: str | None = "-"
 
     @classmethod
     def loads(cls, route_waypoint: BaseRouteWaypoint) -> Self:
         """Load a base route waypoint as a GPX route waypoint."""
-        return RouteWaypoint(waypoint=Waypoint.loads(route_waypoint.waypoint), comment=route_waypoint.waypoint.comment)
+        return cls(waypoint=Waypoint.loads(route_waypoint.waypoint), comment=route_waypoint.waypoint.comment)
 
     def dumps(self) -> GPXRoutePoint:
         """Build an XML element for a GPX route waypoint."""
@@ -75,9 +78,9 @@ class Route:
     @classmethod
     def loads(cls, route: BaseRoute) -> Self:
         """Load a base route as a GPX route."""
-        return Route(name=route.name, waypoints=[RouteWaypoint.loads(rw) for rw in route.waypoints])
+        return cls(name=route.name, waypoints=[RouteWaypoint.loads(rw) for rw in route.waypoints])
 
-    def dumps(self) -> GPXWaypoint:
+    def dumps(self) -> GPXRoute:
         """Build an XML element for a GPX route, including rout waypoints."""
         route = GPXRoute(name=self.name)
         for route_waypoint in self.waypoints:

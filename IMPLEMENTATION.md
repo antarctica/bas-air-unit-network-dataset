@@ -13,9 +13,9 @@ This project consists of:
 
 The BAS Air Unit Network information model consists of two entities, forming two, related, datasets:
 
-1. **Waypoints**: Features representing landing sites used by the Air Unit, usually co-located with a BAS Operations 
-   depot, field camp or a science/monitoring instrument 
-2. **Routes**: Features representing formally defined, frequently travelled, paths between two or more Waypoints, as 
+1. **Waypoints**: Features representing landing sites used by the Air Unit, usually co-located with a BAS Operations
+   depot, field camp or a science/monitoring instrument
+2. **Routes**: Features representing formally defined, frequently travelled, paths between two or more Waypoints, as
    opposed to ad-hoc paths
 
 For example:
@@ -23,10 +23,10 @@ For example:
 * **Waypoints**: Fossil Bluff
 * **Routes**: Rothera to Fossil Bluff
 
-There is a many-to-many relationship between Waypoints and Routes. I.e. a Waypoint can be part of many Routes, and 
+There is a many-to-many relationship between Waypoints and Routes. I.e. a Waypoint can be part of many Routes, and
 Routes can contain many Waypoints.
 
-**Note:** This information model is abstract and requires implementing. See the [Data model](#data-model) section for 
+**Note:** This information model is abstract and requires implementing. See the [Data model](#data-model) section for
 the current implementation.
 
 ### Waypoints (information model)
@@ -139,7 +139,7 @@ IDs:
 
 Names:
 
-* MUST use the format `{Sequence}_{First Waypoint Identifier}_TO_{Last Waypoint Identifier}`, where `{Sequence}` is 
+* MUST use the format `{Sequence}_{First Waypoint Identifier}_TO_{Last Waypoint Identifier}`, where `{Sequence}` is
   a zero padded, two character, auto-incrementing prefix (e.g. '01', '02', ..., '99').
 
 #### Waypoints (Route)
@@ -155,9 +155,9 @@ Waypoints in Routes:
 
 ## Data model
 
-For use within the Python library included in this project, and as a reference to implementors for storing entities, a 
-data model implementing the [Information model](#information-model) is available. For the later use-case, this data 
-model assumes the use of a relational model, specifically for SQLite (as an OGC GeoPackage) and PostgreSQL. 
+For use within the Python library included in this project, and as a reference to implementors for storing entities, a
+data model implementing the [Information model](#information-model) is available. For the later use-case, this data
+model assumes the use of a relational model, specifically for SQLite (as an OGC GeoPackage) and PostgreSQL.
 
 This data model uses three entities:
 
@@ -169,24 +169,24 @@ This data model uses three entities:
 
 ### FIDs
 
-Feature Identifiers (FIDs) are created automatically for features without one. FIDs are unique auto-incrementing 
+Feature Identifiers (FIDs) are created automatically for features without one. FIDs are unique auto-incrementing
 integers, suitable for use as primary keys within relational database.
 
-FIDs SHOULD be considered an implementation detail, and SHOULD be ignored in favour of ID properties (i.e. 'ID' rather 
+FIDs SHOULD be considered an implementation detail, and SHOULD be ignored in favour of ID properties (i.e. 'ID' rather
 than 'FID') outside the specific technology being used.
 
 Consequently, FIDs SHOULD NOT be exposed to end users and their values or structure MUST NOT be relied upon.
 
 ### ULIDs
 
-[Universally Unique Lexicographically Sortable Identifier (ULID)](https://github.com/ulid/spec)s are the scheme used 
+[Universally Unique Lexicographically Sortable Identifier (ULID)](https://github.com/ulid/spec)s are the scheme used
 for identifiers (IDs).
 
 These IDs MAY be exposed to end users.
 
 ### Waypoints (data model)
 
-Python class: 
+Python class:
 
 * `Waypoint` (single waypoint)
 * `WaypointCollection` (waypoints set)
@@ -210,7 +210,7 @@ GeoPackage layer: `waypoints`
 
 ### Routes (data model)
 
-Python class: 
+Python class:
 
 * `Route` (single route)
 * `RouteCollection` (routes set)
@@ -225,7 +225,7 @@ GeoPackage layer: `routes`
 
 ### Route Waypoints (data model)
 
-Python class: 
+Python class:
 
 * `RouteWaypoint` (single waypoint in route)
 
@@ -238,7 +238,7 @@ GeoPackage layer: `route_waypoints`
 | `waypoint_id` | Waypoint ID | ULID (String)  | No       | Yes                | -          | Foreign key to Waypoint entity                                              |
 | `sequence`    | Sequence    | Integer        | No       | Yes (within Route) | -          | Position of waypoint within a route, value must be unique within each route |
 
-**Note:** Though the `route_id` and `waypoint_id` columns are effectively foreign keys, though they are not configured 
+**Note:** Though the `route_id` and `waypoint_id` columns are effectively foreign keys, though they are not configured
 as such within the GeoPackage.
 
 ## Output formats
@@ -252,7 +252,7 @@ Format use-cases:
 | CSV    | Human readable, unformatted            |
 | GPX    | Machine readable, handheld GPS         |
 | FPL    | Machine readable, aircraft GPS         |
-| PDF    | Human readable, formatted for printing | 
+| PDF    | Human readable, formatted for printing |
 
 Format details:
 
@@ -263,7 +263,7 @@ Format details:
 | FPL    | (Garmin) Flight Plan     | 1.0     | XML       | UTF-8       | No (Vendor Specific) | Yes                   | Yes                  | No              |
 | PDF    | Portable Document Format | ?       | Binary    | UTF-8       | No (Vendor Specific) | No                    | No                   | N/A             |
 
-Outputs produced for each format: 
+Outputs produced for each format:
 
 | Format | Each Waypoint | Each Route | All Waypoints (Only) | All Routes (Only) | Waypoints and Routes (Combined) |
 |--------|---------------|------------|----------------------|-------------------|---------------------------------|
@@ -276,7 +276,7 @@ Where 'All Waypoints (Only)' outputs are produced, waypoints will be sorted alph
 
 The PDF export is a specific 'All Waypoints' report.
 
-[1] These outputs can be produced but are intentionally excluded as they aren't used by the Air Unit. See this 
+[1] These outputs can be produced but are intentionally excluded as they aren't used by the Air Unit. See this
 [GitLab issue 🛡](https://gitlab.data.bas.ac.uk/MAGIC/air-unit-network-dataset/-/issues/101) for details.
 
 ### Output file names
@@ -319,7 +319,7 @@ Notes:
 Limitations:
 
 * GPX metadata fields (author, last updated, etc.) are not currently populated
-* the GPX comment field is set to the `waypoint.name` property only, as GPS devices used by the Air Unit only support 
+* the GPX comment field is set to the `waypoint.name` property only, as GPS devices used by the Air Unit only support
   comments of upto 16 characters
 
 ### Output format - FPL
@@ -331,10 +331,10 @@ Notes:
 
 Limitations:
 
-* the `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by`, `waypoint.fuel`, 
-  `waypoint.elevation_ft`, `waypoint.comment` and `waypoint.category` properties are not included in FPL waypoint 
+* the `waypoint.colocated_with`, `waypoint.last_accessed_at`, `waypoint.last_accessed_by`, `waypoint.fuel`,
+  `waypoint.elevation_ft`, `waypoint.comment` and `waypoint.category` properties are not included in FPL waypoint
   comments, as they are limited to 17 characters [1]
-* underscores (`_`) characters are stripped from route names *within* FPL files (rather than the names *of* FPL 
+* underscores (`_`) characters are stripped from route names *within* FPL files (rather than the names *of* FPL
   files), a local override is used to replace underscores with spaces (` `) to work around this limitation
 * FPL metadata fields (author, last updated, etc.) are not currently populated
 
@@ -342,16 +342,16 @@ Limitations:
 
 #### FPL XML schema
 
-A copy of the Garmin FPL XML/XSD schema, http://www8.garmin.com/xmlschemas/FlightPlanv1.xsd, is included in this 
+A copy of the Garmin FPL XML/XSD schema, http://www8.garmin.com/xmlschemas/FlightPlanv1.xsd, is included in this
 project to locally validate generated FPL outputs. This schema cannot be used for validation in its published form, as
-it contains a number of invalid regular expressions. These regular expressions have been modified in the schema used 
+it contains a number of invalid regular expressions. These regular expressions have been modified in the schema used
 in this project, which hopefully match Garmin's intentions.
 
-In order to produce FPL files that match those produced by earlier processing scripts used by the BAS Air Unit, a 
+In order to produce FPL files that match those produced by earlier processing scripts used by the BAS Air Unit, a
 number of other changes have been made to the local version of the FPL schema. These include:
 
 * removing the requirement for a `<waypoints-table>` element to be included in all FPL files (relevant to route FPLs)
-* removing the requirement for all `<waypoint>` elements within `<route>` elements to be included in a 
+* removing the requirement for all `<waypoint>` elements within `<route>` elements to be included in a
   `<waypoint-table>` element (as a consequence of the above)
 * altering the regular expression used for the `<country-name>` element to allow the `_` characters
 
@@ -371,10 +371,10 @@ Notes:
 
 Limitations:
 
-- waypoint category names are converted to slugs to create CSS classes, values using only special characters will be 
+- waypoint category names are converted to slugs to create CSS classes, values using only special characters will be
   conflated (e.g. category names `#` and `!!!` will both have a slug of `-`)
 - waypoint categories slugs are case-insensitive and will be conflated (e.g. `foo` and `FOO` both have a slug `foo`)
-- due to limited space, some waypoint headings are truncated (`co-located` -> `colocated`, `elevation_ft` -> `Elv (Ft)`, 
+- due to limited space, some waypoint headings are truncated (`co-located` -> `colocated`, `elevation_ft` -> `Elv (Ft)`,
   `last_accessed_at` -> `Last Visit At`, `last_accessed_by` -> `Last Visit By`)
 - waypoint category colours are limited to a maximum of 15, with any additional categories using a fallback (grey)
-- 
+-

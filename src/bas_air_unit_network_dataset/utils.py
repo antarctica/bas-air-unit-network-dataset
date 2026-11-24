@@ -17,7 +17,7 @@ def _convert_coordinate_dd_2_ddm(
     absolute_coordinate = abs(coordinate)
     degree = int(absolute_coordinate)
     minutes = round((absolute_coordinate - degree) * 60.0, decimal_places)
-    if minutes >= 60:
+    if minutes >= 60:  # noqa: PLR2004
         degree += 1
         minutes = 0.0
     sign = positive_symbol if coordinate >= 0 else negative_symbol

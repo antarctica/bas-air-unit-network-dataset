@@ -1,14 +1,18 @@
+from __future__ import annotations
+
 from dataclasses import dataclass, field
 from enum import Enum
-from typing import ClassVar, Optional, Self
+from typing import TYPE_CHECKING, ClassVar, Self
 
 from lxml.etree import Element, SubElement
 
 from bas_air_unit_network_dataset.exporters.fpl import Namespaces
 from bas_air_unit_network_dataset.exporters.fpl.utils import upper_alphanumeric_only, upper_alphanumeric_space_only
-from bas_air_unit_network_dataset.models.base.route import Route as BaseRoute
-from bas_air_unit_network_dataset.models.base.route_waypoint import RouteWaypoint as BaseRouteWaypoint
-from bas_air_unit_network_dataset.models.base.waypoint import Waypoint as BaseWaypoint
+
+if TYPE_CHECKING:
+    from bas_air_unit_network_dataset.models.base.route import Route as BaseRoute
+    from bas_air_unit_network_dataset.models.base.route_waypoint import RouteWaypoint as BaseRouteWaypoint
+    from bas_air_unit_network_dataset.models.base.waypoint import Waypoint as BaseWaypoint
 
 
 class WaypointType(Enum):
@@ -108,7 +112,7 @@ class Waypoint:
     latitude: float
     type_: WaypointType = WaypointType.USER_WAYPOINT
     country_code: str = "__"
-    comment: Optional[str] = _comment_placeholder
+    comment: str | None = _comment_placeholder
 
     def __post_init__(self) -> None:
         """Post-initialisation validation and processing."""
@@ -138,20 +142,20 @@ class Waypoint:
     @staticmethod
     def _process_lat_lon(lon: float, lat: float) -> tuple[float, float]:
         """Validate and format latitude and longitude."""
-        if not -180 <= lon <= 180:
+        if not -180 <= lon <= 180:  # noqa: PLR2004
             msg = "Longitude must be between -180 and +180."
             raise ValueError(msg)
-        if lon == -180:
+        if lon == -180:  # noqa: PLR2004
             lon = -179.999999
-        elif lon == 180:
+        elif lon == 180:  # noqa: PLR2004
             lon = 179.999999
 
-        if not -90 <= lat <= 90:
+        if not -90 <= lat <= 90:  # noqa: PLR2004
             msg = "Latitude must be between -90 and +90."
             raise ValueError(msg)
-        if lat == 90:
+        if lat == 90:  # noqa: PLR2004
             lat = 89.999999
-        elif lat == -90:
+        elif lat == -90:  # noqa: PLR2004
             lat = -89.999999
 
         return lon, lat
@@ -172,7 +176,7 @@ class Waypoint:
 
         FPL waypoint type and country codes are hard-coded.
         """
-        return Waypoint(
+        return cls(
             identifier=waypoint.identifier,
             longitude=waypoint.geometry.x,
             latitude=waypoint.geometry.y,
@@ -235,7 +239,7 @@ class RouteWaypoint:
 
         FPL waypoint type and country codes are hard-coded.
         """
-        return RouteWaypoint(
+        return cls(
             waypoint_identifier=route_waypoint.waypoint.identifier, type_=WaypointType.USER_WAYPOINT, country_code="__"
         )
 
@@ -327,7 +331,7 @@ class Route:
         The FPL waypoint type is hard-coded to user defined waypoints as other types are not intended to be produced by
         this library.
         """
-        return Route(
+        return cls(
             name=route.name,
             index=index,
             waypoints=[RouteWaypoint.loads(rw) for rw in route.waypoints],

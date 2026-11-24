@@ -1,13 +1,13 @@
 ﻿identifier,name,colocated_with,latitude_dd,longitude_dd,last_accessed_at,last_accessed_by,fuel,elevation_ft,comment,category
 ALPHA,Alpha,Alpha 001,-69.915214,-75.014648,2012-04-24,~conwat,10,1200,There's unlimited juice?,Island
-BRAVO,,,-70.830248,-75.19043,,,,,,
-CHARLE,Charlie,,-71.760191,-71.499023,,,,,"You're losing blood, aren't you?",Island
-DELTA,Delta,,-72.751039,-66.09375,,,,,How about a turtle?,Triangle 🔺
-ECHO,Echo,,-73.453473,-61.611328,,,,,I don't criticize you!,Triangle 🔺
-FOXTRT,Foxtrot,,-73.175897,-70.224609,,,,,"Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!",_-:;()@&$#
-GOLF,Golf,,-74.200022,-70.3125,,,,,I've always been deeply passionate about nature. 🌳,_-:;()@&$#
-HOTEL,Hotel,,-74.425777,-65.43457,,,,,I don't know how I know that. I took four years of Spanish.,Triangle 🔺
-INDIA,India,,-75.704786,-63.017578,,,,,I am getting rid of this thing. It has caused me nothing but pride and self-respect.,LINE LAND
-JULIET,Juliet,,-76.341523,-58.930664,,,,,There's not a lot of logic to it.,LINE LAND
-KILO,Kilo,,-77.166927,-55.371094,,,,,"Well, I hope you also carry a spare bowl of candy beans.",LINE LAND
-LIMA,Lima,,-78.089229,-50.712891,,,,,Are you at all concerned about an uprising?,LINE LAND
+BRAVO,-,-,-70.830248,-75.19043,-,-,-,-,-,-
+CHARLE,Charlie,-,-71.760191,-71.499023,-,-,-,-,"You're losing blood, aren't you?",Island
+DELTA,Delta,-,-72.751039,-66.09375,-,-,-,-,How about a turtle?,Triangle 🔺
+ECHO,Echo,-,-73.453473,-61.611328,-,-,-,-,I don't criticize you!,Triangle 🔺
+FOXTRT,Foxtrot,-,-73.175897,-70.224609,-,-,-,-,"Did Ted make an appointment? No. Well, then Ted can GET THE HELL OUT OF THIS OFFICE! YOU GET THE HELL OUT!",_-:;()@&$#
+GOLF,Golf,-,-74.200022,-70.3125,-,-,-,-,I've always been deeply passionate about nature. 🌳,_-:;()@&$#
+HOTEL,Hotel,-,-74.425777,-65.43457,-,-,-,-,I don't know how I know that. I took four years of Spanish.,Triangle 🔺
+INDIA,India,-,-75.704786,-63.017578,-,-,-,-,I am getting rid of this thing. It has caused me nothing but pride and self-respect.,LINE LAND
+JULIET,Juliet,-,-76.341523,-58.930664,-,-,-,-,There's not a lot of logic to it.,LINE LAND
+KILO,Kilo,-,-77.166927,-55.371094,-,-,-,-,"Well, I hope you also carry a spare bowl of candy beans.",LINE LAND
+LIMA,Lima,-,-78.089229,-50.712891,-,-,-,-,Are you at all concerned about an uprising?,LINE LAND

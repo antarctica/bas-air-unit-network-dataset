@@ -67,7 +67,7 @@ def _compare_outputs_with_reference(reference_paths: list[Path], comparison_path
         x_sha256 = _sha256sum(path=x)
         y_sha256 = _sha256sum(path=y)
         if x_sha256 != y_sha256:
-            msg = f"File {x.name !r} with SHA256 [{x_sha256}] != to {y.name !r} [{y_sha256}]."
+            msg = f"File {x.name!r} with SHA256 [{x_sha256}] != to {y.name!r} [{y_sha256}]."
             raise RuntimeError(msg)
 
     print("SHA256 checksums match reference values.")

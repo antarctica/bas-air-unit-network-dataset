@@ -14,15 +14,15 @@ To support the BAS Air Unit manage their network of routes and waypoints such th
 
 * information is internally consistent, through defined structures and constraints
 * information is interoperable between different systems, through the use of open/standard formats
-* information is well described and sharable with other teams, through distribution as datasets (through the 
+* information is well described and sharable with other teams, through distribution as datasets (through the
   [Ops Data Store 🛡](https://gitlab.data.bas.ac.uk/MAGIC/ops-data-store))
 
 ### Background
 
-This project was developed in response to discussions and requests with the BAS Air Unit to review and simplify the 
+This project was developed in response to discussions and requests with the BAS Air Unit to review and simplify the
 process they used to manage their network of waypoints, and to ensure its future sustainability.
 
-BAS staff can read more about this background in this 
+BAS staff can read more about this background in this
 [GitLab issue 🛡](https://gitlab.data.bas.ac.uk/MAGIC/ops-support/-/issues/134).
 
 ### Limitations
@@ -37,7 +37,7 @@ This service has a number of limitations, including:
 * comments for waypoints use an overly complex structure to support an ad-hoc serialisation format within GPX files
 * Unicode characters (such as emoji) are unsupported in route/waypoint names, comments, etc.
 
-Some or all of these limitations may be addressed in future improvements to this project. See the project 
+Some or all of these limitations may be addressed in future improvements to this project. See the project
 [issue tracker 🛡](https://gitlab.data.bas.ac.uk/MAGIC/ops-data-store/-/issues) for details.
 
 ## Install
@@ -50,7 +50,7 @@ $ python -m pip install bas-air-unit-network-dataset
 
 ### Loading features from GPX files
 
-If loading waypoints and routes from a GPX file, these requirements must be met in addition to the constraints from the 
+If loading waypoints and routes from a GPX file, these requirements must be met in addition to the constraints from the
 [Information Model](IMPLEMENTATION.md#information-model):
 
 - the GPX comment field should consist of 8 elements, in the order below, separated with a vertical bar (`|`):
@@ -77,17 +77,17 @@ For example (a standalone, unvisited, waypoint with no full/formal name or addit
 
 ### Creating outputs
 
-See the [`tests/create_outputs.py`](tests/create_outputs.py) for an example of converting a set of input waypoints and 
-routes into output formats, creating an [Output Directory](#output-directory), using an instance of the 
+See the [`tests/create_outputs.py`](tests/create_outputs.py) for an example of converting a set of input waypoints and
+routes into output formats, creating an [Output Directory](#output-directory), using an instance of the
 `MainAirUnitNetwork` class.
 
-The `Network` class (on which the `MainAirUnitNetwork` class is based) includes a built-in method for loading features 
-from a GPX file (used in the example above). To load data from other data sources, construct `Waypoint` and `Route` 
+The `Network` class (on which the `MainAirUnitNetwork` class is based) includes a built-in method for loading features
+from a GPX file (used in the example above). To load data from other data sources, construct `Waypoint` and `Route`
 features directly and add to a `Network` object.
 
 ### Output directory
 
-When using the `MainAirUnitNetwork` class from this project to process waypoints and routes, an output directory 
+When using the `MainAirUnitNetwork` class from this project to process waypoints and routes, an output directory
 similar to the example below will be created:
 
 ```
@@ -109,7 +109,7 @@ similar to the example below will be created:
 #### Access control
 
 The Air Unit Network utility does not include access control. If needed, access controls should be applied to the
-output directory, as is the case for the [Ops Data Store 🛡](https://gitlab.data.bas.ac.uk/MAGIC/ops-data-store) for 
+output directory, as is the case for the [Ops Data Store 🛡](https://gitlab.data.bas.ac.uk/MAGIC/ops-data-store) for
 example.
 
 ## Implementation

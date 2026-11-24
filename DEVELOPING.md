@@ -72,14 +72,14 @@ For consistency, it's strongly recommended to configure your IDE or other editor
 ## Testing
 
 Basic end-to-end tests are performed automatically in [Continuous Integration](#continuous-integration) to check the
-[Test Network](#test-network) can be processed via the Network Utility using the 
+[Test Network](#test-network) can be processed via the Network Utility using the
 [`tests/create_outputs.py`](tests/create_outputs.py).
 
 ```
 $ poetry run python ./tests/create_outputs.py ./tests/resources/test-network/test-network.gpx ./tests/out
 ```
 
-Test outputs are compared against known good reference files in 
+Test outputs are compared against known good reference files in
 [`tests/resources/test-network/reference-outputs/`](tests/resources/test-network/reference-outputs) by
 comparing checksums on file contents using the [`tests/compare_outputs.py`](tests/compare_outputs.py) script.
 
@@ -101,11 +101,11 @@ A network consisting of 12 waypoints and 3 routes is used to:
 **WARNING!** This test network is entirely fictitious. It MUST NOT be used for any real navigation.
 
 The canonical test network is stored in `tests/resources/test-network/test-network.json` and is versioned using a date
-in the `meta.version` property. A QGIS project is also provided to visualise the test network and ensure derived 
+in the `meta.version` property. A QGIS project is also provided to visualise the test network and ensure derived
 outputs match expected test data.
 
-This dataset does not follow any particular standard or output format as it's intended to be a superset of other 
-formats and support properties that may not be part of any standard. Derived versions of the network in some standard 
+This dataset does not follow any particular standard or output format as it's intended to be a superset of other
+formats and support properties that may not be part of any standard. Derived versions of the network in some standard
 formats are also available (from the same directory) for testing data loading, etc.
 
 #### Updating test network

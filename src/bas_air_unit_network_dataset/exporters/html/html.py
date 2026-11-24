@@ -1,9 +1,15 @@
-from datetime import date
+from __future__ import annotations
+
+from typing import TYPE_CHECKING
 
 from jinja2 import Environment, PackageLoader
 
 from bas_air_unit_network_dataset.models.base.categories import Categories
-from bas_air_unit_network_dataset.models.formats.html import WaypointsReportWaypoint
+
+if TYPE_CHECKING:
+    from datetime import date
+
+    from bas_air_unit_network_dataset.models.formats.html import WaypointsReportWaypoint
 
 
 class WaypointsReport:
@@ -30,16 +36,13 @@ class WaypointsReport:
     @property
     def _categories(self) -> Categories:
         """Get category objects for waypoints in collection."""
-        categories = [waypoint.category for waypoint in self._waypoints]
+        categories = [waypoint.category for waypoint in self._waypoints if waypoint.category]
         return Categories(categories)
 
     @property
     def _item_categories(self) -> list[dict]:
         """Structure waypoints into per-category lists."""
-        categories = []
-        for category in self._categories.as_list:
-            categories.append({"category": category, "rows": self._report_waypoints_in_category(category.name)})
-        return categories
+        return [{"category": c, "rows": self._report_waypoints_in_category(c.name)} for c in self._categories.as_list]
 
     @property
     def _meta(self) -> dict:

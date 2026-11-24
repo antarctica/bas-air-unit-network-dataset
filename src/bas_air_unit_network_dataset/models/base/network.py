@@ -1,7 +1,10 @@
 from __future__ import annotations
 
-from bas_air_unit_network_dataset.models.base.route import Route
-from bas_air_unit_network_dataset.models.base.waypoint import Waypoint
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from bas_air_unit_network_dataset.models.base.route import Route
+    from bas_air_unit_network_dataset.models.base.waypoint import Waypoint
 
 
 class Network:

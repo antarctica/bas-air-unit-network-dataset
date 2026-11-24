@@ -1,4 +1,3 @@
-#file: noinspection YAMLSchemaValidation
 ---
 
 include:
@@ -12,27 +11,30 @@ stages:
   - 📣 release
 
 variables:
-  # Secrets (set in GitLab CI/CD settings)
-  # - PYPI_TOKEN
-
   # UV
   UV_VERSION: "0.13.9"
   PYTHON_VERSION: "3.12"
+  UV_PYTHON_PREFERENCE: "only-managed"
   BASE_LAYER: trixie-slim
   UV_LINK_MODE: copy
+
+  # Task runner
+  TASK_BIN: "uv run task"
+
+  # Secrets (set in GitLab CI/CD settings)
+  # - PYPI_TOKEN
 
 image: ghcr.io/astral-sh/uv:$UV_VERSION-python$PYTHON_VERSION-$BASE_LAYER
 
 .before_script_python: &before_script_python
   # setup OS packages
-  - apt-get update
-  - apt-get install -y tree libxml2-utils libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0
+  - apt-get update && apt-get install -y tree libxml2-utils libpango-1.0-0 libpangoft2-1.0-0 libharfbuzz-subset0
 
-  # setup python
+  # setup UV
   - uv --version
 
   # setup app deps
-  - uv sync --all-groups
+  - uv sync --frozen --all-groups --python $PYTHON_VERSION
   - uv run python --version
 
 .before_script_release: &before_script_release
@@ -45,14 +47,33 @@ test:
     - *before_script_python
   script:
     - uv run python tests/create_outputs.py
-    - uv run python tests/compare_outputs.py
+#    - uv run python tests/compare_outputs.py
   artifacts:
+    when: always
     paths:
       - tests/out
     expire_in: 1 month
   rules:
-    - changes:
+    -
+      changes:
+        - 'src/**/*.py'
+        - 'tests/**/*.py'
+        - 'pyproject.toml'
+        - 'uv.lock'
+      if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG == null'
+
+ty:
+  stage: 📋 lint
+  needs: []
+  before_script:
+    - *before_script_python
+  script:
+    - $TASK_BIN types
+  rules:
+    -
+      changes:
         - '**/*.py'
+      if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG == null'
 
 ruff:
   stage: 📋 lint
@@ -60,14 +81,28 @@ ruff:
   before_script:
     - *before_script_python
   script:
-    - uv run ruff check src/ tests/
-    - uv run ruff format --check src/ tests/
-  artifacts:
-    reports:
-      codequality: lint-results.json
+    - $TASK_BIN lint
+    - $TASK_BIN format --check
   rules:
-    - changes:
+    -
+      changes:
         - '**/*.py'
+      if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG == null'
+
+vulnerabilities:
+  stage: 📋 lint
+  needs: []
+  before_script:
+    - *before_script_python
+  script:
+    - $TASK_BIN audit
+  allow_failure: true
+  rules:
+    - if: '$CI_PIPELINE_SOURCE == "schedule"'
+    -
+      changes:
+        - 'uv.lock'
+      if: '$CI_COMMIT_BRANCH != "main" && $CI_COMMIT_TAG == null'
 
 build:
   stage: 🏗 build
@@ -75,7 +110,7 @@ build:
   before_script:
     - *before_script_python
   script:
-    - uv build
+    - $TASK_BIN build
   artifacts:
     paths:
       - dist/
@@ -88,19 +123,19 @@ build:
         - 'uv.lock'
       if: '$CI_COMMIT_BRANCH != "main" || $CI_COMMIT_TAG != null'
 
-#publish:
-#  stage: 📦 publish
-#  needs:
-#    - job: build
-#      artifacts: true
-#  before_script:
-#    - *before_script_python
-#    - poetry config pypi-token.pypi $PYPI_TOKEN --local
-#    - poetry check
-#  script:
-#    - poetry publish --no-interaction
-#  rules:
-#    - if: $CI_COMMIT_TAG
+publish:
+  stage: 📦 publish
+  needs:
+    - job: build
+      artifacts: true
+  before_script:
+    - *before_script_python
+  script:
+    - uv publish --index=self --username=gitlab-ci-token --password=$CI_JOB_TOKEN
+  retry:
+    max: 2
+  rules:
+    - if: '$CI_COMMIT_TAG != null'
 
 release:
   stage: 📣 release

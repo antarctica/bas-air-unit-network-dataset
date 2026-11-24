@@ -97,7 +97,7 @@ def convert_to_gpx(network: str, data: dict, path: Path) -> None:
             "comment": empty_property,
             "category": empty_property,
         }
-        for property_ in properties:
+        for property_ in properties:  # noqa: PLC0206
             if property_ in waypoint and waypoint[property_] is not None:
                 properties[property_] = waypoint[property_]
                 if isinstance(properties[property_], int):

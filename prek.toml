@@ -1,0 +1,33 @@
+[[repos]]
+repo = "builtin"
+hooks = [
+  { id = "trailing-whitespace", exclude = { glob = "*.pxd" } },
+  { id = "end-of-file-fixer", exclude = { glob = "*.pxd" } },
+  { id = "check-added-large-files", args = ["--maxkb=600"] },
+  { id = "check-case-conflict" },
+  { id = "check-merge-conflict" },
+  { id = "check-toml" },  # for pyproject.toml and this file
+  { id = "check-yaml" }  # for GitLab CI
+]
+
+[[repos]]
+repo = "https://github.com/astral-sh/ruff-pre-commit"
+rev = "v0.17.5"
+hooks = [
+  { id = "ruff-check" },
+  { id = "ruff-format" },
+]
+
+[[repos]]
+repo = "https://github.com/astral-sh/ty-pre-commit"
+rev = "v0.0.100"
+hooks = [
+  { id = "ty" },
+]
+
+[[repos]]
+repo = "https://github.com/astral-sh/uv-pre-commit"
+rev = "0.13.7"
+hooks = [
+  { id = "uv-lock" },
+]

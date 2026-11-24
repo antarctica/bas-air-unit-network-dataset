@@ -4,13 +4,15 @@ import subprocess
 from importlib.resources import path as resource_path
 from pathlib import Path
 from tempfile import TemporaryDirectory
-from typing import Optional
+from typing import TYPE_CHECKING
 
 from lxml.etree import Element, ElementTree
 from lxml.etree import tostring as element_string
 
 from bas_air_unit_network_dataset.exporters.fpl import Namespaces
-from bas_air_unit_network_dataset.models.formats.fpl import Route, Waypoint
+
+if TYPE_CHECKING:
+    from bas_air_unit_network_dataset.models.formats.fpl import Route, Waypoint
 
 
 class Fpl:
@@ -47,13 +49,13 @@ class Fpl:
 
     ns = Namespaces()
 
-    def __init__(self, waypoints: Optional[list[Waypoint]] = None, route: Optional[Route] = None) -> None:
+    def __init__(self, waypoints: list[Waypoint] | None = None, route: Route | None = None) -> None:
         """Create FPL, with either a set of waypoints (type 1 files) or a route (type 2)."""
         with resource_path("bas_air_unit_network_dataset.exporters.fpl", "__init__.py") as path:
             self.schema_path = path.parent.joinpath("schemas/garmin/FlightPlanv1.xsd")
 
         self._waypoints: list[Waypoint] = waypoints or []
-        self._route: Optional[Route] = route
+        self._route: Route | None = route
 
     def dumps(self) -> bytes:
         """
@@ -96,8 +98,8 @@ class Fpl:
         xmllint returns a 0 exit code if the record validates successfully - any other exit code is considered a
         validation failure, raising a RuntimeError exception.
         """
-        with TemporaryDirectory() as document_path:
-            document_path = Path(document_path).joinpath("fpl.xml")
+        with TemporaryDirectory() as tmp_path:
+            document_path = Path(tmp_path).joinpath("fpl.xml")
             with document_path.open(mode="w") as f:
                 f.write(self.dumps().decode())
 
@@ -105,7 +107,7 @@ class Fpl:
                 # Exempting Bandit/flake8 security issue (using subprocess)
                 # It is assumed that there are other protections in place to prevent untrusted input being a concern.
                 # Namely, that this package will be run in a secure/controlled environments against pre-trusted files.
-                subprocess.run(
+                subprocess.run(  # noqa: S603
                     args=[
                         "xmllint",
                         "--noout",

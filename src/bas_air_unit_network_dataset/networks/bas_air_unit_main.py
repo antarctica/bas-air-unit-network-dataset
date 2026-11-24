@@ -1,7 +1,8 @@
+from __future__ import annotations
+
 from csv import DictWriter
 from dataclasses import fields
-from datetime import date
-from pathlib import Path
+from typing import TYPE_CHECKING
 
 from gpxpy.gpx import GPX
 
@@ -9,7 +10,6 @@ from bas_air_unit_network_dataset.exporters.fpl.fpl import Fpl
 from bas_air_unit_network_dataset.exporters.html.html import WaypointsReport
 from bas_air_unit_network_dataset.exporters.pdf.pdf import PdfReport
 from bas_air_unit_network_dataset.models.base.network import Network
-from bas_air_unit_network_dataset.models.base.route import Route
 from bas_air_unit_network_dataset.models.base.waypoint import Waypoint
 from bas_air_unit_network_dataset.models.formats.csv import Waypoint as CsvWaypoint
 from bas_air_unit_network_dataset.models.formats.fpl import Route as FplRoute
@@ -17,6 +17,12 @@ from bas_air_unit_network_dataset.models.formats.fpl import Waypoint as FplWaypo
 from bas_air_unit_network_dataset.models.formats.gpx import Route as GpxRoute
 from bas_air_unit_network_dataset.models.formats.gpx import Waypoint as GpxWaypoint
 from bas_air_unit_network_dataset.models.formats.html import WaypointsReportWaypoint
+
+if TYPE_CHECKING:
+    from datetime import date
+    from pathlib import Path
+
+    from bas_air_unit_network_dataset.models.base.route import Route
 
 
 class BasAirUnitMainNetwork(Network):
@@ -51,14 +57,18 @@ class BasAirUnitMainNetwork(Network):
         headings = [field.name for field in fields(Waypoint) if field.name not in {"id", "lon", "lat"}]
         # insert dd/ddm column names at the relevant place
         coordinate_heading_index = headings.index("colocated_with") + 1
-        ddm_headings = (
-            headings[:coordinate_heading_index]
-            + ["latitude_ddm", "longitude_ddm"]
-            + headings[coordinate_heading_index:]
-        )
-        dd_headings = (
-            headings[:coordinate_heading_index] + ["latitude_dd", "longitude_dd"] + headings[coordinate_heading_index:]
-        )
+        ddm_headings = [
+            *headings[:coordinate_heading_index],
+            "latitude_ddm",
+            "longitude_ddm",
+            *headings[coordinate_heading_index:],
+        ]
+        dd_headings = [
+            *headings[:coordinate_heading_index],
+            "latitude_dd",
+            "longitude_dd",
+            *headings[coordinate_heading_index:],
+        ]
 
         csv_waypoints = [CsvWaypoint.loads(wp) for wp in self._waypoints]
 
@@ -91,7 +101,6 @@ class BasAirUnitMainNetwork(Network):
 
         with path.open(mode="w") as f:
             f.write(gpx.to_xml())
-            pass
 
     def dump_waypoints_fpl(self) -> None:
         """
